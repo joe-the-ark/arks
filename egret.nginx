@@ -1,7 +1,11 @@
 server {
         listen 8106;
         root /root/ark/ARKDEMO/bin-release/web/v1;
-        location / {
-            try_files index.html =404;
+
+        location ~ .*\.(js|css)?${
+            root /root/ark/ARKDEMO/bin-release/web/v1/js;
         }
+
+
+        index index.html index.htm
 }
