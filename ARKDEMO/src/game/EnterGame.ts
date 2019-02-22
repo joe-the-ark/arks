@@ -122,7 +122,7 @@ namespace game {
 				console.log(game_secret)
 				console.log(this.game_secret)
 
-				base.API.Init("http://127.0.0.1:8000/api/")
+				base.API.Init("http://39.104.85.167:8105/api/")
 				base.API.call("find_players", {'game_secret': self.game_secret, 'gameName': self.gameName} ).then(function (response) {
 					console.log(response)
 					let play_list = response['player_list']
@@ -167,7 +167,7 @@ namespace game {
             //         this.count += 1
             //         this.text2.text = 'You have invited '+ this.count + ' players'
 
-            //         base.API.Init("http://127.0.0.1:8000/api/")
+            //         base.API.Init("39.104.85.167:8105/api/")
                     // base.API.call("create_player", {'player_name': player} ).then(function (response) {
 
                     //     console.log(response)
