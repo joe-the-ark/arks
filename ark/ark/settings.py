@@ -122,7 +122,7 @@ USE_TZ = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 #允许所有的请求头
-CORS_ALLOW_HEADERS = ('*')
+CORS_ALLOW_HEADERS = ('http://39.104.85.167')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
