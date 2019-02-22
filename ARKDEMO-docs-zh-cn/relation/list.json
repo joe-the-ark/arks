@@ -1,0 +1,31 @@
+{
+	"api": {
+		"class": [
+			"Button",
+			"DebugPlatform",
+			"LoadingUI",
+			"Main",
+			"base.API",
+			"base.AssetAdapter",
+			"base.ThemeAdapter",
+			"game.CreateGame",
+			"game.EnterGame",
+			"game.GamePageOne",
+			"game.Index",
+			"game.InviteFriends",
+			"game.LoadingScene"
+		],
+		"interface": [
+			"Platform",
+			"Window"
+		],
+		"globalMember": [
+			"window.globalMember"
+		]
+	},
+	"other": {
+		"class": [
+			"global.Types"
+		]
+	}
+}

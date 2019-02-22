@@ -1,0 +1,38 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"type": "void",
+			"name": "getAsset",
+			"memberof": "base.AssetAdapter",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "source",
+					"type": "string",
+					"description": ""
+				},
+				{
+					"name": "compFunc",
+					"type": "Function",
+					"description": ""
+				},
+				{
+					"name": "thisObject",
+					"type": "any",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "AssetAdapter",
+		"memberof": "base",
+		"filename": "base\\AssetAdapter.ts",
+		"implements": []
+	}
+}

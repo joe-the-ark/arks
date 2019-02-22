@@ -1,0 +1,30 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "CreateGame",
+			"memberof": "game.CreateGame",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "CreateGame",
+		"memberof": "game",
+		"filename": "game\\CreateGame.ts",
+		"augments": []
+	}
+}

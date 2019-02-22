@@ -31,8 +31,8 @@ var game;
             //     this.sprite.parent.removeChild( this.sprite );
             // }
             this.sprite.visible = false;
-            var buildGame = new game.BuildGame();
-            this.stage.addChild(buildGame);
+            // let buildGame = new game.BuildGame()
+            // this.stage.addChild(buildGame)
         };
         LoadingScene.prototype.onTouchEnd = function () {
             egret.log("onTouchEnd");

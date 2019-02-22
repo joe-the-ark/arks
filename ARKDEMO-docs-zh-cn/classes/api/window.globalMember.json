@@ -1,0 +1,12 @@
+{
+	"globalMember": [
+		{
+			"filename": "Platform.ts",
+			"kind": "globalMember",
+			"type": "Platform",
+			"name": "platform",
+			"memberof": "window",
+			"scope": "instance"
+		}
+	]
+}

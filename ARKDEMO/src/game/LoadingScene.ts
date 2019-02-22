@@ -22,8 +22,8 @@ namespace game {
             //     this.sprite.parent.removeChild( this.sprite );
             // }
             this.sprite.visible = false
-            let buildGame = new game.BuildGame()
-            this.stage.addChild(buildGame)
+            // let buildGame = new game.BuildGame()
+            // this.stage.addChild(buildGame)
 
         }
 

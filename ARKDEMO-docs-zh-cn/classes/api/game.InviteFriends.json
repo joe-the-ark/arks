@@ -1,0 +1,42 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "InviteFriends",
+			"memberof": "game.InviteFriends",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "game_secret",
+					"description": ""
+				},
+				{
+					"name": "inviter",
+					"description": ""
+				},
+				{
+					"name": "gameName",
+					"description": ""
+				},
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "InviteFriends",
+		"memberof": "game",
+		"filename": "game\\InviteFriends.ts",
+		"augments": []
+	}
+}

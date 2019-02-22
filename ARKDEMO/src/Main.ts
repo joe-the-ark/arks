@@ -94,7 +94,9 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene() {
 
-        let scene = new game.LoadingScene()
+        let stageWidth = this.stage.stageWidth
+        let stageHeight = this.stage.stageHeight
+        let scene = new game.Index(stageWidth, stageHeight)
         this.stage.addChild(scene)
         
     }

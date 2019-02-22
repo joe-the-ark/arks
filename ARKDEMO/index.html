@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Egret</title>
+    <title>Egret123</title>
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="full-screen" content="true" />
@@ -29,9 +29,6 @@
         data-multi-fingered="2" data-show-fps="false" data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
     <script>
-
-
-
         var loadScript = function (list, callback) {
             var loaded = 0;
             var loadNext = function () {
@@ -60,8 +57,11 @@
             document.body.appendChild(s);
         };
 
+
         var xhr = new XMLHttpRequest();
+        
         xhr.open('GET', './manifest.json?v=' + Math.random(), true);
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
         xhr.addEventListener("load", function () {
             var manifest = JSON.parse(xhr.response);
             var list = manifest.initial.concat(manifest.game);
@@ -69,7 +69,7 @@
                 egret.runEgret();
             });
         });
-        xhr.send(null);
+        xhr.send();
 
     </script>
 </body>

@@ -1,0 +1,42 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "GamePageOne",
+			"memberof": "game.GamePageOne",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "game_secret",
+					"description": ""
+				},
+				{
+					"name": "inviter",
+					"description": ""
+				},
+				{
+					"name": "gameName",
+					"description": ""
+				},
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "GamePageOne",
+		"memberof": "game",
+		"filename": "game\\GamePageOne.ts",
+		"augments": []
+	}
+}

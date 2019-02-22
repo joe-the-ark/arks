@@ -1,0 +1,30 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "Button",
+			"memberof": "Button",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "Button",
+		"memberof": "",
+		"filename": "base\\Button.ts",
+		"augments": []
+	}
+}

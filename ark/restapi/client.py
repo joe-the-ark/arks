@@ -21,7 +21,11 @@ class API:
             params.update(kwargs)
 
             res = requests.post(api_url, json=params)
-            result = res.json()
+            try:
+                result = res.json()
+            except:
+                print (res.text)
+                raise
 
             if 200 <= res.status_code < 400:
                 return result['result']

@@ -1,0 +1,21 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "Main",
+			"memberof": "Main",
+			"scope": "instance"
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "Main",
+		"memberof": "",
+		"filename": "Main.ts",
+		"description": "//////////////////////////////////////////////////////////////////////////////////////",
+		"augments": []
+	}
+}

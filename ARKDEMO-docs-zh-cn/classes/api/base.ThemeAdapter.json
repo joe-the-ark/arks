@@ -1,0 +1,43 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"type": "void",
+			"name": "getTheme",
+			"memberof": "base.ThemeAdapter",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": ""
+				},
+				{
+					"name": "onSuccess",
+					"type": "Function",
+					"description": ""
+				},
+				{
+					"name": "onError",
+					"type": "Function",
+					"description": ""
+				},
+				{
+					"name": "thisObject",
+					"type": "any",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "ThemeAdapter",
+		"memberof": "base",
+		"filename": "base\\ThemeAdapter.ts",
+		"implements": []
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "LoadingScene",
+			"memberof": "game.LoadingScene",
+			"scope": "instance"
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "LoadingScene",
+		"memberof": "game",
+		"filename": "game\\LoadingScene.ts",
+		"augments": []
+	}
+}

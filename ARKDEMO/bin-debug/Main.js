@@ -153,7 +153,9 @@ var Main = (function (_super) {
      * Create a game scene
      */
     Main.prototype.createGameScene = function () {
-        var scene = new game.LoadingScene();
+        var stageWidth = this.stage.stageWidth;
+        var stageHeight = this.stage.stageHeight;
+        var scene = new game.Index(stageWidth, stageHeight);
         this.stage.addChild(scene);
     };
     /**

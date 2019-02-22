@@ -66,6 +66,7 @@ def api(func):
         try:
             params = json.loads(request.body.decode('utf-8'))
         except:
+            raise
             return HttpResponse('参数无法解析', status=400)
 
         try:
@@ -81,17 +82,6 @@ def api(func):
             error('[%s] called with exception' % func.__name__)
             error('exception: %s' % str(ex))
             return JsonResponse(result, status=ex.status)
-
-        except Exception as ex:
-            result = {
-                'success': False,
-                'type': type(ex).__name__,
-                'exception': str(ex),
-                'stack': [(_.filename, _.lineno, _.line) for _ in traceback.extract_stack()]
-            }
-            error('[%s] called with internal error' % func.__name__)
-            error('exception: %s' % str(ex))
-            return JsonResponse(result, status=500)
 
         return JsonResponse({ 'success': success, 'result': result })
         

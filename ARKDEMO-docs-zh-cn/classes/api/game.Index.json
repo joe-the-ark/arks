@@ -1,0 +1,73 @@
+{
+	"member": [
+		{
+			"kind": "member",
+			"name": "game_list",
+			"memberof": "game.Index",
+			"scope": "instance",
+			"default": "[]"
+		},
+		{
+			"kind": "member",
+			"type": "egret.TextField",
+			"name": "label",
+			"memberof": "game.Index",
+			"scope": "instance"
+		},
+		{
+			"kind": "member",
+			"type": "egret.Sprite",
+			"name": "sprite",
+			"memberof": "game.Index",
+			"scope": "instance"
+		},
+		{
+			"kind": "member",
+			"name": "stageHeight",
+			"memberof": "game.Index",
+			"scope": "instance",
+			"default": "0"
+		},
+		{
+			"kind": "member",
+			"name": "stageWidth",
+			"memberof": "game.Index",
+			"scope": "instance",
+			"default": "0"
+		},
+		{
+			"kind": "member",
+			"type": "egret.Timer",
+			"name": "timer",
+			"memberof": "game.Index",
+			"scope": "instance"
+		}
+	],
+	"function": [
+		{
+			"kind": "function",
+			"name": "Index",
+			"memberof": "game.Index",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "Index",
+		"memberof": "game",
+		"filename": "game\\Index.ts",
+		"augments": []
+	}
+}

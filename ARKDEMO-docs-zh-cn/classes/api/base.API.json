@@ -1,0 +1,52 @@
+{
+	"member": [
+		{
+			"kind": "member",
+			"type": "string",
+			"name": "baseUrl",
+			"memberof": "base.API",
+			"scope": "instance"
+		}
+	],
+	"function": [
+		{
+			"kind": "function",
+			"name": "Init",
+			"memberof": "base.API",
+			"scope": "static",
+			"params": [
+				{
+					"name": "baseUrl",
+					"type": "string",
+					"description": ""
+				}
+			]
+		},
+		{
+			"kind": "function",
+			"name": "call",
+			"memberof": "base.API",
+			"scope": "static",
+			"params": [
+				{
+					"name": "name",
+					"type": "string",
+					"description": ""
+				},
+				{
+					"name": "params",
+					"type": "Object",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "API",
+		"memberof": "base",
+		"filename": "base\\API.ts"
+	}
+}

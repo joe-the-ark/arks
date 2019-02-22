@@ -1,0 +1,34 @@
+{
+	"member": [],
+	"function": [
+		{
+			"kind": "function",
+			"name": "EnterGame",
+			"memberof": "game.EnterGame",
+			"scope": "instance",
+			"params": [
+				{
+					"name": "game_secret",
+					"description": ""
+				},
+				{
+					"name": "stageWidth",
+					"description": ""
+				},
+				{
+					"name": "stageHeight",
+					"description": ""
+				}
+			]
+		}
+	],
+	"globalMember": [],
+	"globalFunction": [],
+	"class": {
+		"kind": "class",
+		"name": "EnterGame",
+		"memberof": "game",
+		"filename": "game\\EnterGame.ts",
+		"augments": []
+	}
+}
