@@ -1,11 +1,13 @@
 server {
-        listen 8106;
-        root /root/ark/ARKDEMO/bin-release/web/v1;
+      server_name 39.104.85.167:8106;
 
-        location ~ .*\.(js|css)?${
-            root /root/ark/ARKDEMO/bin-release/web/v1/js;
-        }
+      root /root/ark/ARKDEMO/bin-release/web/v1;
 
+      index index.html;
 
-        index index.html index.htm
+      location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|pdf|txt){
+
+        root /root/ark/ARKDEMO/bin-release/web/v1/js;
+
+      }
 }
