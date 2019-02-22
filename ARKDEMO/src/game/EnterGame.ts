@@ -167,7 +167,7 @@ namespace game {
             //         this.count += 1
             //         this.text2.text = 'You have invited '+ this.count + ' players'
 
-            //         base.API.Init("39.104.85.167:8105/api/")
+            //         base.API.Init("http://39.104.85.167:8105/api/")
                     // base.API.call("create_player", {'player_name': player} ).then(function (response) {
 
                     //     console.log(response)

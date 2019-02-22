@@ -166,7 +166,7 @@ namespace game {
         }
 
         private getPlayList():void{
-            base.API.Init("39.104.85.167:8105/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             let self=this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,

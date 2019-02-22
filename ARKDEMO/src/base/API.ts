@@ -18,7 +18,9 @@ namespace base {
                 let req = new egret.HttpRequest();
                 req.responseType = egret.HttpResponseType.TEXT;
                 req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
                 req.open(this.instance.baseUrl + name + '/', 'POST');
+                
                 req.send(JSON.stringify(params));
                 req.addEventListener(egret.Event.COMPLETE, (e) => {
                     let res = JSON.parse(req.response);
