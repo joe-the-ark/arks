@@ -55,3 +55,11 @@ def get_player_list(game_secret, gameName, inviter):
     player_list = [ p.name for p in players ]
 
     return {'code': 0, 'player_list': player_list}
+
+
+@api
+def get_character():
+
+    characters = [ _.name for _ in Character.objects.all()]
+
+    return {'code': 0, 'characters': characters}
