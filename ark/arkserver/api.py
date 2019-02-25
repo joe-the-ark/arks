@@ -63,3 +63,36 @@ def get_character():
     characters = [ _.name for _ in Character.objects.all()]
 
     return {'code': 0, 'characters': characters}
+
+@api
+def set_player_score(parmas, inviter_name, gameSecret, player, gameName, charaChooser):
+
+    print(parmas)
+    print(parmas, inviter_name, gameSecret, player, gameName, charaChooser)
+
+    inviter = Player.objects.filter(
+        name=inviter_name,
+        inviter_name=inviter_name,
+        game_name=gameName,
+        game_secret=gameSecret
+    ).first()
+
+    _player = Player.objects.filter(
+        name=charaChooser,
+        inviter_name=inviter_name,
+        game_name=gameName,
+        game_secret=gameSecret
+    ).first()
+
+
+    game = Game.objects.filter(
+        game_secret=gameSecret,
+        inviter=inviter,
+        game_name=gameName,
+        status=0).first()
+
+
+
+
+
+

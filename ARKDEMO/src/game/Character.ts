@@ -1,6 +1,6 @@
 namespace game {
 
-    export class GamePageOne extends egret.DisplayObjectContainer {
+    export class Character extends egret.DisplayObjectContainer {
 
         private sprite:egret.Sprite
         private playerList = []
@@ -8,6 +8,8 @@ namespace game {
         private player= ''
         public gameName = ''
         public inviter = ''
+        public characterTwo = ''
+        public characterOne = ''
         public stageWidth = 0
         public stageHeight = 0
 
@@ -20,19 +22,33 @@ namespace game {
         private rectShapeTwo:egret.Shape
 
         private charater2:egret.TextField
+        private charater1:egret.TextField
         private rightIcon:egret.Bitmap;
         private closeIcon:egret.Bitmap;
 
         private tiptext:egret.TextField
-
         private characterList = []
-        public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight) {
+        private characterListParams = []
+        private charaChooser = []
+
+        private count:number
+
+        private map:{[key:string] : string} = {}
+        public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, characterListParams) {
             
             super();
             this.game_secret = game_secret
             this.player = player
             this.gameName = gameName
             this.inviter = inviter
+            this.count = count
+
+            this.characterListParams = characterListParams
+
+            this.characterList = characterListParams[1]
+            this.charaChooser = characterListParams[0]
+            this.characterTwo = this.characterList[count][1]
+            this.characterOne = this.characterList[count][0]
 
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -50,23 +66,15 @@ namespace game {
             this.rectShapeTwo = new egret.Shape();
             this.sprite.addChild(this.rectShapeOne);
             this.sprite.addChild(this.rectShapeTwo);
-            this.drawRect()            
-
-
-            var character1:egret.TextField = new egret.TextField()
-            character1.text = 'Carefulness'
-            character1.textAlign = egret.HorizontalAlign.CENTER
-            character1.size = 40
-            character1.border = true
-            character1.width = 280
-            character1.borderColor = 0x3A5FCD;
-            character1.x = stageWidth - 390
-            character1.y = 200
-            this.sprite.addChild(character1)
+            this.drawRect()
 
             this._shape = new egret.Shape();
             this.addChild(this._shape);
             this.initGraphics();
+
+            this.charater1 = new egret.TextField();
+            this.sprite.addChild(this.charater1)
+            this.initCharacter1(stageWidth - 390, 200)
 
             this.charater2 = new egret.TextField();
             this.sprite.addChild(this.charater2)
@@ -107,40 +115,56 @@ namespace game {
         }
 
         private nextTouch(){
-            console.log(this.sprite.numChildren-this.playerList.length-4)
+
             var scoreCounts = this.sprite.numChildren-this.playerList.length-4
             if(this.playerList.length == scoreCounts){
+                let game_secret = this.game_secret
+                let inviter = this.inviter
+                let player = this.player
+                let gameName = this.gameName
+                let stageWidth = this.stageWidth
+                let stageHeight = this.stageHeight
+                
+                if(this.count + 1 == this.characterList.length){
 
-                if(this.stage){
-                    let game_secret = this.game_secret
-                    let inviter = this.inviter
-                    let player = this.player
-                    let gameName = this.gameName
-                    let stageWidth = this.stageWidth
-                    let stageHeight = this.stageHeight
-                    let count = 0
 
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.call('get_choose_list', {})
+                }else{
+                    console.log('打分结束')
+                    console.log(this.map)
+                    base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.call('set_player_score', { 
+                            'parmas': this.map, 
+                            'inviter_name': this.inviter, 
+                            'gameSecret': this.game_secret,
+                            'player': this.player,
+                            'gameName': this.gameName,
+                            'charaChooser': this.charaChooser[this.count]
 
-                    // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                    this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
-                    let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                    this.stage.addChild(charater);
+                    }).then(function (response){
+                        console.log(response)
+                    })
+
+                    this.count += 1
+                    let charater = new game.Character(
+                        game_secret, inviter, 
+                        player, gameName, 
+                        stageWidth, stageHeight, 
+                        this.count, this.characterListParams);
+
                     this.sprite.visible = false
-                    this.tiptext.text = ''
                     this.removeChild(this.rightIcon)
                     this.removeChild(this.closeIcon)
-                    
+                    this.stage.addChild(charater);
+                    this.tiptext.text = ''
                 }
 
             }else{
 
                 this.addChild(this.tiptext)
-                this.tip(100, 100, 'Everyont must be graded!')
+                this.tip(100, 100, 'Everyone must be graded!')
 
             }
-
         }
 
         private tip(width, height, msg){
@@ -152,6 +176,7 @@ namespace game {
             tiptext.width = this.stageWidth
             
         }
+
         private drawRect() {
 
             var shape1:egret.Shape = this.rectShapeOne;
@@ -165,6 +190,7 @@ namespace game {
             shape2.graphics.endFill();
 
         }
+
             //初始化赋值
         private initGraphics():void {
             var shape:egret.Shape = this._shape;
@@ -174,7 +200,7 @@ namespace game {
         }
         private initCharacter(cx, cy) {
             var charater2:egret.TextField = this.charater2
-            charater2.text = 'Power'
+            charater2.text = this.characterTwo
             charater2.textAlign = egret.HorizontalAlign.CENTER
             charater2.size = 40
             charater2.border = true
@@ -182,6 +208,18 @@ namespace game {
             charater2.borderColor = 0x3A5FCD
             charater2.x = cx
             charater2.y = cy
+        }
+
+        private initCharacter1(cx, cy) {
+            var charater1:egret.TextField = this.charater1
+            charater1.text = this.characterOne
+            charater1.textAlign = egret.HorizontalAlign.CENTER
+            charater1.size = 40
+            charater1.border = true
+            charater1.width = 280
+            charater1.borderColor = 0x3A5FCD
+            charater1.x = cx
+            charater1.y = cy
         }
 
         private getPlayList():void{
@@ -231,20 +269,21 @@ namespace game {
                                 if(player_score.parent){
                                     player_score.parent.removeChild(player_score)
                                 }
-
-                                // player_score.visible = false
                                 if(player_name.x > (self.stageWidth-250-100)){
                                     player_name.x = self.stageWidth-250-100
-                                    console.log(player_name.x)
-                                    console.log(player_name.y)
                                     if(player_name.y > 240 && player_name.y < self.stageHeight -100){
-                                        
                                         player_score.x = player_name.x + 100
                                         player_score.y = player_name.y
                                         var scorey = (self.stageHeight-150-240)/81
                                         player_score.text =  (Math.ceil((player_score.y - 240) / scorey)).toString()
                                         self.sprite.addChild(player_score)
 
+                                        let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
+                                        let playerName = player_name.text
+
+
+                                        self.map[playerName] = _score
+                                        console.log(self.map)
                                     }
                                 }
                             }
@@ -256,7 +295,6 @@ namespace game {
                         player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
 
                     } , this);
-
                     self.sprite.addChild(player_name)
 
                 }) 
