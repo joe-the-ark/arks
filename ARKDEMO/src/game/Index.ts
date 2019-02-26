@@ -56,7 +56,7 @@ namespace game {
 
         private getGameList():void {
             // base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             let self=this;
             base.API.call('get_game_list', {}).then(function (response){
                 this.game_list = response['gameList']

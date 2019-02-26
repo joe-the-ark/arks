@@ -114,7 +114,7 @@ var game;
                     this.text2.text = 'You have invited ' + this.count + ' players';
                     var self = this;
                     // base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call("create_player", { 'player_name': player, 'game_secret': self.game_secret, 'gameName': self.gameName, 'inviter': self.inviter }).then(function (response) {
                         console.log(response);
                     }).catch(function (err) {
@@ -136,7 +136,7 @@ var game;
                 }
                 // console.log(this.stage)
                 //base.API.Init("http://39.104.85.167:8105/api/");
-                // base.API.Init("http://127.0.0.1:8000/api/");
+                // base.API.Init("http://39.104.85.167:8105/api/");
                 // base.API.call("invite_players", { 'playerList': this.playerList }).then(function (response) {
                 //     console.log(response);
                 //     // var play = new game.LevelOneScene(_this.index);

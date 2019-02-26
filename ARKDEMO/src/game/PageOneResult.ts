@@ -115,7 +115,7 @@ namespace game {
             console.log(11111111111111)
 
             var self = this
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             base.API.call('get_player_score', {'inviter': this.inviter, 'gameName': this.gameName, 'gameSecret':this.game_secret, 'player':this.player, 'character_one':this.characterOne, 'character_two':this.characterTwo, 'chooser':this.inviter }).then(function (response){
 
                 let middle = response['middle']

@@ -130,7 +130,7 @@ var game;
             var game_id = this.txInput.text;
             if (inviter && gameName && game_id) {
                 // base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://39.104.85.167:8105/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
