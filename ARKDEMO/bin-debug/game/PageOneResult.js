@@ -170,33 +170,32 @@ var game;
             }
         };
         PageOneResult.prototype.nextTouch = function () {
-            console.log(this.sprite.numChildren - this.playerList.length - 4);
-            var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
-            if (this.playerList.length == scoreCounts) {
-                if (this.stage) {
-                    var game_secret = this.game_secret;
-                    var inviter = this.inviter;
-                    var player = this.player;
-                    var gameName = this.gameName;
-                    var stageWidth = this.stageWidth;
-                    var stageHeight = this.stageHeight;
-                    var count = 0;
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.call('get_choose_list', {})
-                    // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                    this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]];
-                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                    this.stage.addChild(charater);
-                    this.sprite.visible = false;
-                    this.tiptext.text = '';
-                    this.removeChild(this.rightIcon);
-                    this.removeChild(this.closeIcon);
-                }
+            // console.log(this.sprite.numChildren-this.playerList.length-4)
+            // var scoreCounts = this.sprite.numChildren-this.playerList.length-4
+            // if(this.playerList.length == scoreCounts){
+            if (this.stage) {
+                var game_secret = this.game_secret;
+                var inviter = this.inviter;
+                var player = this.player;
+                var gameName = this.gameName;
+                var stageWidth = this.stageWidth;
+                var stageHeight = this.stageHeight;
+                var count = 0;
+                // base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.call('get_choose_list', {})
+                // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
+                this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]];
+                var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
+                this.stage.addChild(charater);
+                this.sprite.visible = false;
+                this.tiptext.text = '';
+                this.removeChild(this.rightIcon);
+                this.removeChild(this.closeIcon);
             }
-            else {
-                this.addChild(this.tiptext);
-                this.tip(100, 100, 'Everyont must be graded!');
-            }
+            // }else{
+            //     this.addChild(this.tiptext)
+            //     this.tip(100, 100, 'Everyont must be graded!')
+            // }
         };
         PageOneResult.prototype.tip = function (width, height, msg) {
             var tiptext = this.tiptext;

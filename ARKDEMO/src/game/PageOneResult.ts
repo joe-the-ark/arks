@@ -192,7 +192,6 @@ namespace game {
                     // player_name.x = self.stageWidth- 250 - w
                     // player_score.x = self.stageWidth - 250
                     // self.sprite.addChild(player_score)
-
                     // }else{
                     player_score.text = self.player_score_list[index]
                     player_score.width = 50
@@ -217,9 +216,9 @@ namespace game {
         }
 
         private nextTouch(){
-            console.log(this.sprite.numChildren-this.playerList.length-4)
-            var scoreCounts = this.sprite.numChildren-this.playerList.length-4
-            if(this.playerList.length == scoreCounts){
+            // console.log(this.sprite.numChildren-this.playerList.length-4)
+            // var scoreCounts = this.sprite.numChildren-this.playerList.length-4
+            // if(this.playerList.length == scoreCounts){
 
                 if(this.stage){
                     let game_secret = this.game_secret
@@ -235,8 +234,6 @@ namespace game {
 
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
-                    
-                    
                     let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
                     this.stage.addChild(charater);
                     this.sprite.visible = false
@@ -245,11 +242,11 @@ namespace game {
                     this.removeChild(this.closeIcon)
                     
                 }
-            }else{
+            // }else{
 
-                this.addChild(this.tiptext)
-                this.tip(100, 100, 'Everyont must be graded!')
-            }
+            //     this.addChild(this.tiptext)
+            //     this.tip(100, 100, 'Everyont must be graded!')
+            // }
         }
 
         private tip(width, height, msg){

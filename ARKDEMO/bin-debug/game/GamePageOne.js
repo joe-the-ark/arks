@@ -230,16 +230,19 @@ var game;
                                     player_name.x = self.stageWidth - 250 - w;
                                     console.log(player_name.x);
                                     console.log(player_name.y);
-                                    if (player_name.y > 240 && player_name.y < self.stageHeight - 100) {
+                                    if (player_name.y > 240 && player_name.y < self.stageHeight - 150 - player_name.height) {
                                         player_score.x = player_name.x + w;
                                         player_score.y = player_name.y;
-                                        var scorey = (self.stageHeight - 150 - 240) / 81;
+                                        var scorey = (self.stageHeight - 150 - 240 - player_name.height) / 81;
                                         player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
                                         self.sprite.addChild(player_score);
                                         var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
                                         var playerName = player_name.text;
                                         self.map[playerName] = _score;
                                     }
+                                }
+                                if (player_name.y > self.stageHeight - 150 - player_name.height) {
+                                    player_name.y = self.stageHeight - 150 - player_name.height;
                                 }
                             }
                         }, _this);

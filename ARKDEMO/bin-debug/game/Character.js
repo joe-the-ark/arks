@@ -199,7 +199,12 @@ var game;
                     player_name.lineSpacing = 10;
                     player_name.touchEnabled = true;
                     player_name.border = true;
-                    player_name.width = val.length * 18;
+                    if (val.length * 18 < 100) {
+                        player_name.width = 100;
+                    }
+                    else {
+                        player_name.width = val.length * 18;
+                    }
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70;
                     player_name.y = 300 + index * 50;
