@@ -21,6 +21,7 @@
 		"bin-debug/game/GamePageOne.js",
 		"bin-debug/game/Index.js",
 		"bin-debug/game/InviteFriends.js",
-		"bin-debug/game/LoadingScene.js"
+		"bin-debug/game/LoadingScene.js",
+		"bin-debug/game/PageOneResult.js"
 	]
 }

@@ -21,9 +21,12 @@ var game;
             _this.inviter = '';
             _this.stageWidth = 0;
             _this.stageHeight = 0;
+            _this.characterTwo = 'Power';
+            _this.characterOne = 'Carefulness';
             _this._touchStatus = false;
             _this._distance = new egret.Point();
             _this.characterList = [];
+            _this.map = {};
             _this.game_secret = game_secret;
             _this.player = player;
             _this.gameName = gameName;
@@ -91,23 +94,40 @@ var game;
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
             if (this.playerList.length == scoreCounts) {
                 if (this.stage) {
-                    var game_secret = this.game_secret;
-                    var inviter = this.inviter;
-                    var player = this.player;
-                    var gameName = this.gameName;
-                    var stageWidth = this.stageWidth;
-                    var stageHeight = this.stageHeight;
+                    var game_secret_1 = this.game_secret;
+                    var inviter_1 = this.inviter;
+                    var player_1 = this.player;
+                    var gameName_1 = this.gameName;
+                    var stageWidth_1 = this.stageWidth;
+                    var stageHeight_1 = this.stageHeight;
                     var count = 0;
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.call('get_choose_list', {})
+                    var self = this;
+                    base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.call('set_player_score', {
+                        'params': this.map,
+                        'inviter_name': this.inviter,
+                        'gameSecret': this.game_secret,
+                        'player': this.player,
+                        'gameName': this.gameName,
+                        'charaChooser': this.inviter,
+                        'characterOne': this.characterOne,
+                        'characterTwo': this.characterTwo
+                    }).then(function (response) {
+                        var pageOneResult = new game.PageOneResult(game_secret_1, inviter_1, player_1, gameName_1, stageWidth_1, stageHeight_1);
+                        self.stage.addChild(pageOneResult);
+                        self.sprite.visible = false;
+                        self.tiptext.text = '';
+                        self.removeChild(self.rightIcon);
+                        self.removeChild(self.closeIcon);
+                    });
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                    this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]];
-                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                    this.stage.addChild(charater);
-                    this.sprite.visible = false;
-                    this.tiptext.text = '';
-                    this.removeChild(this.rightIcon);
-                    this.removeChild(this.closeIcon);
+                    // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
+                    // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
+                    // this.stage.addChild(charater);
+                    // this.sprite.visible = false
+                    // this.tiptext.text = ''
+                    // this.removeChild(this.rightIcon)
+                    // this.removeChild(this.closeIcon)
                 }
             }
             else {
@@ -152,8 +172,8 @@ var game;
             charater2.y = cy;
         };
         GamePageOne.prototype.getPlayList = function () {
-            base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -166,12 +186,18 @@ var game;
                 self.playerList.forEach(function (val, index, array) {
                     var player_name = new egret.TextField();
                     player_name.text = val;
+                    console.log(val.length);
                     player_name.textAlign = egret.HorizontalAlign.CENTER;
                     player_name.size = 30;
                     player_name.lineSpacing = 10;
                     player_name.touchEnabled = true;
                     player_name.border = true;
-                    player_name.width = 100;
+                    if (val.length * 18 < 100) {
+                        player_name.width = 100;
+                    }
+                    else {
+                        player_name.width = val.length * 18;
+                    }
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70;
                     player_name.y = 300 + index * 50;
@@ -195,17 +221,24 @@ var game;
                                 if (player_score.parent) {
                                     player_score.parent.removeChild(player_score);
                                 }
+                                var w = 100;
+                                if (player_name.width > 100) {
+                                    w = player_name.width;
+                                }
                                 // player_score.visible = false
-                                if (player_name.x > (self.stageWidth - 250 - 100)) {
-                                    player_name.x = self.stageWidth - 250 - 100;
+                                if (player_name.x > (self.stageWidth - 250 - w)) {
+                                    player_name.x = self.stageWidth - 250 - w;
                                     console.log(player_name.x);
                                     console.log(player_name.y);
                                     if (player_name.y > 240 && player_name.y < self.stageHeight - 100) {
-                                        player_score.x = player_name.x + 100;
+                                        player_score.x = player_name.x + w;
                                         player_score.y = player_name.y;
                                         var scorey = (self.stageHeight - 150 - 240) / 81;
                                         player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
                                         self.sprite.addChild(player_score);
+                                        var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
+                                        var playerName = player_name.text;
+                                        self.map[playerName] = _score;
                                     }
                                 }
                             }

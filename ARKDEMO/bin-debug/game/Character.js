@@ -104,15 +104,17 @@ var game;
                 else {
                     console.log('打分结束');
                     console.log(this.map);
-                    base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.Init("http://127.0.0.1:8000/api/");
+                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call('set_player_score', {
                         'parmas': this.map,
                         'inviter_name': this.inviter,
                         'gameSecret': this.game_secret,
                         'player': this.player,
                         'gameName': this.gameName,
-                        'charaChooser': this.charaChooser[this.count]
+                        'charaChooser': this.charaChooser[this.count],
+                        'characterOne': this.characterOne,
+                        'characterTwo': this.characterTwo
                     }).then(function (response) {
                         console.log(response);
                     });
@@ -178,8 +180,8 @@ var game;
             charater1.y = cy;
         };
         Character.prototype.getPlayList = function () {
-            base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -197,7 +199,7 @@ var game;
                     player_name.lineSpacing = 10;
                     player_name.touchEnabled = true;
                     player_name.border = true;
-                    player_name.width = 100;
+                    player_name.width = val.length * 18;
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70;
                     player_name.y = 300 + index * 50;
@@ -221,10 +223,14 @@ var game;
                                 if (player_score.parent) {
                                     player_score.parent.removeChild(player_score);
                                 }
-                                if (player_name.x > (self.stageWidth - 250 - 100)) {
-                                    player_name.x = self.stageWidth - 250 - 100;
+                                var w = 100;
+                                if (player_name.width > 100) {
+                                    w = player_name.width;
+                                }
+                                if (player_name.x > (self.stageWidth - 250 - w)) {
+                                    player_name.x = self.stageWidth - 250 - w;
                                     if (player_name.y > 240 && player_name.y < self.stageHeight - 100) {
-                                        player_score.x = player_name.x + 100;
+                                        player_score.x = player_name.x + w;
                                         player_score.y = player_name.y;
                                         var scorey = (self.stageHeight - 150 - 240) / 81;
                                         player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
