@@ -8,17 +8,14 @@
 		"libs/modules/game/game.js"
 	],
 	"game": [
-<<<<<<< HEAD
 		"bin-debug/game/CharacterChoosePage.js",
-=======
-		"bin-debug/game/Character.js",
->>>>>>> origin/master
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Platform.js",
 		"bin-debug/base/API.js",
 		"bin-debug/base/AssetAdapter.js",
 		"bin-debug/base/Button.js",
 		"bin-debug/base/ThemeAdapter.js",
+		"bin-debug/game/Character.js",
 		"bin-debug/Main.js",
 		"bin-debug/game/CreateGame.js",
 		"bin-debug/game/EnterGame.js",
@@ -26,10 +23,7 @@
 		"bin-debug/game/Index.js",
 		"bin-debug/game/InviteFriends.js",
 		"bin-debug/game/LoadingScene.js",
-<<<<<<< HEAD
+		"bin-debug/game/PageOneResult.js",
 		"bin-debug/game/TensionScale.js"
-=======
-		"bin-debug/game/PageOneResult.js"
->>>>>>> origin/master
 	]
 }
