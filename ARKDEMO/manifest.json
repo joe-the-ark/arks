@@ -8,7 +8,11 @@
 		"libs/modules/game/game.js"
 	],
 	"game": [
+<<<<<<< HEAD
+		"bin-debug/game/CharacterChoosePage.js",
+=======
 		"bin-debug/game/Character.js",
+>>>>>>> origin/master
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Platform.js",
 		"bin-debug/base/API.js",
@@ -22,6 +26,10 @@
 		"bin-debug/game/Index.js",
 		"bin-debug/game/InviteFriends.js",
 		"bin-debug/game/LoadingScene.js",
+<<<<<<< HEAD
+		"bin-debug/game/TensionScale.js"
+=======
 		"bin-debug/game/PageOneResult.js"
+>>>>>>> origin/master
 	]
 }

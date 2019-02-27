@@ -62,7 +62,7 @@ def get_player_list(game_secret, gameName, inviter):
 
 
 @api
-def get_character():
+def get_character_list():
 
     characters = [ _.name for _ in Character.objects.all()]
 
