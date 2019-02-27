@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var TensionScale = (function (_super) {
         __extends(TensionScale, _super);
-        function TensionScale(stageWidth, stageHeight) {
+        function TensionScale(stageWidth, stageHeight, select_list) {
             var _this = _super.call(this) || this;
             _this.unselectedCharacterList = [];
             _this.selectedChaeacterList = [];
@@ -22,6 +22,8 @@ var game;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
             _this._touchStatus = false;
+            _this.select_list = [];
+            _this.select_list = select_list;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
@@ -31,44 +33,59 @@ var game;
             _this.drawScore();
             return _this;
         }
-        TensionScale.prototype.startGame = function (game_secret, gameName, inviter) {
-            if (this.stage) {
-                var enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
-                this.stage.addChild(enterGame);
-                this.sprite.visible = false;
-                this.label.visible = false;
-            }
-        };
+        // private startGame(game_secret: string, gameName: string, inviter: string) {
+        //     if (this.stage) {
+        //         let enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
+        //         this.stage.addChild(enterGame)
+        //         this.sprite.visible = false
+        //         this.label.visible = false
+        //     }
+        // }
         TensionScale.prototype.drawCharacter = function () {
+            var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
             var topCharacterBg = new egret.Shape();
             var bottomCharacterBg = new egret.Shape();
-            var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
-            topCharacterBg.graphics.beginFill(randomColor);
-            topCharacterBg.graphics.drawRect(0, 0, 100, 60);
+            topCharacterBg.graphics.beginFill(0x7171C6);
+            topCharacterBg.graphics.drawRect(0, 0, 180, 60);
             topCharacterBg.graphics.endFill();
-            bottomCharacterBg.graphics.beginFill(randomColor);
-            bottomCharacterBg.graphics.drawRect(0, 80, 100, 60);
+            var toptext = new egret.TextField();
+            toptext.x = topCharacterBg.x;
+            console.log(topCharacterBg.y);
+            console.log(topCharacterBg.x);
+            toptext.y = 10;
+            toptext.text = this.select_list[0];
+            bottomCharacterBg.graphics.beginFill(0x7171C6);
+            bottomCharacterBg.graphics.drawRect(0, 80, 180, 60);
             bottomCharacterBg.graphics.endFill();
+            var buttomtext = new egret.TextField();
+            buttomtext.x = bottomCharacterBg.x;
+            buttomtext.y = 90;
+            buttomtext.text = this.select_list[1];
+            console.log(bottomCharacterBg.y);
+            console.log(bottomCharacterBg.x);
             this.sprite.addChild(topCharacterBg);
             this.sprite.addChild(bottomCharacterBg);
+            this.sprite.addChild(toptext);
+            this.sprite.addChild(buttomtext);
         };
         TensionScale.prototype.drawScore = function () {
             var score_bg = new egret.Shape();
             var score = new egret.TextField();
             var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
+            // let randomColor = 0x0000ff 
             var randomLineColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
             var randomScore = this.getRandomScore(1, 81);
-            score_bg.graphics.beginFill(randomColor, 0.7);
-            score_bg.graphics.lineStyle(2, randomColor);
-            score_bg.graphics.drawCircle(50, 70, 20);
+            score_bg.graphics.beginFill(0x7FFFD4, 0.7);
+            score_bg.graphics.lineStyle(2, 0x7D9EC0);
+            score_bg.graphics.drawCircle(90, 70, 20);
             score_bg.graphics.endFill();
             this.sprite.addChild(score_bg);
-            score.text = randomScore.toString();
-            score.size = 20;
-            score.textColor = 0xffffff;
-            score.x = 40;
-            score.y = 60;
-            this.sprite.addChild(score);
+            // score.text = randomScore.toString();
+            // score.size = 20;
+            // score.textColor = 0xffffff;
+            // score.x = 60;
+            // score.y = 70;
+            // this.sprite.addChild(score);
         };
         TensionScale.prototype.onTouchBegin = function () {
             if (this.stage) {

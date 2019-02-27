@@ -97,32 +97,40 @@ var game;
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
             if (this.playerList.length == scoreCounts) {
                 if (this.stage) {
-                    var game_secret_1 = this.game_secret;
-                    var inviter_1 = this.inviter;
-                    var player_1 = this.player;
-                    var gameName_1 = this.gameName;
-                    var stageWidth_1 = this.stageWidth;
-                    var stageHeight_1 = this.stageHeight;
+                    var game_secret = this.game_secret;
+                    var inviter = this.inviter;
+                    var player = this.player;
+                    var gameName = this.gameName;
+                    var stageWidth = this.stageWidth;
+                    var stageHeight = this.stageHeight;
                     var count = 0;
-                    var self = this;
-                    base.API.Init("http://127.0.0.1:8000/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map,
-                        'inviter_name': this.inviter,
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.inviter,
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
-                    }).then(function (response) {
-                        var pageOneResult = new game.PageOneResult(game_secret_1, inviter_1, player_1, gameName_1, stageWidth_1, stageHeight_1);
-                        self.stage.addChild(pageOneResult);
-                        self.sprite.visible = false;
-                        self.tiptext.text = '';
-                        self.removeChild(self.rightIcon);
-                        self.removeChild(self.closeIcon);
-                    });
+                    var playerCount = this.playerList.length;
+                    var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
+                    this.stage.addChild(characterChoosePage);
+                    this.sprite.visible = false;
+                    this.removeChild(this.rightIcon);
+                    this.removeChild(this.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false;
+                    // var self = this
+                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.call('set_player_score', {
+                    //     'params': this.map, 
+                    //     'inviter_name': this.inviter, 
+                    //     'gameSecret': this.game_secret,
+                    //     'player': this.player,
+                    //     'gameName': this.gameName,
+                    //     'charaChooser': this.inviter,
+                    //     'characterOne': this.characterOne,
+                    //     'characterTwo': this.characterTwo
+                    // }).then(function (response){
+                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
+                    //     self.stage.addChild(pageOneResult)
+                    //     self.sprite.visible=false
+                    //     self.tiptext.text=''
+                    //     self.removeChild(self.rightIcon)
+                    //     self.removeChild(self.closeIcon)
+                    // })
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                     // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -175,8 +183,8 @@ var game;
             charater2.y = cy;
         };
         GamePageOne.prototype.getPlayList = function () {
-            // base.API.Init("http://127.0.0.1:8000/api/");
-            base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,

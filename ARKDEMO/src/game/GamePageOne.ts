@@ -49,7 +49,6 @@ namespace game {
             this.addChild(this.sprite);
             this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getPlayList, this)
 
-
             this.rectShapeOne = new egret.Shape();
             this.rectShapeTwo = new egret.Shape();
             this.sprite.addChild(this.rectShapeOne);
@@ -126,29 +125,46 @@ namespace game {
                     let stageWidth = this.stageWidth
                     let stageHeight = this.stageHeight
                     let count = 0
+                    let playerCount = this.playerList.length
 
-                    var self = this
-                    base.API.Init("http://127.0.0.1:8000/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map, 
-                        'inviter_name': this.inviter, 
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.inviter,
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
+                    let characterChoosePage = new game.CharacterChoosePage(
+                        game_secret,
+                        inviter, 
+                        player, 
+                        gameName, 
+                        stageWidth, 
+                        stageHeight,
+                        playerCount
+                    )
+                    this.stage.addChild(characterChoosePage)
+                    this.sprite.visible = false;
+                    this.removeChild(this.rightIcon);
+                    this.removeChild(this.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false
 
-                    }).then(function (response){
+                    // var self = this
+                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.call('set_player_score', {
+                    //     'params': this.map, 
+                    //     'inviter_name': this.inviter, 
+                    //     'gameSecret': this.game_secret,
+                    //     'player': this.player,
+                    //     'gameName': this.gameName,
+                    //     'charaChooser': this.inviter,
+                    //     'characterOne': this.characterOne,
+                    //     'characterTwo': this.characterTwo
 
-                        let pageOneResult = new game.PageOneResult(game_secret,inviter, player, gameName, stageWidth, stageHeight);
-                        self.stage.addChild(pageOneResult)
-                        self.sprite.visible=false
-                        self.tiptext.text=''
-                        self.removeChild(self.rightIcon)
-                        self.removeChild(self.closeIcon)
+                    // }).then(function (response){
 
-                    })
+                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
+                    //     self.stage.addChild(pageOneResult)
+                    //     self.sprite.visible=false
+                    //     self.tiptext.text=''
+                    //     self.removeChild(self.rightIcon)
+                    //     self.removeChild(self.closeIcon)
+
+                    // })
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                     // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -212,8 +228,8 @@ namespace game {
 
 
         private getPlayList():void{
-            // base.API.Init("http://127.0.0.1:8000/api/");
-            base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             let self=this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -291,7 +307,6 @@ namespace game {
 
                                     }
                                 }
-
                                 if(player_name.y > self.stageHeight - 150 - player_name.height){
                                     player_name.y = self.stageHeight -150 -player_name.height
                                 }

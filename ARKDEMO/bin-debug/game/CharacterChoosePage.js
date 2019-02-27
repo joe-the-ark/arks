@@ -12,19 +12,27 @@ var game;
 (function (game) {
     var CharacterChoosePage = (function (_super) {
         __extends(CharacterChoosePage, _super);
-        function CharacterChoosePage(stageWidth, stageHeight) {
+        function CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount) {
             var _this = _super.call(this) || this;
             _this.unselectedCharacterList = [];
             _this.selectedChaeacterList = [];
             _this.game_secret = '';
             _this.gameName = '';
             _this.inviter = '';
+            _this.player = '';
             _this.stageWidth = 0;
             _this.stageHeight = 0;
             _this.count = 0;
             _this._touchStatus = false;
+            _this.select_list = [];
+            _this.playerCount = 0;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
+            _this.player = player;
+            _this.gameName = gameName;
+            _this.game_secret = game_secret;
+            _this.inviter = inviter;
+            _this.playerCount = playerCount;
             _this.sprite = new egret.Sprite();
             _this.addChild(_this.sprite);
             _this.sprite.touchEnabled = true;
@@ -34,9 +42,62 @@ var game;
             _this.createTitle();
             _this.getCharacterList();
             _this.drawSplitLine();
-            _this.addTensionScale();
+            // this.addTensionScale();
+            _this.confirmButton = new egret.Shape();
+            _this.confirmButton.graphics.beginFill(0x00cc00);
+            _this.confirmButton.graphics.drawRect(0, 0, 200, 50);
+            _this.confirmButton.graphics.endFill();
+            // this.confirmButton.x = unselectedCharacter.x;
+            _this.confirmButton.y = 200;
+            _this.confirmButton.touchEnabled = true;
+            // this.nextTouch.bind(this.a);
+            // this.nextTouch(a, e:event);
+            _this.confirmButton.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.addTensionScale, _this);
+            _this.confirmText = new egret.TextField();
+            _this.confirmText.text = 'Confirm';
+            _this.confirmText.size = 30;
+            // this.confirmText.x = unselectedCharacter.x + 50;
+            _this.confirmText.y = _this.confirmButton.y + 10;
+            _this.sprite.addChild(_this.confirmButton);
+            _this.sprite.addChild(_this.confirmText);
+            _this.confirmText.visible = false;
+            _this.confirmButton.visible = false;
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight - 100;
             return _this;
         }
+        CharacterChoosePage.prototype.getPlayerCharacterList = function () {
+            var self = this;
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call('get_player_characterlist', {
+                'game_secret': self.game_secret,
+                'inviter': self.inviter,
+                'player': self.player,
+                'gameName': self.gameName,
+            }).then(function (response) {
+                var character_list = response['data'];
+                var count = 0;
+                character_list.forEach(function (val, index, array) {
+                    var player_name = val[0];
+                    console.log(count);
+                    if (player_name != self.player) {
+                        count++;
+                        var tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1]);
+                        self.stage.addChild(tensionScale);
+                        tensionScale.x = self.stageWidth - 200;
+                        tensionScale.y = 180 + count * 150;
+                    }
+                    if (count + 1 == self.playerCount) {
+                        self.addChild(self.rightIcon);
+                    }
+                });
+            });
+        };
         CharacterChoosePage.prototype.startGame = function (game_secret, gameName, inviter) {
             if (this.stage) {
                 var enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
@@ -70,7 +131,7 @@ var game;
         };
         CharacterChoosePage.prototype.getCharacterList = function () {
             // base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_character_list', {}).then(function (response) {
                 var _this = this;
@@ -104,35 +165,52 @@ var game;
                     player_score.textAlign = egret.HorizontalAlign.CENTER;
                     var flag = 0;
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-                        if (flag == 0) {
+                        // console.log(self.count)
+                        // var confirmButton: egret.Shape = new egret.Shape();
+                        // confirmButton.graphics.beginFill( 0x00cc00 );
+                        // confirmButton.graphics.drawRect(0, 0, 200, 50);
+                        // confirmButton.graphics.endFill();
+                        // confirmButton.y = 200;
+                        // confirmButton.touchEnabled = true;
+                        // // this.nextTouch.bind(this.a);
+                        // // this.nextTouch(a, e:event);
+                        // confirmButton.addEventListener(egret.TouchEvent.TOUCH_BEGIN, self.addTensionScale, self);
+                        // var confirmText: egret.TextField = new egret.TextField();
+                        // confirmText.text = 'Confirm';
+                        // confirmText.size = 30;
+                        // confirmText.y = confirmButton.y + 10;
+                        // self.sprite.addChild(confirmButton);
+                        // self.sprite.addChild(confirmText);
+                        // confirmText.visible =false
+                        // confirmButton.visible =false
+                        self.count++;
+                        if (self.count == 1) {
                             unselectedCharacter.backgroundColor = 0x00cc00;
-                            flag = 1;
-                            self.count++;
-                            if (self.count >= 2) {
-                                var confirmButton_1 = new egret.Shape();
-                                confirmButton_1.graphics.beginFill(0x00cc00);
-                                confirmButton_1.graphics.drawRect(0, 0, 200, 50);
-                                confirmButton_1.graphics.endFill();
-                                confirmButton_1.x = unselectedCharacter.x;
-                                confirmButton_1.y = 200;
-                                confirmButton_1.touchEnabled = true;
-                                // this.nextTouch.bind(this.a);
-                                // this.nextTouch(a, e:event);
-                                confirmButton_1.addEventListener(egret.TouchEvent.TOUCH_BEGIN, self.addTensionScale, self);
-                                self.sprite.addChild(confirmButton_1);
-                                var confirmText = new egret.TextField();
-                                confirmText.text = 'Confirm';
-                                confirmText.size = 30;
-                                confirmText.x = unselectedCharacter.x + 50;
-                                confirmText.y = confirmButton_1.y + 10;
-                                self.sprite.addChild(confirmText);
-                            }
+                            self.select_list.push(unselectedCharacter.text);
+                            // unselectedCharacter.touchEnabled = false
                         }
-                        else if (flag == 1) {
-                            unselectedCharacter.backgroundColor = 0x636363;
-                            flag = 0;
-                            self.count--;
+                        else if (self.count == 2) {
+                            self.select_list.push(unselectedCharacter.text);
+                            unselectedCharacter.backgroundColor = 0x00cc00;
+                            unselectedCharacter.touchEnabled = false;
+                            self.confirmButton.x = unselectedCharacter.x;
+                            self.confirmText.x = unselectedCharacter.x + 50;
+                            self.confirmButton.visible = true;
+                            self.confirmText.visible = true;
                         }
+                        // if(self.count == 2){
+                        // }else {
+                        //     self.confirmButton.visible =false
+                        //     self.confirmText.visible=false
+                        // }
+                        // if (flag == 0) {
+                        //     unselectedCharacter.backgroundColor = 0x00cc00;
+                        //     flag = 1;
+                        //     unselectedCharacter.touchEnabled=false
+                        // } else {
+                        //     unselectedCharacter.backgroundColor = 0x636363;
+                        //     flag = 0;
+                        // }
                     }, _this);
                     function confirmButton() {
                         console.log("1231231231");
@@ -142,10 +220,30 @@ var game;
             });
         };
         CharacterChoosePage.prototype.addTensionScale = function () {
-            var tensionScale = new game.TensionScale(60, 40);
-            tensionScale.x = this.stageWidth - 165;
-            tensionScale.y = 180;
-            this.sprite.addChild(tensionScale);
+            var self = this;
+            if (this.select_list.length = 2) {
+                // console.log()
+                console.log(1111111111);
+                base.API.Init('http://39.104.85.167:8105/api/');
+                base.API.call('save_character_choose', {
+                    'inviterName': self.inviter,
+                    'gameSecret': self.game_secret,
+                    'playerName': self.player,
+                    'gameName': self.gameName,
+                    'charaChooser': self.select_list
+                }).then(function (response) {
+                    self.timer = new egret.Timer(1000, 0);
+                    self.timer.addEventListener(egret.TimerEvent.TIMER, self.getPlayerCharacterList, self);
+                    self.timer.start();
+                });
+            }
+            if (this.stage) {
+                var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list);
+                console.log(tensionScale);
+                this.stage.addChild(tensionScale);
+                tensionScale.x = this.stageWidth - 200;
+                tensionScale.y = 180;
+            }
         };
         CharacterChoosePage.prototype.onTouchBegin = function () {
             console.log(this.stage);
