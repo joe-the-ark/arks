@@ -128,6 +128,7 @@ namespace game {
 
                     // base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.Init("http://39.104.85.167:8105/api/");
+
                     base.API.call("create_player", {'player_name': player, 'game_secret':self.game_secret, 'gameName':self.gameName, 'inviter':self.inviter} ).then(function (response) {
 
                         console.log(response)
@@ -165,9 +166,7 @@ namespace game {
                 // });
 
             }
-
         }
-
 
         private onTouchEnd():void {
             egret.log("onTouchEnd");

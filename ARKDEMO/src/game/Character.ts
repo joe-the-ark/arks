@@ -108,7 +108,6 @@ namespace game {
 
         private closeTip():void{
             if(this.tiptext.parent){
-                
                 this.removeChild(this.tiptext)
             }
             

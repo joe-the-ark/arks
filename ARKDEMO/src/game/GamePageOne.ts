@@ -2,34 +2,36 @@ namespace game {
 
     export class GamePageOne extends egret.DisplayObjectContainer {
 
-        private sprite:egret.Sprite
+        private sprite: egret.Sprite
         private playerList = []
         private game_secret = ''
-        private player= ''
+        private player = ''
         public gameName = ''
         public inviter = ''
         public stageWidth = 0
         public stageHeight = 0
 
-        public characterTwo = 'Power'
-        public characterOne = 'Carefulness'
+        public characterTwo = 'Fully'
+        public characterOne = 'Insufficiently'
+
         public _touchStatus:boolean = false;
         public _distance:egret.Point = new egret.Point();
         private _shape:egret.Shape; 
 
-        private rectShapeOne:egret.Shape;
-        private rectShapeTwo:egret.Shape
+        private rectShapeOne: egret.Shape;
+        private rectShapeTwo: egret.Shape
 
-        private charater2:egret.TextField
-        private rightIcon:egret.Bitmap;
-        private closeIcon:egret.Bitmap;
+        private charater2: egret.TextField
+        private rightIcon: egret.Bitmap;
+        private closeIcon: egret.Bitmap;
 
-        private tiptext:egret.TextField
+        private tiptext: egret.TextField
 
         private characterList = []
         private map:{[key:string] : string} = {}
         public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight) {
             
+
             super();
             this.game_secret = game_secret
             this.player = player
@@ -47,16 +49,16 @@ namespace game {
             this.addChild(this.sprite);
             this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getPlayList, this)
 
-
             this.rectShapeOne = new egret.Shape();
             this.rectShapeTwo = new egret.Shape();
             this.sprite.addChild(this.rectShapeOne);
             this.sprite.addChild(this.rectShapeTwo);
-            this.drawRect()            
+            this.drawRect()
 
 
             var character1:egret.TextField = new egret.TextField()
-            character1.text = 'Carefulness'
+            character1.text = 'Insufficiently'
+
             character1.textAlign = egret.HorizontalAlign.CENTER
             character1.size = 40
             character1.border = true
@@ -72,33 +74,37 @@ namespace game {
 
             this.charater2 = new egret.TextField();
             this.sprite.addChild(this.charater2)
-            this.initCharacter(stageWidth - 390, this.stageHeight -150)
+            this.initCharacter(stageWidth - 390, this.stageHeight - 150)
 
-            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture )
+            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
-            this.rightIcon.anchorOffsetX = this.rightIcon.width/2
-            this.rightIcon.anchorOffsetY = this.rightIcon.height /2 
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
             this.rightIcon.x = stageWidth - 50
-            this.rightIcon.y = stageHeight /2 
+            this.rightIcon.y = stageHeight / 2
             this.addChild(this.rightIcon)
 
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
 
-            this.closeIcon =new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
+            this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
             this.closeIcon.width = 40
             this.closeIcon.height = 40
-            this.closeIcon.anchorOffsetX = this.closeIcon.width/2
-            this.closeIcon.anchorOffsetY = this.closeIcon.height /2
-            this.closeIcon.x = stageWidth -30
+            this.closeIcon.anchorOffsetX = this.closeIcon.width / 2
+            this.closeIcon.anchorOffsetY = this.closeIcon.height / 2
+            this.closeIcon.x = stageWidth - 30
             this.closeIcon.y = 150
             this.closeIcon.touchEnabled = true
             this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
             this.addChild(this.closeIcon)
 
             this.tiptext = new egret.TextField()
+            this.addChild(this.tiptext)
+            var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81."
+            this.tip(1,1, msg, 30)
         }
+
 
         private closeTip():void{
             if(this.tiptext.parent){
@@ -119,28 +125,46 @@ namespace game {
                     let stageWidth = this.stageWidth
                     let stageHeight = this.stageHeight
                     let count = 0
+                    let playerCount = this.playerList.length
 
-                    var self = this
-                    base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map, 
-                        'inviter_name': this.inviter, 
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.inviter,
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
-                    }).then(function (response){
+                    let characterChoosePage = new game.CharacterChoosePage(
+                        game_secret,
+                        inviter, 
+                        player, 
+                        gameName, 
+                        stageWidth, 
+                        stageHeight,
+                        playerCount
+                    )
+                    this.stage.addChild(characterChoosePage)
+                    this.sprite.visible = false;
+                    this.removeChild(this.rightIcon);
+                    this.removeChild(this.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false
 
-                        let pageOneResult = new game.PageOneResult(game_secret,inviter, player, gameName, stageWidth, stageHeight);
-                        self.stage.addChild(pageOneResult)
-                        self.sprite.visible=false
-                        self.tiptext.text=''
-                        self.removeChild(self.rightIcon)
-                        self.removeChild(self.closeIcon)
+                    // var self = this
+                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.call('set_player_score', {
+                    //     'params': this.map, 
+                    //     'inviter_name': this.inviter, 
+                    //     'gameSecret': this.game_secret,
+                    //     'player': this.player,
+                    //     'gameName': this.gameName,
+                    //     'charaChooser': this.inviter,
+                    //     'characterOne': this.characterOne,
+                    //     'characterTwo': this.characterTwo
 
-                    })
+                    // }).then(function (response){
+
+                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
+                    //     self.stage.addChild(pageOneResult)
+                    //     self.sprite.visible=false
+                    //     self.tiptext.text=''
+                    //     self.removeChild(self.rightIcon)
+                    //     self.removeChild(self.closeIcon)
+
+                    // })
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                     // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -154,42 +178,45 @@ namespace game {
             }else{
 
                 this.addChild(this.tiptext)
-                this.tip(100, 100, 'Everyont must be graded!')
+                this.tip(100, 100, 'Everyont must be graded!', 40)
             }
         }
 
-        private tip(width, height, msg){
+        private tip(width, height, msg, size){
             var tiptext:egret.TextField = this.tiptext;
+
             tiptext.x = width
             tiptext.y = height
             tiptext.text = msg
-            tiptext.size = 40
+            tiptext.size = size
             tiptext.width = this.stageWidth
-            
+
         }
         private drawRect() {
 
-            var shape1:egret.Shape = this.rectShapeOne;
-            shape1.graphics.beginFill( 0xff0000, 0.5); 
-            shape1.graphics.drawRect( 0, 0, this.stageWidth + 60, 180 ); 
+            var shape1: egret.Shape = this.rectShapeOne;
+            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.drawRect(0, 0, this.stageWidth + 60, 180);
             shape1.graphics.endFill();
 
-            var shape2:egret.Shape = this.rectShapeTwo;
-            shape2.graphics.beginFill( 0xff0000, 0.5); 
-            shape2.graphics.drawRect( 0, this.stageHeight - 100, this.stageWidth+60, 200); 
+            var shape2: egret.Shape = this.rectShapeTwo;
+            shape2.graphics.beginFill(0xff0000, 0.5);
+            shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
 
         }
+
             //初始化赋值
         private initGraphics():void {
             var shape:egret.Shape = this._shape;
             shape.graphics.lineStyle(2, 0xff00ff);
-            shape.graphics.moveTo(this.stageWidth-250, this.stageHeight -150);
-            shape.graphics.lineTo(this.stageWidth-250, 240);
+            shape.graphics.moveTo(this.stageWidth - 250, this.stageHeight - 150);
+            shape.graphics.lineTo(this.stageWidth - 250, 240);
         }
         private initCharacter(cx, cy) {
             var charater2:egret.TextField = this.charater2
-            charater2.text = 'Power'
+            charater2.text = 'Fully'
+
             charater2.textAlign = egret.HorizontalAlign.CENTER
             charater2.size = 40
             charater2.border = true
@@ -199,6 +226,7 @@ namespace game {
             charater2.y = cy
         }
 
+
         private getPlayList():void{
             // base.API.Init("http://39.104.85.167:8105/api/");
             base.API.Init("http://39.104.85.167:8105/api/");
@@ -207,11 +235,11 @@ namespace game {
                 'game_secret': self.game_secret,
                 'gameName': self.gameName,
                 'inviter': self.inviter
-            }).then(function (response){
+            }).then(function (response) {
                 self.playerList = response['player_list']
                 // self.playerCounts = 
-                self.playerList.forEach((val, index,array) => {
-                    var player_name:egret.TextField = new egret.TextField()
+                self.playerList.forEach((val, index, array) => {
+                    var player_name: egret.TextField = new egret.TextField()
                     player_name.text = val
 
                     console.log(val.length )
@@ -232,7 +260,7 @@ namespace game {
                     player_name.x = 70
                     player_name.y = 300 + index * 50;
 
-                    var player_score:egret.TextField = new egret.TextField()
+                    var player_score: egret.TextField = new egret.TextField()
                     player_score.text = ''
                     player_score.size = 30
                     player_score.border = true;
@@ -248,11 +276,11 @@ namespace game {
                         var dy = e.stageY
 
                         player_name.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) => {
-                            if( self._touchStatus ){
+                            if (self._touchStatus) {
                                 player_name.x = e.stageX - dx + px;
                                 player_name.y = e.stageY - dy + py
 
-                                if(player_score.parent){
+                                if (player_score.parent) {
                                     player_score.parent.removeChild(player_score)
                                 }
 
@@ -261,6 +289,7 @@ namespace game {
                                     w = player_name.width
                                 }
                                 // player_score.visible = false
+
                                 if(player_name.x > (self.stageWidth-250-w)){
                                     player_name.x = self.stageWidth-250-w
                                     console.log(player_name.x)
@@ -278,34 +307,34 @@ namespace game {
 
                                     }
                                 }
-
                                 if(player_name.y > self.stageHeight - 150 - player_name.height){
                                     player_name.y = self.stageHeight -150 -player_name.height
                                 }
 
                             }
                         }, this)
-                    } , this);
+                    }, this);
 
                     player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
                         self._touchStatus = false;
                         player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
 
-                    } , this);
+                    }, this);
                     self.sprite.addChild(player_name)
+
                 }) 
             })
         }
 
-        private onTouchEnd():void {
+        private onTouchEnd(): void {
             egret.log("onTouchEnd");
         }
 
-        private onTouchMove():void {
+        private onTouchMove(): void {
             egret.log("onTouchMove");
         }
 
-        private onTouchTap():void {
+        private onTouchTap(): void {
             egret.log("onTouchTap");
         }
 

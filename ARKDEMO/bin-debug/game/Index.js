@@ -54,6 +54,7 @@ var game;
         }
         Index.prototype.getGameList = function () {
             // base.API.Init("http://39.104.85.167:8105/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
             base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_game_list', {}).then(function (response) {

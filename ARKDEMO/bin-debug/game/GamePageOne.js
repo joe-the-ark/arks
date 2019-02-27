@@ -21,8 +21,8 @@ var game;
             _this.inviter = '';
             _this.stageWidth = 0;
             _this.stageHeight = 0;
-            _this.characterTwo = 'Power';
-            _this.characterOne = 'Carefulness';
+            _this.characterTwo = 'Fully';
+            _this.characterOne = 'Insufficiently';
             _this._touchStatus = false;
             _this._distance = new egret.Point();
             _this.characterList = [];
@@ -46,7 +46,7 @@ var game;
             _this.sprite.addChild(_this.rectShapeTwo);
             _this.drawRect();
             var character1 = new egret.TextField();
-            character1.text = 'Carefulness';
+            character1.text = 'Insufficiently';
             character1.textAlign = egret.HorizontalAlign.CENTER;
             character1.size = 40;
             character1.border = true;
@@ -82,6 +82,9 @@ var game;
             _this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.closeTip, _this);
             _this.addChild(_this.closeIcon);
             _this.tiptext = new egret.TextField();
+            _this.addChild(_this.tiptext);
+            var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81.";
+            _this.tip(1, 1, msg, 30);
             return _this;
         }
         GamePageOne.prototype.closeTip = function () {
@@ -94,32 +97,40 @@ var game;
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
             if (this.playerList.length == scoreCounts) {
                 if (this.stage) {
-                    var game_secret_1 = this.game_secret;
-                    var inviter_1 = this.inviter;
-                    var player_1 = this.player;
-                    var gameName_1 = this.gameName;
-                    var stageWidth_1 = this.stageWidth;
-                    var stageHeight_1 = this.stageHeight;
+                    var game_secret = this.game_secret;
+                    var inviter = this.inviter;
+                    var player = this.player;
+                    var gameName = this.gameName;
+                    var stageWidth = this.stageWidth;
+                    var stageHeight = this.stageHeight;
                     var count = 0;
-                    var self = this;
-                    base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map,
-                        'inviter_name': this.inviter,
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.inviter,
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
-                    }).then(function (response) {
-                        var pageOneResult = new game.PageOneResult(game_secret_1, inviter_1, player_1, gameName_1, stageWidth_1, stageHeight_1);
-                        self.stage.addChild(pageOneResult);
-                        self.sprite.visible = false;
-                        self.tiptext.text = '';
-                        self.removeChild(self.rightIcon);
-                        self.removeChild(self.closeIcon);
-                    });
+                    var playerCount = this.playerList.length;
+                    var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
+                    this.stage.addChild(characterChoosePage);
+                    this.sprite.visible = false;
+                    this.removeChild(this.rightIcon);
+                    this.removeChild(this.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false;
+                    // var self = this
+                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.call('set_player_score', {
+                    //     'params': this.map, 
+                    //     'inviter_name': this.inviter, 
+                    //     'gameSecret': this.game_secret,
+                    //     'player': this.player,
+                    //     'gameName': this.gameName,
+                    //     'charaChooser': this.inviter,
+                    //     'characterOne': this.characterOne,
+                    //     'characterTwo': this.characterTwo
+                    // }).then(function (response){
+                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
+                    //     self.stage.addChild(pageOneResult)
+                    //     self.sprite.visible=false
+                    //     self.tiptext.text=''
+                    //     self.removeChild(self.rightIcon)
+                    //     self.removeChild(self.closeIcon)
+                    // })
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                     // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -132,15 +143,15 @@ var game;
             }
             else {
                 this.addChild(this.tiptext);
-                this.tip(100, 100, 'Everyont must be graded!');
+                this.tip(100, 100, 'Everyont must be graded!', 40);
             }
         };
-        GamePageOne.prototype.tip = function (width, height, msg) {
+        GamePageOne.prototype.tip = function (width, height, msg, size) {
             var tiptext = this.tiptext;
             tiptext.x = width;
             tiptext.y = height;
             tiptext.text = msg;
-            tiptext.size = 40;
+            tiptext.size = size;
             tiptext.width = this.stageWidth;
         };
         GamePageOne.prototype.drawRect = function () {
@@ -162,7 +173,7 @@ var game;
         };
         GamePageOne.prototype.initCharacter = function (cx, cy) {
             var charater2 = this.charater2;
-            charater2.text = 'Power';
+            charater2.text = 'Fully';
             charater2.textAlign = egret.HorizontalAlign.CENTER;
             charater2.size = 40;
             charater2.border = true;
