@@ -126,14 +126,9 @@ namespace game {
 
                     var self = this
 
-<<<<<<< HEAD
                     // base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.Init("http://127.0.0.1:8000/api/");
-=======
-                    // base.API.Init("http://39.104.85.167:8105/api/");
 
-                    base.API.Init("http://39.104.85.167:8105/api/");
->>>>>>> origin/master
                     base.API.call("create_player", {'player_name': player, 'game_secret':self.game_secret, 'gameName':self.gameName, 'inviter':self.inviter} ).then(function (response) {
 
                         console.log(response)
@@ -159,14 +154,8 @@ namespace game {
                     self.sprite.visible = false
                 }
                 // console.log(this.stage)
-<<<<<<< HEAD
                 //base.API.Init("http://127.0.0.1:8000/api/");
                 // base.API.Init("http://127.0.0.1:8000/api/");
-=======
-
-                //base.API.Init("http://39.104.85.167:8105/api/");
-                // base.API.Init("http://39.104.85.167:8105/api/");
->>>>>>> origin/master
                 // base.API.call("invite_players", { 'playerList': this.playerList }).then(function (response) {
                 //     console.log(response);
                 //     // var play = new game.LevelOneScene(_this.index);
