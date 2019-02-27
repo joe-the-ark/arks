@@ -24,11 +24,12 @@ var game;
             _this._touchStatus = false;
             _this._distance = new egret.Point();
             _this.characterList = [];
-            _this.characterTwo = 'Power';
-            _this.characterOne = 'Carefulness';
+            _this.characterTwo = 'Fully';
+            _this.characterOne = 'Insufficiently';
             _this.player_score_list = [];
             _this.player_list = [];
             _this.playerscore = 0;
+            _this.middle = 0;
             _this.game_secret = game_secret;
             _this.player = player;
             _this.gameName = gameName;
@@ -87,16 +88,55 @@ var game;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayScoreList, _this);
             _this.timer.start();
+            _this.middleScore = new egret.TextField();
+            _this.middleScore.textAlign = egret.HorizontalAlign.CENTER;
+            _this.middleScore.size = 30;
+            _this.middleScore.lineSpacing = 10;
+            _this.middleScore.border = true;
+            _this.middleScore.background = true;
+            _this.middleScore.backgroundColor = 0x7A378B;
+            _this.middleScore.borderColor = 0x00ff00;
+            _this.middleScore.visible = false;
+            _this.sprite.addChild(_this.middleScore);
+            _this.middlePlayer = new egret.TextField();
+            _this.middlePlayer.textAlign = egret.HorizontalAlign.CENTER;
+            _this.middlePlayer.size = 30;
+            _this.middlePlayer.lineSpacing = 10;
+            _this.middlePlayer.border = true;
+            _this.middlePlayer.background = true;
+            _this.middlePlayer.borderColor = 0x00ff00;
+            _this.middlePlayer.visible = false;
+            _this.middlePlayer.backgroundColor = 0x6CA6CD;
+            _this.sprite.addChild(_this.middlePlayer);
             return _this;
         }
         PageOneResult.prototype.getPlayScoreList = function () {
-            console.log(11111111111111);
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_player_score', { 'inviter': this.inviter, 'gameName': this.gameName, 'gameSecret': this.game_secret, 'player': this.player, 'character_one': this.characterOne, 'character_two': this.characterTwo, 'chooser': this.inviter }).then(function (response) {
-                var middle = response['middle'];
-                self.player_list = response['player_list'];
-                self.player_score_list = response['player_score_list'];
+                // self.middle = response['middle']
+                // console.log(self.middle)
+                // self.middlePlayer.text = self.player
+                // var score_text = self.middle.toString() + '/' +  (self.playerscore - self.middle).toString()
+                // self.middleScore.text = score_text
+                // self.middleScore.width = 100
+                // if(self.middlePlayer.text.length * 18 < 100){
+                //     self.middlePlayer.width = 100    
+                // }else {
+                //     self.middlePlayer.width = self.middlePlayer.text.length  * 18
+                // }
+                // // let w = 100
+                // // if(player_name.width > 100){
+                // //     w = player_name.width
+                // // }
+                // self.middlePlayer.x = self.stageWidth - 250 - self.middlePlayer.width
+                // self.middleScore.x = self.stageWidth-250
+                // self.middlePlayer.y = self.middle * ((self.stageHeight-150-240)/81) + 240
+                // self.middleScore.y = self.middlePlayer.y
+                // self.middlePlayer.visible=true
+                // self.middleScore.visible= true
+                // self.player_list = response['player_list']
+                // self.player_score_list = response['player_score_list']
                 self.player_list.forEach(function (val, index, array) {
                     var player_name = new egret.TextField();
                     player_name.text = val;
@@ -107,12 +147,14 @@ var game;
                     player_name.border = true;
                     player_name.background = true;
                     player_name.borderColor = 0x00ff00;
+                    player_name.alpha = 0.5;
                     var player_score = new egret.TextField();
                     player_score.size = 30;
                     player_score.border = true;
                     player_score.background = true;
                     player_score.borderColor = 0x00df23;
                     player_score.textAlign = egret.HorizontalAlign.CENTER;
+                    player_score.alpha = 0.5;
                     if (val == self.player && index != self.player_score_list.length) {
                         self.playerscore = self.player_score_list[index];
                         player_name.backgroundColor = 0x6CA6CD;
@@ -170,7 +212,7 @@ var game;
             }
         };
         PageOneResult.prototype.nextTouch = function () {
-            // console.log(this.sprite.numChildren-this.playerList.length-4)
+            // conset_player_scoreole.log(this.sprite.numChildren-this.playerList.length-4)
             // var scoreCounts = this.sprite.numChildren-this.playerList.length-4
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
@@ -181,7 +223,7 @@ var game;
                 var stageWidth = this.stageWidth;
                 var stageHeight = this.stageHeight;
                 var count = 0;
-                // base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.Init("http://127.0.0.1:8000/api/");
                 // base.API.call('get_choose_list', {})
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]];
@@ -197,12 +239,12 @@ var game;
             //     this.tip(100, 100, 'Everyont must be graded!')
             // }
         };
-        PageOneResult.prototype.tip = function (width, height, msg) {
+        PageOneResult.prototype.tip = function (width, height, msg, size) {
             var tiptext = this.tiptext;
             tiptext.x = width;
             tiptext.y = height;
             tiptext.text = msg;
-            tiptext.size = 40;
+            tiptext.size = size;
             tiptext.width = this.stageWidth;
         };
         PageOneResult.prototype.drawRect = function () {

@@ -21,8 +21,8 @@ var game;
             _this.inviter = '';
             _this.stageWidth = 0;
             _this.stageHeight = 0;
-            _this.characterTwo = 'Power';
-            _this.characterOne = 'Carefulness';
+            _this.characterTwo = 'Fully';
+            _this.characterOne = 'Insufficiently';
             _this._touchStatus = false;
             _this._distance = new egret.Point();
             _this.characterList = [];
@@ -46,7 +46,7 @@ var game;
             _this.sprite.addChild(_this.rectShapeTwo);
             _this.drawRect();
             var character1 = new egret.TextField();
-            character1.text = 'Carefulness';
+            character1.text = 'Insufficiently';
             character1.textAlign = egret.HorizontalAlign.CENTER;
             character1.size = 40;
             character1.border = true;
@@ -82,6 +82,9 @@ var game;
             _this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.closeTip, _this);
             _this.addChild(_this.closeIcon);
             _this.tiptext = new egret.TextField();
+            _this.addChild(_this.tiptext);
+            var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81.";
+            _this.tip(1, 1, msg, 30);
             return _this;
         }
         GamePageOne.prototype.closeTip = function () {
@@ -102,7 +105,7 @@ var game;
                     var stageHeight_1 = this.stageHeight;
                     var count = 0;
                     var self = this;
-                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call('set_player_score', {
                         'params': this.map,
                         'inviter_name': this.inviter,
@@ -132,15 +135,15 @@ var game;
             }
             else {
                 this.addChild(this.tiptext);
-                this.tip(100, 100, 'Everyont must be graded!');
+                this.tip(100, 100, 'Everyont must be graded!', 40);
             }
         };
-        GamePageOne.prototype.tip = function (width, height, msg) {
+        GamePageOne.prototype.tip = function (width, height, msg, size) {
             var tiptext = this.tiptext;
             tiptext.x = width;
             tiptext.y = height;
             tiptext.text = msg;
-            tiptext.size = 40;
+            tiptext.size = size;
             tiptext.width = this.stageWidth;
         };
         GamePageOne.prototype.drawRect = function () {
@@ -162,7 +165,7 @@ var game;
         };
         GamePageOne.prototype.initCharacter = function (cx, cy) {
             var charater2 = this.charater2;
-            charater2.text = 'Power';
+            charater2.text = 'Fully';
             charater2.textAlign = egret.HorizontalAlign.CENTER;
             charater2.size = 40;
             charater2.border = true;
@@ -172,8 +175,8 @@ var game;
             charater2.y = cy;
         };
         GamePageOne.prototype.getPlayList = function () {
-            // base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.Init("http://39.104.85.167:8105/api/");
+            // base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,

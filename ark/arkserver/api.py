@@ -19,8 +19,11 @@ def create_game(inviter, gameName, game_id):
     game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
 
 
-    character_one = Character.objects.filter(name='Carefulness').first()
-    character_two = Character.objects.filter(name='Power').first()
+    character_one = Character.objects.filter(name='Insufficiently').first()
+    character_two = Character.objects.filter(name='Fully').first()
+
+    print(character_two)
+    print(character_one)
 
     CharacterChoose.objects.create(
         character_one=character_one, character_two=character_two,
@@ -79,12 +82,17 @@ def set_player_score(
         game_secret=gameSecret
     ).first()
 
+
     scorer = Player.objects.filter(
         name=player,
         inviter_name=inviter_name,
         game_name=gameName,
         game_secret=gameSecret
     ).first()
+
+    print(player)
+    print(inviter_name)
+    print(scorer)
 
     charaChooser2 = Player.objects.filter(
         name=charaChooser,
@@ -193,12 +201,27 @@ def get_player_score(inviter, gameName, gameSecret, player, character_one, chara
     player_list = []
     player_score_list = []
 
-
     for _ in player_scores:
+        # if _.scorer.id == _player.id:
+        #     continue
         player_list.append(_.scorer.name)
         player_score_list.append(int(_.score))
 
-    middle = int(sum(list(map(int, player_score_list))) / len(player_score_list))
+    _player_score_list = []
+
+
+    for _ in player_scores:
+        if _.scorer.id == _player.id:
+            continue
+        _player_score_list.append(_.score)
+
+
+    if len(_player_score_list):
+        middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
+    else:
+        middle = 0
+
+    print(middle)
 
     # player_list.append(player)
     # player_score_list.append(middle)

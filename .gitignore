@@ -101,3 +101,7 @@ ENV/
 
 .DS_Store
 media
+
+db.splite3
+
+ZEUS_CALLER = '7b699e8b310f4f07aaec009a589a5f2b'

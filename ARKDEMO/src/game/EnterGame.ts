@@ -122,31 +122,38 @@ namespace game {
 				console.log(game_secret)
 				console.log(this.game_secret)
 
-				// base.API.Init("http://39.104.85.167:8105/api/")
-                base.API.Init("http://39.104.85.167:8105/api/");
+				// base.API.Init("http://127.0.0.1:8000/api/")
+                base.API.Init("http://127.0.0.1:8000/api/");
 				base.API.call("find_players", {'game_secret': self.game_secret, 'gameName': self.gameName} ).then(function (response) {
 					console.log(response)
 					let play_list = response['player_list']
 
+                    console.log(self.txInput.text)
+
 					var index = play_list.indexOf(self.txInput.text)
+
+                    console.log(index)
+                    if(game_secret != self.game_secret){
+                        self.text2.text = "please input the correct secret to enter the game"
+                    }else if( index == -1) {
+                        self.text2.text = "you aren't invited !"
+
+                    }else {
+                        if(self.stage){
+                            console.log(33333)
+                            let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
+                            self.stage.addChild(gamePageOne)
+                            self.sprite.visible = false
+                        }
+                    }
+
 					self.isPlayer = index
 
 				}).catch(function (err) {
 					console.log(err);
 				});
-				if(game_secret != this.game_secret){
-					this.text2.text = "please input the correct secret to enter the game"
-				}else if( self.isPlayer == -1) {
-					this.text2.text = "you aren't invited !"
-				}else {
-					if(this.stage){
-						console.log(33333)
-						let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, this.stage.stageWidth, this.stage.stageHeight);
-						this.stage.addChild(gamePageOne)
-						self.sprite.visible = false
-					}
 
-				}
+
 
 			}else {
 				this.text2.text = "you must input your name and the game's secret"
@@ -168,7 +175,7 @@ namespace game {
             //         this.count += 1
             //         this.text2.text = 'You have invited '+ this.count + ' players'
 
-            //         base.API.Init("http://39.104.85.167:8105/api/")
+            //         base.API.Init("http://127.0.0.1:8000/api/")
                     // base.API.call("create_player", {'player_name': player} ).then(function (response) {
 
                     //     console.log(response)

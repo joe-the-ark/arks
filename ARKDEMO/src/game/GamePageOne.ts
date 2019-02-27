@@ -11,8 +11,8 @@ namespace game {
         public stageWidth = 0
         public stageHeight = 0
 
-        public characterTwo = 'Power'
-        public characterOne = 'Carefulness'
+        public characterTwo = 'Fully'
+        public characterOne = 'Insufficiently'
         public _touchStatus:boolean = false;
         public _distance:egret.Point = new egret.Point();
         private _shape:egret.Shape; 
@@ -56,7 +56,7 @@ namespace game {
 
 
             var character1:egret.TextField = new egret.TextField()
-            character1.text = 'Carefulness'
+            character1.text = 'Insufficiently'
             character1.textAlign = egret.HorizontalAlign.CENTER
             character1.size = 40
             character1.border = true
@@ -98,6 +98,9 @@ namespace game {
             this.addChild(this.closeIcon)
 
             this.tiptext = new egret.TextField()
+            this.addChild(this.tiptext)
+            var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81."
+            this.tip(1,1, msg, 30)
         }
 
         private closeTip():void{
@@ -121,7 +124,7 @@ namespace game {
                     let count = 0
 
                     var self = this
-                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call('set_player_score', {
                         'params': this.map, 
                         'inviter_name': this.inviter, 
@@ -131,6 +134,7 @@ namespace game {
                         'charaChooser': this.inviter,
                         'characterOne': this.characterOne,
                         'characterTwo': this.characterTwo
+
                     }).then(function (response){
 
                         let pageOneResult = new game.PageOneResult(game_secret,inviter, player, gameName, stageWidth, stageHeight);
@@ -154,16 +158,16 @@ namespace game {
             }else{
 
                 this.addChild(this.tiptext)
-                this.tip(100, 100, 'Everyont must be graded!')
+                this.tip(100, 100, 'Everyont must be graded!', 40)
             }
         }
 
-        private tip(width, height, msg){
+        private tip(width, height, msg, size){
             var tiptext:egret.TextField = this.tiptext;
             tiptext.x = width
             tiptext.y = height
             tiptext.text = msg
-            tiptext.size = 40
+            tiptext.size = size
             tiptext.width = this.stageWidth
             
         }
@@ -189,7 +193,7 @@ namespace game {
         }
         private initCharacter(cx, cy) {
             var charater2:egret.TextField = this.charater2
-            charater2.text = 'Power'
+            charater2.text = 'Fully'
             charater2.textAlign = egret.HorizontalAlign.CENTER
             charater2.size = 40
             charater2.border = true
@@ -200,8 +204,8 @@ namespace game {
         }
 
         private getPlayList():void{
-            // base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.Init("http://39.104.85.167:8105/api/");
+            // base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             let self=this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
