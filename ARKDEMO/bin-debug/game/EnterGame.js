@@ -113,6 +113,7 @@ var game;
             if (player && game_secret) {
                 console.log(game_secret);
                 console.log(this.game_secret);
+                // base.API.Init("http://39.104.85.167:8105/api/")
                 base.API.Init("http://39.104.85.167:8105/api/");
                 base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
                     console.log(response);

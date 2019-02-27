@@ -11,6 +11,9 @@ class Player(models.Model):
     class Meta(object):
             verbose_name = verbose_name_plural = '玩家表'
 
+    def __str__(self):
+        return self.name
+
 class Game(models.Model):
     game_secret = models.CharField(max_length=200, verbose_name='游戏房间密码', null=True, blank=True)
     game_name = models.CharField(max_length=200, verbose_name='游戏名称')
@@ -24,10 +27,16 @@ class Game(models.Model):
     class Meta(object):
             verbose_name = verbose_name_plural = '游戏表'
 
+    def __str__(self):
+        return 'name:' + self.game_name + '，' + 'inviter:'+self.inviter.name
+
 class Character(models.Model):
     name = models.CharField(max_length=100, verbose_name='性格')
     class Meta(object):
             verbose_name = verbose_name_plural = '性格表'
+
+    def __str__(self):
+        return self.name
 
 class CharacterChoose(models.Model):
     character_one = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='性格一', related_name='character_one')
@@ -37,6 +46,9 @@ class CharacterChoose(models.Model):
 
     class Meta(object):
             verbose_name = verbose_name_plural = '性格选择表'
+
+    def __str__(self):
+        return self.character_one.name +','+self.character_two.name
 
 class PlayerScore(models.Model):
     character_choose = models.ForeignKey('CharacterChoose', on_delete=models.CASCADE)
@@ -48,8 +60,8 @@ class PlayerScore(models.Model):
     class Meta(object):
             verbose_name = verbose_name_plural = '玩家打分表'
 
-
-
+    def __str__(self):
+        return self.player.name + ':'+ self.score
 
 
 
