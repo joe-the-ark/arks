@@ -319,11 +319,10 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
                 _player_score_list.append(_.score)
 
             print(_player_score_list)
-            middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
+            middle = str(int(sum(list(map(int, _player_score_list))) / len(_player_score_list)))
             print('middle：',middle)
+
             result.append(middle)
-        else:
-            result_list.append(0)
 
         result_list.append(result)
 

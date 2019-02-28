@@ -84,16 +84,23 @@ var game;
             var _this = this;
             console.log(this.simulatedData);
             this.simulatedData.forEach(function (val, index, array) {
-                var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], val[2]);
-                if (index % 2 == 1) {
-                    tensionScale.x = 150;
-                    tensionScale.y = 150 + (index - 1) * 100;
+                try {
+                    var score = val[2].toString();
+                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
+                    if (index % 2 == 1) {
+                        tensionScale.x = 150;
+                        tensionScale.y = 150 + (index - 1) * 100;
+                    }
+                    else if (index % 2 == 0) {
+                        tensionScale.x = 350;
+                        tensionScale.y = 150 + index * 100;
+                    }
+                    _this.sprite.addChild(tensionScale);
                 }
-                else if (index % 2 == 0) {
-                    tensionScale.x = 350;
-                    tensionScale.y = 150 + index * 100;
+                catch (error) {
+                    // score = ''
+                    console.log(1111111);
                 }
-                _this.sprite.addChild(tensionScale);
             });
         };
         TensionScaleResult.prototype.onTouchBegin = function () {

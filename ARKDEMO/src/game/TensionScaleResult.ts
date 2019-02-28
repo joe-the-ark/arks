@@ -57,12 +57,8 @@ namespace game {
                 var result = response['result']
                 self.simulatedData = result
                 self.drawTensionScale();
-
             })
-
-
         }
-
 
         private startGame(game_secret: string, gameName: string, inviter: string) {
             if (this.stage) {
@@ -92,16 +88,25 @@ namespace game {
         private drawTensionScale() {
             console.log(this.simulatedData)
             this.simulatedData.forEach((val, index, array) => {
-                let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], val[2]);
-                if (index % 2 == 1) {
-                    tensionScale.x = 150;
-                    tensionScale.y = 150 + (index - 1) * 100;
-                } 
-                else if (index % 2 == 0) {
-                    tensionScale.x = 350;
-                    tensionScale.y = 150 + index * 100;
+                
+                try {
+                    var score = val[2].toString()
+                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
+                    if (index % 2 == 1) {
+                        tensionScale.x = 150;
+                        tensionScale.y = 150 + (index - 1) * 100;
+                    } 
+                    else if (index % 2 == 0) {
+                        tensionScale.x = 350;
+                        tensionScale.y = 150 + index * 100;
+                    }
+                    this.sprite.addChild(tensionScale);
+
+                } catch (error) {
+                    // score = ''
+                    console.log(1111111)
                 }
-                this.sprite.addChild(tensionScale);
+
             });
         }
         private onTouchBegin(): void {
