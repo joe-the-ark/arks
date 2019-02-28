@@ -173,7 +173,6 @@ def save_character_choose(inviterName, gameSecret, playerName, gameName, charaCh
 def get_player_score(inviter, gameName, gameSecret, player, character_one, character_two, chooser):
 
 
-
     _player = Player.objects.filter(
         name=player, game_secret=gameSecret,
         inviter_name=inviter, game_name=gameName
@@ -240,6 +239,8 @@ def get_player_score(inviter, gameName, gameSecret, player, character_one, chara
 @api
 def get_player_characterlist(game_secret,inviter,player,gameName):
 
+    print(game_secret)
+    print(inviter)
 
     _inviter = Player.objects.filter(
         name=inviter, inviter_name=inviter,
@@ -253,7 +254,86 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
 
     cha_list = CharacterChoose.objects.filter(game=game)
 
-    data = [ [_.player.name, [_.character_one.name, _.character_two.name]]  for _ in cha_list]
+    data = [ [_.player.name, [_.character_one.name, _.character_two.name]]  for _ in cha_list if cha_list]
 
     print(data)
     return {'code':0, 'data':data}
+
+
+@api
+def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
+
+    print(inviter, gameSecret, player, gameName)
+
+    _player = Player.objects.filter(
+        name=player, game_secret=gameSecret,
+        inviter_name=inviter, game_name=gameName
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter, game_secret=gameSecret,
+        inviter_name=inviter, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=gameSecret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    chooser_list = characterListParams[0]
+    character_list = characterListParams[1]
+    playercount = len(chooser_list)
+
+    result_list = []
+
+
+    for index in range(0, playercount):
+
+        result = [character_list[index][0], character_list[index][1]]
+
+
+        chooser = Player.objects.filter(
+            name=chooser_list[index], game_secret=gameSecret,
+            inviter_name=inviter, game_name=gameName
+        ).first()
+
+        character_one = Character.objects.filter(name=character_list[index][0]).first()
+        character_two = Character.objects.filter(name=character_list[index][1]).first()
+        characterChoose = CharacterChoose.objects.filter(
+            character_one=character_one, character_two=character_two,
+            player=chooser, game=game
+        ).first()
+
+        player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
+
+        count = player_scores.count()
+        print('count:', count)
+        _player_score_list = []
+
+        if count == playercount:
+            for _ in player_scores:
+                if _.scorer.id == _player.id:
+                    continue
+                _player_score_list.append(_.score)
+
+            print(_player_score_list)
+            middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
+            print('middle：',middle)
+            result.append(middle)
+        else:
+            result_list.append(0)
+
+        result_list.append(result)
+
+    print(result_list)
+
+    return {'code':0, 'result': result_list}
+
+
+
+
+
+
+

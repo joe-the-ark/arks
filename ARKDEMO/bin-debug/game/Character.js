@@ -100,14 +100,19 @@ var game;
                 var stageWidth = this.stageWidth;
                 var stageHeight = this.stageHeight;
                 if (this.count + 1 == this.characterList.length) {
+                    console.log('所有性格打分结束');
+                    var toTensionScaleResult = new game.TensionScaleResult(stageWidth, stageHeight, inviter, game_secret, player, gameName, this.characterListParams);
+                    this.stage.addChild(toTensionScaleResult);
+                    this.sprite.visible = false;
+                    this._shape.visible = false;
+                    this.rightIcon.visible = false;
                 }
                 else {
                     console.log('打分结束');
-                    console.log(this.map);
                     base.API.Init("http://39.104.85.167:8105/api/");
                     // base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('set_player_score', {
-                        'parmas': this.map,
+                        'params': this.map,
                         'inviter_name': this.inviter,
                         'gameSecret': this.game_secret,
                         'player': this.player,
@@ -123,6 +128,7 @@ var game;
                     this.sprite.visible = false;
                     this.removeChild(this.rightIcon);
                     this.removeChild(this.closeIcon);
+                    this._shape.visible = false;
                     this.stage.addChild(charater);
                     this.tiptext.text = '';
                 }

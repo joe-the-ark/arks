@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var TensionScale = (function (_super) {
         __extends(TensionScale, _super);
-        function TensionScale(stageWidth, stageHeight, select_list) {
+        function TensionScale(stageWidth, stageHeight, select_list, score) {
             var _this = _super.call(this) || this;
             _this.unselectedCharacterList = [];
             _this.selectedChaeacterList = [];
@@ -23,7 +23,9 @@ var game;
             _this.stageHeight = 0;
             _this._touchStatus = false;
             _this.select_list = [];
+            _this.score = '';
             _this.select_list = select_list;
+            _this.score = score;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
@@ -74,18 +76,18 @@ var game;
             var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
             // let randomColor = 0x0000ff 
             var randomLineColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
-            var randomScore = this.getRandomScore(1, 81);
+            var randomScore = this.score;
             score_bg.graphics.beginFill(0x7FFFD4, 0.7);
             score_bg.graphics.lineStyle(2, 0x7D9EC0);
             score_bg.graphics.drawCircle(90, 70, 20);
             score_bg.graphics.endFill();
             this.sprite.addChild(score_bg);
-            // score.text = randomScore.toString();
-            // score.size = 20;
-            // score.textColor = 0xffffff;
-            // score.x = 60;
-            // score.y = 70;
-            // this.sprite.addChild(score);
+            score.text = randomScore;
+            score.size = 20;
+            score.textColor = 0xffffff;
+            score.x = 80;
+            score.y = 60;
+            this.sprite.addChild(score);
         };
         TensionScale.prototype.onTouchBegin = function () {
             if (this.stage) {

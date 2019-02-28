@@ -102,7 +102,6 @@ namespace game {
             this.closeIcon.touchEnabled = true
             this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
             this.addChild(this.closeIcon)
-
             this.tiptext = new egret.TextField()
         }
 
@@ -110,7 +109,6 @@ namespace game {
             if(this.tiptext.parent){
                 this.removeChild(this.tiptext)
             }
-            
         }
 
         private nextTouch(){
@@ -125,15 +123,27 @@ namespace game {
                 let stageHeight = this.stageHeight
                 
                 if(this.count + 1 == this.characterList.length){
-
+                    console.log('所有性格打分结束')
+                    let toTensionScaleResult = new game.TensionScaleResult(
+                        stageWidth,
+                        stageHeight,
+                        inviter, 
+                        game_secret,
+                        player,
+                        gameName,
+                        this.characterListParams
+                    )
+                    this.stage.addChild(toTensionScaleResult);
+                    this.sprite.visible = false;
+                    this._shape.visible = false
+                    this.rightIcon.visible = false;
 
                 }else{
                     console.log('打分结束')
-                    console.log(this.map)
                     base.API.Init("http://39.104.85.167:8105/api/");
                     // base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('set_player_score', { 
-                            'parmas': this.map, 
+                            'params': this.map, 
                             'inviter_name': this.inviter, 
                             'gameSecret': this.game_secret,
                             'player': this.player,
@@ -151,19 +161,18 @@ namespace game {
                         player, gameName, 
                         stageWidth, stageHeight, 
                         this.count, this.characterListParams);
-
                     this.sprite.visible = false
                     this.removeChild(this.rightIcon)
                     this.removeChild(this.closeIcon)
+                    this._shape.visible = false
                     this.stage.addChild(charater);
                     this.tiptext.text = ''
+
                 }
 
             }else{
-
                 this.addChild(this.tiptext)
                 this.tip(100, 100, 'Everyone must be graded!')
-
             }
         }
 
@@ -292,9 +301,10 @@ namespace game {
 
                                         let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
                                         let playerName = player_name.text
-
                                         self.map[playerName] = _score
                                         console.log(self.map)
+
+                                        
                                     }
                                 }
                             }

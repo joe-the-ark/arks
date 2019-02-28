@@ -68,8 +68,9 @@ var game;
             _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
             _this.rightIcon.x = stageWidth - 50;
             _this.rightIcon.y = stageHeight / 2;
-            _this.addChild(_this.rightIcon);
             _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.visible = false;
+            _this.addChild(_this.rightIcon);
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
             _this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png'));
             _this.closeIcon.width = 40;
@@ -93,58 +94,56 @@ var game;
             }
         };
         GamePageOne.prototype.nextTouch = function () {
-            console.log(this.sprite.numChildren - this.playerList.length - 4);
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
-            if (this.playerList.length == scoreCounts) {
-                if (this.stage) {
-                    var game_secret = this.game_secret;
-                    var inviter = this.inviter;
-                    var player = this.player;
-                    var gameName = this.gameName;
-                    var stageWidth = this.stageWidth;
-                    var stageHeight = this.stageHeight;
-                    var count = 0;
-                    var playerCount = this.playerList.length;
-                    var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
-                    this.stage.addChild(characterChoosePage);
-                    this.sprite.visible = false;
-                    this.removeChild(this.rightIcon);
-                    this.removeChild(this.closeIcon);
-                    this.closeTip();
-                    this._shape.visible = false;
-                    // var self = this
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.call('set_player_score', {
-                    //     'params': this.map, 
-                    //     'inviter_name': this.inviter, 
-                    //     'gameSecret': this.game_secret,
-                    //     'player': this.player,
-                    //     'gameName': this.gameName,
-                    //     'charaChooser': this.inviter,
-                    //     'characterOne': this.characterOne,
-                    //     'characterTwo': this.characterTwo
-                    // }).then(function (response){
-                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
-                    //     self.stage.addChild(pageOneResult)
-                    //     self.sprite.visible=false
-                    //     self.tiptext.text=''
-                    //     self.removeChild(self.rightIcon)
-                    //     self.removeChild(self.closeIcon)
-                    // })
-                    // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                    // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
-                    // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                    // this.stage.addChild(charater);
-                    // this.sprite.visible = false
-                    // this.tiptext.text = ''
-                    // this.removeChild(this.rightIcon)
-                    // this.removeChild(this.closeIcon)
-                }
+            // if(this.playerList.length == scoreCounts){
+            if (this.stage) {
+                var game_secret = this.game_secret;
+                var inviter = this.inviter;
+                var player = this.player;
+                var gameName = this.gameName;
+                var stageWidth = this.stageWidth;
+                var stageHeight = this.stageHeight;
+                var count = 0;
+                var playerCount = this.playerList.length;
+                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
+                this.stage.addChild(characterChoosePage);
+                this.sprite.visible = false;
+                this.removeChild(this.rightIcon);
+                this.removeChild(this.closeIcon);
+                this.closeTip();
+                this._shape.visible = false;
+                // var self = this
+                // base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.call('set_player_score', {
+                //     'params': this.map, 
+                //     'inviter_name': this.inviter, 
+                //     'gameSecret': this.game_secret,
+                //     'player': this.player,
+                //     'gameName': this.gameName,
+                //     'charaChooser': this.inviter,
+                //     'characterOne': this.characterOne,
+                //     'characterTwo': this.characterTwo
+                // }).then(function (response){
+                //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
+                //     self.stage.addChild(pageOneResult)
+                //     self.sprite.visible=false
+                //     self.tiptext.text=''
+                //     self.removeChild(self.rightIcon)
+                //     self.removeChild(self.closeIcon)
+                // })
+                // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
+                // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
+                // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
+                // this.stage.addChild(charater);
+                // this.sprite.visible = false
+                // this.tiptext.text = ''
+                // this.removeChild(this.rightIcon)
+                // this.removeChild(this.closeIcon)
             }
-            else {
-                this.addChild(this.tiptext);
-                this.tip(100, 100, 'Everyont must be graded!', 40);
-            }
+            // }else{
+            //     this.addChild(this.tiptext)
+            //     this.tip(100, 100, 'Everyont must be graded!', 40)
+            // }
         };
         GamePageOne.prototype.tip = function (width, height, msg, size) {
             var tiptext = this.tiptext;
@@ -193,76 +192,77 @@ var game;
             }).then(function (response) {
                 var _this = this;
                 self.playerList = response['player_list'];
+                console.log(self.playerList);
                 // self.playerCounts = 
                 self.playerList.forEach(function (val, index, array) {
-                    var player_name = new egret.TextField();
-                    player_name.text = val;
-                    console.log(val.length);
-                    player_name.textAlign = egret.HorizontalAlign.CENTER;
-                    player_name.size = 30;
-                    player_name.lineSpacing = 10;
-                    player_name.touchEnabled = true;
-                    player_name.border = true;
-                    if (val.length * 18 < 100) {
-                        player_name.width = 100;
-                    }
-                    else {
-                        player_name.width = val.length * 18;
-                    }
-                    player_name.borderColor = 0x00ff00;
-                    player_name.x = 70;
-                    player_name.y = 300 + index * 50;
-                    var player_score = new egret.TextField();
-                    player_score.text = '';
-                    player_score.size = 30;
-                    player_score.border = true;
-                    player_score.width = 50;
-                    player_score.borderColor = 0x00ff00;
-                    player_score.textAlign = egret.HorizontalAlign.CENTER;
-                    player_name.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
-                        self._touchStatus = true;
-                        var dx = e.stageX;
-                        var px = player_name.x;
-                        var py = player_name.y;
-                        var dy = e.stageY;
-                        player_name.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) {
-                            if (self._touchStatus) {
-                                player_name.x = e.stageX - dx + px;
-                                player_name.y = e.stageY - dy + py;
-                                if (player_score.parent) {
-                                    player_score.parent.removeChild(player_score);
-                                }
-                                var w = 100;
-                                if (player_name.width > 100) {
-                                    w = player_name.width;
-                                }
-                                // player_score.visible = false
-                                if (player_name.x > (self.stageWidth - 250 - w)) {
-                                    player_name.x = self.stageWidth - 250 - w;
-                                    console.log(player_name.x);
-                                    console.log(player_name.y);
-                                    if (player_name.y > 240 && player_name.y < self.stageHeight - 150 - player_name.height) {
-                                        player_score.x = player_name.x + w;
-                                        player_score.y = player_name.y;
-                                        var scorey = (self.stageHeight - 150 - 240 - player_name.height) / 81;
-                                        player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
-                                        self.sprite.addChild(player_score);
-                                        var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
-                                        var playerName = player_name.text;
-                                        self.map[playerName] = _score;
+                    if (val == self.player) {
+                        var player_name = new egret.TextField();
+                        player_name.text = val;
+                        player_name.textAlign = egret.HorizontalAlign.CENTER;
+                        player_name.size = 30;
+                        player_name.lineSpacing = 10;
+                        player_name.touchEnabled = true;
+                        player_name.border = true;
+                        if (val.length * 18 < 100) {
+                            player_name.width = 100;
+                        }
+                        else {
+                            player_name.width = val.length * 18;
+                        }
+                        player_name.borderColor = 0x00ff00;
+                        player_name.x = 70;
+                        player_name.y = 300 + index * 50;
+                        var player_score = new egret.TextField();
+                        player_score.text = '';
+                        player_score.size = 30;
+                        player_score.border = true;
+                        player_score.width = 50;
+                        player_score.borderColor = 0x00ff00;
+                        player_score.textAlign = egret.HorizontalAlign.CENTER;
+                        player_name.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+                            self._touchStatus = true;
+                            var dx = e.stageX;
+                            var px = player_name.x;
+                            var py = player_name.y;
+                            var dy = e.stageY;
+                            player_name.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) {
+                                if (self._touchStatus) {
+                                    player_name.x = e.stageX - dx + px;
+                                    player_name.y = e.stageY - dy + py;
+                                    if (player_score.parent) {
+                                        player_score.parent.removeChild(player_score);
+                                    }
+                                    var w = 100;
+                                    if (player_name.width > 100) {
+                                        w = player_name.width;
+                                    }
+                                    // player_score.visible = false
+                                    if (player_name.x > (self.stageWidth - 250 - w)) {
+                                        player_name.x = self.stageWidth - 250 - w;
+                                        if (player_name.y > 240 && player_name.y < self.stageHeight - 150 - player_name.height) {
+                                            player_score.x = player_name.x + w;
+                                            player_score.y = player_name.y;
+                                            var scorey = (self.stageHeight - 150 - 240 - player_name.height) / 81;
+                                            player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
+                                            self.sprite.addChild(player_score);
+                                            var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
+                                            var playerName = player_name.text;
+                                            self.map[playerName] = _score;
+                                            self.rightIcon.visible = true;
+                                        }
+                                    }
+                                    if (player_name.y > self.stageHeight - 150 - player_name.height) {
+                                        player_name.y = self.stageHeight - 150 - player_name.height;
                                     }
                                 }
-                                if (player_name.y > self.stageHeight - 150 - player_name.height) {
-                                    player_name.y = self.stageHeight - 150 - player_name.height;
-                                }
-                            }
+                            }, _this);
                         }, _this);
-                    }, _this);
-                    player_name.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
-                        self._touchStatus = false;
-                        player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, _this.mouseMove, _this);
-                    }, _this);
-                    self.sprite.addChild(player_name);
+                        player_name.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
+                            self._touchStatus = false;
+                            player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, _this.mouseMove, _this);
+                        }, _this);
+                        self.sprite.addChild(player_name);
+                    }
                 });
             });
         };

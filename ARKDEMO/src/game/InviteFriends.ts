@@ -118,7 +118,7 @@ namespace game {
                         duplicate = 1
                     }
                 })
-                console.log(duplicate)
+                
                 if(duplicate == 0) {
                     this.playerList.push(player)
                     this.count += 1
@@ -143,8 +143,8 @@ namespace game {
         }
 
         private onTouchBegin2():void {
-            if(this.playerList.length < 3){
-                this.text2.text = 'You must invite 10 players to start the game at least!'
+            if(this.playerList.length < 2){
+                this.text2.text = 'You must invite 3 players to start the game at least!'
             }else {
 
                 var self = this

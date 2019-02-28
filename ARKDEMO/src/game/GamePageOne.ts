@@ -22,6 +22,7 @@ namespace game {
         private rectShapeTwo: egret.Shape
 
         private charater2: egret.TextField
+
         private rightIcon: egret.Bitmap;
         private closeIcon: egret.Bitmap;
 
@@ -83,9 +84,10 @@ namespace game {
             this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
             this.rightIcon.x = stageWidth - 50
             this.rightIcon.y = stageHeight / 2
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.visible = false
             this.addChild(this.rightIcon)
 
-            this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
 
             this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
@@ -113,9 +115,9 @@ namespace game {
         }
 
         private nextTouch(){
-            console.log(this.sprite.numChildren-this.playerList.length-4)
+            
             var scoreCounts = this.sprite.numChildren-this.playerList.length-4
-            if(this.playerList.length == scoreCounts){
+            // if(this.playerList.length == scoreCounts){
 
                 if(this.stage){
                     let game_secret = this.game_secret
@@ -175,11 +177,11 @@ namespace game {
                     // this.removeChild(this.closeIcon)
                     
                 }
-            }else{
+            // }else{
 
-                this.addChild(this.tiptext)
-                this.tip(100, 100, 'Everyont must be graded!', 40)
-            }
+            //     this.addChild(this.tiptext)
+            //     this.tip(100, 100, 'Everyont must be graded!', 40)
+            // }
         }
 
         private tip(width, height, msg, size){
@@ -237,90 +239,97 @@ namespace game {
                 'inviter': self.inviter
             }).then(function (response) {
                 self.playerList = response['player_list']
+                console.log(self.playerList)
                 // self.playerCounts = 
                 self.playerList.forEach((val, index, array) => {
-                    var player_name: egret.TextField = new egret.TextField()
-                    player_name.text = val
 
-                    console.log(val.length )
+                    if(val == self.player){
 
-                    player_name.textAlign =  egret.HorizontalAlign.CENTER
-                    player_name.size = 30
-                    player_name.lineSpacing = 10
-                    player_name.touchEnabled = true
-                    player_name.border = true;
+                        var player_name: egret.TextField = new egret.TextField()
+                        player_name.text = val
+                        
+                        player_name.textAlign =  egret.HorizontalAlign.CENTER
+                        player_name.size = 30
+                        player_name.lineSpacing = 10
+                        player_name.touchEnabled = true
+                        player_name.border = true;
 
-                    if(val.length * 18 < 100){
-                        player_name.width = 100    
-                    }else {
-                        player_name.width = val.length * 18
-                    }
-                    
-                    player_name.borderColor = 0x00ff00;
-                    player_name.x = 70
-                    player_name.y = 300 + index * 50;
+                        if(val.length * 18 < 100){
+                            player_name.width = 100    
+                        }else {
+                            player_name.width = val.length * 18
+                        }
+                        
+                        player_name.borderColor = 0x00ff00;
+                        player_name.x = 70
+                        player_name.y = 300 + index * 50;
 
-                    var player_score: egret.TextField = new egret.TextField()
-                    player_score.text = ''
-                    player_score.size = 30
-                    player_score.border = true;
-                    player_score.width = 50
-                    player_score.borderColor = 0x00ff00;
-                    player_score.textAlign = egret.HorizontalAlign.CENTER
+                        var player_score: egret.TextField = new egret.TextField()
+                        player_score.text = ''
+                        player_score.size = 30
+                        player_score.border = true;
+                        player_score.width = 50
+                        player_score.borderColor = 0x00ff00;
+                        player_score.textAlign = egret.HorizontalAlign.CENTER
 
-                    player_name.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
-                        self._touchStatus = true;
-                        var dx = e.stageX
-                        var px = player_name.x
-                        var py = player_name.y
-                        var dy = e.stageY
+                        player_name.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
+                            self._touchStatus = true;
+                            var dx = e.stageX
+                            var px = player_name.x
+                            var py = player_name.y
+                            var dy = e.stageY
 
-                        player_name.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) => {
-                            if (self._touchStatus) {
-                                player_name.x = e.stageX - dx + px;
-                                player_name.y = e.stageY - dy + py
+                            player_name.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) => {
+                                if (self._touchStatus) {
+                                    player_name.x = e.stageX - dx + px;
+                                    player_name.y = e.stageY - dy + py
 
-                                if (player_score.parent) {
-                                    player_score.parent.removeChild(player_score)
-                                }
-
-                                let w = 100
-                                if(player_name.width > 100){
-                                    w = player_name.width
-                                }
-                                // player_score.visible = false
-
-                                if(player_name.x > (self.stageWidth-250-w)){
-                                    player_name.x = self.stageWidth-250-w
-                                    console.log(player_name.x)
-                                    console.log(player_name.y)
-                                    if(player_name.y > 240   && player_name.y < self.stageHeight-150-player_name.height){
-                                        
-                                        player_score.x = player_name.x + w
-                                        player_score.y = player_name.y
-                                        var scorey = (self.stageHeight-150-240-player_name.height)/81
-                                        player_score.text =  (Math.ceil((player_score.y - 240) / scorey)).toString()
-                                        self.sprite.addChild(player_score)
-                                        let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
-                                        let playerName = player_name.text
-                                        self.map[playerName] = _score
-
+                                    if (player_score.parent) {
+                                        player_score.parent.removeChild(player_score)
                                     }
+
+                                    let w = 100
+                                    if(player_name.width > 100){
+                                        w = player_name.width
+                                    }
+                                    // player_score.visible = false
+
+                                    if(player_name.x > (self.stageWidth-250-w)){
+                                        player_name.x = self.stageWidth-250-w
+                                        
+                                        if(player_name.y > 240   && player_name.y < self.stageHeight-150-player_name.height){
+                                            
+                                            player_score.x = player_name.x + w
+                                            player_score.y = player_name.y
+                                            var scorey = (self.stageHeight-150-240-player_name.height)/81
+                                            player_score.text =  (Math.ceil((player_score.y - 240) / scorey)).toString()
+                                            self.sprite.addChild(player_score)
+                                            let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
+                                            let playerName = player_name.text
+                                            self.map[playerName] = _score
+
+                                            self.rightIcon.visible = true
+                                        }
+                                    }
+                                    if(player_name.y > self.stageHeight - 150 - player_name.height){
+                                        player_name.y = self.stageHeight -150 -player_name.height
+                                    }
+
                                 }
-                                if(player_name.y > self.stageHeight - 150 - player_name.height){
-                                    player_name.y = self.stageHeight -150 -player_name.height
-                                }
+                            }, this)
+                        }, this);
 
-                            }
-                        }, this)
-                    }, this);
+                        player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
+                            self._touchStatus = false;
+                            player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
 
-                    player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
-                        self._touchStatus = false;
-                        player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+                        }, this);
 
-                    }, this);
-                    self.sprite.addChild(player_name)
+
+                        self.sprite.addChild(player_name)
+
+                    }
+
 
                 }) 
             })

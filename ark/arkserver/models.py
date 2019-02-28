@@ -43,6 +43,11 @@ class CharacterChoose(models.Model):
     character_two = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='性格二', related_name='character_two')
     player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='选择人')
     game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name='游戏')
+    status = models.IntegerField(
+        default=0,
+        choices=((0, '正常'), (1, '已展示')),
+        verbose_name='性格展示状态'
+    )
 
     class Meta(object):
             verbose_name = verbose_name_plural = '性格选择表'

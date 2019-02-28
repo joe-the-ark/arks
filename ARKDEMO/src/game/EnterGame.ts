@@ -154,13 +154,9 @@ namespace game {
 					console.log(err);
 				});
 
-
-
 			}else {
 				this.text2.text = "you must input your name and the game's secret"
 			}
-
-
 
             // if(player){
             //     var duplicate = 0
