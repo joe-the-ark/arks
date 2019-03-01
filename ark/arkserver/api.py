@@ -314,8 +314,8 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
         if count == playercount:
             for _ in player_scores:
-                if _.scorer.id == _player.id:
-                    continue
+                # if _.scorer.id == _player.id:
+                    # continue
                 _player_score_list.append(_.score)
 
             print(_player_score_list)

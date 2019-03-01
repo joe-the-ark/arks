@@ -26,9 +26,7 @@ namespace game {
             this.gameName = gameName
             this.inviter = inviter
             this.characterListParams = characterListParams
-
             console.log(characterListParams)
-
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite();
@@ -36,12 +34,9 @@ namespace game {
             this.sprite.touchEnabled = true;
             this.drawTensionScale();
             this.drawTitle();
-
-
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
-
         }
 
         private getGameResult(){
@@ -59,7 +54,6 @@ namespace game {
                 self.drawTensionScale();
             })
         }
-
         private startGame(game_secret: string, gameName: string, inviter: string) {
             if (this.stage) {
                 let enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
@@ -88,7 +82,6 @@ namespace game {
         private drawTensionScale() {
             console.log(this.simulatedData)
             this.simulatedData.forEach((val, index, array) => {
-                
                 try {
                     var score = val[2].toString()
                     let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
@@ -123,7 +116,6 @@ namespace game {
             var Rand = Math.random();
             return (Min + Math.round(Rand * Range));
         }
-
 
         private onTouchEnd(): void {
             egret.log("onTouchEnd");

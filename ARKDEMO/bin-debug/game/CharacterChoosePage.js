@@ -31,6 +31,7 @@ var game;
             _this.flag2 = 0;
             _this.characterList = [];
             _this.allcharacterlist = [];
+            _this.chooseText = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.player = player;
@@ -81,32 +82,78 @@ var game;
             _this.chooseone.textAlign = egret.HorizontalAlign.CENTER;
             _this.chooseone.textAlign = egret.VerticalAlign.MIDDLE;
             _this.chooseone.size = 30;
-            _this.chooseone.text = 'drag & drop';
+            _this.chooseone.text = 'point & click';
             _this.chooseone.lineSpacing = 10;
             _this.chooseone.border = true;
             _this.chooseone.width = 190;
             _this.chooseone.borderColor = 0x3A5FCD;
-            _this.chooseone.height = 50;
+            _this.chooseone.height = 40;
             _this.chooseone.y = 170;
+            _this.chooseone.touchEnabled = true;
+            _this.chooseone.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.touchone, _this);
             _this.sprite.addChild(_this.chooseone);
             _this.choosetwo = new egret.TextField;
             _this.choosetwo.textAlign = egret.HorizontalAlign.CENTER;
             _this.chooseone.textAlign = egret.VerticalAlign.BOTTOM;
             _this.choosetwo.size = 30;
             _this.choosetwo.lineSpacing = 10;
-            _this.choosetwo.text = 'drag & drop';
+            _this.choosetwo.text = 'point & click';
             _this.choosetwo.border = true;
             _this.choosetwo.width = 190;
             _this.choosetwo.borderColor = 0x3A5FCD;
-            _this.choosetwo.height = 50;
+            _this.choosetwo.height = 40;
             _this.choosetwo.y = 170;
             _this.choosetwo.x = 210;
+            _this.choosetwo.touchEnabled = true;
+            _this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.touchtwo, _this);
             _this.sprite.addChild(_this.choosetwo);
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerCharacterList, _this);
             _this.timer.start();
             return _this;
         }
+        CharacterChoosePage.prototype.touchone = function () {
+            if (this.chooseText[0]) {
+                this.chooseone.text = '';
+                var selectedCharacter = new egret.TextField();
+                selectedCharacter.text = this.chooseText[0];
+                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER;
+                selectedCharacter.size = 30;
+                selectedCharacter.lineSpacing = 10;
+                // selectedCharacter.touchEnabled = true
+                selectedCharacter.border = true;
+                selectedCharacter.width = this.chooseone.width;
+                selectedCharacter.height = this.chooseone.height;
+                selectedCharacter.background = true;
+                selectedCharacter.borderColor = 0x636363;
+                selectedCharacter.backgroundColor = 0x7171C6;
+                selectedCharacter.x = this.chooseone.x;
+                selectedCharacter.y = this.chooseone.y;
+                this.sprite.addChild(selectedCharacter);
+            }
+        };
+        CharacterChoosePage.prototype.touchtwo = function () {
+            if (this.chooseText[1]) {
+                this.choosetwo.text = '';
+                var selectedCharacter = new egret.TextField();
+                selectedCharacter.text = this.chooseText[1];
+                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER;
+                selectedCharacter.size = 30;
+                selectedCharacter.lineSpacing = 10;
+                // selectedCharacter.touchEnabled = true
+                selectedCharacter.border = true;
+                selectedCharacter.width = this.choosetwo.width;
+                selectedCharacter.height = this.choosetwo.height;
+                selectedCharacter.background = true;
+                selectedCharacter.borderColor = 0x636363;
+                selectedCharacter.backgroundColor = 0x7171C6;
+                selectedCharacter.x = this.choosetwo.x;
+                selectedCharacter.y = this.choosetwo.y;
+                this.sprite.addChild(selectedCharacter);
+                this.confirmButton.visible = true;
+                this.confirmText.visible = true;
+            }
+        };
         CharacterChoosePage.prototype.rightNext = function () {
             // base.API.Init("http://39.104.85.167:8105/api/");
             // base.API.call('')
@@ -164,7 +211,7 @@ var game;
         };
         CharacterChoosePage.prototype.drawTitleBackground = function () {
             var shape1 = this.titleBackground;
-            shape1.graphics.beginFill(0x00ff00, 0.5);
+            shape1.graphics.beginFill(0xff0000, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape1.graphics.endFill();
         };
@@ -211,59 +258,74 @@ var game;
                     else {
                         unselectedCharacter.width = val.length * 18;
                     }
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
-                        self._touchStatus = true;
-                        var dx = e.stageX;
-                        var px = unselectedCharacter.x;
-                        var py = unselectedCharacter.y;
-                        var dy = e.stageY;
-                        if (self.flag1 != 1 || self.flag2 != 1) {
-                            unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) {
-                                if (self._touchStatus) {
-                                    unselectedCharacter.x = e.stageX - dx + px;
-                                    unselectedCharacter.y = e.stageY - dy + py;
-                                }
-                                if (unselectedCharacter.y < 185 && unselectedCharacter.y > 170 && unselectedCharacter.x > 0 && unselectedCharacter.x < 80) {
-                                    if (self.flag1 == 1) {
-                                        console.log('already have');
-                                    }
-                                    else {
-                                        self.flag1 = 1;
-                                    }
-                                    unselectedCharacter.touchEnabled = false;
-                                    self.select_list.push(unselectedCharacter.text);
-                                    self.chooseone.text = '';
-                                    if (self.flag1 == 1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true;
-                                        self.confirmButton.visible = true;
-                                    }
-                                }
-                                else if (unselectedCharacter.y < 185 && unselectedCharacter.y > 170 && unselectedCharacter.x > 210 && unselectedCharacter.x < 280) {
-                                    if (self.flag2 == 1) {
-                                        console.log('already have');
-                                    }
-                                    else {
-                                        self.flag2 = 1;
-                                    }
-                                    unselectedCharacter.touchEnabled = false;
-                                    self.select_list.push(unselectedCharacter.text);
-                                    self.choosetwo.text = '';
-                                    if (self.flag1 == 1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true;
-                                        self.confirmButton.visible = true;
-                                    }
-                                }
-                            }, _this);
+                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+                        if (self.chooseText.length == 2) {
+                            unselectedCharacter.touchEnabled = false;
                         }
-                        else if (self.flag1 == 1 && self.flag2 == 1) {
-                            self.confirmText.visible = true;
-                            self.confirmButton.visible = true;
+                        else {
+                            self.chooseText.push(unselectedCharacter.text);
+                            self.select_list.push(unselectedCharacter.text);
+                            unselectedCharacter.backgroundColor = 0x00ff00;
+                            unselectedCharacter.alpha = 0.4;
+                            unselectedCharacter.touchEnabled = false;
                         }
                     }, _this);
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
-                        self._touchStatus = false;
-                        unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, _this.mouseMove, _this);
-                    }, _this);
+                    // unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
+                    //     self._touchStatus = true;
+                    //     var dx = e.stageX
+                    //     var px = unselectedCharacter.x
+                    //     var py = unselectedCharacter.y
+                    //     var dy = e.stageY
+                    //     // unselectedCharacter.width = w * 2
+                    //     // unselectedCharacter.height = h * 2
+                    //     if(self.flag1 != 1 || self.flag2 != 1){
+                    //         unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
+                    //             if(self._touchStatus){
+                    //                 unselectedCharacter.x = e.stageX - dx + px;
+                    //                 unselectedCharacter.y = e.stageY - dy + py
+                    //                 // unselectedCharacter.x = e.stageX
+                    //                 // unselectedCharacter.y = e.stageY
+                    //             }
+                    //             if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
+                    //                 if(self.flag1 == 1){
+                    //                     console.log('already have')
+                    //                 }else {
+                    //                     self.flag1 = 1
+                    //                 }
+                    //                 unselectedCharacter.touchEnabled = false
+                    //                 self.select_list.push(unselectedCharacter.text)
+                    //                 self.chooseone.text = ''
+                    //                 if(self.flag1 ==1 && self.flag2 == 1) {
+                    //                     self.confirmText.visible = true
+                    //                     self.confirmButton.visible =true
+                    //                 }
+                    //             }
+                    //             else if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 210 && unselectedCharacter.x <280){
+                    //                 if(self.flag2 == 1){
+                    //                     console.log('already have')
+                    //                 }else {
+                    //                     self.flag2 = 1
+                    //                 }
+                    //                 unselectedCharacter.touchEnabled = false
+                    //                 self.select_list.push(unselectedCharacter.text)
+                    //                 self.choosetwo.text = ''
+                    //                 if(self.flag1 ==1 && self.flag2 == 1) {
+                    //                     self.confirmText.visible = true
+                    //                     self.confirmButton.visible =true
+                    //                 }
+                    //             }
+                    //         }, this)
+                    //     }else if(self.flag1 ==1 && self.flag2 == 1) {
+                    //         self.confirmText.visible = true
+                    //         self.confirmButton.visible =true
+                    //     }
+                    // }, this)
+                    // unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
+                    //     self._touchStatus = false;
+                    //     // unselectedCharacter.width = w
+                    //     // unselectedCharacter.height = h
+                    //     unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+                    // }, this);
                     self.sprite.addChild(unselectedCharacter);
                 });
             });

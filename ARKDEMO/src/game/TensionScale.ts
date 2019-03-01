@@ -19,7 +19,6 @@ namespace game {
         public score = '';
         public constructor(stageWidth, stageHeight, select_list, score) {
             super();
-            
             this.select_list = select_list
             this.score = score;
             this.stageWidth = stageWidth

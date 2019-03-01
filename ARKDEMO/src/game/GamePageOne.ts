@@ -100,7 +100,7 @@ namespace game {
             this.closeIcon.touchEnabled = true
             this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
             this.addChild(this.closeIcon)
-
+            
             this.tiptext = new egret.TextField()
             this.addChild(this.tiptext)
             var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81."

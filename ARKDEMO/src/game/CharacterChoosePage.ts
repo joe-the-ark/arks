@@ -34,6 +34,10 @@ namespace game {
         private characterList = []
         private allcharacterlist = []
 
+
+        private chooseText = []
+
+
         public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight,playerCount) {
             super();
             this.stageWidth = stageWidth
@@ -91,13 +95,15 @@ namespace game {
             this.chooseone.textAlign =  egret.HorizontalAlign.CENTER
             this.chooseone.textAlign = egret.VerticalAlign.MIDDLE
             this.chooseone.size = 30
-            this.chooseone.text = 'drag & drop'
+            this.chooseone.text = 'point & click'
             this.chooseone.lineSpacing = 10
             this.chooseone.border = true;
             this.chooseone.width = 190
             this.chooseone.borderColor = 0x3A5FCD
-            this.chooseone.height = 50
+            this.chooseone.height = 40
             this.chooseone.y = 170
+            this.chooseone.touchEnabled = true
+            this.chooseone.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchone, this)
             this.sprite.addChild(this.chooseone)
             
             this.choosetwo = new egret.TextField
@@ -105,19 +111,71 @@ namespace game {
             this.chooseone.textAlign = egret.VerticalAlign.BOTTOM
             this.choosetwo.size = 30
             this.choosetwo.lineSpacing = 10
-            this.choosetwo.text = 'drag & drop'
+            this.choosetwo.text = 'point & click'
             this.choosetwo.border = true;
             this.choosetwo.width = 190
             this.choosetwo.borderColor = 0x3A5FCD
-            this.choosetwo.height = 50
+            this.choosetwo.height = 40
             this.choosetwo.y = 170
             this.choosetwo.x = 210
+            this.choosetwo.touchEnabled = true
+            this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchtwo, this)
             this.sprite.addChild(this.choosetwo)
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerCharacterList, this);
             this.timer.start()
 
         }
+
+        private touchone(){
+            if(this.chooseText[0]){
+
+                this.chooseone.text = ''
+                var selectedCharacter: egret.TextField = new egret.TextField()
+                selectedCharacter.text = this.chooseText[0]
+                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
+                selectedCharacter.size = 30
+                selectedCharacter.lineSpacing = 10
+                // selectedCharacter.touchEnabled = true
+                selectedCharacter.border = true;
+                selectedCharacter.width = this.chooseone.width
+                selectedCharacter.height = this.chooseone.height
+                selectedCharacter.background = true;
+                selectedCharacter.borderColor = 0x636363;
+                selectedCharacter.backgroundColor = 0x7171C6;
+                selectedCharacter.x = this.chooseone.x
+                selectedCharacter.y = this.chooseone.y
+                this.sprite.addChild(selectedCharacter)
+
+
+            }
+        }
+
+        private touchtwo(){
+            if(this.chooseText[1]){
+                this.choosetwo.text = ''
+                var selectedCharacter: egret.TextField = new egret.TextField()
+                selectedCharacter.text = this.chooseText[1]
+                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
+                selectedCharacter.size = 30
+                selectedCharacter.lineSpacing = 10
+                // selectedCharacter.touchEnabled = true
+                selectedCharacter.border = true;
+                selectedCharacter.width = this.choosetwo.width
+                selectedCharacter.height = this.choosetwo.height
+                selectedCharacter.background = true;
+                selectedCharacter.borderColor = 0x636363;
+                selectedCharacter.backgroundColor = 0x7171C6;
+                selectedCharacter.x = this.choosetwo.x
+                selectedCharacter.y = this.choosetwo.y
+                this.sprite.addChild(selectedCharacter)
+
+                this.confirmButton.visible =true
+                this.confirmText.visible = true
+
+            }
+        }
+
         private rightNext(){
             // base.API.Init("http://39.104.85.167:8105/api/");
             // base.API.call('')
@@ -183,7 +241,7 @@ namespace game {
 
         private drawTitleBackground() {
             let shape1: egret.Shape = this.titleBackground;
-            shape1.graphics.beginFill(0x00ff00, 0.5);
+            shape1.graphics.beginFill(0xff0000, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape1.graphics.endFill();
         }
@@ -212,6 +270,7 @@ namespace game {
             const self = this;
             base.API.call('get_character_list', {}).then(function (response) {
                 self.unselectedCharacterList = response['characters']
+
                 self.unselectedCharacterList.forEach((val, index, array) => {
                     var unselectedCharacter: egret.TextField = new egret.TextField()
                     unselectedCharacter.text = val
@@ -225,73 +284,97 @@ namespace game {
                     unselectedCharacter.x = 70
                     unselectedCharacter.y = 300 + index * 50;
                     unselectedCharacter.background = true;
+
                     unselectedCharacter.backgroundColor = 0x636363;
+
                     if (val.length * 18 < 100) {
                         unselectedCharacter.width = 100
                     } else {
                         unselectedCharacter.width = val.length * 18
                     }
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
-                        self._touchStatus = true;
-                        var dx = e.stageX
-                        var px = unselectedCharacter.x
-                        var py = unselectedCharacter.y
-                        var dy = e.stageY
-                        if(self.flag1 != 1 || self.flag2 != 1){
-                            unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
-                                if(self._touchStatus){
-                                    unselectedCharacter.x = e.stageX - dx + px;
-                                    unselectedCharacter.y = e.stageY - dy + py
-                                }
 
-                                if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
 
-                                    if(self.flag1 == 1){
-                                        console.log('already have')
-
-                                    }else {
-                                        self.flag1 = 1
-                                    }
-
-                                    unselectedCharacter.touchEnabled = false
-
-                                    self.select_list.push(unselectedCharacter.text)
-                                    self.chooseone.text = ''
-
-                                    if(self.flag1 ==1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true
-                                        self.confirmButton.visible =true
-                                    }
-                                }
-                                else if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 210 && unselectedCharacter.x <280){
-                                    
-                                    if(self.flag2 == 1){
-                                        console.log('already have')
-                                    }else {
-                                        self.flag2 = 1
-                                    }
-                                    unselectedCharacter.touchEnabled = false
-                                    self.select_list.push(unselectedCharacter.text)
-                                    self.choosetwo.text = ''
-                                    if(self.flag1 ==1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true
-                                        self.confirmButton.visible =true
-                                    }
-                                }
-                            }, this)
+                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
+                        if(self.chooseText.length == 2){
+                            unselectedCharacter.touchEnabled = false
                             
-                        }else if(self.flag1 ==1 && self.flag2 == 1) {
-                            self.confirmText.visible = true
-                            self.confirmButton.visible =true
+
+                        }else {
+                            self.chooseText.push(unselectedCharacter.text)
+                            self.select_list.push(unselectedCharacter.text)
+                            unselectedCharacter.backgroundColor = 0x00ff00;
+                            unselectedCharacter.alpha = 0.4
+                            unselectedCharacter.touchEnabled = false
+
                         }
-                        
+
                     }, this)
+                    
 
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
-                        self._touchStatus = false;
-                        unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+                    // unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
+                    //     self._touchStatus = true;
+                    //     var dx = e.stageX
+                    //     var px = unselectedCharacter.x
+                    //     var py = unselectedCharacter.y
+                    //     var dy = e.stageY
 
-                    }, this);
+                    //     // unselectedCharacter.width = w * 2
+                    //     // unselectedCharacter.height = h * 2
+
+                    //     if(self.flag1 != 1 || self.flag2 != 1){
+                    //         unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
+                    //             if(self._touchStatus){
+                    //                 unselectedCharacter.x = e.stageX - dx + px;
+                    //                 unselectedCharacter.y = e.stageY - dy + py
+                    //                 // unselectedCharacter.x = e.stageX
+                    //                 // unselectedCharacter.y = e.stageY
+                    //             }
+
+                    //             if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
+                    //                 if(self.flag1 == 1){
+                    //                     console.log('already have')
+                    //                 }else {
+                    //                     self.flag1 = 1
+                    //                 }
+                    //                 unselectedCharacter.touchEnabled = false
+                    //                 self.select_list.push(unselectedCharacter.text)
+                    //                 self.chooseone.text = ''
+
+                    //                 if(self.flag1 ==1 && self.flag2 == 1) {
+                    //                     self.confirmText.visible = true
+                    //                     self.confirmButton.visible =true
+                    //                 }
+                    //             }
+                    //             else if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 210 && unselectedCharacter.x <280){
+                                    
+                    //                 if(self.flag2 == 1){
+                    //                     console.log('already have')
+                    //                 }else {
+                    //                     self.flag2 = 1
+                    //                 }
+                    //                 unselectedCharacter.touchEnabled = false
+                    //                 self.select_list.push(unselectedCharacter.text)
+                    //                 self.choosetwo.text = ''
+                    //                 if(self.flag1 ==1 && self.flag2 == 1) {
+                    //                     self.confirmText.visible = true
+                    //                     self.confirmButton.visible =true
+                    //                 }
+                    //             }
+                    //         }, this)
+                            
+                    //     }else if(self.flag1 ==1 && self.flag2 == 1) {
+                    //         self.confirmText.visible = true
+                    //         self.confirmButton.visible =true
+                    //     }
+                    // }, this)
+                    // unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
+                    //     self._touchStatus = false;
+                    //     // unselectedCharacter.width = w
+                    //     // unselectedCharacter.height = h
+                    //     unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+                    // }, this);
+
+
                     self.sprite.addChild(unselectedCharacter)
                 })
             })
