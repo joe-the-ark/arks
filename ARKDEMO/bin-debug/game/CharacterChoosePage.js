@@ -155,21 +155,29 @@ var game;
             }
         };
         CharacterChoosePage.prototype.rightNext = function () {
-            // base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.call('')
-            if (this.stage) {
-                var game_secret = this.game_secret;
-                var inviter = this.inviter;
-                var player = this.player;
-                var gameName = this.gameName;
-                var stageWidth = this.stageWidth;
-                var stageHeight = this.stageHeight;
-                var count = 0;
-                var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                this.stage.addChild(charater);
-                this.sprite.visible = false;
-                this.rightIcon.visible = false;
-            }
+            var self = this;
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call('save_players_process', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+                'process': '3.0'
+            }).then(function (response) {
+                if (self.stage) {
+                    var game_secret = self.game_secret;
+                    var inviter = self.inviter;
+                    var player = self.player;
+                    var gameName = self.gameName;
+                    var stageWidth = self.stageWidth;
+                    var stageHeight = self.stageHeight;
+                    var count = 0;
+                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, self.characterList);
+                    self.stage.addChild(charater);
+                    self.sprite.visible = false;
+                    self.rightIcon.visible = false;
+                }
+            });
         };
         CharacterChoosePage.prototype.getPlayerCharacterList = function () {
             var self = this;
@@ -258,9 +266,15 @@ var game;
                     else {
                         unselectedCharacter.width = val.length * 18;
                     }
+                    var flag = 0; //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+                        if (flag == 0) {
+                        }
                         if (self.chooseText.length == 2) {
-                            unselectedCharacter.touchEnabled = false;
+                            // unselectedCharacter.touchEnabled = false
+                            self.chooseText.pop();
+                            self.chooseText.push(unselectedCharacter.text);
+                            self.select_list.push(unselectedCharacter.text);
                         }
                         else {
                             self.chooseText.push(unselectedCharacter.text);

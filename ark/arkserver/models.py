@@ -70,3 +70,22 @@ class PlayerScore(models.Model):
 
 
 
+class GameProcess(models.Model):
+
+    class Meta(object):
+        verbose_name = verbose_name_plural = '游戏进程表'
+
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='游戏')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='玩家')
+    process = models.CharField(max_length=100, verbose_name='进度')
+
+    def __str__(self):
+        return self.game.game_name+'__'+self.player.name+'__'+self.process
+
+
+
+
+
+
+
+

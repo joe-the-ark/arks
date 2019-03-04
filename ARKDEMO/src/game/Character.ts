@@ -123,25 +123,51 @@ namespace game {
                 let stageHeight = this.stageHeight
                 
                 if(this.count + 1 == this.characterList.length){
+
+                    console.log('打分结束')
+                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.call('set_player_score', { 
+                            'params': this.map, 
+                            'inviter_name': this.inviter, 
+                            'gameSecret': this.game_secret,
+                            'player': this.player,
+                            'gameName': this.gameName,
+                            'charaChooser': this.charaChooser[this.count],
+                            'characterOne': this.characterOne,
+                            'characterTwo': this.characterTwo
+                    }).then(function (response){
+                        console.log(response)
+                    })
+
                     console.log('所有性格打分结束')
-                    let toTensionScaleResult = new game.TensionScaleResult(
-                        stageWidth,
-                        stageHeight,
-                        inviter, 
-                        game_secret,
-                        player,
-                        gameName,
-                        this.characterListParams
-                    )
-                    this.stage.addChild(toTensionScaleResult);
-                    this.sprite.visible = false;
-                    this._shape.visible = false
-                    this.rightIcon.visible = false;
+                    var self = this
+                    base.API.call('save_players_process', { 
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
+                        'process': '4.0'
+                    }).then(function (response){
+
+                        let toTensionScaleResult = new game.TensionScaleResult(
+                            stageWidth,
+                            stageHeight,
+                            inviter, 
+                            game_secret,
+                            player,
+                            gameName,
+                            self.characterListParams
+                        )
+                        self.stage.addChild(toTensionScaleResult);
+                        self.sprite.visible = false;
+                        self._shape.visible = false
+                        self.rightIcon.visible = false;
+
+                    })
 
                 }else{
                     console.log('打分结束')
                     base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('set_player_score', { 
                             'params': this.map, 
                             'inviter_name': this.inviter, 
@@ -156,17 +182,32 @@ namespace game {
                     })
 
                     this.count += 1
-                    let charater = new game.Character(
-                        game_secret, inviter, 
-                        player, gameName, 
-                        stageWidth, stageHeight, 
-                        this.count, this.characterListParams);
-                    this.sprite.visible = false
-                    this.removeChild(this.rightIcon)
-                    this.removeChild(this.closeIcon)
-                    this._shape.visible = false
-                    this.stage.addChild(charater);
-                    this.tiptext.text = ''
+                    var self = this
+                    var process = '3.'+ self.count.toString()
+
+                    base.API.call('save_players_process', { 
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
+                        'process': process
+                    }).then(function (response){
+
+                        let charater = new game.Character(
+                            game_secret, inviter, 
+                            player, gameName, 
+                            stageWidth, stageHeight, 
+                            self.count, self.characterListParams);
+
+                        self.sprite.visible = false
+                        self.removeChild(self.rightIcon)
+                        self.removeChild(self.closeIcon)
+                        self._shape.visible = false
+                        self.stage.addChild(charater);
+                        self.tiptext.text = ''
+
+                    })
+
 
                 }
 
@@ -292,10 +333,11 @@ namespace game {
 
                                 if(player_name.x > (self.stageWidth-250-w)){
                                     player_name.x = self.stageWidth-250-w
-                                    if(player_name.y > 240 && player_name.y < self.stageHeight -100){
+                                    if(player_name.y > 240 && player_name.y < self.stageHeight -150-player_name.height){
                                         player_score.x = player_name.x + w
                                         player_score.y = player_name.y
-                                        var scorey = (self.stageHeight-150-240)/81
+
+                                        var scorey = (self.stageHeight-150-240-player_name.height)/81
                                         player_score.text =  (Math.ceil((player_score.y - 240) / scorey)).toString()
                                         self.sprite.addChild(player_score)
 
@@ -304,9 +346,13 @@ namespace game {
                                         self.map[playerName] = _score
                                         console.log(self.map)
 
-                                        
                                     }
                                 }
+                                if(player_name.y > self.stageHeight - 150 - player_name.height){
+                                    player_name.y = self.stageHeight -150 -player_name.height
+                                }
+
+
                             }
                         }, this)
                     } , this);

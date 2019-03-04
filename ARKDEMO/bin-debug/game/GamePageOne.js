@@ -97,40 +97,31 @@ var game;
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
-                var game_secret = this.game_secret;
-                var inviter = this.inviter;
-                var player = this.player;
-                var gameName = this.gameName;
-                var stageWidth = this.stageWidth;
-                var stageHeight = this.stageHeight;
-                var count = 0;
-                var playerCount = this.playerList.length;
-                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
-                this.stage.addChild(characterChoosePage);
-                this.sprite.visible = false;
-                this.removeChild(this.rightIcon);
-                this.removeChild(this.closeIcon);
-                this.closeTip();
-                this._shape.visible = false;
-                // var self = this
-                // base.API.Init("http://39.104.85.167:8105/api/");
-                // base.API.call('set_player_score', {
-                //     'params': this.map, 
-                //     'inviter_name': this.inviter, 
-                //     'gameSecret': this.game_secret,
-                //     'player': this.player,
-                //     'gameName': this.gameName,
-                //     'charaChooser': this.inviter,
-                //     'characterOne': this.characterOne,
-                //     'characterTwo': this.characterTwo
-                // }).then(function (response){
-                //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
-                //     self.stage.addChild(pageOneResult)
-                //     self.sprite.visible=false
-                //     self.tiptext.text=''
-                //     self.removeChild(self.rightIcon)
-                //     self.removeChild(self.closeIcon)
-                // })
+                var self = this;
+                base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.call('save_players_process', {
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
+                    'process': '2.0'
+                }).then(function (response) {
+                    var game_secret = self.game_secret;
+                    var inviter = self.inviter;
+                    var player = self.player;
+                    var gameName = self.gameName;
+                    var stageWidth = self.stageWidth;
+                    var stageHeight = self.stageHeight;
+                    var count = 0;
+                    var playerCount = self.playerList.length;
+                    var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
+                    self.stage.addChild(characterChoosePage);
+                    self.sprite.visible = false;
+                    self.removeChild(self.rightIcon);
+                    self.removeChild(self.closeIcon);
+                    self.closeTip();
+                    self._shape.visible = false;
+                });
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                 // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -140,10 +131,6 @@ var game;
                 // this.removeChild(this.rightIcon)
                 // this.removeChild(this.closeIcon)
             }
-            // }else{
-            //     this.addChild(this.tiptext)
-            //     this.tip(100, 100, 'Everyont must be graded!', 40)
-            // }
         };
         GamePageOne.prototype.tip = function (width, height, msg, size) {
             var tiptext = this.tiptext;
@@ -182,7 +169,6 @@ var game;
             charater2.y = cy;
         };
         GamePageOne.prototype.getPlayList = function () {
-            // base.API.Init("http://39.104.85.167:8105/api/");
             base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_player_list', {
@@ -265,15 +251,6 @@ var game;
                     }
                 });
             });
-        };
-        GamePageOne.prototype.onTouchEnd = function () {
-            egret.log("onTouchEnd");
-        };
-        GamePageOne.prototype.onTouchMove = function () {
-            egret.log("onTouchMove");
-        };
-        GamePageOne.prototype.onTouchTap = function () {
-            egret.log("onTouchTap");
         };
         return GamePageOne;
     }(egret.DisplayObjectContainer));

@@ -120,53 +120,46 @@ namespace game {
             // if(this.playerList.length == scoreCounts){
 
                 if(this.stage){
-                    let game_secret = this.game_secret
-                    let inviter = this.inviter
-                    let player = this.player
-                    let gameName = this.gameName
-                    let stageWidth = this.stageWidth
-                    let stageHeight = this.stageHeight
-                    let count = 0
-                    let playerCount = this.playerList.length
 
-                    let characterChoosePage = new game.CharacterChoosePage(
-                        game_secret,
-                        inviter, 
-                        player, 
-                        gameName, 
-                        stageWidth, 
-                        stageHeight,
-                        playerCount
-                    )
-                    this.stage.addChild(characterChoosePage)
-                    this.sprite.visible = false;
-                    this.removeChild(this.rightIcon);
-                    this.removeChild(this.closeIcon);
-                    this.closeTip();
-                    this._shape.visible = false
 
-                    // var self = this
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    // base.API.call('set_player_score', {
-                    //     'params': this.map, 
-                    //     'inviter_name': this.inviter, 
-                    //     'gameSecret': this.game_secret,
-                    //     'player': this.player,
-                    //     'gameName': this.gameName,
-                    //     'charaChooser': this.inviter,
-                    //     'characterOne': this.characterOne,
-                    //     'characterTwo': this.characterTwo
 
-                    // }).then(function (response){
+                    var self = this
+                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.call('save_players_process', {
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
+                        'process': '2.0'
+                    }).then(function (response){
 
-                    //     let pageOneResult = new game.CharacterChoosePage(game_secret,inviter, player, gameName, stageWidth, stageHeight);
-                    //     self.stage.addChild(pageOneResult)
-                    //     self.sprite.visible=false
-                    //     self.tiptext.text=''
-                    //     self.removeChild(self.rightIcon)
-                    //     self.removeChild(self.closeIcon)
+                        let game_secret = self.game_secret
+                        let inviter = self.inviter
+                        let player = self.player
+                        let gameName = self.gameName
+                        let stageWidth = self.stageWidth
+                        let stageHeight = self.stageHeight
+                        let count = 0
+                        let playerCount = self.playerList.length
+                        let characterChoosePage = new game.CharacterChoosePage(
+                            game_secret,
+                            inviter, 
+                            player, 
+                            gameName, 
+                            stageWidth, 
+                            stageHeight,
+                            playerCount
+                        )
 
-                    // })
+                        self.stage.addChild(characterChoosePage)
+                        self.sprite.visible = false;
+                        self.removeChild(self.rightIcon);
+                        self.removeChild(self.closeIcon);
+                        self.closeTip();
+                        self._shape.visible = false
+
+                    })
+
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                     // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -177,11 +170,6 @@ namespace game {
                     // this.removeChild(this.closeIcon)
                     
                 }
-            // }else{
-
-            //     this.addChild(this.tiptext)
-            //     this.tip(100, 100, 'Everyont must be graded!', 40)
-            // }
         }
 
         private tip(width, height, msg, size){
@@ -228,9 +216,7 @@ namespace game {
             charater2.y = cy
         }
 
-
         private getPlayList():void{
-            // base.API.Init("http://39.104.85.167:8105/api/");
             base.API.Init("http://39.104.85.167:8105/api/");
             let self=this;
             base.API.call('get_player_list', {
@@ -244,10 +230,8 @@ namespace game {
                 self.playerList.forEach((val, index, array) => {
 
                     if(val == self.player){
-
                         var player_name: egret.TextField = new egret.TextField()
                         player_name.text = val
-                        
                         player_name.textAlign =  egret.HorizontalAlign.CENTER
                         player_name.size = 30
                         player_name.lineSpacing = 10
@@ -333,18 +317,6 @@ namespace game {
 
                 }) 
             })
-        }
-
-        private onTouchEnd(): void {
-            egret.log("onTouchEnd");
-        }
-
-        private onTouchMove(): void {
-            egret.log("onTouchMove");
-        }
-
-        private onTouchTap(): void {
-            egret.log("onTouchTap");
         }
 
     }

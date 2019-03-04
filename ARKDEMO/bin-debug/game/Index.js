@@ -20,15 +20,8 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
-            // this.sprite.graphics.beginFill(0xff0000);
-            // this.sprite.graphics.drawRect(0, 0, 200, 50);
-            // this.sprite.graphics.endFill();
-            // this.sprite.anchorOffsetX = this.sprite.width / 2 ;
-            // this.sprite.anchorOffsetY = this.sprite.height / 2 ;
             _this.addChild(_this.sprite);
             _this.sprite.touchEnabled = true;
-            // this.sprite.x = stageWidth / 2
-            // this.sprite.y = stageHeight / 2
             _this.label = new egret.TextField();
             _this.label.text = "create game";
             _this.label.height = 80;
@@ -46,15 +39,10 @@ var game;
             _this.label.textColor = 0xFF0000;
             _this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
             _this.addChild(_this.label);
-            // this.sprite.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnd, this);
-            // this.sprite.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouchMove, this);
-            // this.sprite.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchTap, this);
             _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.getGameList, _this);
             return _this;
         }
         Index.prototype.getGameList = function () {
-            // base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.Init("http://39.104.85.167:8105/api/");
             base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_game_list', {}).then(function (response) {

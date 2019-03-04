@@ -263,8 +263,6 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
 @api
 def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
-    print(inviter, gameSecret, player, gameName)
-
     _player = Player.objects.filter(
         name=player, game_secret=gameSecret,
         inviter_name=inviter, game_name=gameName
@@ -282,12 +280,16 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         status=0
     ).first()
 
+
+
     chooser_list = characterListParams[0]
     character_list = characterListParams[1]
     playercount = len(chooser_list)
 
     result_list = []
 
+
+    # print('characterListParams:'+characterListParams)
 
     for index in range(0, playercount):
 
@@ -301,6 +303,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
         character_one = Character.objects.filter(name=character_list[index][0]).first()
         character_two = Character.objects.filter(name=character_list[index][1]).first()
+
         characterChoose = CharacterChoose.objects.filter(
             character_one=character_one, character_two=character_two,
             player=chooser, game=game
@@ -309,7 +312,9 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
 
         count = player_scores.count()
-        print('count:', count)
+
+        print('count：'+str(count), 'playercount:'+str(playercount))
+
         _player_score_list = []
 
         if count == playercount:
@@ -318,9 +323,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
                     # continue
                 _player_score_list.append(_.score)
 
-            print(_player_score_list)
             middle = str(int(sum(list(map(int, _player_score_list))) / len(_player_score_list)))
-            print('middle：',middle)
 
             result.append(middle)
 
@@ -331,8 +334,71 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
     return {'code':0, 'result': result_list}
 
 
+@api
+def save_players_process(inviter_name, game_secret, player, game_name, process, *args, **kwargs):
+
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=game_name
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=game_name
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=game_name,
+        status=0
+    ).first()
+
+    game_process = GameProcess.objects.filter(game=game, player=_player).first()
+    if game_process:
+        game_process.process = process
+        game_process.save()
+
+    else:
+        GameProcess.objects.create(game=game, player=_player, process=process)
 
 
+@api
+def get_players_process(game_secret, inviter_name, player, gameName):
 
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
+
+    gameProcess = GameProcess.objects.filter(game=game, player=_player).first()
+    if gameProcess:
+        process = gameProcess.process
+        if process[0] == '2':
+            return {'code':0, 'process':'2.0', 'playercount':playercount}
+
+        elif process[0] == '3':
+            return {'code':0, 'process':3, 'processson':int(process[2]), 'playercount':playercount}
+
+        elif process[0] == '4':
+            return {'code':0, 'process':4, 'playercount':playercount}
+
+
+    return {'code': 0, 'process':1}
 
 

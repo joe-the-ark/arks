@@ -15,6 +15,12 @@ namespace game {
         private gameName = ''
         private isPlayer = 0
         private inviter = ''
+        private player = ''
+        private allcharacterlist = []
+        private playerCount = 0
+        private characterList = []
+        private stageWidth = 0
+        private stageHeight = 0
         public constructor(game_secret, gameName, inviter, stageWidth, stageHeight) {
             super();
             this.game_secret = game_secret
@@ -22,6 +28,12 @@ namespace game {
             this.inviter = inviter
 
             this.sprite = new egret.Sprite();
+
+            
+            this.stageHeight = stageHeight
+            this.stageWidth = stageWidth
+
+
             this.sprite.width = stageWidth
             this.sprite.height = stageHeight
             this.addChild(this.sprite)
@@ -113,27 +125,17 @@ namespace game {
 
         private onTouchBegin(): void {
             var player = this.txInput.text
+            this.player = player
             var game_secret = this.txInput2.text
 
             console.log('player:' + player)
 
             var self = this
             if (player && game_secret) {
-                console.log(game_secret)
-                console.log(this.game_secret)
-
-
-				// base.API.Init("http://39.104.85.167:8105/api/")
                 base.API.Init("http://39.104.85.167:8105/api/");
 				base.API.call("find_players", {'game_secret': self.game_secret, 'gameName': self.gameName} ).then(function (response) {
-					console.log(response)
 					let play_list = response['player_list']
-
-                    console.log(self.txInput.text)
-
 					var index = play_list.indexOf(self.txInput.text)
-
-                    console.log(index)
                     if(game_secret != self.game_secret){
                         self.text2.text = "please input the correct secret to enter the game"
                     }else if( index == -1) {
@@ -141,13 +143,145 @@ namespace game {
 
                     }else {
                         if(self.stage){
-                            console.log(33333)
-                            let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
-                            self.stage.addChild(gamePageOne)
-                            self.sprite.visible = false
+                            base.API.call('get_players_process', {
+                                'game_secret':self.game_secret,
+                                'inviter_name':self.inviter,
+                                'player':player,
+                                'gameName': self.gameName
+
+                            }).then(function (response){
+
+                                console.log(response)
+                                var process = response['process']
+                                var playerCount = response['playercount']
+                                var processson = response['processson']
+                                self.playerCount = playerCount
+
+
+                                if(process == '2.0'){
+                                    let characterChoosePage = new game.CharacterChoosePage(
+                                        game_secret,
+                                        self.inviter, 
+                                        player, 
+                                        self.gameName, 
+                                        self.stage.stageWidth, 
+                                        self.stage.stageHeight,
+                                        playerCount
+                                    )
+                                    self.stage.addChild(characterChoosePage)
+                                    self.sprite.visible = false
+                                }
+                                else if(process == '3'){
+
+                                    var that = self
+                                    var count = 0
+                                    base.API.call('get_player_characterlist', {
+                                        'game_secret':that.game_secret,
+                                        'inviter':that.inviter,
+                                        'player' : that.player,
+                                        'gameName' : that.gameName,
+                                    }).then(function (response){
+                                        var character_list = response['data']
+
+                                        var characterList = []
+                                        
+                                        character_list.forEach((val, index, array) =>{
+                                            var player_name = val[0]
+                                            if(self.playerList.indexOf(player_name) == -1){
+                                                count ++ 
+                                                // console.log(count)
+                                                // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
+                                                that.allcharacterlist.push(val[1])
+                                                // self.sprite.addChild(tensionScale)
+                                                // tensionScale.x = self.stageWidth - 200
+                                                // tensionScale.y = self.count * 150
+                                                that.playerList.push(player_name)
+                                            }
+                                        })
+                                        if(count == playerCount){
+                                            console.log('character_list')
+                                            characterList.push(that.playerList)
+                                            characterList.push(that.allcharacterlist)
+                                        }
+
+                                        let game_secret = that.game_secret
+                                        let inviter = that.inviter
+                                        let player = that.player
+                                        let gameName = that.gameName
+                                        let stageWidth = that.stage.stageWidth
+                                        let stageHeight = that.stage.stageHeight
+                                        let processson1 = processson
+                                        let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, processson1, characterList);
+                                        that.stage.addChild(charater);
+                                        that.sprite.visible = false
+
+                                    })
+ 
+
+                                }
+                                else if(process == '4'){
+
+                                    var that = self
+                                    var count = 0
+                                    base.API.call('get_player_characterlist', {
+                                        'game_secret':that.game_secret,
+                                        'inviter':that.inviter,
+                                        'player' : that.player,
+                                        'gameName' : that.gameName,
+                                    }).then(function (response){
+                                        var character_list = response['data']
+
+                                        var characterList = []
+                                        character_list.forEach((val, index, array) =>{
+                                            var player_name = val[0]
+                                            if(self.playerList.indexOf(player_name) == -1){
+                                                count ++ 
+                                                that.allcharacterlist.push(val[1])
+                                                that.playerList.push(player_name)
+                                            }
+                                        })
+                                        if(count == playerCount){
+                                            console.log('character_list')
+                                            characterList.push(that.playerList)
+                                            characterList.push(that.allcharacterlist)
+                                        }
+
+                                        let toTensionScaleResult = new game.TensionScaleResult(
+                                            that.stage.stageWidth,
+                                            that.stage.stageWidth,
+                                            that.inviter, 
+                                            game_secret,
+                                            player,
+                                            that.gameName, 
+                                            characterList
+                                        )
+                                        that.stage.addChild(toTensionScaleResult);
+                                        that.sprite.visible = false;
+
+
+                                    })
+
+
+
+
+                                }
+                                else {
+
+                                    let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
+                                    self.stage.addChild(gamePageOne)
+                                    self.sprite.visible = false
+
+
+                                }
+
+
+                            })
+
+
+
+
                         }
                     }
-
 					self.isPlayer = index
 
 				}).catch(function (err) {
@@ -157,35 +291,6 @@ namespace game {
 			}else {
 				this.text2.text = "you must input your name and the game's secret"
 			}
-
-            // if(player){
-            //     var duplicate = 0
-            //     this.playerList.forEach((val, index, array) => {
-            //         console.log(val)
-            //         if(val == player){
-            //             this.text2.text = 'please dont invite the duplicate player !'
-            //             duplicate = 1
-            //         }
-            //     })
-            //     console.log(duplicate)
-            //     if(duplicate == 0) {
-            //         this.playerList.push(player)
-            //         this.count += 1
-            //         this.text2.text = 'You have invited '+ this.count + ' players'
-
-            //         base.API.Init("http://39.104.85.167:8105/api/")
-                    // base.API.call("create_player", {'player_name': player} ).then(function (response) {
-
-
-            //     console.log(response)
-
-            // }).catch(function (err) {
-            //     console.log(err);
-            // });
-
-            //     }
-            // }
-
         }
 
 
