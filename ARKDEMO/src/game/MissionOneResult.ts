@@ -4,8 +4,6 @@ namespace game{
 
         public sprite: egret.Sprite
 
-
-
         public constructor(stageWidth, stageHeigh, inviter, game_secret, player, gameName, characterOne, characterTwo, playerScore, middle) {
             super();
 

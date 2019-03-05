@@ -18,13 +18,10 @@ def create_game(inviter, gameName, game_id):
 
     game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
 
-
     # character_one = Character.objects.filter(name='Insufficiently').first()
     # character_two = Character.objects.filter(name='Fully').first()
-
     # print(character_two)
     # print(character_one)
-
     # CharacterChoose.objects.create(
     #     character_one=character_one, character_two=character_two,
     #     player=player, game=game
@@ -124,13 +121,25 @@ def set_player_score(
             name=k, game_secret=gameSecret, game_name=gameName, inviter_name=inviter_name
         ).first()
 
-        PlayerScore.objects.create(
+
+        playerScore = PlayerScore.objects.filter(
             character_choose=characterChoose,
-            score=v,
             scorer=scorer,
             player=_player,
             game=game
-        )
+        ).first()
+
+        if playerScore:
+            playerScore.score = v
+            playerScore.save()
+        else:
+            PlayerScore.objects.create(
+                character_choose=characterChoose,
+                score=v,
+                scorer=scorer,
+                player=_player,
+                game=game
+            )
 
     return {'code':0, 'msg':'打分成功'}
 
@@ -239,9 +248,6 @@ def get_player_score(inviter, gameName, gameSecret, player, character_one, chara
 @api
 def get_player_characterlist(game_secret,inviter,player,gameName):
 
-    print(game_secret)
-    print(inviter)
-
     _inviter = Player.objects.filter(
         name=inviter, inviter_name=inviter,
         game_name=gameName, game_secret=game_secret
@@ -256,7 +262,6 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
 
     data = [ [_.player.name, [_.character_one.name, _.character_two.name]]  for _ in cha_list if cha_list]
 
-    print(data)
     return {'code':0, 'data':data}
 
 
@@ -280,14 +285,12 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         status=0
     ).first()
 
-
-
     chooser_list = characterListParams[0]
     character_list = characterListParams[1]
     playercount = len(chooser_list)
 
     result_list = []
-
+    player_scores = []
 
     # print('characterListParams:'+characterListParams)
 
@@ -310,26 +313,25 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         ).first()
 
         player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
-
         count = player_scores.count()
-
         print('count：'+str(count), 'playercount:'+str(playercount))
 
         _player_score_list = []
 
         if count == playercount:
+            player_score = 0
             for _ in player_scores:
-                # if _.scorer.id == _player.id:
+                if _.scorer.id == _player.id:
+                    player_score = _.score
                     # continue
                 _player_score_list.append(_.score)
 
             middle = str(int(sum(list(map(int, _player_score_list))) / len(_player_score_list)))
 
             result.append(middle)
+            result.append(player_score)
 
         result_list.append(result)
-
-    print(result_list)
 
     return {'code':0, 'result': result_list}
 
@@ -400,5 +402,4 @@ def get_players_process(game_secret, inviter_name, player, gameName):
 
 
     return {'code': 0, 'process':1}
-
 

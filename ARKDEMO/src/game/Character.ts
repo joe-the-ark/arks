@@ -112,7 +112,6 @@ namespace game {
         }
 
         private nextTouch(){
-
             var scoreCounts = this.sprite.numChildren-this.playerList.length-4
             if(this.playerList.length == scoreCounts){
                 let game_secret = this.game_secret
@@ -125,7 +124,7 @@ namespace game {
                 if(this.count + 1 == this.characterList.length){
 
                     console.log('打分结束')
-                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call('set_player_score', { 
                             'params': this.map, 
                             'inviter_name': this.inviter, 
@@ -156,7 +155,8 @@ namespace game {
                             game_secret,
                             player,
                             gameName,
-                            self.characterListParams
+                            self.characterListParams,
+                            self.count+1
                         )
                         self.stage.addChild(toTensionScaleResult);
                         self.sprite.visible = false;
@@ -167,7 +167,7 @@ namespace game {
 
                 }else{
                     console.log('打分结束')
-                    base.API.Init("http://39.104.85.167:8105/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call('set_player_score', { 
                             'params': this.map, 
                             'inviter_name': this.inviter, 
@@ -207,7 +207,6 @@ namespace game {
                         self.tiptext.text = ''
 
                     })
-
 
                 }
 
@@ -273,8 +272,8 @@ namespace game {
         }
 
         private getPlayList():void{
-            base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://127.0.0.1:8000/api/");
             let self=this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -351,8 +350,6 @@ namespace game {
                                 if(player_name.y > self.stageHeight - 150 - player_name.height){
                                     player_name.y = self.stageHeight -150 -player_name.height
                                 }
-
-
                             }
                         }, this)
                     } , this);

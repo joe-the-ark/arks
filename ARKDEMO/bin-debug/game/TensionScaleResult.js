@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var TensionScaleResult = (function (_super) {
         __extends(TensionScaleResult, _super);
-        function TensionScaleResult(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams) {
+        function TensionScaleResult(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams, playerCount) {
             var _this = _super.call(this) || this;
             _this.unselectedCharacterList = [];
             _this.selectedChaeacterList = [];
@@ -23,6 +23,7 @@ var game;
             _this.characterListParams = [];
             _this.stageWidth = 0;
             _this.stageHeight = 0;
+            _this.playerCount = 0;
             _this.simulatedData = [];
             _this._touchStatus = false;
             _this.game_secret = game_secret;
@@ -30,6 +31,7 @@ var game;
             _this.gameName = gameName;
             _this.inviter = inviter;
             _this.characterListParams = characterListParams;
+            _this.playerCount = playerCount;
             console.log(characterListParams);
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
@@ -41,11 +43,20 @@ var game;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight - 100;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
             return _this;
         }
         TensionScaleResult.prototype.getGameResult = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -57,14 +68,6 @@ var game;
                 self.simulatedData = result;
                 self.drawTensionScale();
             });
-        };
-        TensionScaleResult.prototype.startGame = function (game_secret, gameName, inviter) {
-            if (this.stage) {
-                var enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
-                this.stage.addChild(enterGame);
-                this.sprite.visible = false;
-                this.label.visible = false;
-            }
         };
         TensionScaleResult.prototype.drawTitle = function () {
             var shape = new egret.Shape();
@@ -85,8 +88,11 @@ var game;
             console.log(this.simulatedData);
             this.simulatedData.forEach(function (val, index, array) {
                 try {
-                    var score = val[2].toString();
-                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
+                    var player_score = val[3].toString();
+                    var middle_score = val[2].toString();
+                    var character1 = val[0];
+                    var character2 = val[2];
+                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], player_score);
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
                         tensionScale.y = 150 + (index - 1) * 100;
@@ -98,10 +104,38 @@ var game;
                     _this.sprite.addChild(tensionScale);
                 }
                 catch (error) {
-                    // score = ''
-                    console.log(1111111);
                 }
             });
+            console.log(this.simulatedData);
+            if (this.simulatedData[2]) {
+                if (this.playerCount == this.simulatedData[2].length - 1) {
+                    this.addChild(this.rightIcon);
+                    this.timer.stop();
+                }
+            }
+        };
+        TensionScaleResult.prototype.rightNext = function () {
+            // console.log('向右像牛')
+            // var self = this
+            // base.API.call('save_players_process', { 
+            //     'inviter_name': self.inviter, 
+            //     'game_secret': self.game_secret,
+            //     'player': self.player,
+            //     'game_name': self.gameName,
+            //     'process': '5.0'
+            // }).then(function (response){
+            //     var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName)
+            //     self.stage.addChild(missionResult)
+            //     self.sprite.visible=false
+            //     self.rightIcon.visible=false
+            // })
+            var self = this;
+            if (self.stage) {
+                var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams);
+                self.stage.addChild(missionResult);
+                self.sprite.visible = false;
+                self.rightIcon.visible = false;
+            }
         };
         TensionScaleResult.prototype.onTouchBegin = function () {
             if (this.stage) {

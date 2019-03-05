@@ -69,7 +69,6 @@ namespace game {
 
             this.sprite.addChild(topCharacterBg);
             this.sprite.addChild(bottomCharacterBg);
-
             this.sprite.addChild(toptext);
             this.sprite.addChild(buttomtext);
             

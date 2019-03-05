@@ -8,7 +8,7 @@
 		"libs/modules/game/game.js"
 	],
 	"game": [
-		"bin-debug/game/CreateGame.js",
+		"bin-debug/game/EnterGame.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Platform.js",
 		"bin-debug/base/API.js",
@@ -17,14 +17,17 @@
 		"bin-debug/base/ThemeAdapter.js",
 		"bin-debug/game/Character.js",
 		"bin-debug/game/CharacterChoosePage.js",
+		"bin-debug/game/CreateGame.js",
 		"bin-debug/Main.js",
-		"bin-debug/game/EnterGame.js",
 		"bin-debug/game/GamePageOne.js",
 		"bin-debug/game/Index.js",
 		"bin-debug/game/InviteFriends.js",
 		"bin-debug/game/LoadingScene.js",
+		"bin-debug/game/MissionOneResult.js",
+		"bin-debug/game/MissionResult.js",
 		"bin-debug/game/PageOneResult.js",
 		"bin-debug/game/TensionScale.js",
-		"bin-debug/game/TensionScaleResult.js"
+		"bin-debug/game/TensionScaleResult.js",
+		"bin-debug/game/ZORAMap.js"
 	]
 }

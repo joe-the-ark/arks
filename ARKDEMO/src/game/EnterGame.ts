@@ -132,7 +132,7 @@ namespace game {
 
             var self = this
             if (player && game_secret) {
-                base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
 				base.API.call("find_players", {'game_secret': self.game_secret, 'gameName': self.gameName} ).then(function (response) {
 					let play_list = response['player_list']
 					var index = play_list.indexOf(self.txInput.text)
@@ -220,7 +220,6 @@ namespace game {
 
                                 }
                                 else if(process == '4'){
-
                                     var that = self
                                     var count = 0
                                     base.API.call('get_player_characterlist', {
@@ -248,12 +247,13 @@ namespace game {
 
                                         let toTensionScaleResult = new game.TensionScaleResult(
                                             that.stage.stageWidth,
-                                            that.stage.stageWidth,
+                                            that.stage.stageHeight,
                                             that.inviter, 
                                             game_secret,
                                             player,
                                             that.gameName, 
-                                            characterList
+                                            characterList,
+                                            playerCount
                                         )
                                         that.stage.addChild(toTensionScaleResult);
                                         that.sprite.visible = false;
