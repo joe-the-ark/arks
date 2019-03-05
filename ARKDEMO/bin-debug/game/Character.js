@@ -101,7 +101,7 @@ var game;
                 var stageHeight_1 = this.stageHeight;
                 if (this.count + 1 == this.characterList.length) {
                     console.log('打分结束');
-                    base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('set_player_score', {
                         'params': this.map,
                         'inviter_name': this.inviter,
@@ -132,7 +132,7 @@ var game;
                 }
                 else {
                     console.log('打分结束');
-                    base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('set_player_score', {
                         'params': this.map,
                         'inviter_name': this.inviter,
@@ -218,8 +218,8 @@ var game;
             charater1.y = cy;
         };
         Character.prototype.getPlayList = function () {
-            base.API.Init("http://127.0.0.1:8000/api/");
-            // base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
+            // base.API.Init("http://39.104.85.167:8105/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,

@@ -120,7 +120,7 @@ var game;
             console.log('player:' + player);
             var self = this;
             if (player && game_secret) {
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://39.104.85.167:8105/api/");
                 base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
                     var play_list = response['player_list'];
                     var index = play_list.indexOf(self.txInput.text);

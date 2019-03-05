@@ -179,7 +179,7 @@ namespace game {
         private rightNext(){
 
                 var self = this
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://39.104.85.167:8105/api/");
                 base.API.call('save_players_process', {
                     'inviter_name': self.inviter, 
                     'game_secret': self.game_secret,
@@ -206,7 +206,7 @@ namespace game {
 
         private getPlayerCharacterList(){
             var self = this
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             
             base.API.call('get_player_characterlist', {
                 'game_secret':self.game_secret,
@@ -273,7 +273,7 @@ namespace game {
         }
 
         private getCharacterList(): void {
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://39.104.85.167:8105/api/");
             const self = this;
             base.API.call('get_character_list', {}).then(function (response) {
                 self.unselectedCharacterList = response['characters']
@@ -397,7 +397,7 @@ namespace game {
         private addTensionScale(): void {
             var self = this
             if(this.select_list.length = 2){
-                base.API.Init('http://127.0.0.1:8000/api/')
+                base.API.Init('http://39.104.85.167:8105/api/')
                 base.API.call('save_character_choose', {
                     'inviterName':self.inviter, 
                     'gameSecret':self.game_secret, 
