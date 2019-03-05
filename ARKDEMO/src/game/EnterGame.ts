@@ -257,29 +257,14 @@ namespace game {
                                         )
                                         that.stage.addChild(toTensionScaleResult);
                                         that.sprite.visible = false;
-
-
                                     })
-
-
-
-
                                 }
                                 else {
-
                                     let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
                                     self.stage.addChild(gamePageOne)
                                     self.sprite.visible = false
-
-
                                 }
-
-
                             })
-
-
-
-
                         }
                     }
 					self.isPlayer = index
