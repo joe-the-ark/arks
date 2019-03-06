@@ -83,6 +83,9 @@ var game;
             _this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.closeTip, _this);
             _this.addChild(_this.closeIcon);
             _this.tiptext = new egret.TextField();
+            var process = Math.ceil(((count + 1) / _this.charaChooser.length) * 65 + 20);
+            var probessBar = new game.ProcessBar(stageWidth, stageHeight, process, 'Mission 1 > Vote Tension Scale');
+            _this.sprite.addChild(probessBar);
             return _this;
         }
         Character.prototype.closeTip = function () {
@@ -91,7 +94,7 @@ var game;
             }
         };
         Character.prototype.nextTouch = function () {
-            var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
+            var scoreCounts = this.sprite.numChildren - this.playerList.length - 5;
             if (this.playerList.length == scoreCounts) {
                 var game_secret_1 = this.game_secret;
                 var inviter_1 = this.inviter;
@@ -180,11 +183,11 @@ var game;
         };
         Character.prototype.drawRect = function () {
             var shape1 = this.rectShapeOne;
-            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth + 60, 180);
             shape1.graphics.endFill();
             var shape2 = this.rectShapeTwo;
-            shape2.graphics.beginFill(0xff0000, 0.5);
+            shape2.graphics.beginFill(0x359f93, 0.5);
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
         };

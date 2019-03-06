@@ -32,7 +32,6 @@ namespace game {
         private map:{[key:string] : string} = {}
         public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight) {
             
-
             super();
             this.game_secret = game_secret
             this.player = player
@@ -104,7 +103,11 @@ namespace game {
             this.tiptext = new egret.TextField()
             this.addChild(this.tiptext)
             var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81."
-            this.tip(1,1, msg, 30)
+            this.tip(1,50, msg, 30)
+
+            let probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale')
+            this.sprite.addChild(probessBar)
+
         }
 
 
@@ -115,14 +118,9 @@ namespace game {
         }
 
         private nextTouch(){
-            
             var scoreCounts = this.sprite.numChildren-this.playerList.length-4
             // if(this.playerList.length == scoreCounts){
-
                 if(this.stage){
-
-
-
                     var self = this
                     base.API.Init("http://39.104.85.167:8105/api/");
                     base.API.call('save_players_process', {
@@ -185,14 +183,15 @@ namespace game {
         private drawRect() {
 
             var shape1: egret.Shape = this.rectShapeOne;
-            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth + 60, 180);
             shape1.graphics.endFill();
 
             var shape2: egret.Shape = this.rectShapeTwo;
-            shape2.graphics.beginFill(0xff0000, 0.5);
+            shape2.graphics.beginFill(0x359f93, 0.5);
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
+
 
         }
 

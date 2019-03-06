@@ -36,7 +36,6 @@ namespace game {
 
         private chooseText = []
 
-
         public constructor(game_secret,inviter, player, gameName, stageWidth, stageHeight,playerCount) {
             super();
             this.stageWidth = stageWidth
@@ -126,6 +125,11 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerCharacterList, this);
             this.timer.start()
+
+
+            let probessBar = new game.ProcessBar(stageWidth, stageHeight, 20, 'Mission 1 > Tension Scales')
+            this.sprite.addChild(probessBar)
+
 
         }
 
@@ -248,18 +252,18 @@ namespace game {
 
         private drawTitleBackground() {
             let shape1: egret.Shape = this.titleBackground;
-            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape1.graphics.endFill();
         }
 
         private createTitle() {
             let title: egret.TextField = new egret.TextField();
-            title.text = "Task: SCREEN through the list and name the TWOSOMES of formative tensions that unite, seperate and define the organizing dynamics in your team.";
-            title.size = 30;
+            title.text = "Task: screen through the list and name the twosomes of formative tensions that unite, seperate and define the organizing dynamics in your team.";
+            title.size = 25;
             title.width = this.stageWidth;
             title.x = 320 - title.textWidth / 2;
-            title.y = 10;
+            title.y = 50;
             this.sprite.addChild(title);
         }
 

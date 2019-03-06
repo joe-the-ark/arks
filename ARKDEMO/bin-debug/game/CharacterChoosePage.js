@@ -110,6 +110,8 @@ var game;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerCharacterList, _this);
             _this.timer.start();
+            var probessBar = new game.ProcessBar(stageWidth, stageHeight, 20, 'Mission 1 > Tension Scales');
+            _this.sprite.addChild(probessBar);
             return _this;
         }
         CharacterChoosePage.prototype.touchone = function () {
@@ -219,17 +221,17 @@ var game;
         };
         CharacterChoosePage.prototype.drawTitleBackground = function () {
             var shape1 = this.titleBackground;
-            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape1.graphics.endFill();
         };
         CharacterChoosePage.prototype.createTitle = function () {
             var title = new egret.TextField();
-            title.text = "Task: SCREEN through the list and name the TWOSOMES of formative tensions that unite, seperate and define the organizing dynamics in your team.";
-            title.size = 30;
+            title.text = "Task: screen through the list and name the twosomes of formative tensions that unite, seperate and define the organizing dynamics in your team.";
+            title.size = 25;
             title.width = this.stageWidth;
             title.x = 320 - title.textWidth / 2;
-            title.y = 10;
+            title.y = 50;
             this.sprite.addChild(title);
         };
         CharacterChoosePage.prototype.drawSplitLine = function () {

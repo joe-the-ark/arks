@@ -41,9 +41,13 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
 
+            console.log(stageWidth)
+
             this.playerScore = player_score
-            this.playerScore = player_score
+            // this.playerScore = player_score
             this.tensionMedian =(Number(player_score) + Number(median)).toString()
+            // this.tensionMedian = '40'
+
             this.characterTwo = characterTwo
             this.characterOne = characterOne
             this.player_name = player_name
@@ -58,7 +62,7 @@ namespace game {
 
             this._shape = new egret.Shape()
             this.addChild(this._shape)
-            this.initGraphics()
+            // this.initGraphics()
             this.drawVoteArea()
      
         }
@@ -107,9 +111,13 @@ namespace game {
             character2.borderColor = 0x3a5fcd
             character2.x = this.stageWidth - 140
             character2.y = 150
+
+
             line.graphics.lineStyle(2, 0xdd2222)
             line.graphics.moveTo(110, 210)
             line.graphics.lineTo(500, 210)
+
+
             playerName.text = this.player_name
             playerName.textAlign = egret.HorizontalAlign.CENTER
             playerName.size = 20
@@ -159,7 +167,6 @@ namespace game {
             this.sprite.addChild(tensionScaleMedian)
             this.sprite.addChild(tensionScaleMedianName)
         }
-
         
         
 

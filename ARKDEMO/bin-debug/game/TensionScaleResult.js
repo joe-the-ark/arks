@@ -52,6 +52,8 @@ var game;
             _this.rightIcon.y = stageHeight - 100;
             _this.rightIcon.touchEnabled = true;
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
+            var probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions');
+            _this.sprite.addChild(probessBar);
             return _this;
         }
         TensionScaleResult.prototype.getGameResult = function () {
@@ -71,7 +73,7 @@ var game;
         };
         TensionScaleResult.prototype.drawTitle = function () {
             var shape = new egret.Shape();
-            shape.graphics.beginFill(0x00ff00, 0.5);
+            shape.graphics.beginFill(0x359f93, 0.5);
             shape.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape.graphics.endFill();
             this.sprite.addChild(shape);
@@ -79,8 +81,8 @@ var game;
             title.text = "Identify the major sources of tension with you teammates";
             title.size = 30;
             title.width = this.stageWidth;
-            title.x = 20;
-            title.y = 2;
+            title.x = 1;
+            title.y = 50;
             this.sprite.addChild(title);
         };
         TensionScaleResult.prototype.drawTensionScale = function () {

@@ -33,9 +33,11 @@ var game;
             _this.map = {};
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
+            console.log(stageWidth);
             _this.playerScore = player_score;
-            _this.playerScore = player_score;
+            // this.playerScore = player_score
             _this.tensionMedian = (Number(player_score) + Number(median)).toString();
+            // this.tensionMedian = '40'
             _this.characterTwo = characterTwo;
             _this.characterOne = characterOne;
             _this.player_name = player_name;
@@ -48,7 +50,7 @@ var game;
             _this.addChild(_this.sprite);
             _this._shape = new egret.Shape();
             _this.addChild(_this._shape);
-            _this.initGraphics();
+            // this.initGraphics()
             _this.drawVoteArea();
             return _this;
         }

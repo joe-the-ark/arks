@@ -85,7 +85,9 @@ var game;
             _this.tiptext = new egret.TextField();
             _this.addChild(_this.tiptext);
             var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81.";
-            _this.tip(1, 1, msg, 30);
+            _this.tip(1, 50, msg, 30);
+            var probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale');
+            _this.sprite.addChild(probessBar);
             return _this;
         }
         GamePageOne.prototype.closeTip = function () {
@@ -142,11 +144,11 @@ var game;
         };
         GamePageOne.prototype.drawRect = function () {
             var shape1 = this.rectShapeOne;
-            shape1.graphics.beginFill(0xff0000, 0.5);
+            shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth + 60, 180);
             shape1.graphics.endFill();
             var shape2 = this.rectShapeTwo;
-            shape2.graphics.beginFill(0xff0000, 0.5);
+            shape2.graphics.beginFill(0x359f93, 0.5);
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
         };

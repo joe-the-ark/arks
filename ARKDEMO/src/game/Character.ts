@@ -103,6 +103,13 @@ namespace game {
             this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
             this.addChild(this.closeIcon)
             this.tiptext = new egret.TextField()
+
+
+            var process = Math.ceil(((count+1) / this.charaChooser.length) * 65 + 20 )
+
+            let probessBar = new game.ProcessBar(stageWidth, stageHeight, process, 'Mission 1 > Vote Tension Scale')
+            this.sprite.addChild(probessBar)
+
         }
 
         private closeTip():void{
@@ -112,7 +119,7 @@ namespace game {
         }
 
         private nextTouch(){
-            var scoreCounts = this.sprite.numChildren-this.playerList.length-4
+            var scoreCounts = this.sprite.numChildren-this.playerList.length-5
             if(this.playerList.length == scoreCounts){
                 let game_secret = this.game_secret
                 let inviter = this.inviter
@@ -229,12 +236,12 @@ namespace game {
         private drawRect() {
 
             var shape1:egret.Shape = this.rectShapeOne;
-            shape1.graphics.beginFill( 0xff0000, 0.5); 
+            shape1.graphics.beginFill( 0x359f93, 0.5); 
             shape1.graphics.drawRect( 0, 0, this.stageWidth + 60, 180 ); 
             shape1.graphics.endFill();
 
             var shape2:egret.Shape = this.rectShapeTwo;
-            shape2.graphics.beginFill( 0xff0000, 0.5); 
+            shape2.graphics.beginFill( 0x359f93, 0.5); 
             shape2.graphics.drawRect( 0, this.stageHeight - 100, this.stageWidth+60, 200); 
             shape2.graphics.endFill();
 

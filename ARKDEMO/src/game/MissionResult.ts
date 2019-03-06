@@ -13,6 +13,7 @@ namespace game{
         private titleBackground: egret.Shape
         private characterListParams = []
         public simulatedData = [];
+        private _shape: egret.Shape
 
         public constructor(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams) {
             super();
@@ -29,7 +30,25 @@ namespace game{
             this.drawTitle();
             // this.drawLine()
             this.drawResult()
+            this._shape = new egret.Shape()
+            this.addChild(this._shape)
+            this.initGraphics()
+            let probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map')
+            this.sprite.addChild(probessBar)
 
+        }
+
+        private initGraphics(): void {
+            let shape: egret.Shape = this._shape
+            shape.graphics.lineStyle(2, 0xff00ff)
+            shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight)
+            shape.graphics.lineTo(this.stageWidth / 2, 130)
+
+            let buffer: egret.Shape = this._shape
+            buffer.graphics.beginFill(0xaaff00, 0.5)
+            buffer.graphics.lineStyle(0)
+            buffer.graphics.drawRect(this.stageWidth / 2 - 30, 130, 60, this.stageHeight)
+            buffer.graphics.endFill()
         }
 
         private drawResult(){
@@ -57,6 +76,7 @@ namespace game{
 
                     let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[2], val[3], this.stageWidth, this.stageHeight)
                     zoramap.x = 10
+                    console.log(zoramap)
                     zoramap.y = 200 + (index-1)*150
 
                     // if (index % 2 == 1) {
@@ -87,7 +107,7 @@ namespace game{
 
         private drawTitle() {
             let shape: egret.Shape = new egret.Shape();
-            shape.graphics.beginFill(0x00ff00, 0.5);
+            shape.graphics.beginFill(0x359f93, 0.5);
             shape.graphics.drawRect(0, 0, this.stageWidth, 130);
             shape.graphics.endFill();
             this.sprite.addChild(shape);
@@ -96,8 +116,8 @@ namespace game{
             title.text = "Mission 1 Complete: Here is an image of you in your Team‘s Zone of Responsible Action."
             title.size = 30;
             title.width = this.stageWidth;
-            title.x = 10
-            title.y = 2;
+            title.x = 1
+            title.y = 50;
             this.sprite.addChild(title)
         }
 
