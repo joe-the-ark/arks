@@ -12,20 +12,24 @@ var game;
 (function (game) {
     var TensionScale = (function (_super) {
         __extends(TensionScale, _super);
-        function TensionScale(stageWidth, stageHeight, select_list, score) {
+        function TensionScale(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian) {
             var _this = _super.call(this) || this;
-            _this.unselectedCharacterList = [];
-            _this.selectedChaeacterList = [];
-            _this.game_secret = '';
-            _this.gameName = '';
-            _this.inviter = '';
             _this.stageWidth = 0;
             _this.stageHeight = 0;
-            _this._touchStatus = false;
+            /***     初始赋值代码结束    ***/
             _this.select_list = [];
-            _this.score = '';
+            // public absoluteValueOfDeviation
+            _this.selfPerciption = 1;
+            _this.individualTensionScaleMedian = 60;
+            _this.deviationBetweenITSM_SP = _this.selfPerciption - _this.individualTensionScaleMedian;
+            _this.absoluteValueOfDeviation = Math.abs(_this.deviationBetweenITSM_SP);
+            _this.teamTensionScaleMedian = 30;
+            _this.ZORAMin = _this.teamTensionScaleMedian - 13;
+            _this.ZORAMax = _this.teamTensionScaleMedian + 13;
             _this.select_list = select_list;
-            _this.score = score;
+            _this.selfPerciption = selfPerciption;
+            _this.teamTensionScaleMedian = teamTensionScaleMedian;
+            _this.absoluteValueOfDeviation = absoluteValueOfDeviation;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
@@ -35,14 +39,6 @@ var game;
             _this.drawScore();
             return _this;
         }
-        // private startGame(game_secret: string, gameName: string, inviter: string) {
-        //     if (this.stage) {
-        //         let enterGame = new game.EnterGame(game_secret, gameName, inviter, this.stage.stageWidth, this.stage.stageHeight);
-        //         this.stage.addChild(enterGame)
-        //         this.sprite.visible = false
-        //         this.label.visible = false
-        //     }
-        // }
         TensionScale.prototype.drawCharacter = function () {
             var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
             var topCharacterBg = new egret.Shape();
@@ -71,45 +67,46 @@ var game;
             this.sprite.addChild(buttomtext);
         };
         TensionScale.prototype.drawScore = function () {
-            var score_bg = new egret.Shape();
-            var score = new egret.TextField();
-            var randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
-            // let randomColor = 0x0000ff 
-            var randomLineColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100);
-            var randomScore = this.score;
-            score_bg.graphics.beginFill(0x7FFFD4, 0.7);
-            score_bg.graphics.lineStyle(2, 0x7D9EC0);
-            score_bg.graphics.drawCircle(90, 70, 20);
-            score_bg.graphics.endFill();
-            this.sprite.addChild(score_bg);
-            score.text = randomScore;
-            score.size = 20;
-            score.textColor = 0xffffff;
-            score.x = 80;
-            score.y = 60;
-            this.sprite.addChild(score);
-        };
-        TensionScale.prototype.onTouchBegin = function () {
-            if (this.stage) {
-                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight);
-                this.stage.addChild(inviteScene);
-                this.sprite.visible = false;
-                this.label.visible = false;
+            var scoreRedBg = new egret.Shape();
+            var scoreYellowBg = new egret.Shape();
+            var scoreWhiteBg = new egret.Shape();
+            var absoluteValueOfDeviation = new egret.TextField();
+            scoreRedBg.graphics.beginFill(0xC14343);
+            scoreRedBg.graphics.lineStyle(2, 0xffffff);
+            scoreRedBg.graphics.drawCircle(90, 70, 30);
+            scoreRedBg.graphics.endFill();
+            scoreYellowBg.graphics.beginFill(0xC9CA68);
+            scoreYellowBg.graphics.lineStyle(2, 0xffffff);
+            scoreYellowBg.graphics.drawCircle(90, 70, 30);
+            scoreYellowBg.graphics.endFill();
+            scoreWhiteBg.graphics.beginFill(0xFBF9F2);
+            scoreWhiteBg.graphics.lineStyle(2, 0xffffff);
+            scoreWhiteBg.graphics.drawCircle(90, 70, 30);
+            scoreWhiteBg.graphics.endFill();
+            if (this.ZORAMin > this.selfPerciption || this.selfPerciption > this.ZORAMax) {
+                this.sprite.addChild(scoreRedBg);
+                if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {
+                    scoreYellowBg.graphics.beginFill(0xC14343);
+                    scoreYellowBg.graphics.lineStyle(0, 0xffffff);
+                    scoreYellowBg.graphics.drawCircle(90, 70, 20);
+                    scoreYellowBg.graphics.endFill();
+                    this.sprite.addChild(scoreYellowBg);
+                }
             }
-        };
-        TensionScale.prototype.getRandomScore = function (Min, Max) {
-            var Range = Max - Min;
-            var Rand = Math.random();
-            return (Min + Math.round(Rand * Range));
-        };
-        TensionScale.prototype.onTouchEnd = function () {
-            egret.log("onTouchEnd");
-        };
-        TensionScale.prototype.onTouchMove = function () {
-            egret.log("onTouchMove");
-        };
-        TensionScale.prototype.onTouchTap = function () {
-            egret.log("onTouchTap");
+            else if (this.ZORAMin <= this.selfPerciption && this.selfPerciption <= this.ZORAMax) {
+                if (this.ZORAMin <= this.individualTensionScaleMedian && this.individualTensionScaleMedian <= this.ZORAMax) {
+                    this.sprite.addChild(scoreWhiteBg);
+                }
+                else if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {
+                    this.sprite.addChild(scoreYellowBg);
+                }
+            }
+            absoluteValueOfDeviation.text = this.absoluteValueOfDeviation.toString();
+            absoluteValueOfDeviation.size = 20;
+            absoluteValueOfDeviation.textColor = 0x000000;
+            absoluteValueOfDeviation.x = 80;
+            absoluteValueOfDeviation.y = 60;
+            this.sprite.addChild(absoluteValueOfDeviation);
         };
         return TensionScale;
     }(egret.DisplayObjectContainer));

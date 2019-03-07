@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var ZORAMap = (function (_super) {
         __extends(ZORAMap, _super);
-        function ZORAMap(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight) {
+        function ZORAMap(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm) {
             var _this = _super.call(this) || this;
             _this.playerList = [];
             _this.game_secret = '';
@@ -31,13 +31,13 @@ var game;
             _this.median = 0;
             _this.characterList = [];
             _this.map = {};
+            _this.ttsm = 0;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
+            _this.ttsm = Number(ttsm);
             console.log(stageWidth);
             _this.playerScore = player_score;
-            // this.playerScore = player_score
             _this.tensionMedian = (Number(player_score) + Number(median)).toString();
-            // this.tensionMedian = '40'
             _this.characterTwo = characterTwo;
             _this.characterOne = characterOne;
             _this.player_name = player_name;
@@ -50,53 +50,40 @@ var game;
             _this.addChild(_this.sprite);
             _this._shape = new egret.Shape();
             _this.addChild(_this._shape);
-            // this.initGraphics()
             _this.drawVoteArea();
             return _this;
         }
-        //初始化赋值
-        ZORAMap.prototype.initGraphics = function () {
-            var shape = this._shape;
-            shape.graphics.lineStyle(2, 0xff00ff);
-            shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight);
-            shape.graphics.lineTo(this.stageWidth / 2, 130);
-            var buffer = this._shape;
-            buffer.graphics.beginFill(0xaaff00, 0.5);
-            buffer.graphics.lineStyle(0);
-            buffer.graphics.drawRect(this.stageWidth / 2 - 30, 130, 60, this.stageHeight);
-            buffer.graphics.endFill();
-        };
         ZORAMap.prototype.drawVoteArea = function () {
             var character1 = new egret.TextField();
             var character2 = new egret.TextField();
             var line = this._shape;
             var playerName = new egret.TextField();
             var playerScore = new egret.TextField();
-            var playerX = (390 / 81) * Number(this.playerScore) + 110;
+            var playerX = Math.ceil((Number(this.playerScore) - this.ttsm) * (200 / 81) + (this.stageWidth / 2));
             var tensionScaleMedian = new egret.TextField();
             var tensionScaleMedianName = new egret.TextField();
-            var tensionScaleX = (390 / 81) * Number(this.tensionMedian) + 110;
+            var tensionScaleX = Math.ceil((Number(this.tensionMedian) - this.ttsm) * (200 / 81) + (this.stageWidth / 2));
             character1.text = this.characterOne;
             character1.textAlign = egret.HorizontalAlign.CENTER;
-            character1.size = 40;
+            character1.size = 30;
             character1.border = true;
-            character1.width = 80;
+            character1.width = 60;
             character1.height = 120;
             character1.borderColor = 0x3a5fcd;
-            character1.x = 30;
+            character1.x = Math.ceil((this.stageWidth / 2) - ((200 / 81) * this.ttsm + 60));
             character1.y = 150;
             character2.text = this.characterTwo;
             character2.textAlign = egret.HorizontalAlign.CENTER;
-            character2.size = 40;
+            character2.size = 30;
             character2.border = true;
-            character2.width = 80;
+            character2.width = 60;
             character2.height = 120;
             character2.borderColor = 0x3a5fcd;
-            character2.x = this.stageWidth - 140;
+            character2.x = (this.stageWidth / 2) + Math.ceil(((200 / 81) * (81 - this.ttsm) + 60));
             character2.y = 150;
             line.graphics.lineStyle(2, 0xdd2222);
-            line.graphics.moveTo(110, 210);
-            line.graphics.lineTo(500, 210);
+            line.graphics.moveTo(character1.x + 60, 210);
+            line.graphics.lineTo(character2.x, 210);
             playerName.text = this.player_name;
             playerName.textAlign = egret.HorizontalAlign.CENTER;
             playerName.size = 20;

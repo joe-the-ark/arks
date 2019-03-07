@@ -195,7 +195,7 @@ var game;
                     var player_name = val[0];
                     if (self.playerList.indexOf(player_name) == -1) {
                         self.count++;
-                        var tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0);
+                        var tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0, 0, 0);
                         self.allcharacterlist.push(val[1]);
                         self.sprite.addChild(tensionScale);
                         tensionScale.x = self.stageWidth - 200;
@@ -361,7 +361,7 @@ var game;
                 });
             }
             if (this.stage) {
-                var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list, 0);
+                var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list, 0, 0, 0);
                 console.log(tensionScale);
                 this.sprite.addChild(tensionScale);
                 tensionScale.x = this.stageWidth - 200;

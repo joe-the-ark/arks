@@ -23,6 +23,8 @@ namespace game {
         public constructor(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams, playerCount) {
             super();
 
+            console.log(characterListParams)
+
             this.game_secret = game_secret
             this.player = player
             this.gameName = gameName
@@ -50,8 +52,6 @@ namespace game {
             this.rightIcon.y = stageHeight -100
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
-
-
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
 
@@ -70,7 +70,6 @@ namespace game {
                 var result = response['result']
                 self.simulatedData = result
                 self.drawTensionScale();
-
             })
         }
 
@@ -98,8 +97,8 @@ namespace game {
                     var middle_score = val[2].toString()
                     var character1 = val[0]
                     var character2 = val[2]
-
-                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], player_score);
+                    var absoluteValueOfDeviation = Math.abs(player_score- middle_score)
+                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, middle_score);
 
 
                     if (index % 2 == 1) {

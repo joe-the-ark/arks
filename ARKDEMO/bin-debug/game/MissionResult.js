@@ -22,6 +22,7 @@ var game;
             _this.stageHeight = 0;
             _this.characterListParams = [];
             _this.simulatedData = [];
+            _this.ttsms = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.player = player;
@@ -39,8 +40,28 @@ var game;
             _this.initGraphics();
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map');
             _this.sprite.addChild(probessBar);
+            console.log('ttsmsstart3:');
+            console.log(_this.ttsms);
+            console.log('ttsmsend3:');
             return _this;
         }
+        MissionResult.prototype.getTTSMS = function () {
+            var self = this;
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call('get_ttsm', {
+                'characterListParams': self.characterListParams,
+                'inviter': self.inviter,
+                'gameSecret': self.game_secret,
+                'player': self.player,
+                'gameName': self.gameName,
+            }).then(function (response) {
+                var result = response['result'];
+                self.ttsms = result;
+                console.log('ttsmsstart1:');
+                console.log(self.ttsms);
+                console.log('ttsmsend1:');
+            });
+        };
         MissionResult.prototype.initGraphics = function () {
             var shape = this._shape;
             shape.graphics.lineStyle(2, 0xff00ff);
@@ -49,7 +70,7 @@ var game;
             var buffer = this._shape;
             buffer.graphics.beginFill(0xaaff00, 0.5);
             buffer.graphics.lineStyle(0);
-            buffer.graphics.drawRect(this.stageWidth / 2 - 30, 130, 60, this.stageHeight);
+            buffer.graphics.drawRect(this.stageWidth / 2 - Math.ceil(200 / 81 * 13), 130, Math.ceil(200 / 81 * 13) * 2, this.stageHeight);
             buffer.graphics.endFill();
         };
         MissionResult.prototype.drawResult = function () {
@@ -64,18 +85,43 @@ var game;
             }).then(function (response) {
                 var result = response['result'];
                 self.simulatedData = result;
-                self.drawTensionScale();
+                var that = self;
+                base.API.call('get_ttsm', {
+                    'characterListParams': that.characterListParams,
+                    'inviter': that.inviter,
+                    'gameSecret': that.game_secret,
+                    'player': that.player,
+                    'gameName': that.gameName,
+                }).then(function (response) {
+                    var result = response['result'];
+                    that.ttsms = result;
+                    console.log('ttsmsstart1:');
+                    console.log(that.ttsms);
+                    console.log('ttsmsend1:');
+                    self.drawTensionScale(that.ttsms);
+                });
+                // self.drawTensionScale();
             });
+            console.log(11111111111);
+            console.log(self.simulatedData);
+            console.log(111111111);
+            console.log('ttsmsstart2:');
+            console.log(self.ttsms);
+            console.log('ttsmsend2:');
         };
-        MissionResult.prototype.drawTensionScale = function () {
+        MissionResult.prototype.drawTensionScale = function (ttsms) {
             var _this = this;
             console.log(this.simulatedData);
+            this.ttsms = ttsms;
+            console.log(this.ttsms);
+            console.log(222222);
             this.simulatedData.forEach(function (val, index, array) {
                 try {
+                    var ttsm = _this.ttsms[index];
                     var score = val[2].toString();
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
-                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[2], val[3], _this.stageWidth, _this.stageHeight);
-                    zoramap.x = 10;
+                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[2], val[3], _this.stageWidth, _this.stageHeight, ttsm);
+                    // zoramap.x = 10
                     console.log(zoramap);
                     zoramap.y = 200 + (index - 1) * 150;
                     // if (index % 2 == 1) {
@@ -94,7 +140,7 @@ var game;
         };
         MissionResult.prototype.drawLine = function () {
             var shape = new egret.Shape();
-            shape.graphics.lineStyle(4, 0xff00ff);
+            shape.graphics.lineStyle(Math.ceil((200 / 81) * 13), 0xff00ff);
             shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight);
             shape.graphics.lineTo(this.stageWidth / 2, 150);
             this.sprite.addChild(shape);

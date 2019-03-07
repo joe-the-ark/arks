@@ -26,6 +26,7 @@ var game;
             _this.playerCount = 0;
             _this.simulatedData = [];
             _this._touchStatus = false;
+            console.log(characterListParams);
             _this.game_secret = game_secret;
             _this.player = player;
             _this.gameName = gameName;
@@ -94,7 +95,8 @@ var game;
                     var middle_score = val[2].toString();
                     var character1 = val[0];
                     var character2 = val[2];
-                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], player_score);
+                    var absoluteValueOfDeviation = Math.abs(player_score - middle_score);
+                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, middle_score);
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
                         tensionScale.y = 150 + (index - 1) * 100;

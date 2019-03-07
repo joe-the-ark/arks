@@ -35,18 +35,18 @@ namespace game {
         private median = 0
         private characterList = []
         private map: { [key: string]: string } = {}
-        public constructor(characterOne, characterTwo,player_name, player_score, median, stageWidth, stageHeight) {
+
+        public ttsm = 0
+        public constructor(characterOne, characterTwo,player_name, player_score, median, stageWidth, stageHeight, ttsm) {
             super()
 
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
-
+            this.ttsm = Number(ttsm)
             console.log(stageWidth)
 
             this.playerScore = player_score
-            // this.playerScore = player_score
             this.tensionMedian =(Number(player_score) + Number(median)).toString()
-            // this.tensionMedian = '40'
 
             this.characterTwo = characterTwo
             this.characterOne = characterOne
@@ -62,25 +62,10 @@ namespace game {
 
             this._shape = new egret.Shape()
             this.addChild(this._shape)
-            // this.initGraphics()
             this.drawVoteArea()
      
         }
 
-
-        //初始化赋值
-        private initGraphics(): void {
-            let shape: egret.Shape = this._shape
-            shape.graphics.lineStyle(2, 0xff00ff)
-            shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight)
-            shape.graphics.lineTo(this.stageWidth / 2, 130)
-
-            let buffer: egret.Shape = this._shape
-            buffer.graphics.beginFill(0xaaff00, 0.5)
-            buffer.graphics.lineStyle(0)
-            buffer.graphics.drawRect(this.stageWidth / 2 - 30, 130, 60, this.stageHeight)
-            buffer.graphics.endFill()
-        }
 
         private drawVoteArea(): void {
             let character1: egret.TextField = new egret.TextField()
@@ -88,35 +73,40 @@ namespace game {
             let line: egret.Shape = this._shape
             let playerName: egret.TextField = new egret.TextField()
             let playerScore: egret.TextField = new egret.TextField()
-            let playerX = (390 / 81) * Number(this.playerScore) + 110
+
+
+            let playerX = Math.ceil((Number(this.playerScore)-this.ttsm) * (200/81) + (this.stageWidth/2))
+
+
             let tensionScaleMedian: egret.TextField = new egret.TextField()
             let tensionScaleMedianName: egret.TextField = new egret.TextField()
-            let tensionScaleX = (390 / 81) * Number(this.tensionMedian) + 110
+
+            let tensionScaleX = Math.ceil((Number(this.tensionMedian) - this.ttsm) * (200/81) + (this.stageWidth/2))
             
             character1.text = this.characterOne
             character1.textAlign = egret.HorizontalAlign.CENTER
-            character1.size = 40
+            character1.size = 30
             character1.border = true
-            character1.width = 80
+            character1.width = 60
             character1.height = 120
             character1.borderColor = 0x3a5fcd
-            character1.x = 30
+            character1.x = Math.ceil((this.stageWidth/2) - ((200/81) * this.ttsm + 60))
+
             character1.y = 150
             character2.text = this.characterTwo
             character2.textAlign = egret.HorizontalAlign.CENTER
-            character2.size = 40
+            character2.size = 30
             character2.border = true
-            character2.width = 80
+            character2.width = 60
             character2.height = 120
             character2.borderColor = 0x3a5fcd
-            character2.x = this.stageWidth - 140
+            character2.x = (this.stageWidth/2) + Math.ceil(((200/81) * (81-this.ttsm) + 60))
             character2.y = 150
 
 
             line.graphics.lineStyle(2, 0xdd2222)
-            line.graphics.moveTo(110, 210)
-            line.graphics.lineTo(500, 210)
-
+            line.graphics.moveTo(character1.x + 60, 210)
+            line.graphics.lineTo(character2.x, 210)
 
             playerName.text = this.player_name
             playerName.textAlign = egret.HorizontalAlign.CENTER
@@ -128,6 +118,7 @@ namespace game {
             playerName.x = playerX
             playerName.y = 260
             playerName.rotation = 270
+
             playerScore.text = this.playerScore
             playerScore.textAlign = egret.HorizontalAlign.CENTER
             playerScore.size = 20
@@ -138,6 +129,8 @@ namespace game {
             playerScore.x = playerX
             playerScore.y = 210
             playerScore.rotation = 270
+
+
             tensionScaleMedian.text = this.tensionMedian + '/' + this.median
             tensionScaleMedian.textAlign = egret.HorizontalAlign.CENTER
             tensionScaleMedian.size = 20
@@ -148,6 +141,7 @@ namespace game {
             tensionScaleMedian.x = tensionScaleX
             tensionScaleMedian.y = 210
             tensionScaleMedian.rotation = 270
+
             tensionScaleMedianName.text = this.player_name
             tensionScaleMedianName.textAlign = egret.HorizontalAlign.CENTER
             tensionScaleMedianName.size = 20
