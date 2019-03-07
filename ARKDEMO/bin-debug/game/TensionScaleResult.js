@@ -26,6 +26,7 @@ var game;
             _this.playerCount = 0;
             _this.simulatedData = [];
             _this._touchStatus = false;
+            _this.ttsms = [];
             console.log(characterListParams);
             _this.game_secret = game_secret;
             _this.player = player;
@@ -68,6 +69,7 @@ var game;
                 'gameName': self.gameName,
             }).then(function (response) {
                 var result = response['result'];
+                self.ttsms = response['ttsms'];
                 self.simulatedData = result;
                 self.drawTensionScale();
             });
@@ -89,6 +91,9 @@ var game;
         TensionScaleResult.prototype.drawTensionScale = function () {
             var _this = this;
             console.log(this.simulatedData);
+            console.log('tssmsssssddsfasdfasdf');
+            console.log(this.ttsms);
+            console.log('tssmsssssddsfasdfasdf');
             this.simulatedData.forEach(function (val, index, array) {
                 try {
                     var player_score = val[3].toString();
@@ -96,7 +101,7 @@ var game;
                     var character1 = val[0];
                     var character2 = val[2];
                     var absoluteValueOfDeviation = Math.abs(player_score - middle_score);
-                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, middle_score);
+                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, _this.ttsms[index]);
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
                         tensionScale.y = 150 + (index - 1) * 100;

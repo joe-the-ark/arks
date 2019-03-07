@@ -327,10 +327,62 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
             result.append(middle)
             result.append(player_score)
-
         result_list.append(result)
 
-    return {'code':0, 'result': result_list}
+
+
+    # _inviter = Player.objects.filter(
+    #     name=inviter, game_secret=gameSecret,
+    #     inviter_name=inviter, game_name=gameName
+    # ).first()
+
+    # game = Game.objects.filter(
+    #     game_secret=gameSecret,
+    #     inviter=_inviter,
+    #     game_name=gameName,
+    #     status=0
+    # ).first()
+
+    players = Player.objects.filter(
+        game_secret=gameSecret, inviter_name=inviter, game_name=gameName
+    )
+
+    ttsms = []
+    for _player in players:
+
+        chooser_list = characterListParams[0]
+        character_list = characterListParams[1]
+        playercount = len(chooser_list)
+
+        middles = []
+        for index in range(0, playercount):
+            chooser = Player.objects.filter(
+                name=chooser_list[index], game_secret=gameSecret,
+                inviter_name=inviter, game_name=gameName
+            ).first()
+
+            character_one = Character.objects.filter(name=character_list[index][0]).first()
+            character_two = Character.objects.filter(name=character_list[index][1]).first()
+            characterChoose = CharacterChoose.objects.filter(
+                character_one=character_one, character_two=character_two,
+                player=chooser, game=game
+            ).first()
+            player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
+            print(player_scores)
+            _player_score_list = []
+
+            for _ in player_scores:
+                _player_score_list.append(_.score)
+
+            middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
+            middles.append(middle)
+
+            print(middles)
+
+        ttsms.append(str(int(sum(middles) / playercount)))
+
+
+    return {'code':0, 'result': result_list, 'ttsms':ttsms}
 
 
 @api

@@ -19,6 +19,7 @@ namespace game {
 
         public _touchStatus: boolean = false;
         public label: egret.TextField
+        public ttsms = []
 
         public constructor(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams, playerCount) {
             super();
@@ -68,6 +69,9 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response){
                 var result = response['result']
+
+                self.ttsms = response['ttsms']
+
                 self.simulatedData = result
                 self.drawTensionScale();
             })
@@ -91,6 +95,9 @@ namespace game {
 
         private drawTensionScale() {
             console.log(this.simulatedData)
+            console.log('tssmsssssddsfasdfasdf')
+            console.log(this.ttsms)
+            console.log('tssmsssssddsfasdfasdf')
             this.simulatedData.forEach((val, index, array) => {
                 try {
                     var player_score = val[3].toString()
@@ -98,8 +105,8 @@ namespace game {
                     var character1 = val[0]
                     var character2 = val[2]
                     var absoluteValueOfDeviation = Math.abs(player_score- middle_score)
-                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, middle_score);
 
+                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, this.ttsms[index]);
 
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
