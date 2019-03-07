@@ -3,67 +3,67 @@ from django.db import models
 # Create your models here.
 
 class Player(models.Model):
-    name = models.CharField(max_length=100, verbose_name='玩家名')
-    game_secret = models.CharField(max_length=200, verbose_name='游戏房间密码', null=True, blank=True)
-    game_name = models.CharField(max_length=200, verbose_name='游戏名称')
-    inviter_name = models.CharField(max_length=200, verbose_name='邀请人名称')
+    name = models.CharField(max_length=100, verbose_name='player_name')
+    game_secret = models.CharField(max_length=200, verbose_name='game_password', null=True, blank=True)
+    game_name = models.CharField(max_length=200, verbose_name='game_name')
+    inviter_name = models.CharField(max_length=200, verbose_name='creater')
 
     class Meta(object):
-            verbose_name = verbose_name_plural = '玩家表'
+            verbose_name = verbose_name_plural = 'players'
 
     def __str__(self):
         return self.name
 
 class Game(models.Model):
-    game_secret = models.CharField(max_length=200, verbose_name='游戏房间密码', null=True, blank=True)
-    game_name = models.CharField(max_length=200, verbose_name='游戏名称')
-    inviter = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='游戏发起人', related_name='inviter_game')
+    game_secret = models.CharField(max_length=200, verbose_name='game_password', null=True, blank=True)
+    game_name = models.CharField(max_length=200, verbose_name='game_name')
+    inviter = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='creater', related_name='inviter_game')
     status = models.IntegerField(
         default=0,
-        choices=((0, '正常'), (1, '已结束')),
-        verbose_name='游戏状态'
+        choices=((0, 'nomal'), (1, 'end')),
+        verbose_name='game_status'
     )
 
     class Meta(object):
-            verbose_name = verbose_name_plural = '游戏表'
+            verbose_name = verbose_name_plural = 'games'
 
     def __str__(self):
         return 'name:' + self.game_name + '，' + 'inviter:'+self.inviter.name
 
 class Character(models.Model):
-    name = models.CharField(max_length=100, verbose_name='性格')
+    name = models.CharField(max_length=100, verbose_name='scale')
     class Meta(object):
-            verbose_name = verbose_name_plural = '性格表'
+            verbose_name = verbose_name_plural = 'scales'
 
     def __str__(self):
         return self.name
 
 class CharacterChoose(models.Model):
-    character_one = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='性格一', related_name='character_one')
-    character_two = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='性格二', related_name='character_two')
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='选择人')
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name='游戏')
+    character_one = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='scale_one', related_name='character_one')
+    character_two = models.ForeignKey(Character, on_delete=models.CASCADE, verbose_name='scale_two', related_name='character_two')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='chooser')
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name='game')
     status = models.IntegerField(
         default=0,
-        choices=((0, '正常'), (1, '已展示')),
-        verbose_name='性格展示状态'
+        choices=((0, 'nomal'), (1, 'showed')),
+        verbose_name='status'
     )
 
     class Meta(object):
-            verbose_name = verbose_name_plural = '性格选择表'
+            verbose_name = verbose_name_plural = 'tension_scale'
 
     def __str__(self):
         return self.character_one.name +','+self.character_two.name
 
 class PlayerScore(models.Model):
     character_choose = models.ForeignKey('CharacterChoose', on_delete=models.CASCADE)
-    score = models.CharField(max_length=100, verbose_name='分数')
-    scorer = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='打分人', related_name='scorer_score')
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='被打分人', related_name='player_score')
-    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='游戏')
+    score = models.CharField(max_length=100, verbose_name='score')
+    scorer = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='voting_person', related_name='scorer_score')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='voted_person', related_name='player_score')
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='game')
 
     class Meta(object):
-            verbose_name = verbose_name_plural = '玩家打分表'
+            verbose_name = verbose_name_plural = 'voting'
 
     def __str__(self):
         return self.player.name + ':'+ self.score
@@ -73,11 +73,11 @@ class PlayerScore(models.Model):
 class GameProcess(models.Model):
 
     class Meta(object):
-        verbose_name = verbose_name_plural = '游戏进程表'
+        verbose_name = verbose_name_plural = 'progress'
 
-    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='游戏')
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='玩家')
-    process = models.CharField(max_length=100, verbose_name='进度')
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='game')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='player')
+    process = models.CharField(max_length=100, verbose_name='progress')
 
     def __str__(self):
         return self.game.game_name+'__'+self.player.name+'__'+self.process
