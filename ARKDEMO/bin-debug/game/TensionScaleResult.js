@@ -27,7 +27,6 @@ var game;
             _this.simulatedData = [];
             _this._touchStatus = false;
             _this.ttsms = [];
-            console.log(characterListParams);
             _this.game_secret = game_secret;
             _this.player = player;
             _this.gameName = gameName;
@@ -56,11 +55,16 @@ var game;
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions');
             _this.sprite.addChild(probessBar);
+            var tip = new game.MajorTensionsTip(stageWidth, stageHeight);
+            tip.y = stageHeight - 300;
+            tip.x = 3;
+            tip.width = stageWidth - 3;
+            _this.sprite.addChild(tip);
             return _this;
         }
         TensionScaleResult.prototype.getGameResult = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -96,12 +100,13 @@ var game;
             console.log('tssmsssssddsfasdfasdf');
             this.simulatedData.forEach(function (val, index, array) {
                 try {
-                    var player_score = val[3].toString();
-                    var middle_score = val[2].toString();
+                    var player_score = Number(val[3].toString());
+                    var middle_score = Number(val[2].toString());
                     var character1 = val[0];
                     var character2 = val[2];
                     var absoluteValueOfDeviation = Math.abs(player_score - middle_score);
-                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, _this.ttsms[index]);
+                    var individualTensionScaleMedian = middle_score;
+                    var tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, Number(_this.ttsms[index]), individualTensionScaleMedian);
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
                         tensionScale.y = 150 + (index - 1) * 100;

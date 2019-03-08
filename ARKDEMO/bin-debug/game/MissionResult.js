@@ -37,7 +37,7 @@ var game;
             _this.drawResult();
             _this._shape = new egret.Shape();
             _this.addChild(_this._shape);
-            _this.initGraphics();
+            _this._shape.alpha = 0.5;
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map');
             _this.sprite.addChild(probessBar);
             console.log('ttsmsstart3:');
@@ -47,7 +47,7 @@ var game;
         }
         MissionResult.prototype.getTTSMS = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_ttsm', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -64,18 +64,18 @@ var game;
         };
         MissionResult.prototype.initGraphics = function () {
             var shape = this._shape;
-            shape.graphics.lineStyle(2, 0xff00ff);
+            shape.graphics.lineStyle(2, 0xFAFAD2);
             shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight);
             shape.graphics.lineTo(this.stageWidth / 2, 130);
             var buffer = this._shape;
-            buffer.graphics.beginFill(0xaaff00, 0.5);
+            buffer.graphics.beginFill(0xFFF68F, 0.5);
             buffer.graphics.lineStyle(0);
             buffer.graphics.drawRect(this.stageWidth / 2 - Math.ceil(200 / 81 * 13), 130, Math.ceil(200 / 81 * 13) * 2, this.stageHeight);
             buffer.graphics.endFill();
         };
         MissionResult.prototype.drawResult = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -100,6 +100,7 @@ var game;
                     console.log('ttsmsend1:');
                     self.drawTensionScale(that.ttsms);
                 });
+                self.initGraphics();
                 // self.drawTensionScale();
             });
             console.log(11111111111);
@@ -120,7 +121,7 @@ var game;
                     var ttsm = _this.ttsms[index];
                     var score = val[2].toString();
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
-                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[2], val[3], _this.stageWidth, _this.stageHeight, ttsm);
+                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[3], val[2], _this.stageWidth, _this.stageHeight, ttsm);
                     // zoramap.x = 10
                     console.log(zoramap);
                     zoramap.y = 200 + (index - 1) * 150;

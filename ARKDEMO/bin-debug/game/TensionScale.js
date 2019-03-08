@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var TensionScale = (function (_super) {
         __extends(TensionScale, _super);
-        function TensionScale(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian) {
+        function TensionScale(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian, individualTensionScaleMedian) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -21,15 +21,18 @@ var game;
             // public absoluteValueOfDeviation
             _this.selfPerciption = 1;
             _this.individualTensionScaleMedian = 60;
-            _this.deviationBetweenITSM_SP = _this.selfPerciption - _this.individualTensionScaleMedian;
-            _this.absoluteValueOfDeviation = Math.abs(_this.deviationBetweenITSM_SP);
+            // public deviationBetweenITSM_SP = this.selfPerciption - this.individualTensionScaleMedian
+            _this.absoluteValueOfDeviation = 0;
             _this.teamTensionScaleMedian = 30;
-            _this.ZORAMin = _this.teamTensionScaleMedian - 13;
-            _this.ZORAMax = _this.teamTensionScaleMedian + 13;
+            _this.ZORAMin = 0;
+            _this.ZORAMax = 0;
             _this.select_list = select_list;
             _this.selfPerciption = selfPerciption;
             _this.teamTensionScaleMedian = teamTensionScaleMedian;
             _this.absoluteValueOfDeviation = absoluteValueOfDeviation;
+            _this.ZORAMin = _this.teamTensionScaleMedian - 13;
+            _this.ZORAMax = _this.teamTensionScaleMedian + 13;
+            _this.individualTensionScaleMedian = individualTensionScaleMedian;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();

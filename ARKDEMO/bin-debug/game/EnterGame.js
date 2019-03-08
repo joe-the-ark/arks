@@ -65,7 +65,7 @@ var game;
             _this.txInput2.textColor = 0x0D0D0D;
             _this.txInput2.size = 40;
             var text2 = new egret.TextField();
-            text2.text = 'input game secret:';
+            text2.text = 'input password:';
             text2.x = _this.sprite.width / 2 - 320;
             text2.y = _this.sprite.height / 3 - 118;
             text2.size = 30;
@@ -120,12 +120,12 @@ var game;
             console.log('player:' + player);
             var self = this;
             if (player && game_secret) {
-                base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
                     var play_list = response['player_list'];
                     var index = play_list.indexOf(self.txInput.text);
                     if (game_secret != self.game_secret) {
-                        self.text2.text = "please input the correct secret to enter the game";
+                        self.text2.text = "please input the correct password to enter the game";
                     }
                     else if (index == -1) {
                         self.text2.text = "you aren't invited !";

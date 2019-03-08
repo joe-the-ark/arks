@@ -34,13 +34,15 @@ namespace game{
             this.drawResult()
             this._shape = new egret.Shape()
             this.addChild(this._shape)
-            this.initGraphics()
+
+            this._shape.alpha = 0.5
+
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map')
             this.sprite.addChild(probessBar)
-
             console.log('ttsmsstart3:')
             console.log(this.ttsms)
             console.log('ttsmsend3:')
+            
         }
 
         private getTTSMS(){
@@ -65,15 +67,16 @@ namespace game{
 
         private initGraphics(): void {
             let shape: egret.Shape = this._shape
-            shape.graphics.lineStyle(2, 0xff00ff)
+            shape.graphics.lineStyle(2, 0xFAFAD2)
             shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight)
             shape.graphics.lineTo(this.stageWidth / 2, 130)
 
             let buffer: egret.Shape = this._shape
-            buffer.graphics.beginFill(0xaaff00, 0.5)
+            buffer.graphics.beginFill(0xFFF68F, 0.5)
             buffer.graphics.lineStyle(0)
             buffer.graphics.drawRect(this.stageWidth / 2 - Math.ceil(200/81*13), 130, Math.ceil(200/81*13)*2, this.stageHeight)
             buffer.graphics.endFill()
+            
         }
 
         private drawResult(){
@@ -105,7 +108,11 @@ namespace game{
 
                     self.drawTensionScale(that.ttsms)
 
-                })    
+                    
+
+                }) 
+
+                self.initGraphics()   
 
                 // self.drawTensionScale();
             })
@@ -127,12 +134,10 @@ namespace game{
             this.simulatedData.forEach((val, index, array) => {
                 try {
 
-
                     var ttsm = this.ttsms[index]
-
                     var score = val[2].toString()
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
-                    let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[2], val[3], this.stageWidth, this.stageHeight, ttsm)
+                    let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[3], val[2], this.stageWidth, this.stageHeight, ttsm)
                     // zoramap.x = 10
                     console.log(zoramap)
                     zoramap.y = 200 + (index-1)*150
@@ -150,6 +155,8 @@ namespace game{
                 }
 
             });
+
+            
         }
 
         private drawLine() {

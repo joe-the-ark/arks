@@ -70,7 +70,7 @@ namespace game {
             this.txInput2.size = 40;
 
             var text2: egret.TextField = new egret.TextField();
-            text2.text = 'input game secret:';
+            text2.text = 'input password:';
             text2.x = this.sprite.width / 2 - 320
             text2.y = this.sprite.height / 3 - 118
             text2.size = 30
@@ -137,7 +137,7 @@ namespace game {
 					let play_list = response['player_list']
 					var index = play_list.indexOf(self.txInput.text)
                     if(game_secret != self.game_secret){
-                        self.text2.text = "please input the correct secret to enter the game"
+                        self.text2.text = "please input the correct password to enter the game"
                     }else if( index == -1) {
                         self.text2.text = "you aren't invited !"
 

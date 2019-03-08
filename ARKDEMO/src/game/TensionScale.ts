@@ -10,17 +10,22 @@ namespace game {
         // public absoluteValueOfDeviation
         public selfPerciption = 1
         public individualTensionScaleMedian = 60
-        public deviationBetweenITSM_SP = this.selfPerciption - this.individualTensionScaleMedian
-        public absoluteValueOfDeviation = Math.abs(this.deviationBetweenITSM_SP)
+        // public deviationBetweenITSM_SP = this.selfPerciption - this.individualTensionScaleMedian
+        public absoluteValueOfDeviation = 0
         public teamTensionScaleMedian = 30
-        public ZORAMin = this.teamTensionScaleMedian - 13
-        public ZORAMax = this.teamTensionScaleMedian + 13
-        public constructor(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian ) {
+        public ZORAMin = 0
+        public ZORAMax = 0
+        public constructor(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian, individualTensionScaleMedian ) {
             super()
             this.select_list = select_list
             this.selfPerciption = selfPerciption
             this.teamTensionScaleMedian = teamTensionScaleMedian
             this.absoluteValueOfDeviation = absoluteValueOfDeviation
+            this.ZORAMin = this.teamTensionScaleMedian - 13
+            this.ZORAMax = this.teamTensionScaleMedian + 13
+
+            this.individualTensionScaleMedian = individualTensionScaleMedian
+
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
@@ -47,7 +52,6 @@ namespace game {
 
             toptext.y = 10
             toptext.text = this.select_list[0]
-
             bottomCharacterBg.graphics.beginFill(0x7171C6)
             bottomCharacterBg.graphics.drawRect(0, 80, 180, 60)
             bottomCharacterBg.graphics.endFill()

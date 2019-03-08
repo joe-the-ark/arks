@@ -42,7 +42,7 @@ namespace game {
             this.txInput.size = 40;
 
             var text: egret.TextField = new egret.TextField();
-            text.text = 'game id:';
+            text.text = 'password:';
             text.x = this.sprite.width / 2 - 280
             text.y = this.sprite.height / 3 - 18
             text.size = 30

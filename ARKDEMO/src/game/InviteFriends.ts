@@ -118,7 +118,6 @@ namespace game {
                         duplicate = 1
                     }
                 })
-                
                 if(duplicate == 0) {
                     this.playerList.push(player)
                     this.count += 1

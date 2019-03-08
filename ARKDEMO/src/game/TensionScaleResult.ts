@@ -23,9 +23,6 @@ namespace game {
 
         public constructor(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams, playerCount) {
             super();
-
-            console.log(characterListParams)
-
             this.game_secret = game_secret
             this.player = player
             this.gameName = gameName
@@ -55,6 +52,14 @@ namespace game {
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
+            
+            let tip = new game.MajorTensionsTip(stageWidth, stageHeight)
+            tip.y = stageHeight - 300
+            tip.x = 3
+            tip.width = stageWidth - 3
+            this.sprite.addChild(tip)
+
+
 
         }
 
@@ -100,13 +105,13 @@ namespace game {
             console.log('tssmsssssddsfasdfasdf')
             this.simulatedData.forEach((val, index, array) => {
                 try {
-                    var player_score = val[3].toString()
-                    var middle_score = val[2].toString()
+                    var player_score = Number(val[3].toString())
+                    var middle_score = Number(val[2].toString())
                     var character1 = val[0]
                     var character2 = val[2]
-                    var absoluteValueOfDeviation = Math.abs(player_score- middle_score)
-
-                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, this.ttsms[index]);
+                    var absoluteValueOfDeviation = Math.abs(player_score - middle_score)
+                    var individualTensionScaleMedian = middle_score
+                    let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, Number(this.ttsms[index]), individualTensionScaleMedian);
 
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
@@ -116,11 +121,7 @@ namespace game {
                         tensionScale.x = 350;
                         tensionScale.y = 150 + index * 100;
                     }
-
-
                     this.sprite.addChild(tensionScale);
-
-
 
                 } catch (error) {
                 }
@@ -139,7 +140,6 @@ namespace game {
         }
 
         private rightNext(){
-
             // console.log('向右像牛')
             // var self = this
             // base.API.call('save_players_process', { 

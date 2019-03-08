@@ -41,7 +41,7 @@ var game;
             _this.txInput.textColor = 0x0D0D0D;
             _this.txInput.size = 40;
             var text = new egret.TextField();
-            text.text = 'game id:';
+            text.text = 'password:';
             text.x = _this.sprite.width / 2 - 280;
             text.y = _this.sprite.height / 3 - 18;
             text.size = 30;
@@ -129,8 +129,8 @@ var game;
             var gameName = this.txInput2.text;
             var game_id = this.txInput.text;
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);

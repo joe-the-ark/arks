@@ -23,6 +23,7 @@
 		"bin-debug/game/Index.js",
 		"bin-debug/game/InviteFriends.js",
 		"bin-debug/game/LoadingScene.js",
+		"bin-debug/game/MajorTensionsTip.js",
 		"bin-debug/game/MissionOneResult.js",
 		"bin-debug/game/MissionResult.js",
 		"bin-debug/game/PageOneResult.js",
