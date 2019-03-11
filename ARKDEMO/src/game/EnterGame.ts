@@ -29,7 +29,7 @@ namespace game {
 
             this.sprite = new egret.Sprite();
 
-            
+
             this.stageHeight = stageHeight
             this.stageWidth = stageWidth
 
@@ -98,7 +98,7 @@ namespace game {
             this.sprite.addChild(this.txInput)
 
             var button: egret.Shape = new egret.Shape();
-            button.graphics.beginFill( 0x00cc00 );
+            button.graphics.beginFill(0x00cc00);
             button.graphics.drawRect(0, 0, 200, 50);
             button.graphics.endFill();
             button.x = this.sprite.width / 2
@@ -133,23 +133,23 @@ namespace game {
             var self = this
             if (player && game_secret) {
                 base.API.Init("http://39.104.85.167:8105/api/");
-				base.API.call("find_players", {'game_secret': self.game_secret, 'gameName': self.gameName} ).then(function (response) {
-					let play_list = response['player_list']
-					var index = play_list.indexOf(self.txInput.text)
-                    if(game_secret != self.game_secret){
+                base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
+                    let play_list = response['player_list']
+                    var index = play_list.indexOf(self.txInput.text)
+                    if (game_secret != self.game_secret) {
                         self.text2.text = "please input the correct password to enter the game"
-                    }else if( index == -1) {
+                    } else if (index == -1) {
                         self.text2.text = "you aren't invited !"
 
-                    }else {
-                        if(self.stage){
+                    } else {
+                        if (self.stage) {
                             base.API.call('get_players_process', {
-                                'game_secret':self.game_secret,
-                                'inviter_name':self.inviter,
-                                'player':player,
+                                'game_secret': self.game_secret,
+                                'inviter_name': self.inviter,
+                                'player': player,
                                 'gameName': self.gameName
 
-                            }).then(function (response){
+                            }).then(function (response) {
 
                                 console.log(response)
                                 var process = response['process']
@@ -158,37 +158,37 @@ namespace game {
                                 self.playerCount = playerCount
 
 
-                                if(process == '2.0'){
+                                if (process == '2.0') {
                                     let characterChoosePage = new game.CharacterChoosePage(
                                         game_secret,
-                                        self.inviter, 
-                                        player, 
-                                        self.gameName, 
-                                        self.stage.stageWidth, 
+                                        self.inviter,
+                                        player,
+                                        self.gameName,
+                                        self.stage.stageWidth,
                                         self.stage.stageHeight,
                                         playerCount
                                     )
                                     self.stage.addChild(characterChoosePage)
                                     self.sprite.visible = false
                                 }
-                                else if(process == '3'){
+                                else if (process == '3') {
 
                                     var that = self
                                     var count = 0
                                     base.API.call('get_player_characterlist', {
-                                        'game_secret':that.game_secret,
-                                        'inviter':that.inviter,
-                                        'player' : that.player,
-                                        'gameName' : that.gameName,
-                                    }).then(function (response){
+                                        'game_secret': that.game_secret,
+                                        'inviter': that.inviter,
+                                        'player': that.player,
+                                        'gameName': that.gameName,
+                                    }).then(function (response) {
                                         var character_list = response['data']
 
                                         var characterList = []
-                                        
-                                        character_list.forEach((val, index, array) =>{
+
+                                        character_list.forEach((val, index, array) => {
                                             var player_name = val[0]
-                                            if(self.playerList.indexOf(player_name) == -1){
-                                                count ++ 
+                                            if (self.playerList.indexOf(player_name) == -1) {
+                                                count++
                                                 // console.log(count)
                                                 // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
                                                 that.allcharacterlist.push(val[1])
@@ -198,7 +198,7 @@ namespace game {
                                                 that.playerList.push(player_name)
                                             }
                                         })
-                                        if(count == playerCount){
+                                        if (count == playerCount) {
                                             console.log('character_list')
                                             characterList.push(that.playerList)
                                             characterList.push(that.allcharacterlist)
@@ -211,35 +211,35 @@ namespace game {
                                         let stageWidth = that.stage.stageWidth
                                         let stageHeight = that.stage.stageHeight
                                         let processson1 = processson
-                                        let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, processson1, characterList);
+                                        let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList);
                                         that.stage.addChild(charater);
                                         that.sprite.visible = false
 
                                     })
- 
+
 
                                 }
-                                else if(process == '4'){
+                                else if (process == '4') {
                                     var that = self
                                     var count = 0
                                     base.API.call('get_player_characterlist', {
-                                        'game_secret':that.game_secret,
-                                        'inviter':that.inviter,
-                                        'player' : that.player,
-                                        'gameName' : that.gameName,
-                                    }).then(function (response){
+                                        'game_secret': that.game_secret,
+                                        'inviter': that.inviter,
+                                        'player': that.player,
+                                        'gameName': that.gameName,
+                                    }).then(function (response) {
                                         var character_list = response['data']
 
                                         var characterList = []
-                                        character_list.forEach((val, index, array) =>{
+                                        character_list.forEach((val, index, array) => {
                                             var player_name = val[0]
-                                            if(self.playerList.indexOf(player_name) == -1){
-                                                count ++ 
+                                            if (self.playerList.indexOf(player_name) == -1) {
+                                                count++
                                                 that.allcharacterlist.push(val[1])
                                                 that.playerList.push(player_name)
                                             }
                                         })
-                                        if(count == playerCount){
+                                        if (count == playerCount) {
                                             console.log('character_list')
                                             characterList.push(that.playerList)
                                             characterList.push(that.allcharacterlist)
@@ -248,10 +248,10 @@ namespace game {
                                         let toTensionScaleResult = new game.TensionScaleResult(
                                             that.stage.stageWidth,
                                             that.stage.stageHeight,
-                                            that.inviter, 
+                                            that.inviter,
                                             game_secret,
                                             player,
-                                            that.gameName, 
+                                            that.gameName,
                                             characterList,
                                             playerCount
                                         )
@@ -267,15 +267,15 @@ namespace game {
                             })
                         }
                     }
-					self.isPlayer = index
+                    self.isPlayer = index
 
-				}).catch(function (err) {
-					console.log(err);
-				});
+                }).catch(function (err) {
+                    console.log(err);
+                });
 
-			}else {
-				this.text2.text = "you must input your name and the game's secret"
-			}
+            } else {
+                this.text2.text = "you must input your name and the game's secret"
+            }
         }
 
 

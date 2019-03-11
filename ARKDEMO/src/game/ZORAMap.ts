@@ -20,7 +20,7 @@ namespace game {
 
         private rectShapeOne: egret.Shape
         private rectShapeTwo: egret.Shape
-        
+
         private playerScore = ''
         private tensionMedian = ''
         private characterText: egret.TextField
@@ -48,7 +48,7 @@ namespace game {
         public ZORAMax = 0
 
 
-        public constructor(characterOne, characterTwo,player_name, player_score, median, stageWidth, stageHeight, ttsm) {
+        public constructor(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm) {
             super()
 
             this.stageWidth = stageWidth
@@ -81,7 +81,7 @@ namespace game {
             this._shape = new egret.Shape()
             this.addChild(this._shape)
             this.drawVoteArea()
-     
+
         }
 
 
@@ -91,14 +91,14 @@ namespace game {
             let line: egret.Shape = this._shape
             let playerName: egret.TextField = new egret.TextField()
             let playerScore: egret.TextField = new egret.TextField()
- 
-            let playerX = Math.ceil((Number(this.playerScore)-this.ttsm) * (200/81) + (this.stageWidth/2))
+
+            let playerX = Math.ceil((Number(this.playerScore) - this.ttsm) * (200 / 81) + (this.stageWidth / 2))
 
             let tensionScaleMedian: egret.TextField = new egret.TextField()
             let tensionScaleMedianName: egret.TextField = new egret.TextField()
 
-            let tensionScaleX = Math.ceil((Number(this.tensionMedian) - this.ttsm) * (200/81) + (this.stageWidth/2))
-            
+            let tensionScaleX = Math.ceil((Number(this.tensionMedian) - this.ttsm) * (200 / 81) + (this.stageWidth / 2))
+
             character1.text = this.characterOne
             character1.textAlign = egret.HorizontalAlign.CENTER
             character1.size = 30
@@ -109,7 +109,7 @@ namespace game {
             character1.background = true
             character1.backgroundColor = 0xFBF9F2
             character1.textColor = 0x000000
-            character1.x = Math.ceil((this.stageWidth/2) - ((200/81) * this.ttsm + 60))
+            character1.x = Math.ceil((this.stageWidth / 2) - ((200 / 81) * this.ttsm + 60))
 
             character1.y = 150
             character2.text = this.characterTwo
@@ -119,7 +119,7 @@ namespace game {
             character2.width = 60
             character2.height = 120
             character2.borderColor = 0x3a5fcd
-            character2.x = (this.stageWidth/2) + Math.ceil(((200/81) * (81-this.ttsm) + 60))
+            character2.x = (this.stageWidth / 2) + Math.ceil(((200 / 81) * (81 - this.ttsm) + 60))
             character2.y = 150
             character2.background = true
             character2.backgroundColor = 0xFBF9F2
@@ -136,8 +136,8 @@ namespace game {
             playerName.width = 50
             playerName.height = 20
 
-            playerName.anchorOffsetX = playerName.width/2
-            playerName.anchorOffsetY = playerName.height/2
+            playerName.anchorOffsetX = playerName.width / 2
+            playerName.anchorOffsetY = playerName.height / 2
 
             playerName.borderColor = 0x000000
             playerName.x = playerX
@@ -156,8 +156,8 @@ namespace game {
             playerScore.y = 210
             playerScore.rotation = 270
             playerScore.textColor = 0x000000
-            playerScore.anchorOffsetX = playerScore.width/2
-            playerScore.anchorOffsetY = playerScore.height/2
+            playerScore.anchorOffsetX = playerScore.width / 2
+            playerScore.anchorOffsetY = playerScore.height / 2
 
 
             tensionScaleMedian.text = this.tensionMedian + '/' + this.median
@@ -171,9 +171,8 @@ namespace game {
             tensionScaleMedian.y = 210
             tensionScaleMedian.rotation = 270
             tensionScaleMedian.textColor = 0x000000
-
-            tensionScaleMedian.anchorOffsetX = tensionScaleMedian.width/2
-            tensionScaleMedian.anchorOffsetY = tensionScaleMedian.height/2
+            tensionScaleMedian.anchorOffsetX = tensionScaleMedian.width / 2
+            tensionScaleMedian.anchorOffsetY = tensionScaleMedian.height / 2
 
             tensionScaleMedianName.text = this.player_name
             tensionScaleMedianName.textAlign = egret.HorizontalAlign.CENTER
@@ -186,52 +185,36 @@ namespace game {
             tensionScaleMedianName.y = 270
             tensionScaleMedianName.rotation = 270
             tensionScaleMedianName.textColor = 0x000000
+            tensionScaleMedianName.anchorOffsetX = tensionScaleMedianName.width / 2
+            tensionScaleMedianName.anchorOffsetY = tensionScaleMedianName.height / 2
 
-            tensionScaleMedianName.anchorOffsetX = tensionScaleMedianName.width/2
-            tensionScaleMedianName.anchorOffsetY = tensionScaleMedianName.height/2
-
-            if (this.ZORAMin > this.selfPerciption || this.selfPerciption > this.ZORAMax) {
-
+            if (this.ZORAMin > this.selfPerciption || this.selfPerciption > this.ZORAMax) {  // SP在ZORA之外
                 playerScore.background = true
                 playerScore.backgroundColor = 0xC14343
-
-                if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {
+                if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {  // ITSM在ZORA之外
                     tensionScaleMedian.background = true
                     tensionScaleMedian.backgroundColor = 0xC9CA68
-                }else {
+                } else {
                     tensionScaleMedian.background = true
                     tensionScaleMedian.backgroundColor = 0xFBF9F2
                 }
-
                 character1.backgroundColor = 0x5E5E5E
-                character2.backgroundColor = 0x5E5E5E                
-
-
+                character2.backgroundColor = 0x5E5E5E
             }
             else if (this.ZORAMin <= this.selfPerciption && this.selfPerciption <= this.ZORAMax) {
-                console.log('----------------------')
-                console.log(this.ZORAMin)
-                console.log(this.selfPerciption)
-                console.log(this.ZORAMax)
-                console.log(this.individualTensionScaleMedian)
-                console.log('----------------------')
                 playerScore.background = true
                 playerScore.backgroundColor = 0xFBF9F2
-
                 if (this.ZORAMin <= this.individualTensionScaleMedian && this.individualTensionScaleMedian <= this.ZORAMax) {
-
                     playerScore.background = true
                     playerScore.backgroundColor = 0xFBF9F2
                     tensionScaleMedian.background = true
                     tensionScaleMedian.backgroundColor = 0xFBF9F2
                 }
                 else if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {
-
                     tensionScaleMedian.background = true
                     tensionScaleMedian.backgroundColor = 0xC9CA68
                     character1.backgroundColor = 0x5E5E5E
                     character2.backgroundColor = 0x5E5E5E
-
                 }
             }
             this.sprite.addChild(character1)
@@ -242,8 +225,8 @@ namespace game {
             this.sprite.addChild(tensionScaleMedian)
             this.sprite.addChild(tensionScaleMedianName)
         }
-        
-        
+
+
 
     }
 }

@@ -170,12 +170,6 @@ var game;
                 character2.backgroundColor = 0x5E5E5E;
             }
             else if (this.ZORAMin <= this.selfPerciption && this.selfPerciption <= this.ZORAMax) {
-                console.log('----------------------');
-                console.log(this.ZORAMin);
-                console.log(this.selfPerciption);
-                console.log(this.ZORAMax);
-                console.log(this.individualTensionScaleMedian);
-                console.log('----------------------');
                 playerScore.background = true;
                 playerScore.backgroundColor = 0xFBF9F2;
                 if (this.ZORAMin <= this.individualTensionScaleMedian && this.individualTensionScaleMedian <= this.ZORAMax) {

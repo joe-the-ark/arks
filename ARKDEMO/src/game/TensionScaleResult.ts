@@ -6,7 +6,7 @@ namespace game {
         private unselectedCharacterList = []
         private selectedChaeacterList = []
         private game_secret = ''
-        private player= ''
+        private player = ''
         private gameName = ''
         public inviter = ''
         private characterListParams = []
@@ -15,7 +15,7 @@ namespace game {
         public stageHeight = 0;
         public playerCount = 0;
         public simulatedData = [];
-        private rightIcon:egret.Bitmap;
+        private rightIcon: egret.Bitmap;
 
         public _touchStatus: boolean = false;
         public label: egret.TextField
@@ -41,18 +41,18 @@ namespace game {
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
 
-            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture )
+            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
-            this.rightIcon.anchorOffsetX = this.rightIcon.width/2
-            this.rightIcon.anchorOffsetY = this.rightIcon.height /2 
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
             this.rightIcon.x = stageWidth - 50
-            this.rightIcon.y = stageHeight -100
+            this.rightIcon.y = stageHeight - 100
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
-            
+
             let tip = new game.MajorTensionsTip(stageWidth, stageHeight)
             tip.y = stageHeight - 300
             tip.x = 3
@@ -63,16 +63,16 @@ namespace game {
 
         }
 
-        private getGameResult(){
+        private getGameResult() {
             var self = this
             base.API.Init("http://39.104.85.167:8105/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
-                'inviter':self.inviter,
+                'inviter': self.inviter,
                 'gameSecret': self.game_secret,
                 'player': self.player,
                 'gameName': self.gameName,
-            }).then(function (response){
+            }).then(function (response) {
                 var result = response['result']
 
                 self.ttsms = response['ttsms']
@@ -116,7 +116,7 @@ namespace game {
                     if (index % 2 == 1) {
                         tensionScale.x = 150;
                         tensionScale.y = 150 + (index - 1) * 100;
-                    } 
+                    }
                     else if (index % 2 == 0) {
                         tensionScale.x = 350;
                         tensionScale.y = 150 + index * 100;
@@ -130,8 +130,8 @@ namespace game {
 
             console.log(this.simulatedData)
 
-            if(this.simulatedData[2]){
-                if(this.playerCount == this.simulatedData[2].length - 1){
+            if (this.simulatedData[2]) {
+                if (this.playerCount == this.simulatedData[2].length - 1) {
                     this.addChild(this.rightIcon)
                     this.timer.stop()
                 }
@@ -139,7 +139,7 @@ namespace game {
 
         }
 
-        private rightNext(){
+        private rightNext() {
             // console.log('向右像牛')
             // var self = this
             // base.API.call('save_players_process', { 
@@ -154,12 +154,12 @@ namespace game {
             //     self.sprite.visible=false
             //     self.rightIcon.visible=false
             // })
-            var self=this
-            if(self.stage){
+            var self = this
+            if (self.stage) {
                 var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams)
                 self.stage.addChild(missionResult)
-                self.sprite.visible=false
-                self.rightIcon.visible=false
+                self.sprite.visible = false
+                self.rightIcon.visible = false
             }
         }
 
