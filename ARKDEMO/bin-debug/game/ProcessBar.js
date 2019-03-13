@@ -64,4 +64,3 @@ var game;
     game.ProcessBar = ProcessBar;
     __reflect(ProcessBar.prototype, "game.ProcessBar");
 })(game || (game = {}));
-//# sourceMappingURL=ProcessBar.js.map

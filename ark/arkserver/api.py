@@ -268,7 +268,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
     _player = Player.objects.filter(
         name=player, game_secret=gameSecret,
         inviter_name=inviter, game_name=gameName
-    ).first()
+    ).first()  # 取当前玩家名
 
     _inviter = Player.objects.filter(
         name=inviter, game_secret=gameSecret,
@@ -401,11 +401,11 @@ def save_players_process(inviter_name, game_secret, player, game_name, process, 
     ).first()
 
     game_process = GameProcess.objects.filter(game=game, player=_player).first()
-    if game_process:
-        game_process.process = process
-        game_process.save()
+    if game_process:  # 之前存在的process
+        game_process.process = process  # 赋值给新的game_process
+        game_process.save()  # 保存进度
 
-    else:
+    else:  # 玩家没有进度的情况
         GameProcess.objects.create(game=game, player=_player, process=process)
 
 @api

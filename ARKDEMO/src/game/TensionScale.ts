@@ -47,8 +47,6 @@ namespace game {
 
             let toptext: egret.TextField = new egret.TextField()
             toptext.x = topCharacterBg.x
-            console.log(topCharacterBg.y)
-            console.log(topCharacterBg.x)
 
             toptext.y = 10
             toptext.text = this.select_list[0]
@@ -60,8 +58,6 @@ namespace game {
             buttomtext.x = bottomCharacterBg.x
             buttomtext.y = 90
             buttomtext.text = this.select_list[1]
-            console.log(bottomCharacterBg.y)
-            console.log(bottomCharacterBg.x)
 
             this.sprite.addChild(topCharacterBg)
             this.sprite.addChild(bottomCharacterBg)

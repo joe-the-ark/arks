@@ -198,4 +198,3 @@ var game;
     game.ZORAMap = ZORAMap;
     __reflect(ZORAMap.prototype, "game.ZORAMap");
 })(game || (game = {}));
-//# sourceMappingURL=ZORAMap.js.map

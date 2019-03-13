@@ -64,7 +64,7 @@ var game;
         }
         TensionScaleResult.prototype.getGameResult = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -178,4 +178,3 @@ var game;
     game.TensionScaleResult = TensionScaleResult;
     __reflect(TensionScaleResult.prototype, "game.TensionScaleResult");
 })(game || (game = {}));
-//# sourceMappingURL=TensionScaleResult.js.map

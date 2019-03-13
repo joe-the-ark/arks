@@ -48,4 +48,3 @@ var game;
     game.LoadingScene = LoadingScene;
     __reflect(LoadingScene.prototype, "game.LoadingScene");
 })(game || (game = {}));
-//# sourceMappingURL=LoadingScene.js.map

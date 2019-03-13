@@ -23,4 +23,3 @@ var base;
     base.AssetAdapter = AssetAdapter;
     __reflect(AssetAdapter.prototype, "base.AssetAdapter", ["eui.IAssetAdapter"]);
 })(base || (base = {}));
-//# sourceMappingURL=AssetAdapter.js.map
