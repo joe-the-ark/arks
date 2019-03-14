@@ -5,9 +5,10 @@
 		"js/eui.min_4f767512.js",
 		"js/assetsmanager.min_f2e50bd1.js",
 		"js/tween.min_6c5a88f9.js",
-		"js/game.min_45aa06f6.js"
+		"js/game.min_45aa06f6.js",
+		"js/weixinapi.min_6729a0d7.js"
 	],
 	"game": [
-		"js/main.min_de4632c.js"
+		"js/main.min_422ef18c.js"
 	]
 }

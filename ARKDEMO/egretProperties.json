@@ -20,6 +20,10 @@
     },
     {
       "name": "game"
-    }
+    },
+    {
+			"name": "weixinapi",
+			"path": "../libsrc"
+		}
   ]
 }

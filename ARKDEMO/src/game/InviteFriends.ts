@@ -74,8 +74,6 @@ namespace game {
             label.x = this.sprite.width / 2
             label.y = this.sprite.height / 2
             this.sprite.addChild(label)
-
-
             var button2: egret.Shape = new egret.Shape();
             button2.graphics.beginFill(0x00cc00);
             button2.graphics.drawRect(0, 0, 200, 50);
@@ -85,8 +83,9 @@ namespace game {
             button2.anchorOffsetX = button.width / 2
             button2.anchorOffsetY = button.height / 2
             button2.touchEnabled = true;
-            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin2, this)
+            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.invateFriends, this)
             this.sprite.addChild(button2)
+
 
             var label2: egret.TextField = new egret.TextField();
             label2.text = "play";
@@ -104,9 +103,30 @@ namespace game {
 
         }
 
+        private invateFriends(){
+
+            console.log(1)
+           var bodyConfig:BodyConfig = new BodyConfig();
+           bodyConfig.appId = "wx4f735f8d65cf5f28";
+           bodyConfig.debug = true
+           if(wx) {
+               wx.config(bodyConfig)
+               wx.ready(function(){
+                   console.log(12)
+
+                   wx.checkJsApi({
+                    jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    success: function(res) {
+                        console.log(333)
+                        console.log(res)
+                    }
+                });
+
+               })
+           }
+        }
+
         private onTouchBegin(): void {
-
-
 
             var player = this.txInput.text
             if (player) {

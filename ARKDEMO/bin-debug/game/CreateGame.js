@@ -110,7 +110,7 @@ var game;
             button.anchorOffsetX = button.width / 2;
             button.anchorOffsetY = button.height / 2;
             button.touchEnabled = true;
-            button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
+            button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.invateFriends, _this);
             _this.sprite.addChild(button);
             var label = new egret.TextField();
             label.text = "create";
@@ -124,6 +124,55 @@ var game;
             _this.sprite.addChild(_this.text2);
             return _this;
         }
+        CreateGame.prototype.invateFriends = function () {
+            console.log(1);
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call("wechatapi", { 'url': 'http://39.104.85.167:8106/index.html' }).then(function (response) {
+                console.log(response);
+                var bodyConfig = new BodyConfig();
+                bodyConfig.debug = true;
+                bodyConfig.appId = response['params']['appId'];
+                bodyConfig.timestamp = response['params']['timestamp'];
+                bodyConfig.nonceStr = response['params']['nonceStr'];
+                bodyConfig.jsApiList = response['params']['jsApiList'];
+                bodyConfig.signature = response['params']['signature'];
+                if (wx) {
+                    wx.config(bodyConfig);
+                    wx.ready(function () {
+                        console.log(12);
+                        // wx.checkJsApi({
+                        //     jsApiList: ["updateAppMessageShareData"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                        //     success: function(res) {
+                        //         console.log(333)
+                        //         console.log(res)
+                        //     }
+                        // });
+                        wx.onMenuShareAppMessage({
+                            title: 'ark邀请你玩游戏',
+                            desc: '',
+                            link: 'http://39.104.85.167:8106/index.html',
+                            imgUrl: '',
+                            type: '',
+                            dataUrl: '',
+                            trigger: function (res) {
+                                console.log(res);
+                            },
+                            success: function (res) {
+                                console.log(res);
+                            },
+                            cancel: function (res) {
+                                console.log(res);
+                            },
+                            fail: function (res) {
+                                console.log(res);
+                            }
+                        });
+                    });
+                }
+            }).catch(function (err) {
+                console.log(err);
+            });
+        };
         CreateGame.prototype.onTouchBegin = function () {
             var inviter = this.txInput3.text;
             var gameName = this.txInput2.text;

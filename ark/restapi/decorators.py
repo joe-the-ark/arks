@@ -14,7 +14,7 @@ import traceback
 
 
 def param(name, type=str, comment=''):
-    
+
     def wrapper(func):
         if not hasattr(func, '__params__'):
             func.__params__ = {}
@@ -45,7 +45,7 @@ def api(func):
         arg = args[len(args) - default_count + i]
         arg['required'] = False
         arg['default'] = arg_spec.defaults[i]
-    
+
     @csrf_exempt
     def django_view(request):
         if request.method != 'POST':
@@ -78,14 +78,13 @@ def api(func):
                 'success': False,
                 'code': ex.code,
                 'msg': ex.msg
-            }  
+            }
             error('[%s] called with exception' % func.__name__)
             error('exception: %s' % str(ex))
             return JsonResponse(result, status=ex.status)
 
         return JsonResponse({ 'success': success, 'result': result })
-        
+
     urlpatterns.append(path('%s/' % func.__name__, django_view))
     return func
 
-    

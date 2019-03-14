@@ -120,7 +120,7 @@ namespace game {
             button.anchorOffsetX = button.width / 2
             button.anchorOffsetY = button.height / 2
             button.touchEnabled = true;
-            button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this)
+            button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.invateFriends, this)
             this.sprite.addChild(button)
 
             var label: egret.TextField = new egret.TextField();
@@ -137,6 +137,73 @@ namespace game {
             this.sprite.addChild(this.text2)
 
         }
+        private invateFriends(){
+
+            console.log(1)
+            
+
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call("wechatapi", {'url': 'http://39.104.85.167:8106/index.html' }).then(function (response) {
+
+                console.log(response)
+                var bodyConfig:BodyConfig = new BodyConfig();
+                bodyConfig.debug = true
+                bodyConfig.appId = response['params']['appId'];
+                bodyConfig.timestamp = response['params']['timestamp']
+                bodyConfig.nonceStr = response['params']['nonceStr']
+                bodyConfig.jsApiList = response['params']['jsApiList']
+                bodyConfig.signature = response['params']['signature']
+                
+
+                if(wx) {
+                    wx.config(bodyConfig)
+                    wx.ready(function(){
+                        console.log(12)
+                        // wx.checkJsApi({
+                        //     jsApiList: ["updateAppMessageShareData"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                        //     success: function(res) {
+                        //         console.log(333)
+                        //         console.log(res)
+                        //     }
+                        // });
+                        wx.onMenuShareAppMessage({
+
+                            title: 'ark邀请你玩游戏', // 分享标题
+                            desc: '', // 分享描述
+                            link: 'http://39.104.85.167:8106/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: '', // 分享图标
+                            type: '', // 分享类型,music、video或link，不填默认为link
+                            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                            trigger:function(res){
+                                console.log(res)
+                            },
+                            success:function(res){
+                                console.log(res)
+
+                            },
+                            cancel: function(res){
+                                console.log(res)
+
+                            },
+                            fail: function(res){
+                                console.log(res)
+
+                            }
+                        });
+                    })
+                    
+
+                }
+
+
+
+
+            }).catch(function (err) {
+                console.log(err);
+            });
+
+        }
+
 
         private onTouchBegin(): void {
             var inviter = this.txInput3.text

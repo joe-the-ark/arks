@@ -5,7 +5,8 @@
 		"libs/modules/eui/eui.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/tween/tween.js",
-		"libs/modules/game/game.js"
+		"libs/modules/game/game.js",
+		"libs/modules/weixinapi/weixinapi.js"
 	],
 	"game": [
 		"bin-debug/game/GamePageOne.js",

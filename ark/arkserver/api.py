@@ -1,5 +1,11 @@
 from restapi import api, APIError
 from .models import *
+import requests
+import json
+import string
+import random
+import time
+import hashlib
 
 @api
 def create_player(player_name, game_secret, gameName, inviter):
@@ -500,7 +506,62 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
 
         ttsms.append(str(int(sum(middles) / playercount)))
 
-    print('ttsms2222222222:')
     print(ttsms)
 
     return {'code':0, 'result':ttsms}
+
+
+@api
+def wechatapi(url):
+
+    url = url
+    appid = 'wx4f735f8d65cf5f28'
+    secret = '101a2636c102453e871a7beed1cfefb1'
+    access_token_params = {
+        'appid': appid,
+        'secret': secret,
+        'grant_type': 'client_credential'
+    }
+    get_access_token_url = 'https://api.weixin.qq.com/cgi-bin/token'
+
+    response = requests.get(url=get_access_token_url, params=access_token_params)
+    response.encoding = 'utf-8'
+    print(response)
+    response = json.loads(response.text)
+    print(response)
+    access_token = response['access_token']
+    get_jsapi_ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi'.format(access_token)
+
+    jsapi_response = requests.get(url=get_jsapi_ticket_url)
+    jsapi_response.encoding = 'utf-8'
+    print(jsapi_response)
+    jsapi_response = json.loads(jsapi_response.text)
+    jsapi_ticket = jsapi_response['ticket']
+    print(jsapi_response)
+
+    noncestr = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+
+    timestamp = int(time.time())
+
+    string1 = 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}'.format(jsapi_ticket, noncestr, timestamp, url)
+    print(string1)
+    signature = hashlib.sha1(string1.encode('utf-8')).hexdigest()
+
+    params = {
+        'appId': appid,
+        'timestamp': timestamp,
+        'nonceStr': noncestr,
+        'signature': signature,
+        'jsApiList': ['updateAppMessageShareData']
+
+    }
+
+
+    return {'code': 0, 'params': params}
+
+
+@api
+def firstvote():
+
+    pass
+

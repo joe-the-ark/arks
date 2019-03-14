@@ -80,7 +80,7 @@ var game;
             button2.anchorOffsetX = button.width / 2;
             button2.anchorOffsetY = button.height / 2;
             button2.touchEnabled = true;
-            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin2, _this);
+            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.invateFriends, _this);
             _this.sprite.addChild(button2);
             var label2 = new egret.TextField();
             label2.text = "play";
@@ -95,6 +95,25 @@ var game;
             _this.sprite.addChild(_this.text2);
             return _this;
         }
+        InviteFriends.prototype.invateFriends = function () {
+            console.log(1);
+            var bodyConfig = new BodyConfig();
+            bodyConfig.appId = "wx4f735f8d65cf5f28";
+            bodyConfig.debug = true;
+            if (wx) {
+                wx.config(bodyConfig);
+                wx.ready(function () {
+                    console.log(12);
+                    wx.checkJsApi({
+                        jsApiList: ['chooseImage'],
+                        success: function (res) {
+                            console.log(333);
+                            console.log(res);
+                        }
+                    });
+                });
+            }
+        };
         InviteFriends.prototype.onTouchBegin = function () {
             var _this = this;
             var player = this.txInput.text;
