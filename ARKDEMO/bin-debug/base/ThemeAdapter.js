@@ -41,3 +41,4 @@ var base;
     base.ThemeAdapter = ThemeAdapter;
     __reflect(ThemeAdapter.prototype, "base.ThemeAdapter", ["eui.IThemeAdapter"]);
 })(base || (base = {}));
+//# sourceMappingURL=ThemeAdapter.js.map

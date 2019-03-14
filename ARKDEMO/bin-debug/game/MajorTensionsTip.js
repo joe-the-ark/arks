@@ -51,3 +51,4 @@ var game;
     game.MajorTensionsTip = MajorTensionsTip;
     __reflect(MajorTensionsTip.prototype, "game.MajorTensionsTip");
 })(game || (game = {}));
+//# sourceMappingURL=MajorTensionsTip.js.map

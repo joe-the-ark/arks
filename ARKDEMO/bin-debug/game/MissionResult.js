@@ -165,3 +165,4 @@ var game;
     game.MissionResult = MissionResult;
     __reflect(MissionResult.prototype, "game.MissionResult");
 })(game || (game = {}));
+//# sourceMappingURL=MissionResult.js.map

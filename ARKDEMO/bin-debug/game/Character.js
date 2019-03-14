@@ -315,3 +315,4 @@ var game;
     game.Character = Character;
     __reflect(Character.prototype, "game.Character");
 })(game || (game = {}));
+//# sourceMappingURL=Character.js.map

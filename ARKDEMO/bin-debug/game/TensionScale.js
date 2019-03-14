@@ -112,3 +112,4 @@ var game;
     game.TensionScale = TensionScale;
     __reflect(TensionScale.prototype, "game.TensionScale");
 })(game || (game = {}));
+//# sourceMappingURL=TensionScale.js.map

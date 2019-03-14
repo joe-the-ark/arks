@@ -20,3 +20,4 @@ var game;
     game.MissionOneResult = MissionOneResult;
     __reflect(MissionOneResult.prototype, "game.MissionOneResult");
 })(game || (game = {}));
+//# sourceMappingURL=MissionOneResult.js.map

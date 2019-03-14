@@ -226,3 +226,4 @@ var game;
     game.CreateGame = CreateGame;
     __reflect(CreateGame.prototype, "game.CreateGame");
 })(game || (game = {}));
+//# sourceMappingURL=CreateGame.js.map

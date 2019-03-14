@@ -496,3 +496,4 @@ var game;
     game.LabelRenderer = LabelRenderer;
     __reflect(LabelRenderer.prototype, "game.LabelRenderer");
 })(game || (game = {}));
+//# sourceMappingURL=CharacterChoosePage.js.map

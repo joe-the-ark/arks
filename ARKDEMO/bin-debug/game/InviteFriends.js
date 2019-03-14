@@ -178,3 +178,4 @@ var game;
     game.InviteFriends = InviteFriends;
     __reflect(InviteFriends.prototype, "game.InviteFriends");
 })(game || (game = {}));
+//# sourceMappingURL=InviteFriends.js.map

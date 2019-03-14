@@ -178,3 +178,4 @@ var game;
     game.TensionScaleResult = TensionScaleResult;
     __reflect(TensionScaleResult.prototype, "game.TensionScaleResult");
 })(game || (game = {}));
+//# sourceMappingURL=TensionScaleResult.js.map

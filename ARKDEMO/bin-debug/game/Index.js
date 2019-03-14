@@ -97,3 +97,4 @@ var game;
     game.Index = Index;
     __reflect(Index.prototype, "game.Index");
 })(game || (game = {}));
+//# sourceMappingURL=Index.js.map
