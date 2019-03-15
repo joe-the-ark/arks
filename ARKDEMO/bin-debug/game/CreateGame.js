@@ -126,8 +126,10 @@ var game;
         }
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
+            var link = window.location.href;
+            console.log(link);
             base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.call("wechatapi", { 'url': 'http://10.145.110.219:5365/index.html' }).then(function (response) {
+            base.API.call("wechatapi", { 'url': link }).then(function (response) {
                 console.log(response);
                 var bodyConfig = new BodyConfig();
                 bodyConfig.debug = true;
@@ -159,7 +161,7 @@ var game;
                         wx.onMenuShareAppMessage({
                             title: 'ARK',
                             desc: '123',
-                            link: 'http://10.145.110.219:5365/index.html',
+                            link: link,
                             imgUrl: '',
                             type: '',
                             dataUrl: '',

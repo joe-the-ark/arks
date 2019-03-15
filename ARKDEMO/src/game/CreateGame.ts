@@ -140,8 +140,11 @@ namespace game {
         private invateFriends(){
 
             console.log(1)
+
+            var link = window.location.href
+            console.log(link)
             base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.call("wechatapi", {'url': 'http://10.145.110.219:5365/index.html' }).then(function (response) {
+            base.API.call("wechatapi", {'url': link }).then(function (response) {
 
                 console.log(response)
                 var bodyConfig:BodyConfig = new BodyConfig();
@@ -178,7 +181,7 @@ namespace game {
                         wx.onMenuShareAppMessage({
                             title: 'ARK', // 分享标题
                             desc: '123', // 分享描述
-                            link: 'http://10.145.110.219:5365/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: '', // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
