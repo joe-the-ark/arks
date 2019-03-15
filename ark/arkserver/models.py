@@ -84,7 +84,13 @@ class GameProcess(models.Model):
 
 
 
+class FirstScore(models.Model):
+    class Meta(object):
+        verbose_name = verbose_name_plural = 'first score'
 
+    first_score = models.CharField(max_length=20, verbose_name='first score')
+    game = game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='game')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='player')
 
 
 

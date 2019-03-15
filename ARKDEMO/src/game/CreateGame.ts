@@ -141,7 +141,7 @@ namespace game {
 
             console.log(1)
             base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.call("wechatapi", {'url': 'http://10.145.108.57:5365/index.html' }).then(function (response) {
+            base.API.call("wechatapi", {'url': 'http://10.145.110.219:5365/index.html' }).then(function (response) {
 
                 console.log(response)
                 var bodyConfig:BodyConfig = new BodyConfig();
@@ -169,7 +169,6 @@ namespace game {
                             }
                         });
 
-
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -177,22 +176,21 @@ namespace game {
                         // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
 
                         wx.onMenuShareAppMessage({
-                            title: 'ark邀请你玩游戏', // 分享标题
+                            title: 'ARK', // 分享标题
                             desc: '123', // 分享描述
-                            link: 'http://39.104.85.167:8106/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            link: 'http://10.145.110.219:5365/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: '', // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-                            trigger:function(res){
-                                console.log(res)
+                            trigger:function(){
                                 console.log('trigger')
                             },
-                            success:function(res){
-                                console.log(res)
+                            success:function(){
+                                alert('分享完成');
                                 console.log('success')
                             },
-                            cancel: function(res){
-                                console.log(res)
+                            cancel: function(){
+                                alert('淘气了哦，你取消分享');
                                 console.log('cancel')
                             },
                             fail: function(res){
@@ -200,16 +198,12 @@ namespace game {
                                 console.log('fail')
                             }
                         });
-
                     })
-                    
                     wx.error(function(res){
                         console.log('error')
                         console.log(res)
                     })
-
                 }
-
             }).catch(function (err) {
                 console.log(err);
             });

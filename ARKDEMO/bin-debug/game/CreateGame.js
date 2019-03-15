@@ -126,8 +126,8 @@ var game;
         }
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
-            base.API.Init("http://127.0.0.1:8000/api/");
-            base.API.call("wechatapi", { 'url': 'http://10.145.108.57:5365/index.html' }).then(function (response) {
+            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.call("wechatapi", { 'url': 'http://10.145.110.219:5365/index.html' }).then(function (response) {
                 console.log(response);
                 var bodyConfig = new BodyConfig();
                 bodyConfig.debug = true;
@@ -157,22 +157,21 @@ var game;
                         // bodyMenuShareAppMessage.desc = 'http://10.145.108.57:5365/index.html'
                         // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
                         wx.onMenuShareAppMessage({
-                            title: 'ark邀请你玩游戏',
+                            title: 'ARK',
                             desc: '123',
-                            link: 'http://10.145.108.57:5365/index.html',
+                            link: 'http://10.145.110.219:5365/index.html',
                             imgUrl: '',
                             type: '',
                             dataUrl: '',
-                            trigger: function (res) {
-                                console.log(res);
+                            trigger: function () {
                                 console.log('trigger');
                             },
-                            success: function (res) {
-                                console.log(res);
+                            success: function () {
+                                alert('分享完成');
                                 console.log('success');
                             },
-                            cancel: function (res) {
-                                console.log(res);
+                            cancel: function () {
+                                alert('淘气了哦，你取消分享');
                                 console.log('cancel');
                             },
                             fail: function (res) {
@@ -195,8 +194,8 @@ var game;
             var gameName = this.txInput2.text;
             var game_id = this.txInput.text;
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://127.0.0.1:8000/api/");
-                base.API.Init("http://127.0.0.1:8000/api/");
+                // base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.Init("http://39.104.85.167:8105/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
