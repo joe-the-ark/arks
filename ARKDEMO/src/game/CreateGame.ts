@@ -140,10 +140,8 @@ namespace game {
         private invateFriends(){
 
             console.log(1)
-            
-
             base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.call("wechatapi", {'url': 'http://39.104.85.167:8106/index.html' }).then(function (response) {
+            base.API.call("wechatapi", {'url': 'http://10.145.108.57:5365/index.html' }).then(function (response) {
 
                 console.log(response)
                 var bodyConfig:BodyConfig = new BodyConfig();
@@ -153,55 +151,68 @@ namespace game {
                 bodyConfig.nonceStr = response['params']['nonceStr']
                 bodyConfig.jsApiList = response['params']['jsApiList']
                 bodyConfig.signature = response['params']['signature']
-                
 
                 if(wx) {
                     wx.config(bodyConfig)
                     wx.ready(function(){
                         console.log(12)
-                        // wx.checkJsApi({
-                        //     jsApiList: ["updateAppMessageShareData"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                        //     success: function(res) {
-                        //         console.log(333)
-                        //         console.log(res)
-                        //     }
-                        // });
-                        wx.onMenuShareAppMessage({
+                        wx.checkJsApi({
+                            jsApiList: [
+                                "onMenuShareAppMessage",
+                                "checkJsApi"
+                            ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                            success: function(res) {
+                                console.log(333)
+                                console.log(res)
+                                alert(res)
 
+                            }
+                        });
+
+
+                        // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
+                        // bodyMenuShareAppMessage.title = '123'
+                        // bodyMenuShareAppMessage.desc = '123'
+                        // bodyMenuShareAppMessage.desc = 'http://10.145.108.57:5365/index.html'
+                        // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
+
+                        wx.onMenuShareAppMessage({
                             title: 'ark邀请你玩游戏', // 分享标题
-                            desc: '', // 分享描述
+                            desc: '123', // 分享描述
                             link: 'http://39.104.85.167:8106/index.html', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: '', // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                             trigger:function(res){
                                 console.log(res)
+                                console.log('trigger')
                             },
                             success:function(res){
                                 console.log(res)
-
+                                console.log('success')
                             },
                             cancel: function(res){
                                 console.log(res)
-
+                                console.log('cancel')
                             },
                             fail: function(res){
                                 console.log(res)
-
+                                console.log('fail')
                             }
                         });
+
                     })
                     
+                    wx.error(function(res){
+                        console.log('error')
+                        console.log(res)
+                    })
 
                 }
-
-
-
 
             }).catch(function (err) {
                 console.log(err);
             });
-
         }
 
 

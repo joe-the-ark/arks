@@ -126,8 +126,8 @@ var game;
         }
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
-            base.API.Init("http://39.104.85.167:8105/api/");
-            base.API.call("wechatapi", { 'url': 'http://39.104.85.167:8106/index.html' }).then(function (response) {
+            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.call("wechatapi", { 'url': 'http://10.145.108.57:5365/index.html' }).then(function (response) {
                 console.log(response);
                 var bodyConfig = new BodyConfig();
                 bodyConfig.debug = true;
@@ -140,33 +140,50 @@ var game;
                     wx.config(bodyConfig);
                     wx.ready(function () {
                         console.log(12);
-                        // wx.checkJsApi({
-                        //     jsApiList: ["updateAppMessageShareData"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                        //     success: function(res) {
-                        //         console.log(333)
-                        //         console.log(res)
-                        //     }
-                        // });
+                        wx.checkJsApi({
+                            jsApiList: [
+                                "onMenuShareAppMessage",
+                                "checkJsApi"
+                            ],
+                            success: function (res) {
+                                console.log(333);
+                                console.log(res);
+                                alert(res);
+                            }
+                        });
+                        // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
+                        // bodyMenuShareAppMessage.title = '123'
+                        // bodyMenuShareAppMessage.desc = '123'
+                        // bodyMenuShareAppMessage.desc = 'http://10.145.108.57:5365/index.html'
+                        // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
                         wx.onMenuShareAppMessage({
                             title: 'ark邀请你玩游戏',
-                            desc: '',
-                            link: 'http://39.104.85.167:8106/index.html',
+                            desc: '123',
+                            link: 'http://10.145.108.57:5365/index.html',
                             imgUrl: '',
                             type: '',
                             dataUrl: '',
                             trigger: function (res) {
                                 console.log(res);
+                                console.log('trigger');
                             },
                             success: function (res) {
                                 console.log(res);
+                                console.log('success');
                             },
                             cancel: function (res) {
                                 console.log(res);
+                                console.log('cancel');
                             },
                             fail: function (res) {
                                 console.log(res);
+                                console.log('fail');
                             }
                         });
+                    });
+                    wx.error(function (res) {
+                        console.log('error');
+                        console.log(res);
                     });
                 }
             }).catch(function (err) {
@@ -178,8 +195,8 @@ var game;
             var gameName = this.txInput2.text;
             var game_id = this.txInput.text;
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);

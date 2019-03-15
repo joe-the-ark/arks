@@ -139,7 +139,7 @@ namespace game {
         }
         private getPlayScoreList(){
             var self = this
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_player_score', {'inviter': this.inviter, 'gameName': this.gameName, 'gameSecret':this.game_secret, 'player':this.player, 'character_one':this.characterOne, 'character_two':this.characterTwo, 'chooser':this.inviter }).then(function (response){
                 // self.middle = response['middle']
                 // console.log(self.middle)
@@ -273,7 +273,7 @@ namespace game {
                     let stageHeight = this.stageHeight
                     let count = 0
 
-                    // base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.Init("http://127.0.0.1:8000/api/");
                     // base.API.call('get_choose_list', {})
                     // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                     this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]

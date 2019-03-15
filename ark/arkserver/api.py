@@ -552,10 +552,9 @@ def wechatapi(url):
         'timestamp': timestamp,
         'nonceStr': noncestr,
         'signature': signature,
-        'jsApiList': ['updateAppMessageShareData']
+        'jsApiList': ['onMenuShareAppMessage', 'checkJsApi']
 
     }
-
 
     return {'code': 0, 'params': params}
 
