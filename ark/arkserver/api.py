@@ -514,7 +514,6 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
 @api
 def wechatapi(url):
 
-    url = url
     appid = 'wx4f735f8d65cf5f28'
     secret = '101a2636c102453e871a7beed1cfefb1'
     access_token_params = {

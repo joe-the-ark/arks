@@ -142,7 +142,9 @@ namespace game {
             console.log(1)
 
             var link = window.location.href
+            console.log('link:')
             console.log(link)
+
             base.API.Init("http://39.104.85.167:8105/api/");
             base.API.call("wechatapi", {'url': link }).then(function (response) {
 
