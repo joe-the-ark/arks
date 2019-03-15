@@ -171,6 +171,8 @@ var game;
                             },
                             success: function (res) {
                                 alert('分享完成');
+                                console.log('分享完成');
+                                console.log(res);
                                 alert(res);
                                 alert('success');
                                 console.log('success');
