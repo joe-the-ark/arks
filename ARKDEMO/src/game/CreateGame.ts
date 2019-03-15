@@ -173,13 +173,11 @@ namespace game {
 
                             }
                         });
-
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
                         // bodyMenuShareAppMessage.desc = 'http://10.145.108.57:5365/index.html'
                         // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
-
                         wx.onMenuShareAppMessage({
                             title: 'ARK', // 分享标题
                             desc: '123', // 分享描述
@@ -190,9 +188,13 @@ namespace game {
                             trigger:function(){
                                 console.log('trigger')
                             },
-                            success:function(){
+                            success:function(res){
+
                                 alert('分享完成');
+                                alert(res)
+                                alert('success')
                                 console.log('success')
+
                             },
                             cancel: function(){
                                 alert('淘气了哦，你取消分享');

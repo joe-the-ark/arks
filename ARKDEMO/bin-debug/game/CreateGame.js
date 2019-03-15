@@ -169,8 +169,10 @@ var game;
                             trigger: function () {
                                 console.log('trigger');
                             },
-                            success: function () {
+                            success: function (res) {
                                 alert('分享完成');
+                                alert(res);
+                                alert('success');
                                 console.log('success');
                             },
                             cancel: function () {
