@@ -1,13 +1,13 @@
 server {
-      server_name 39.104.85.167:8106;
+      listen 8106;
 
-      root /root/ark/ARKDEMO/bin-release/web/v1;
+      root /root/mountainwater/ARKDEMO/bin-release/web/v1;
 
       index index.html;
 
       location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|js|pdf|txt){
 
-        root /root/ark/ARKDEMO/bin-release/web/v1/js;
+        root /root/mountainwater/ARKDEMO/bin-release/web/v1/js;
 
       }
 }

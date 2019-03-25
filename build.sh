@@ -12,4 +12,3 @@ python3 manage.py collectstatic --no-input --settings=ark.settings_test
 supervisorctl restart ark
 
 service nginx restart
-
