@@ -65,7 +65,7 @@ namespace game {
 
         private getGameResult() {
             var self = this
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -138,7 +138,6 @@ namespace game {
             }
 
         }
-
         private rightNext() {
             // console.log('向右像牛')
             // var self = this
@@ -160,15 +159,6 @@ namespace game {
                 self.stage.addChild(missionResult)
                 self.sprite.visible = false
                 self.rightIcon.visible = false
-            }
-        }
-
-        private onTouchBegin(): void {
-            if (this.stage) {
-                let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight);
-                this.stage.addChild(inviteScene)
-                this.sprite.visible = false
-                this.label.visible = false
             }
         }
 

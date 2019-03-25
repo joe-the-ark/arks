@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Character = (function (_super) {
         __extends(Character, _super);
-        function Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterListParams) {
+        function Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterListParams, playerAndOthersCharacterList) {
             var _this = _super.call(this) || this;
             _this.playerList = [];
             _this.game_secret = '';
@@ -28,6 +28,7 @@ var game;
             _this.characterList = [];
             _this.characterListParams = [];
             _this.charaChooser = [];
+            _this.playerAndOthersCharacterList = [];
             _this.map = {};
             _this.game_secret = game_secret;
             _this.player = player;
@@ -35,6 +36,7 @@ var game;
             _this.inviter = inviter;
             _this.count = count;
             _this.characterListParams = characterListParams;
+            _this.playerAndOthersCharacterList = playerAndOthersCharacterList;
             _this.characterList = characterListParams[1];
             _this.charaChooser = characterListParams[0];
             _this.characterTwo = _this.characterList[count][1];
@@ -96,77 +98,119 @@ var game;
         Character.prototype.nextTouch = function () {
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5;
             if (this.playerList.length == scoreCounts) {
-                var game_secret_1 = this.game_secret;
-                var inviter_1 = this.inviter;
-                var player_1 = this.player;
-                var gameName_1 = this.gameName;
-                var stageWidth_1 = this.stageWidth;
-                var stageHeight_1 = this.stageHeight;
-                if (this.count + 1 == this.characterList.length) {
-                    console.log('打分结束');
-                    base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map,
-                        'inviter_name': this.inviter,
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.charaChooser[this.count],
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
-                    }).then(function (response) {
-                        console.log(response);
-                    });
-                    console.log('所有性格打分结束');
-                    var self = this;
-                    base.API.call('save_players_process', {
-                        'inviter_name': self.inviter,
-                        'game_secret': self.game_secret,
-                        'player': self.player,
-                        'game_name': self.gameName,
-                        'process': '4.0'
-                    }).then(function (response) {
-                        var toTensionScaleResult = new game.TensionScaleResult(stageWidth_1, stageHeight_1, inviter_1, game_secret_1, player_1, gameName_1, self.characterListParams, self.count + 1);
-                        self.stage.addChild(toTensionScaleResult);
-                        self.sprite.visible = false;
-                        self._shape.visible = false;
-                        self.rightIcon.visible = false;
-                    });
-                }
-                else {
-                    console.log('打分结束');
-                    base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.call('set_player_score', {
-                        'params': this.map,
-                        'inviter_name': this.inviter,
-                        'gameSecret': this.game_secret,
-                        'player': this.player,
-                        'gameName': this.gameName,
-                        'charaChooser': this.charaChooser[this.count],
-                        'characterOne': this.characterOne,
-                        'characterTwo': this.characterTwo
-                    }).then(function (response) {
-                        console.log(response);
-                    });
-                    this.count += 1;
-                    var self = this;
-                    var process = '3.' + self.count.toString();
-                    base.API.call('save_players_process', {
-                        'inviter_name': self.inviter,
-                        'game_secret': self.game_secret,
-                        'player': self.player,
-                        'game_name': self.gameName,
-                        'process': process
-                    }).then(function (response) {
-                        var charater = new game.Character(game_secret_1, inviter_1, player_1, gameName_1, stageWidth_1, stageHeight_1, self.count, self.characterListParams);
-                        self.sprite.visible = false;
-                        self.removeChild(self.rightIcon);
-                        self.removeChild(self.closeIcon);
-                        self._shape.visible = false;
-                        self.stage.addChild(charater);
-                        self.tiptext.text = '';
-                    });
-                }
+                var game_secret = this.game_secret;
+                var inviter = this.inviter;
+                var player = this.player;
+                var gameName = this.gameName;
+                var stageWidth = this.stageWidth;
+                var stageHeight = this.stageHeight;
+                // if(this.count == 0){
+                // let characterone = this.playerAndOthersCharacterList[1][0]
+                // let charactertwo = this.playerAndOthersCharacterList[1][1]
+                var characterone = this.characterListParams[1][this.count][0];
+                var charactertwo = this.characterListParams[1][this.count][1];
+                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.call('set_player_score', {
+                    'params': this.map,
+                    'inviter_name': this.inviter,
+                    'gameSecret': this.game_secret,
+                    'player': this.player,
+                    'gameName': this.gameName,
+                    'charaChooser': this.charaChooser[this.count],
+                    'characterOne': characterone,
+                    'characterTwo': charactertwo
+                }).then(function (response) {
+                    console.log(response);
+                });
+                var count = this.count;
+                var chooser = this.charaChooser[this.count];
+                var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser);
+                this.sprite.visible = false;
+                this.removeChild(this.rightIcon);
+                this.removeChild(this.closeIcon);
+                this._shape.visible = false;
+                this.stage.addChild(missionPartialInsights);
+                this.tiptext.text = '';
+                // }
+                // if (this.count + 1 == this.characterList.length) {
+                //     console.log('打分结束')
+                //     base.API.Init("http://127.0.0.1:8000/api/");
+                //     base.API.call('set_player_score', {
+                //         'params': this.map,
+                //         'inviter_name': this.inviter,
+                //         'gameSecret': this.game_secret,
+                //         'player': this.player,
+                //         'gameName': this.gameName,
+                //         'charaChooser': this.charaChooser[this.count],
+                //         'characterOne': this.characterOne,
+                //         'characterTwo': this.characterTwo
+                //     }).then(function (response) {
+                //         console.log(response)
+                //     })
+                //     console.log('所有性格打分结束')
+                //     var this = this
+                //     base.API.call('save_players_process', {
+                //         'inviter_name': self.inviter,
+                //         'game_secret': self.game_secret,
+                //         'player': self.player,
+                //         'game_name': self.gameName,
+                //         'process': '4.0'
+                //     }).then(function (response) {
+                //         let toTensionScaleResult = new game.TensionScaleResult(
+                //             stageWidth,
+                //             stageHeight,
+                //             inviter,
+                //             game_secret,
+                //             player,
+                //             gameName,
+                //             self.characterListParams,
+                //             self.count + 1
+                //         )
+                //         self.stage.addChild(toTensionScaleResult);
+                //         self.sprite.visible = false;
+                //         self._shape.visible = false
+                //         self.rightIcon.visible = false;
+                //     })
+                // } else {
+                //     console.log('打分结束')
+                //     base.API.Init("http://127.0.0.1:8000/api/");
+                //     base.API.call('set_player_score', {
+                //         'params': this.map,
+                //         'inviter_name': this.inviter,
+                //         'gameSecret': this.game_secret,
+                //         'player': this.player,
+                //         'gameName': this.gameName,
+                //         'charaChooser': this.charaChooser[this.count],
+                //         'characterOne': this.characterOne,
+                //         'characterTwo': this.characterTwo
+                //     }).then(function (response) {
+                //         console.log(response)
+                //     })
+                //     this.count += 1
+                //     var self = this
+                //     var process = '3.' + self.count.toString()
+                //     base.API.call('save_players_process', {
+                //         'inviter_name': self.inviter,
+                //         'game_secret': self.game_secret,
+                //         'player': self.player,
+                //         'game_name': self.gameName,
+                //         'process': process
+                //     }).then(function (response) {
+                //         // let charater = new game.Character(
+                //         //     game_secret, inviter,
+                //         //     player, gameName,
+                //         //     stageWidth, stageHeight,
+                //         //     self.count, self.characterListParams);
+                //         //小循环的第二个页面
+                //         let missionPartialInsights =  new game.MissionPartialInsights(self.stageWidth, self.stageHeight, process, self.characterOne, self.characterTwo, self.player, self.player_score, self.inviter, self.game_secret, self.gameName, this.charaChooser[this.count])
+                //         self.sprite.visible = false
+                //         self.removeChild(self.rightIcon)
+                //         self.removeChild(self.closeIcon)
+                //         self._shape.visible = false
+                //         self.stage.addChild(missionPartialInsights);
+                //         self.tiptext.text = ''
+                //     })
+                // }
             }
             else {
                 this.addChild(this.tiptext);
@@ -221,8 +265,8 @@ var game;
             charater1.y = cy;
         };
         Character.prototype.getPlayList = function () {
-            base.API.Init("http://39.104.85.167:8105/api/");
-            // base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
+            // base.API.Init("http://127.0.0.1:8000/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -283,6 +327,9 @@ var game;
                                         self.sprite.addChild(player_score);
                                         var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
                                         var playerName = player_name.text;
+                                        if (playerName == self.player) {
+                                            self.player_score = _score;
+                                        }
                                         self.map[playerName] = _score;
                                         console.log(self.map);
                                     }

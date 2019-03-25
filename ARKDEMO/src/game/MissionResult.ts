@@ -47,7 +47,7 @@ namespace game{
 
         private getTTSMS(){
             let self = this
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_ttsm', {
                 'characterListParams': self.characterListParams,
                 'inviter':self.inviter,
@@ -81,7 +81,7 @@ namespace game{
 
         private drawResult(){
             var self = this
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter':self.inviter,
@@ -107,7 +107,6 @@ namespace game{
                     console.log('ttsmsend1:')
 
                     self.drawTensionScale(that.ttsms)
-
                     
 
                 }) 

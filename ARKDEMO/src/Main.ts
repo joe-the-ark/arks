@@ -57,9 +57,6 @@ class Main extends egret.DisplayObjectContainer {
         this.runGame().catch(e => {
             console.log(e);
         })
-
-
-
     }
 
     private async runGame() {
@@ -94,11 +91,69 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene() {
 
-        let stageWidth = this.stage.stageWidth
-        let stageHeight = this.stage.stageHeight
-        let scene = new game.Index(stageWidth, stageHeight)
-        this.stage.addChild(scene)
-        
+        console.log('首页')
+        var url = window.location.href;
+        console.log(url)
+
+        if(url.indexOf('game_id')){
+
+            let game_id = url.split('?')[1].split('&')[0].split('=')[1]
+            let nickname = url.split('?')[1].split('&')[1].split('=')[1]
+
+            if(url.indexOf('code') != -1){
+                var code = url.split('?')[1].split('&')[0].split('=')[1]
+                console.log(code)
+                base.API.Init("http://127.0.0.1:8000/api/");
+                let self=this;
+                base.API.call('wechatlogin', {'code':code, 'inviter':nickname, 'game_name':game_id, 'game_secret':game_id}).then(function (response){
+                    
+                    let user_data = response['result']
+                    let openid = user_data['openid']
+                    let nickname = user_data['nickname']
+                    let stageWidth = self.stage.stageWidth
+                    let stageHeight = self.stage.stageHeight
+
+                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid,'player')
+                    self.stage.addChild(scene)
+
+                })
+
+            }else {
+                var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html?game_id='+game_id)
+                console.log(redirect_uri)
+                var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                // console.log(s)
+            }    
+
+            
+        }else{
+
+            if(url.indexOf('code') != -1){
+                var code = url.split('?')[1].split('&')[0].split('=')[1]
+                console.log(code)
+                base.API.Init("http://127.0.0.1:8000/api/");
+                let self=this;
+                base.API.call('wechatlogin', {'code':code}).then(function (response){
+                    
+                    let user_data = response['result']
+                    let openid = user_data['openid']
+                    let nickname = user_data['nickname']
+                    let stageWidth = self.stage.stageWidth
+                    let stageHeight = self.stage.stageHeight
+                    let scene = new game.Index(stageWidth, stageHeight, nickname, openid)
+                    self.stage.addChild(scene)
+
+                })
+
+            }else {
+
+                var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html')
+                console.log(redirect_uri)
+                var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                // console.log(s)
+
+            }
+        }
     }
 
     /**

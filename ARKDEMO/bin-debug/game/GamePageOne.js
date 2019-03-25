@@ -27,6 +27,7 @@ var game;
             _this._distance = new egret.Point();
             _this.characterList = [];
             _this.map = {};
+            _this.playerSCore = '';
             _this.game_secret = game_secret;
             _this.player = player;
             _this.gameName = gameName;
@@ -40,6 +41,7 @@ var game;
             _this.sprite.y = 0;
             _this.addChild(_this.sprite);
             _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.getPlayList, _this);
+            _this.clickTip();
             _this.rectShapeOne = new egret.Shape();
             _this.rectShapeTwo = new egret.Shape();
             _this.sprite.addChild(_this.rectShapeOne);
@@ -100,30 +102,50 @@ var game;
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
                 var self = this;
-                base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.call('save_players_process', {
-                    'inviter_name': self.inviter,
+                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.call('firstvote', {
+                    'score': self.playerSCore,
                     'game_secret': self.game_secret,
+                    'inviter_name': self.inviter,
                     'player': self.player,
-                    'game_name': self.gameName,
-                    'process': '2.0'
+                    'gameName': self.gameName,
                 }).then(function (response) {
-                    var game_secret = self.game_secret;
-                    var inviter = self.inviter;
-                    var player = self.player;
-                    var gameName = self.gameName;
-                    var stageWidth = self.stageWidth;
-                    var stageHeight = self.stageHeight;
-                    var count = 0;
-                    var playerCount = self.playerList.length;
-                    var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
-                    self.stage.addChild(characterChoosePage);
-                    self.sprite.visible = false;
-                    self.removeChild(self.rightIcon);
-                    self.removeChild(self.closeIcon);
-                    self.closeTip();
-                    self._shape.visible = false;
+                    console.log(response);
                 });
+                // base.API.call('save_players_process', {
+                //     'inviter_name': self.inviter,
+                //     'game_secret': self.game_secret,
+                //     'player': self.player,
+                //     'game_name': self.gameName,
+                //     'process': '2.0'
+                // }).then(function (response) {
+                var game_secret = self.game_secret;
+                var inviter = self.inviter;
+                var player = self.player;
+                var gameName = self.gameName;
+                var stageWidth = self.stageWidth;
+                var stageHeight = self.stageHeight;
+                // let count = 0
+                var playerSCore = self.playerSCore;
+                var playerCount = self.playerList.length;
+                // let characterChoosePage = new game.CharacterChoosePage(
+                //     game_secret,
+                //     inviter,
+                //     player,
+                //     gameName,
+                //     stageWidth,
+                //     stageHeight,
+                //     playerCount
+                // )
+                // self.stage.addChild(characterChoosePage)
+                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
+                this.sprite.visible = false;
+                this.removeChild(self.rightIcon);
+                this.removeChild(self.closeIcon);
+                this.closeTip();
+                this._shape.visible = false;
+                this.stage.addChild(initiatePartialInsights);
+                // })
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                 // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
@@ -141,6 +163,16 @@ var game;
             tiptext.text = msg;
             tiptext.size = size;
             tiptext.width = this.stageWidth;
+        };
+        GamePageOne.prototype.clickTip = function () {
+            var clickTip = new egret.TextField();
+            clickTip.text = "Drag & Drop your Icon on the scale as you see fit. The question: In retrospective, to what extent does your team tap into its full POTENTIAL...";
+            clickTip.width = 250;
+            clickTip.x = 30;
+            clickTip.y = 450;
+            clickTip.background = true;
+            clickTip.backgroundColor = 0x359f93;
+            this.sprite.addChild(clickTip);
         };
         GamePageOne.prototype.drawRect = function () {
             var shape1 = this.rectShapeOne;
@@ -171,7 +203,7 @@ var game;
             charater2.y = cy;
         };
         GamePageOne.prototype.getPlayList = function () {
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -234,6 +266,7 @@ var game;
                                             player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString();
                                             self.sprite.addChild(player_score);
                                             var _score = (Math.ceil((player_score.y - 240) / scorey)).toString();
+                                            self.playerSCore = _score;
                                             var playerName = player_name.text;
                                             self.map[playerName] = _score;
                                             self.rightIcon.visible = true;

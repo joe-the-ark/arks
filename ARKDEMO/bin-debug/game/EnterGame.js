@@ -120,7 +120,7 @@ var game;
             console.log('player:' + player);
             var self = this;
             if (player && game_secret) {
-                base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
                     var play_list = response['player_list'];
                     var index = play_list.indexOf(self.txInput.text);
@@ -158,6 +158,7 @@ var game;
                                         'gameName': that.gameName,
                                     }).then(function (response) {
                                         var character_list = response['data'];
+                                        console.log(character_list);
                                         var characterList = [];
                                         character_list.forEach(function (val, index, array) {
                                             var player_name = val[0];
@@ -172,11 +173,30 @@ var game;
                                                 that.playerList.push(player_name);
                                             }
                                         });
-                                        if (count == playerCount) {
-                                            console.log('character_list');
-                                            characterList.push(that.playerList);
-                                            characterList.push(that.allcharacterlist);
-                                        }
+                                        // if (count == playerCount) {
+                                        console.log('character_list');
+                                        characterList.push(that.playerList);
+                                        characterList.push(that.allcharacterlist);
+                                        // }
+                                        var playerAndOthersCharacterList = [];
+                                        // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
+                                        var otherCharacterList = [];
+                                        var othersList = [];
+                                        var characterList2 = [];
+                                        self.playerList.forEach(function (val, index, array) {
+                                            if (val == that.player) {
+                                                playerAndOthersCharacterList.push(val);
+                                                playerAndOthersCharacterList.push(that.allcharacterlist[index]);
+                                            }
+                                            else {
+                                                othersList.push(val);
+                                                characterList2.push(that.allcharacterlist[index]);
+                                            }
+                                        });
+                                        otherCharacterList.push(othersList);
+                                        otherCharacterList.push(characterList2);
+                                        playerAndOthersCharacterList.push(otherCharacterList);
+                                        console.log(playerAndOthersCharacterList);
                                         var game_secret = that.game_secret;
                                         var inviter = that.inviter;
                                         var player = that.player;
@@ -184,7 +204,7 @@ var game;
                                         var stageWidth = that.stage.stageWidth;
                                         var stageHeight = that.stage.stageHeight;
                                         var processson1 = processson;
-                                        var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList);
+                                        var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList, playerAndOthersCharacterList);
                                         that.stage.addChild(charater);
                                         that.sprite.visible = false;
                                     });

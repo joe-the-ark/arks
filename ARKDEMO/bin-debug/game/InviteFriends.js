@@ -80,7 +80,7 @@ var game;
             button2.anchorOffsetX = button.width / 2;
             button2.anchorOffsetY = button.height / 2;
             button2.touchEnabled = true;
-            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.invateFriends, _this);
+            button2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin2, _this);
             _this.sprite.addChild(button2);
             var label2 = new egret.TextField();
             label2.text = "play";
@@ -96,7 +96,6 @@ var game;
             return _this;
         }
         InviteFriends.prototype.invateFriends = function () {
-            console.log(1);
             var bodyConfig = new BodyConfig();
             bodyConfig.appId = "wx4f735f8d65cf5f28";
             bodyConfig.debug = true;
@@ -131,8 +130,8 @@ var game;
                     this.count += 1;
                     this.text2.text = 'You have invited ' + this.count + ' players';
                     var self = this;
-                    // base.API.Init("http://39.104.85.167:8105/api/");
-                    base.API.Init("http://39.104.85.167:8105/api/");
+                    // base.API.Init("http://127.0.0.1:8000/api/");
+                    base.API.Init("http://127.0.0.1:8000/api/");
                     base.API.call("create_player", { 'player_name': player, 'game_secret': self.game_secret, 'gameName': self.gameName, 'inviter': self.inviter }).then(function (response) {
                         console.log(response);
                     }).catch(function (err) {
@@ -153,8 +152,8 @@ var game;
                     self.sprite.visible = false;
                 }
                 // console.log(this.stage)
-                //base.API.Init("http://39.104.85.167:8105/api/");
-                // base.API.Init("http://39.104.85.167:8105/api/");
+                //base.API.Init("http://127.0.0.1:8000/api/");
+                // base.API.Init("http://127.0.0.1:8000/api/");
                 // base.API.call("invite_players", { 'playerList': this.playerList }).then(function (response) {
                 //     console.log(response);
                 //     // var play = new game.LevelOneScene(_this.index);

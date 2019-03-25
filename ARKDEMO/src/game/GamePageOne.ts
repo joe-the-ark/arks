@@ -30,6 +30,9 @@ namespace game {
 
         private characterList = []
         private map: { [key: string]: string } = {}
+
+        private playerSCore= ''
+
         public constructor(game_secret, inviter, player, gameName, stageWidth, stageHeight) {
 
             super();
@@ -49,6 +52,7 @@ namespace game {
             this.addChild(this.sprite);
             this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getPlayList, this)
 
+            this.clickTip()
             this.rectShapeOne = new egret.Shape();
             this.rectShapeTwo = new egret.Shape();
             this.sprite.addChild(this.rectShapeOne);
@@ -110,7 +114,6 @@ namespace game {
 
         }
 
-
         private closeTip(): void {
             if (this.tiptext.parent) {
                 this.removeChild(this.tiptext)
@@ -122,14 +125,25 @@ namespace game {
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
                 var self = this
-                base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.call('save_players_process', {
-                    'inviter_name': self.inviter,
+                base.API.Init("http://127.0.0.1:8000/api/");
+
+                base.API.call('firstvote', {
+                    'score': self.playerSCore,
                     'game_secret': self.game_secret,
+                    'inviter_name': self.inviter,
                     'player': self.player,
-                    'game_name': self.gameName,
-                    'process': '2.0'
+                    'gameName': self.gameName,
                 }).then(function (response) {
+                    console.log(response)
+                })
+
+                // base.API.call('save_players_process', {
+                //     'inviter_name': self.inviter,
+                //     'game_secret': self.game_secret,
+                //     'player': self.player,
+                //     'game_name': self.gameName,
+                //     'process': '2.0'
+                // }).then(function (response) {
 
                     let game_secret = self.game_secret
                     let inviter = self.inviter
@@ -137,26 +151,39 @@ namespace game {
                     let gameName = self.gameName
                     let stageWidth = self.stageWidth
                     let stageHeight = self.stageHeight
-                    let count = 0
+                    // let count = 0
+                    let playerSCore = self.playerSCore 
                     let playerCount = self.playerList.length
-                    let characterChoosePage = new game.CharacterChoosePage(
+                    // let characterChoosePage = new game.CharacterChoosePage(
+                    //     game_secret,
+                    //     inviter,
+                    //     player,
+                    //     gameName,
+                    //     stageWidth,
+                    //     stageHeight,
+                    //     playerCount
+                    // )
+                    // self.stage.addChild(characterChoosePage)
+                    let initiatePartialInsights =  new game.InitiatePartialInsights(
                         game_secret,
                         inviter,
                         player,
                         gameName,
                         stageWidth,
                         stageHeight,
-                        playerCount
+                        playerCount,
+                        playerSCore
                     )
 
-                    self.stage.addChild(characterChoosePage)
-                    self.sprite.visible = false;
-                    self.removeChild(self.rightIcon);
-                    self.removeChild(self.closeIcon);
-                    self.closeTip();
-                    self._shape.visible = false
+                    this.sprite.visible = false;
+                    
+                    this.removeChild(self.rightIcon);
+                    this.removeChild(self.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false
 
-                })
+                    this.stage.addChild(initiatePartialInsights)
+                // })
 
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
@@ -166,13 +193,11 @@ namespace game {
                 // this.tiptext.text = ''
                 // this.removeChild(this.rightIcon)
                 // this.removeChild(this.closeIcon)
-
             }
         }
 
         private tip(width, height, msg, size) {
             var tiptext: egret.TextField = this.tiptext;
-
             tiptext.x = width
             tiptext.y = height
             tiptext.text = msg
@@ -180,6 +205,17 @@ namespace game {
             tiptext.width = this.stageWidth
 
         }
+        private clickTip(): void {
+            let clickTip: egret.TextField = new egret.TextField()
+            clickTip.text = "Drag & Drop your Icon on the scale as you see fit. The question: In retrospective, to what extent does your team tap into its full POTENTIAL..."
+            clickTip.width = 250
+            clickTip.x = 30
+            clickTip.y = 450
+            clickTip.background = true
+            clickTip.backgroundColor = 0x359f93
+            this.sprite.addChild(clickTip)
+        }
+
         private drawRect() {
 
             var shape1: egret.Shape = this.rectShapeOne;
@@ -216,7 +252,7 @@ namespace game {
         }
 
         private getPlayList(): void {
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             let self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,
@@ -288,9 +324,11 @@ namespace game {
                                             player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString()
                                             self.sprite.addChild(player_score)
                                             let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
+
+                                            self.playerSCore = _score
+
                                             let playerName = player_name.text
                                             self.map[playerName] = _score
-
                                             self.rightIcon.visible = true
                                         }
                                     }

@@ -106,6 +106,9 @@ var game;
             absoluteValueOfDeviation.x = 80;
             absoluteValueOfDeviation.y = 60;
             this.sprite.addChild(absoluteValueOfDeviation);
+            if (this.individualTensionScaleMedian == 0) {
+                this.sprite.removeChild(absoluteValueOfDeviation);
+            }
         };
         return TensionScale;
     }(egret.DisplayObjectContainer));

@@ -1,13 +1,13 @@
-cd /root/ark
+cd /root/mountainwater
 
 git fetch origin
 git merge origin/master
 
 
-cd /root/ark/ark
+cd /root/mountainwater/ark
 
 python3 manage.py migrate --settings=ark.settings_test
-# python3 manage.py collectstatic --no-input --settings=moutainearth.settings_test
+python3 manage.py collectstatic --no-input --settings=ark.settings_test
 
 supervisorctl restart ark
 

@@ -29,6 +29,44 @@
         data-multi-fingered="2" data-show-fps="false" data-show-log="false" data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
     <script>
+
+        // console.log('首页')
+
+        // var url = window.location.href;
+
+        // console.log(url)
+
+        // if(url.indexOf('code') != -1){
+
+        //     var code = url.split('?')[1].split('&')[0].split('=')[1]
+        //     console.log(code)
+
+        //    if(window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+        //         xmlhttp = new XMLHttpRequest();
+        //     }
+        //     else {// code for IE6, IE5
+        //         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        //     }
+        //     xmlhttp.onreadystatechange=function()
+        //     {
+        //         if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        //         {
+        //             console.log(xmlhttp.responseText);
+        //         }
+        //     }
+        //     xmlhttp.open("POST", "http://127.0.0.1:8000/api/wechatlogin/", true);
+        //     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //     xmlhttp.send('{"code":"'+code+'"}');
+
+        // }else {
+
+        //     var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html')
+        //     console.log(redirect_uri)
+        //     var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+        //     // console.log(s)
+
+        // }
+
         var loadScript = function (list, callback) {
             var loaded = 0;
             var loadNext = function () {
@@ -56,7 +94,6 @@
             }, false);
             document.body.appendChild(s);
         };
-
 
         var xhr = new XMLHttpRequest();
         

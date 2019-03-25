@@ -132,7 +132,7 @@ namespace game {
 
             var self = this
             if (player && game_secret) {
-                base.API.Init("http://39.104.85.167:8105/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("find_players", { 'game_secret': self.game_secret, 'gameName': self.gameName }).then(function (response) {
                     let play_list = response['player_list']
                     var index = play_list.indexOf(self.txInput.text)
@@ -183,6 +183,8 @@ namespace game {
                                     }).then(function (response) {
                                         var character_list = response['data']
 
+                                        console.log(character_list)
+
                                         var characterList = []
 
                                         character_list.forEach((val, index, array) => {
@@ -198,11 +200,33 @@ namespace game {
                                                 that.playerList.push(player_name)
                                             }
                                         })
-                                        if (count == playerCount) {
-                                            console.log('character_list')
-                                            characterList.push(that.playerList)
-                                            characterList.push(that.allcharacterlist)
-                                        }
+                                        // if (count == playerCount) {
+                                        console.log('character_list')
+                                        characterList.push(that.playerList)
+                                        characterList.push(that.allcharacterlist)
+
+                                        // }
+                                        let playerAndOthersCharacterList = []
+                                        // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
+                                        let otherCharacterList = []
+                                        let othersList = []
+                                        let characterList2 = []
+                                        
+                                        self.playerList.forEach((val, index, array) => {
+
+                                            if(val == that.player){
+                                                playerAndOthersCharacterList.push(val)
+                                                playerAndOthersCharacterList.push(that.allcharacterlist[index])
+                                            }else {
+                                                othersList.push(val)
+                                                characterList2.push(that.allcharacterlist[index])
+                                            }
+                                        })
+                                        otherCharacterList.push(othersList)
+                                        otherCharacterList.push(characterList2)
+                                        playerAndOthersCharacterList.push(otherCharacterList)
+
+                                        console.log(playerAndOthersCharacterList)
 
                                         let game_secret = that.game_secret
                                         let inviter = that.inviter
@@ -211,7 +235,7 @@ namespace game {
                                         let stageWidth = that.stage.stageWidth
                                         let stageHeight = that.stage.stageHeight
                                         let processson1 = processson
-                                        let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList);
+                                        let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList, playerAndOthersCharacterList);
                                         that.stage.addChild(charater);
                                         that.sprite.visible = false
 

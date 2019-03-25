@@ -12,140 +12,217 @@ namespace game {
         private count: number = 0
         private text2: egret.TextField
         private playerList = []
-        public constructor(stageWidth, stageHeight) {
+        public label:egret.TextField
+        public label2:egret.TextField
+        public label3:egret.TextField
+
+        public stageWidth
+        public stageHeight
+
+        public nickname
+        public openid
+        public status
+        public constructor(stageWidth, stageHeight, nickname, openid, status) {
             super();
             this.sprite = new egret.Sprite();
             this.sprite.width = stageWidth
             this.sprite.height = stageHeight
             this.addChild(this.sprite)
 
-            var shape: egret.Shape = new egret.Shape();
-            shape.graphics.beginFill(0xFFF5EE);
-            shape.graphics.drawRect(0, 0, 300, 50);
-            shape.graphics.endFill();
-            shape.x = this.sprite.width / 2 + 60
-            shape.y = this.sprite.height / 3
-            shape.anchorOffsetX = shape.width / 2
-            shape.anchorOffsetY = shape.height / 2
-            this.sprite.addChild(shape)
-
-            this.txInput = new egret.TextField();
-            this.txInput.type = egret.TextFieldType.INPUT;
-            this.txInput.inputType = egret.TextFieldInputType.TEXT;
-            this.txInput.width = 290;
-            this.txInput.height = 50;
-            this.txInput.x = this.sprite.width / 2 + 60
-            this.txInput.y = this.sprite.height / 3
-            this.txInput.anchorOffsetX = this.txInput.width / 2
-            this.txInput.anchorOffsetY = this.txInput.height / 2
-            this.txInput.textColor = 0x0D0D0D;
-            this.txInput.size = 40;
-
-            var text: egret.TextField = new egret.TextField();
-            text.text = 'password:';
-            text.x = this.sprite.width / 2 - 280
-            text.y = this.sprite.height / 3 - 18
-            text.size = 30
-            this.sprite.addChild(text)
-            this.sprite.addChild(this.txInput)
-
-            var shape2: egret.Shape = new egret.Shape();
-            shape2.graphics.beginFill(0xFFF5EE);
-            shape2.graphics.drawRect(0, 0, 300, 50);
-            shape2.graphics.endFill();
-            shape2.x = this.sprite.width / 2 + 60
-            shape2.y = this.sprite.height / 3 - 80
-            shape2.anchorOffsetX = shape2.width / 2
-            shape2.anchorOffsetY = shape2.height / 2
-            this.sprite.addChild(shape2)
-
-            var shape3: egret.Shape = new egret.Shape();
-            shape3.graphics.beginFill(0xFFF5EE);
-            shape3.graphics.drawRect(0, 0, 300, 50);
-            shape3.graphics.endFill();
-            shape3.x = this.sprite.width / 2 + 60
-            shape3.y = this.sprite.height / 3 - 160
-            shape3.anchorOffsetX = shape2.width / 2
-            shape3.anchorOffsetY = shape2.height / 2
-            this.sprite.addChild(shape3)
+            this.nickname =nickname
+            this.openid = openid
+            this.status = status
+            this.label2 = new egret.TextField(); 
+            this.label2.text = "be ready friends: "; 
+            this.label2.height = 30;
+            this.label2.anchorOffsetX = this.label2.width/2
+            this.label2.anchorOffsetY = this.label2.height/2
+            this.label2.x = this.stageWidth /2 
+            this.label2.y = this.stageHeight / 3
+            this.label2.background = true;
+            this.label2.backgroundColor = 0xffffff;
+            this.label2.border = true;
+            this.label2.borderColor = 0x00ff00;
+            this.label2.fontFamily = "Arial";
+            this.label2.textColor = 0xFF0000;
+            // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+            this.addChild(this.label2)
 
 
-            this.txInput2 = new egret.TextField();
-            this.txInput2.type = egret.TextFieldType.INPUT;
-            this.txInput2.inputType = egret.TextFieldInputType.TEXT;
-            this.txInput2.width = 290;
-            this.txInput2.height = 50;
-            this.txInput2.x = this.sprite.width / 2 + 60
-            this.txInput2.y = this.sprite.height / 3 - 75
-            this.txInput2.anchorOffsetX = this.txInput2.width / 2
-            this.txInput2.anchorOffsetY = this.txInput2.height / 2
-            this.txInput2.textColor = 0x0D0D0D;
-            this.txInput2.size = 40;
+            this.initPage()
+            this.invateFriends()
+            // var shape: egret.Shape = new egret.Shape();
+            // shape.graphics.beginFill(0xFFF5EE);
+            // shape.graphics.drawRect(0, 0, 300, 50);
+            // shape.graphics.endFill();
+            // shape.x = this.sprite.width / 2 + 60
+            // shape.y = this.sprite.height / 3
+            // shape.anchorOffsetX = shape.width / 2
+            // shape.anchorOffsetY = shape.height / 2
+            // this.sprite.addChild(shape)
 
-            var text3: egret.TextField = new egret.TextField();
-            text3.text = 'game name:';
-            text3.x = this.sprite.width / 2 - 280
-            text3.y = this.sprite.height / 3 - 90
-            text3.size = 30
-            this.sprite.addChild(text3)
-            this.sprite.addChild(this.txInput2)
+            // this.txInput = new egret.TextField();
+            // this.txInput.type = egret.TextFieldType.INPUT;
+            // this.txInput.inputType = egret.TextFieldInputType.TEXT;
+            // this.txInput.width = 290;
+            // this.txInput.height = 50;
+            // this.txInput.x = this.sprite.width / 2 + 60
+            // this.txInput.y = this.sprite.height / 3
+            // this.txInput.anchorOffsetX = this.txInput.width / 2
+            // this.txInput.anchorOffsetY = this.txInput.height / 2
+            // this.txInput.textColor = 0x0D0D0D;
+            // this.txInput.size = 40;
 
-            this.txInput3 = new egret.TextField();
-            this.txInput3.type = egret.TextFieldType.INPUT;
-            this.txInput3.inputType = egret.TextFieldInputType.TEXT;
-            this.txInput3.width = 290;
-            this.txInput3.height = 50;
-            this.txInput3.x = this.sprite.width / 2 + 60
-            this.txInput3.y = this.sprite.height / 3 - 150
-            this.txInput3.anchorOffsetX = this.txInput3.width / 2
-            this.txInput3.anchorOffsetY = this.txInput3.height / 2
-            this.txInput3.textColor = 0x0D0D0D;
-            this.txInput3.size = 40;
+            // var text: egret.TextField = new egret.TextField();
+            // text.text = 'password:';
+            // text.x = this.sprite.width / 2 - 280
+            // text.y = this.sprite.height / 3 - 18
+            // text.size = 30
+            // this.sprite.addChild(text)
+            // this.sprite.addChild(this.txInput)
 
-            var text4: egret.TextField = new egret.TextField();
-            text4.text = 'your name:';
-            text4.x = this.sprite.width / 2 - 280
-            text4.y = this.sprite.height / 3 - 170
-            text4.size = 30
-            this.sprite.addChild(text4)
-            this.sprite.addChild(this.txInput3)
+            // var shape2: egret.Shape = new egret.Shape();
+            // shape2.graphics.beginFill(0xFFF5EE);
+            // shape2.graphics.drawRect(0, 0, 300, 50);
+            // shape2.graphics.endFill();
+            // shape2.x = this.sprite.width / 2 + 60
+            // shape2.y = this.sprite.height / 3 - 80
+            // shape2.anchorOffsetX = shape2.width / 2
+            // shape2.anchorOffsetY = shape2.height / 2
+            // this.sprite.addChild(shape2)
 
-
-            var button: egret.Shape = new egret.Shape();
-            button.graphics.beginFill(0x00cc00);
-            button.graphics.drawRect(0, 0, 200, 50);
-            button.graphics.endFill();
-            button.x = this.sprite.width / 2
-            button.y = this.sprite.height / 2;
-            button.anchorOffsetX = button.width / 2
-            button.anchorOffsetY = button.height / 2
-            button.touchEnabled = true;
-            button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.invateFriends, this)
-            this.sprite.addChild(button)
-
-            var label: egret.TextField = new egret.TextField();
-            label.text = "create";
-            label.anchorOffsetX = label.width / 2
-            label.anchorOffsetY = label.height / 2
-            label.x = this.sprite.width / 2
-            label.y = this.sprite.height / 2
-            this.sprite.addChild(label)
+            // var shape3: egret.Shape = new egret.Shape();
+            // shape3.graphics.beginFill(0xFFF5EE);
+            // shape3.graphics.drawRect(0, 0, 300, 50);
+            // shape3.graphics.endFill();
+            // shape3.x = this.sprite.width / 2 + 60
+            // shape3.y = this.sprite.height / 3 - 160
+            // shape3.anchorOffsetX = shape2.width / 2
+            // shape3.anchorOffsetY = shape2.height / 2
+            // this.sprite.addChild(shape3)
 
 
-            this.text2 = new egret.TextField()
-            this.text2.width = stageWidth
-            this.sprite.addChild(this.text2)
+            // this.txInput2 = new egret.TextField();
+            // this.txInput2.type = egret.TextFieldType.INPUT;
+            // this.txInput2.inputType = egret.TextFieldInputType.TEXT;
+            // this.txInput2.width = 290;
+            // this.txInput2.height = 50;
+            // this.txInput2.x = this.sprite.width / 2 + 60
+            // this.txInput2.y = this.sprite.height / 3 - 75
+            // this.txInput2.anchorOffsetX = this.txInput2.width / 2
+            // this.txInput2.anchorOffsetY = this.txInput2.height / 2
+            // this.txInput2.textColor = 0x0D0D0D;
+            // this.txInput2.size = 40;
+
+            // var text3: egret.TextField = new egret.TextField();
+            // text3.text = 'game name:';
+            // text3.x = this.sprite.width / 2 - 280
+            // text3.y = this.sprite.height / 3 - 90
+            // text3.size = 30
+            // this.sprite.addChild(text3)
+            // this.sprite.addChild(this.txInput2)
+
+            // this.txInput3 = new egret.TextField();
+            // this.txInput3.type = egret.TextFieldType.INPUT;
+            // this.txInput3.inputType = egret.TextFieldInputType.TEXT;
+            // this.txInput3.width = 290;
+            // this.txInput3.height = 50;
+            // this.txInput3.x = this.sprite.width / 2 + 60
+            // this.txInput3.y = this.sprite.height / 3 - 150
+            // this.txInput3.anchorOffsetX = this.txInput3.width / 2
+            // this.txInput3.anchorOffsetY = this.txInput3.height / 2
+            // this.txInput3.textColor = 0x0D0D0D;
+            // this.txInput3.size = 40;
+
+            // var text4: egret.TextField = new egret.TextField();
+            // text4.text = 'your name:';
+            // text4.x = this.sprite.width / 2 - 280
+            // text4.y = this.sprite.height / 3 - 170
+            // text4.size = 30
+            // this.sprite.addChild(text4)
+            // this.sprite.addChild(this.txInput3)
+
+
+            // var button: egret.Shape = new egret.Shape();
+            // button.graphics.beginFill(0x00cc00);
+            // button.graphics.drawRect(0, 0, 200, 50);
+            // button.graphics.endFill();
+            // button.x = this.sprite.width / 2
+            // button.y = this.sprite.height / 2;
+            // button.anchorOffsetX = button.width / 2
+            // button.anchorOffsetY = button.height / 2
+            // button.touchEnabled = true;
+            // button.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this)
+            // this.sprite.addChild(button)
+
+            // var label: egret.TextField = new egret.TextField();
+            // label.text = "create";
+            // label.anchorOffsetX = label.width / 2
+            // label.anchorOffsetY = label.height / 2
+            // label.x = this.sprite.width / 2
+            // label.y = this.sprite.height / 2
+            // this.sprite.addChild(label)
+
+
+            // this.text2 = new egret.TextField()
+            // this.text2.width = stageWidth
+            // this.sprite.addChild(this.text2)
 
         }
+        private initPage(){
+
+            if(this.status == 'inviter'){
+
+                this.label = new egret.TextField(); 
+                this.label.text = "Click on the top right corner to invite friends "; 
+                this.label.height = 30;
+                this.label.anchorOffsetX = this.label.width/2
+                this.label.anchorOffsetY = this.label.height/2
+                this.label.x = this.stageWidth /2 
+                this.label.y = this.stageHeight / 4
+                this.label.background = true;
+                this.label.backgroundColor = 0xffffff;
+                this.label.border = true;
+                this.label.borderColor = 0x00ff00;
+                this.label.fontFamily = "Arial";
+                this.label.textColor = 0xFF0000;
+                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                this.addChild(this.label)
+
+
+                this.label3 = new egret.TextField(); 
+                this.label3.text = "start "; 
+                this.label3.height = 30;
+                this.label3.width = 200;
+                this.label3.anchorOffsetX = this.label3.width/2
+                this.label3.anchorOffsetY = this.label3.height/2
+                this.label3.x = this.stageWidth /2 
+                this.label3.y = this.stageHeight / 1.5
+                this.label3.background = true;
+                this.label3.backgroundColor = 0xffffff;
+                this.label3.border = true;
+                this.label3.borderColor = 0x00ff00;
+                this.label3.fontFamily = "Arial";
+                this.label3.textColor = 0xFF0000;
+                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                this.addChild(this.label3)
+
+            }
+
+        }
+
+
         private invateFriends(){
 
             console.log(1)
 
             var link = window.location.href
+            var link = 'http://10.145.106.83:5365/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
+
             console.log('link:')
             console.log(link)
 
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call("wechatapi", {'url': link }).then(function (response) {
 
                 console.log(response)
@@ -170,7 +247,6 @@ namespace game {
                                 console.log(333)
                                 console.log(res)
                                 alert(res)
-
                             }
                         });
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
@@ -224,8 +300,8 @@ namespace game {
             var gameName = this.txInput2.text
             var game_id = this.txInput.text
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://39.104.85.167:8105/api/");
-                base.API.Init("http://39.104.85.167:8105/api/");
+                // base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://127.0.0.1:8000/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);

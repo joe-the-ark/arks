@@ -864,7 +864,6 @@ def wechatlogin(code, inviter, game_name,game_secret):
     if not player:
         player = Player.objects.create(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid)
 
-
     return {'code':0, 'result':user_data}
 
     # user = User.objects.filter(unionid=unionid).first()

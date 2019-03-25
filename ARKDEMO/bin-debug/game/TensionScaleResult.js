@@ -64,7 +64,7 @@ var game;
         }
         TensionScaleResult.prototype.getGameResult = function () {
             var self = this;
-            base.API.Init("http://39.104.85.167:8105/api/");
+            base.API.Init("http://127.0.0.1:8000/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,
@@ -149,14 +149,6 @@ var game;
                 self.stage.addChild(missionResult);
                 self.sprite.visible = false;
                 self.rightIcon.visible = false;
-            }
-        };
-        TensionScaleResult.prototype.onTouchBegin = function () {
-            if (this.stage) {
-                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight);
-                this.stage.addChild(inviteScene);
-                this.sprite.visible = false;
-                this.label.visible = false;
             }
         };
         TensionScaleResult.prototype.getRandomScore = function (Min, Max) {

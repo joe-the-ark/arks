@@ -113,6 +113,9 @@ namespace game {
             absoluteValueOfDeviation.x = 80
             absoluteValueOfDeviation.y = 60
             this.sprite.addChild(absoluteValueOfDeviation)
+            if (this.individualTensionScaleMedian == 0) {  // ITSM 无数据则不显示|差值|
+                this.sprite.removeChild(absoluteValueOfDeviation)
+            }
 
         }
     }

@@ -153,10 +153,46 @@ var Main = (function (_super) {
      * Create a game scene
      */
     Main.prototype.createGameScene = function () {
-        var stageWidth = this.stage.stageWidth;
-        var stageHeight = this.stage.stageHeight;
-        var scene = new game.Index(stageWidth, stageHeight);
-        this.stage.addChild(scene);
+        console.log('首页');
+        var url = window.location.href;
+        console.log(url);
+        if (url.indexOf('code') != -1) {
+            var code = url.split('?')[1].split('&')[0].split('=')[1];
+            console.log(code);
+            base.API.Init("http://127.0.0.1:8000/api/");
+            var self_1 = this;
+            base.API.call('wechatlogin', { 'code': code }).then(function (response) {
+                var user_data = response['result'];
+                var openid = user_data['openid'];
+                var nickname = user_data['nickname'];
+                var stageWidth = self_1.stage.stageWidth;
+                var stageHeight = self_1.stage.stageHeight;
+                var scene = new game.Index(stageWidth, stageHeight, nickname, openid);
+                self_1.stage.addChild(scene);
+            });
+            //    if(window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+            //         xmlhttp = new XMLHttpRequest();
+            //     }
+            //     else {// code for IE6, IE5
+            //         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            //     }
+            //     xmlhttp.onreadystatechange=function()
+            //     {
+            //         if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            //         {
+            //             console.log(xmlhttp.responseText);
+            //         }
+            //     }
+            //     xmlhttp.open("POST", "http://127.0.0.1:8000/api/wechatlogin/", true);
+            //     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            //     xmlhttp.send('{"code":"'+code+'"}');
+        }
+        else {
+            var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html');
+            console.log(redirect_uri);
+            var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+            // console.log(s)
+        }
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
