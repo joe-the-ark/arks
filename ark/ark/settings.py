@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'corsheaders',  # 需要注释
+    'corsheaders',  # 需要注释
     'restapi',
     'arkserver'
 ]
@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',  # 需要注释
+    'corsheaders.middleware.CorsMiddleware',  # 需要注释
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -114,8 +114,8 @@ USE_L10N = True
 USE_TZ = False
 
 # 允许所有ip访问
-# CORS_ALLOW_CREDENTIALS = True  # 需要注释
-# CORS_ORIGIN_ALLOW_ALL = True  # 需要注释
+CORS_ALLOW_CREDENTIALS = True  # 需要注释
+CORS_ORIGIN_ALLOW_ALL = True  # 需要注释
 # #允许所有的请求头
 # CORS_ALLOW_HEADERS = ('http://39.104.85.167')
 # Static files (CSS, JavaScript, Images)

@@ -18,12 +18,12 @@ def create_player(player_name, game_secret, gameName, inviter):
 
 @api
 def create_game(inviter, gameName, game_id):
-    player = Player.objects.filter(name=inviter, game_secret=game_id, game_name=gameName, inviter_name=inviter).first()
+
+    player = Player.objects.filter(name=inviter, nickname=inviter, openid=game_id).first()
     if not player:
-        player = Player.objects.create(name=inviter, game_secret=game_id, game_name=gameName, inviter_name=inviter)
+        player = Player.objects.create(name=inviter, game_secret=game_id, game_name=gameName, inviter_name=inviter, nickname=inviter, openid=game_id)
 
     game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
-
     # character_one = Character.objects.filter(name='Insufficiently').first()
     # character_two = Character.objects.filter(name='Fully').first()
     # print(character_two)
@@ -32,7 +32,6 @@ def create_game(inviter, gameName, game_id):
     #     character_one=character_one, character_two=character_two,
     #     player=player, game=game
     # )
-
     return {'code': 0}
 
 
@@ -291,7 +290,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
     chooser_list = characterListParams[0]
     character_list = characterListParams[1]
     playercount = len(chooser_list)
-
     result_list = []
     player_scores = []
 
@@ -300,7 +298,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
     for index in range(0, playercount):
 
         result = [character_list[index][0], character_list[index][1]]
-
         chooser = Player.objects.filter(
             name=chooser_list[index], game_secret=gameSecret,
             inviter_name=inviter, game_name=gameName
@@ -332,7 +329,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
             result.append(middle)
             result.append(player_score)
         result_list.append(result)
-
 
     _inviter = Player.objects.filter(
         name=inviter, game_secret=gameSecret,
@@ -436,7 +432,6 @@ def get_players_process(game_secret, inviter_name, player, gameName):
     ).first()
 
     playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
-
     gameProcess = GameProcess.objects.filter(game=game, player=_player).first()
     if gameProcess:
         process = gameProcess.process
@@ -448,7 +443,6 @@ def get_players_process(game_secret, inviter_name, player, gameName):
 
         elif process[0] == '4':
             return {'code':0, 'process':4, 'playercount':playercount}
-
 
     return {'code': 0, 'process':1}
 
@@ -578,7 +572,6 @@ def firstvote(score, game_secret, inviter_name, player, gameName):
         status=0
     ).first()
 
-
     firstScore = FirstScore.objects.filter(game=game, player=_player).first()
     if firstScore:
         firstScore.first_score = score
@@ -588,3 +581,312 @@ def firstvote(score, game_secret, inviter_name, player, gameName):
         FirstScore.objects.create(game=game, first_score=score, player=_player)
 
     return {'code':0}
+
+@api
+def getOthersSelfPerception(inviter_name, game_secret, player, gameName):
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    firstScore = FirstScore.objects.filter(game=game)
+    OthersSelfPerceptionList = []
+    for _ in firstScore:
+        if _.player.id == _player.id:
+            continue
+        OthersSelfPerceptionList.append(int(_.first_score))
+
+    return {'code':0, 'OthersSelfPerceptionList':OthersSelfPerceptionList}
+
+
+@api
+def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, chooser):
+
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+
+    chooser = Player.objects.filter(
+        name=chooser, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+
+    players = Player.objects.filter(
+        game_secret=game_secret, inviter_name=inviter_name, game_name=gameName
+    )
+
+    character_one = Character.objects.filter(name=c1).first()
+    character_two = Character.objects.filter(name=c2).first()
+
+    characterChoose = CharacterChoose.objects.filter(character_one=character_one, character_two=character_two, player=chooser, game=game).first()
+
+    print(characterChoose)
+    playerCount = Player.objects.filter(game_secret=game_secret,inviter_name=inviter_name, game_name=gameName).count()
+
+    print(playerCount)
+    #找到所有已打分人
+    playerScores =  PlayerScore.objects.filter(character_choose=characterChoose, game=game, player=_player)
+    print(playerScores)
+
+    count = playerScores.count()
+
+    print('count:')
+    print(count)
+
+    #所有打分人的分数
+    individualTensionScale = []
+    for _ in playerScores:
+
+        print(_.score)
+        if _.scorer.id == _player.id:
+            continue
+        individualTensionScale.append(int(_.score))
+
+    print(individualTensionScale)
+
+    #当前scale所有人的itsm
+    #   找到所有被打分人
+    allttsm = 0
+    for _ in playerScores:
+        #被打分人 _.player
+        #找到对_.player的所有playerScores
+        playerScores2 =  PlayerScore.objects.filter(character_choose=characterChoose, game=game, player=_.player)
+        count2 = playerScores2.count()
+        #所有打分人的分数均数,不包括自己
+        sumScore = 0
+        for p in playerScores2:
+            if p.scorer.id == _.player.id:
+                continue
+            sumScore += int(p.score)
+        itsm2 = sumScore/count2
+        allttsm += itsm2
+
+    ttsm = int(allttsm/playerCount)
+
+    return {'code':0, 'individualTensionScale':individualTensionScale, 'ttsm':ttsm, 'playerCount':playerCount}
+
+
+@api
+def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
+    #1、获取所有性格 2、所有人在该scale对该玩家评分的平均值 3、sp-itsm的差值的绝对值
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    print(_player)
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    print(game)
+
+    characterChooses = CharacterChoose.objects.filter(game=game)
+
+    print(characterChooses)
+
+    simulatedData1 = []
+    simulatedData2 = []
+    for c in characterChooses:
+        c1 = c.character_one.name
+        c2 = c.character_two.name
+        #根据该scale选择获取评分
+        simulatedData = []
+
+        playerScores = PlayerScore.objects.filter(character_choose=c, player=_player, game=game)
+        othersCount = playerScores.count() - 1
+
+        #其他人对该玩家的评分
+        othersScoreList = []
+        allttsm = 0
+        sp = 0
+
+        for _ in playerScores:
+            if _.id == _player.id:
+                sp = int(_.score)
+            else:
+                othersScoreList.append(int(_.score))
+
+        print(111111)
+        print(sp)
+        #其他人对该玩家的评分的均值
+        average = sum(othersScoreList)
+        if othersCount:
+            itsm = int(average/othersCount)
+        else:
+            itsm = 0
+
+        spitsm = abs(sp - itsm)
+
+        #判断是不是玩家打分过的scale
+        s2 = PlayerScore.objects.filter(character_choose=c, scorer=_player, game=game).first()
+        print(s2)
+        simulatedData.append(c1)
+        simulatedData.append(c2)
+        simulatedData.append(itsm)
+        simulatedData.append(spitsm)
+        simulatedData.append(sp)
+
+        if s2:
+            simulatedData2.append(simulatedData)
+        else:
+            simulatedData1.append(simulatedData)
+
+
+    print({'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2})
+    return {'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2}
+
+
+@api
+def getCharacterList(inviter_name, game_secret, player, gameName):
+
+    #获取所有已经选择的性格
+
+    _player = Player.objects.filter(
+        name=player, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    print(_player)
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    characterChooses = CharacterChoose.objects.filter(game=game)
+    chooserList = []
+    characterList = []
+    for c in characterChooses:
+        clist = []
+        chooser = c.player.name
+        character_one = c.character_one.name
+        character_two = c.character_two.name
+        chooserList.append(chooser)
+        clist.append(character_one)
+        clist.append(character_two)
+        characterList.append(clist)
+
+    result = []
+    result.append(chooserList)
+    result.append(characterList)
+
+    print(result)
+
+    return {'code':0, 'characterListParams':result}
+
+
+@api
+def wechatlogin(code, inviter, game_name,game_secret):
+
+    print(code)
+    appid = 'wx4f735f8d65cf5f28'
+    secret = '101a2636c102453e871a7beed1cfefb1'
+    #获取access_token、openid
+    access_token_params = {
+        'appid': appid,
+        'secret': secret,
+        'code': code,
+        'grant_type': 'authorization_code'
+    }
+    get_access_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token'
+    response = requests.get(url=get_access_token_url, params=access_token_params)
+    response.encoding = 'utf-8'
+
+    print(response)
+
+    response = json.loads(response.text)
+
+    print(response)
+    access_token = response['access_token']
+    openid = response['openid']
+        #获取用户信息
+    get_user_info_url = 'https://api.weixin.qq.com/sns/userinfo'
+    user_info_params = {
+        'access_token': access_token,
+        'openid': openid
+    }
+    res = json.loads(requests.get(url=get_user_info_url, params=user_info_params).text)
+    print(res)
+
+    openid = res['openid']
+    nickname = res['nickname']
+    #判断用户账号是否存在
+    user_data = {
+        'nickname': res['nickname'],
+        'openid': res['openid']
+    }
+
+    player = Player.objects.filter(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid).first()
+    if not player:
+        player = Player.objects.create(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid)
+
+
+    return {'code':0, 'result':user_data}
+
+    # user = User.objects.filter(unionid=unionid).first()
+    # if user:
+    #     if not user.mobile:
+    #         return {'msg': '当前用户未注册账号,转至注册页面', 'code': 1, 'user_data':user_data}
+
+    #     return {'msg': '当前用户已注册账号，可直接登录', 'code': 0, 'user_data': user_data}
+
+    # #账号注册页面
+    # else:
+    #     User.objects.create(
+    #         nickname=res['nickname'].encode('raw_unicode_escape').decode(),
+    #         sex=res['sex'],
+    #         province=res['province'].encode('raw_unicode_escape').decode(),
+    #         city=res['city'].encode('raw_unicode_escape').decode(),
+    #         country=res['country'].encode('raw_unicode_escape').decode(),
+    #         headimgurl=res['headimgurl'],
+    #         unionid=res['unionid'],
+    #         username='1'
+    #     )
+    #     return {'msg': '当前用户未注册账号,转至注册页面', 'code': 1, 'user_data':user_data}
+
+
+

@@ -4,9 +4,12 @@ from django.db import models
 
 class Player(models.Model):
     name = models.CharField(max_length=100, verbose_name='player_name')
+    nickname = models.CharField(max_length=100, verbose_name='nickname', default='')
+    openid = models.CharField(max_length=100, verbose_name='openid', default='')
     game_secret = models.CharField(max_length=200, verbose_name='game_password', null=True, blank=True)
     game_name = models.CharField(max_length=200, verbose_name='game_name')
     inviter_name = models.CharField(max_length=200, verbose_name='creater')
+
 
     class Meta(object):
             verbose_name = verbose_name_plural = 'players'
@@ -32,6 +35,7 @@ class Game(models.Model):
 
 class Character(models.Model):
     name = models.CharField(max_length=100, verbose_name='scale')
+
     class Meta(object):
             verbose_name = verbose_name_plural = 'scales'
 
@@ -69,7 +73,6 @@ class PlayerScore(models.Model):
         return self.player.name + ':'+ self.score
 
 
-
 class GameProcess(models.Model):
 
     class Meta(object):
@@ -93,5 +96,7 @@ class FirstScore(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='player')
 
 
+    def __str__(self):
+        return self.player.name + '__firstScore:'+self.first_score
 
 

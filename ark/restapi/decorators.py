@@ -64,6 +64,7 @@ def api(func):
                 return render(request, 'restapi/api.html', ctx)
 
         try:
+            print(request.body)
             params = json.loads(request.body.decode('utf-8'))
         except:
             raise
