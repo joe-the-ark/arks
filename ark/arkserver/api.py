@@ -823,7 +823,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
 def wechatlogin(code, inviter, game_name,game_secret):
 
     print(code)
-    appid = 'wx4f735f8d65cf5f28'
+    appid = 'wxc7594d7d49e0235f'
     secret = '101a2636c102453e871a7beed1cfefb1'
     #获取access_token、openid
     access_token_params = {
