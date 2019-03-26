@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var CreateGame = (function (_super) {
         __extends(CreateGame, _super);
-        function CreateGame(stageWidth, stageHeight, nickname, openid) {
+        function CreateGame(stageWidth, stageHeight, nickname, openid, status) {
             var _this = _super.call(this) || this;
             _this.count = 0;
             _this.playerList = [];
@@ -20,23 +20,9 @@ var game;
             _this.sprite.width = stageWidth;
             _this.sprite.height = stageHeight;
             _this.addChild(_this.sprite);
-            _this.stageWidth = stageWidth;
-            _this.stageHeight = stageHeight;
-            _this.label = new egret.TextField();
-            _this.label.text = "Click on the top right corner to invite friends ";
-            _this.label.height = 30;
-            _this.label.anchorOffsetX = _this.label.width / 2;
-            _this.label.anchorOffsetY = _this.label.height / 2;
-            _this.label.x = _this.stageWidth / 2;
-            _this.label.y = _this.stageHeight / 4;
-            _this.label.background = true;
-            _this.label.backgroundColor = 0xffffff;
-            _this.label.border = true;
-            _this.label.borderColor = 0x00ff00;
-            _this.label.fontFamily = "Arial";
-            _this.label.textColor = 0xFF0000;
-            // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-            _this.addChild(_this.label);
+            _this.nickname = nickname;
+            _this.openid = openid;
+            _this.status = status;
             _this.label2 = new egret.TextField();
             _this.label2.text = "be ready friends: ";
             _this.label2.height = 30;
@@ -52,22 +38,7 @@ var game;
             _this.label2.textColor = 0xFF0000;
             // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
             _this.addChild(_this.label2);
-            _this.label3 = new egret.TextField();
-            _this.label3.text = "start ";
-            _this.label3.height = 30;
-            _this.label3.width = 200;
-            _this.label3.anchorOffsetX = _this.label3.width / 2;
-            _this.label3.anchorOffsetY = _this.label3.height / 2;
-            _this.label3.x = _this.stageWidth / 2;
-            _this.label3.y = _this.stageHeight / 1.5;
-            _this.label3.background = true;
-            _this.label3.backgroundColor = 0xffffff;
-            _this.label3.border = true;
-            _this.label3.borderColor = 0x00ff00;
-            _this.label3.fontFamily = "Arial";
-            _this.label3.textColor = 0xFF0000;
-            _this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
-            _this.addChild(_this.label3);
+            _this.initPage();
             _this.invateFriends();
             return _this;
             // var shape: egret.Shape = new egret.Shape();
@@ -173,12 +144,48 @@ var game;
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
+        CreateGame.prototype.initPage = function () {
+            if (this.status == 'inviter') {
+                this.label = new egret.TextField();
+                this.label.text = "Click on the top right corner to invite friends ";
+                this.label.height = 30;
+                this.label.anchorOffsetX = this.label.width / 2;
+                this.label.anchorOffsetY = this.label.height / 2;
+                this.label.x = this.stageWidth / 2;
+                this.label.y = this.stageHeight / 4;
+                this.label.background = true;
+                this.label.backgroundColor = 0xffffff;
+                this.label.border = true;
+                this.label.borderColor = 0x00ff00;
+                this.label.fontFamily = "Arial";
+                this.label.textColor = 0xFF0000;
+                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                this.addChild(this.label);
+                this.label3 = new egret.TextField();
+                this.label3.text = "start ";
+                this.label3.height = 30;
+                this.label3.width = 200;
+                this.label3.anchorOffsetX = this.label3.width / 2;
+                this.label3.anchorOffsetY = this.label3.height / 2;
+                this.label3.x = this.stageWidth / 2;
+                this.label3.y = this.stageHeight / 1.5;
+                this.label3.background = true;
+                this.label3.backgroundColor = 0xffffff;
+                this.label3.border = true;
+                this.label3.borderColor = 0x00ff00;
+                this.label3.fontFamily = "Arial";
+                this.label3.textColor = 0xFF0000;
+                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                this.addChild(this.label3);
+            }
+        };
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
             var link = window.location.href;
+            var link = 'http://10.145.106.83:5365/index.html?game_id=' + this.openid + '&inviter=' + this.nickname;
             console.log('link:');
             console.log(link);
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", { 'url': link }).then(function (response) {
                 console.log(response);
                 var bodyConfig = new BodyConfig();
@@ -250,8 +257,8 @@ var game;
             var gameName = this.txInput2.text;
             var game_id = this.txInput.text;
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://127.0.0.1:8000/api/");
-                base.API.Init("http://127.0.0.1:8000/api/");
+                // base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);

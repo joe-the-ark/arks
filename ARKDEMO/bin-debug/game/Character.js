@@ -109,7 +109,7 @@ var game;
                 // let charactertwo = this.playerAndOthersCharacterList[1][1]
                 var characterone = this.characterListParams[1][this.count][0];
                 var charactertwo = this.characterListParams[1][this.count][1];
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('set_player_score', {
                     'params': this.map,
                     'inviter_name': this.inviter,
@@ -134,7 +134,7 @@ var game;
                 // }
                 // if (this.count + 1 == this.characterList.length) {
                 //     console.log('打分结束')
-                //     base.API.Init("http://127.0.0.1:8000/api/");
+                //     base.API.Init("http://work.metatype.cn:8105/api/");
                 //     base.API.call('set_player_score', {
                 //         'params': this.map,
                 //         'inviter_name': this.inviter,
@@ -173,7 +173,7 @@ var game;
                 //     })
                 // } else {
                 //     console.log('打分结束')
-                //     base.API.Init("http://127.0.0.1:8000/api/");
+                //     base.API.Init("http://work.metatype.cn:8105/api/");
                 //     base.API.call('set_player_score', {
                 //         'params': this.map,
                 //         'inviter_name': this.inviter,
@@ -265,8 +265,8 @@ var game;
             charater1.y = cy;
         };
         Character.prototype.getPlayList = function () {
-            base.API.Init("http://127.0.0.1:8000/api/");
-            // base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            // base.API.Init("http://work.metatype.cn:8105/api/");
             var self = this;
             base.API.call('get_player_list', {
                 'game_secret': self.game_secret,

@@ -103,7 +103,7 @@ class Main extends egret.DisplayObjectContainer {
             if(url.indexOf('code') != -1){
                 var code = url.split('?')[1].split('&')[0].split('=')[1]
                 console.log(code)
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://work.metatype.cn:8105/api/");
                 let self=this;
                 base.API.call('wechatlogin', {'code':code, 'inviter':nickname, 'game_name':game_id, 'game_secret':game_id}).then(function (response){
                     
@@ -131,7 +131,7 @@ class Main extends egret.DisplayObjectContainer {
             if(url.indexOf('code') != -1){
                 var code = url.split('?')[1].split('&')[0].split('=')[1]
                 console.log(code)
-                base.API.Init("http://127.0.0.1:8000/api/");
+                base.API.Init("http://work.metatype.cn:8105/api/");
                 let self=this;
                 base.API.call('wechatlogin', {'code':code}).then(function (response){
                     

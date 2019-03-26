@@ -65,7 +65,7 @@ namespace game {
 
         private getGameResult() {
             var self = this
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_game_score', {
                 'characterListParams': self.characterListParams,
                 'inviter': self.inviter,

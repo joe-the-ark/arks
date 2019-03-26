@@ -45,7 +45,7 @@ var game;
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getGameList, this)
         }
         // private getGameList():void {
-        //     base.API.Init("http://127.0.0.1:8000/api/");
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
         //     let self=this;
         //     base.API.call('get_game_list', {}).then(function (response){
         //         this.game_list = response['gameList']
@@ -75,7 +75,7 @@ var game;
         //     }
         // }
         Index.prototype.onTouchBegin = function () {
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id': this.openid }).then(function (response) {
                 // var play = new game.LevelOneScene(_this.index);
                 // _this.Switch(play);
@@ -89,7 +89,7 @@ var game;
             // }
             console.log(this.stage);
             if (this.stage) {
-                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid);
+                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, 'inviter');
                 this.stage.addChild(inviteScene);
                 this.sprite.visible = false;
                 this.label.visible = false;

@@ -222,7 +222,7 @@ namespace game {
             console.log('link:')
             console.log(link)
 
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", {'url': link }).then(function (response) {
 
                 console.log(response)
@@ -300,8 +300,8 @@ namespace game {
             var gameName = this.txInput2.text
             var game_id = this.txInput.text
             if (inviter && gameName && game_id) {
-                // base.API.Init("http://127.0.0.1:8000/api/");
-                base.API.Init("http://127.0.0.1:8000/api/");
+                // base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);

@@ -111,7 +111,7 @@ namespace game {
 
         private getGameResult() {
             var self = this
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('getKeepUpVotingData', {
                 'inviter_name': self.inviter,
                 'game_secret': self.game_secret,
@@ -191,7 +191,7 @@ namespace game {
         private nextTouch(){
             var self = this
             let scorecount = self.scorecount + 1
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('getCharacterList', {
                 'inviter_name': self.inviter,
                 'game_secret': self.game_secret,

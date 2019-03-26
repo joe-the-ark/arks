@@ -161,7 +161,7 @@ var game;
         };
         CharacterChoosePage.prototype.rightNext = function () {
             var self = this;
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {
                 'inviter_name': self.inviter,
                 'game_secret': self.game_secret,
@@ -212,7 +212,7 @@ var game;
         };
         CharacterChoosePage.prototype.getPlayerCharacterList = function () {
             var self = this;
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_player_characterlist', {
                 'game_secret': self.game_secret,
                 'inviter': self.inviter,
@@ -270,7 +270,7 @@ var game;
             this.sprite.addChild(splitLine);
         };
         CharacterChoosePage.prototype.getCharacterList = function () {
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
             var self = this;
             base.API.call('get_character_list', {}).then(function (response) {
                 var _this = this;
@@ -451,7 +451,7 @@ var game;
         CharacterChoosePage.prototype.addTensionScale = function () {
             var self = this;
             if (this.select_list.length = 2) {
-                base.API.Init('http://127.0.0.1:8000/api/');
+                base.API.Init('http://work.metatype.cn:8105/api/');
                 base.API.call('save_character_choose', {
                     'inviterName': self.inviter,
                     'gameSecret': self.game_secret,

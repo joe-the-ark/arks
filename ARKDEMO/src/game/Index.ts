@@ -48,7 +48,7 @@ namespace game {
         }
 
         // private getGameList():void {
-        //     base.API.Init("http://127.0.0.1:8000/api/");
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
         //     let self=this;
         //     base.API.call('get_game_list', {}).then(function (response){
         //         this.game_list = response['gameList']
@@ -83,7 +83,7 @@ namespace game {
 
         private onTouchBegin():void {
 
-            base.API.Init("http://127.0.0.1:8000/api/");
+            base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
