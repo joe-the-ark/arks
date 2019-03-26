@@ -216,14 +216,14 @@ namespace game {
 
             console.log(1)
 
-            var link = window.location.href
+            var link1 = window.location.href
             var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
 
             console.log('link:')
             console.log(link)
 
             base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call("wechatapi", {'url': link }).then(function (response) {
+            base.API.call("wechatapi", {'url': link1 }).then(function (response) {
 
                 console.log(response)
                 var bodyConfig:BodyConfig = new BodyConfig();
