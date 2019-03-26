@@ -824,7 +824,7 @@ def wechatlogin(code, inviter, game_name,game_secret):
 
     print(code)
     appid = 'wxc7594d7d49e0235f'
-    secret = '101a2636c102453e871a7beed1cfefb1'
+    secret = 'ebbda5cbab00241032bc936fe3839393'
     #获取access_token、openid
     access_token_params = {
         'appid': appid,
