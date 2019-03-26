@@ -175,7 +175,7 @@ var Main = (function (_super) {
                 });
             }
             else {
-                var redirect_uri = encodeURIComponent('http://work.metatype.cn:8106/index.html?game_id=' + game_id);
+                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_id);
                 console.log(redirect_uri);
                 var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
@@ -198,7 +198,7 @@ var Main = (function (_super) {
                 });
             }
             else {
-                var redirect_uri = encodeURIComponent('http://work.metatype.cn:8106/index.html');
+                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html');
                 console.log(redirect_uri);
                 var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
