@@ -123,7 +123,6 @@ class Main extends egret.DisplayObjectContainer {
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
             }    
-
             
         }else{
 
@@ -141,7 +140,7 @@ class Main extends egret.DisplayObjectContainer {
                     let stageHeight = self.stage.stageHeight
                     let scene = new game.Index(stageWidth, stageHeight, nickname, openid)
                     self.stage.addChild(scene)
-
+                    
                 })
 
             }else {

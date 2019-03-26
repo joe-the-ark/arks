@@ -217,7 +217,7 @@ namespace game {
             console.log(1)
 
             var link = window.location.href
-            var link = 'http://10.145.106.83:5365/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
+            var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
 
             console.log('link:')
             console.log(link)

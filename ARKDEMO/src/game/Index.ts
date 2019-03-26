@@ -27,8 +27,8 @@ namespace game {
 
             this.label = new egret.TextField(); 
             this.label.text = "start"; 
-            this.label.height = 80;
-            this.label.width = 180;
+            this.label.height = 30;
+            this.label.width = 80;
             this.label.anchorOffsetX = this.label.width/2
             this.label.anchorOffsetY = this.label.height/2
             this.label.x = this.stageWidth /2 
