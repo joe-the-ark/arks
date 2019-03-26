@@ -49,9 +49,13 @@ namespace game {
             // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
             this.sprite.addChild(this.label2)
 
-
+            if(status == 'inviter'){
+                this.invateFriends()
+            }
+            
             this.initPage()
-            this.invateFriends()
+            
+
             // var shape: egret.Shape = new egret.Shape();
             // shape.graphics.beginFill(0xFFF5EE);
             // shape.graphics.drawRect(0, 0, 300, 50);
@@ -172,38 +176,6 @@ namespace game {
         private initPage(){
 
             if(this.status == 'inviter'){
-                this.label = new egret.TextField(); 
-                this.label.text = "Click on the top right corner to invite friends "; 
-                this.label.height = 30;
-                this.label.anchorOffsetX = this.label.width/2
-                this.label.anchorOffsetY = this.label.height/2
-                this.label.x = this.stageWidth /2 
-                this.label.y = this.stageHeight / 4
-                this.label.background = true;
-                this.label.backgroundColor = 0xffffff;
-                this.label.border = true;
-                this.label.borderColor = 0x00ff00;
-                this.label.fontFamily = "Arial";
-                this.label.textColor = 0xFF0000;
-                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                this.addChild(this.label)
-
-                this.label3 = new egret.TextField(); 
-                this.label3.text = "play game"; 
-                this.label3.height = 30;
-                this.label3.width = 200;
-                this.label3.anchorOffsetX = this.label3.width/2
-                this.label3.anchorOffsetY = this.label3.height/2
-                this.label3.x = this.stageWidth /2 
-                this.label3.y = this.stageHeight / 1.5
-                this.label3.background = true;
-                this.label3.backgroundColor = 0xffffff;
-                this.label3.border = true;
-                this.label3.borderColor = 0x00ff00;
-                this.label3.fontFamily = "Arial";
-                this.label3.textColor = 0xFF0000;
-                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                this.addChild(this.label3)
 
             }
 
@@ -266,6 +238,42 @@ namespace game {
                                 // alert(res)
                                 // alert('success')
                                 // console.log('success')
+
+                                this.label = new egret.TextField(); 
+                                this.label.text = "Click on the top right corner to invite friends "; 
+                                this.label.height = 30;
+                                this.label.anchorOffsetX = this.label.width/2
+                                this.label.anchorOffsetY = this.label.height/2
+                                this.label.x = this.stageWidth /2 
+                                this.label.y = this.stageHeight / 4
+                                this.label.background = true;
+                                this.label.backgroundColor = 0xffffff;
+                                this.label.border = true;
+                                this.label.borderColor = 0x00ff00;
+                                this.label.fontFamily = "Arial";
+                                this.label.textColor = 0xFF0000;
+                                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                                this.addChild(this.label)
+
+                                this.label3 = new egret.TextField(); 
+                                this.label3.text = "play game"; 
+                                this.label3.height = 30;
+                                this.label3.width = 200;
+                                this.label3.anchorOffsetX = this.label3.width/2
+                                this.label3.anchorOffsetY = this.label3.height/2
+                                this.label3.x = this.stageWidth /2 
+                                this.label3.y = this.stageHeight / 1.5
+                                this.label3.background = true;
+                                this.label3.backgroundColor = 0xffffff;
+                                this.label3.border = true;
+                                this.label3.borderColor = 0x00ff00;
+                                this.label3.fontFamily = "Arial";
+                                this.label3.textColor = 0xFF0000;
+                                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                                this.addChild(this.label3)
+
+
+
                             },
                             cancel: function(){
                                 alert('淘气了哦，你取消分享');
@@ -290,25 +298,26 @@ namespace game {
             var inviter = this.txInput3.text
             var gameName = this.txInput2.text
             var game_id = this.txInput.text
-            if (inviter && gameName && game_id) {
-                // base.API.Init("http://work.metatype.cn:8105/api/");
-                base.API.Init("http://work.metatype.cn:8105/api/");
-                base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
-                    // var play = new game.LevelOneScene(_this.index);
-                    // _this.Switch(play);
-                }).catch(function (err) {
-                    console.log(err);
-                });
+            
+            // if (inviter && gameName && game_id) {
+            //     // base.API.Init("http://work.metatype.cn:8105/api/");
+            //     base.API.Init("http://work.metatype.cn:8105/api/");
+            //     base.API.call("create_game", { 'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
+            //         // var play = new game.LevelOneScene(_this.index);
+            //         // _this.Switch(play);
+            //     }).catch(function (err) {
+            //         console.log(err);
+            //     });
 
-                if (this.stage) {
-                    let inviteFriends = new game.InviteFriends(game_id, inviter, gameName, this.stage.stageWidth, this.stage.stageHeight);
-                    this.stage.addChild(inviteFriends)
-                    this.sprite.visible = false
-                }
+            //     if (this.stage) {
+            //         let inviteFriends = new game.InviteFriends(game_id, inviter, gameName, this.stage.stageWidth, this.stage.stageHeight);
+            //         this.stage.addChild(inviteFriends)
+            //         this.sprite.visible = false
+            //     }
 
-            } else {
-                this.text2.text = "you must input your name , the game's name and the game_id"
-            }
+            // } else {
+            //     this.text2.text = "you must input your name , the game's name and the game_id"
+            // }
 
             // if(){
             //     var duplicate = 0
