@@ -147,7 +147,6 @@ class Main extends egret.DisplayObjectContainer {
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
-
             }
         }
     }
@@ -179,7 +178,6 @@ class Main extends egret.DisplayObjectContainer {
                 count = 0;
             }
             let textFlow = textflowArr[count];
-
             // 切换描述内容
             // Switch to described content
             textfield.textFlow = textFlow;
@@ -189,7 +187,6 @@ class Main extends egret.DisplayObjectContainer {
             tw.to({ "alpha": 0 }, 200);
             tw.call(change, this);
         };
-
         change();
     }
 }

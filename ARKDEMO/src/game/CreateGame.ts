@@ -32,6 +32,7 @@ namespace game {
             this.nickname =nickname
             this.openid = openid
             this.status = status
+
             this.label2 = new egret.TextField(); 
             this.label2.text = "be ready friends: "; 
             this.label2.height = 30;
@@ -46,7 +47,7 @@ namespace game {
             this.label2.fontFamily = "Arial";
             this.label2.textColor = 0xFF0000;
             // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-            this.addChild(this.label2)
+            this.sprite.addChild(this.label2)
 
 
             this.initPage()
@@ -167,12 +168,10 @@ namespace game {
             // this.text2 = new egret.TextField()
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
-
         }
         private initPage(){
 
             if(this.status == 'inviter'){
-
                 this.label = new egret.TextField(); 
                 this.label.text = "Click on the top right corner to invite friends "; 
                 this.label.height = 30;
@@ -189,9 +188,8 @@ namespace game {
                 // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
                 this.addChild(this.label)
 
-
                 this.label3 = new egret.TextField(); 
-                this.label3.text = "start "; 
+                this.label3.text = "play game"; 
                 this.label3.height = 30;
                 this.label3.width = 200;
                 this.label3.anchorOffsetX = this.label3.width/2
@@ -244,6 +242,8 @@ namespace game {
                             success: function(res) {
                             }
                         });
+
+                       let desc = 'your friend '+ this.nickname + 'invite you to join the game'
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -251,7 +251,7 @@ namespace game {
                         // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
                         wx.onMenuShareAppMessage({
                             title: 'ARK', // 分享标题
-                            desc: '123', // 分享描述
+                            desc: desc, // 分享描述
                             link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                             imgUrl: '', // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
@@ -260,14 +260,12 @@ namespace game {
                                 // console.log('trigger')
                             },
                             success:function(res){
-
                                 // alert('分享完成');
                                 // console.log('分享完成')
                                 // console.log(res)
                                 // alert(res)
                                 // alert('success')
                                 // console.log('success')
-
                             },
                             cancel: function(){
                                 alert('淘气了哦，你取消分享');
@@ -288,8 +286,6 @@ namespace game {
                 console.log(err);
             });
         }
-
-
         private onTouchBegin(): void {
             var inviter = this.txInput3.text
             var gameName = this.txInput2.text

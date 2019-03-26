@@ -37,7 +37,7 @@ var game;
             _this.label2.fontFamily = "Arial";
             _this.label2.textColor = 0xFF0000;
             // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-            _this.addChild(_this.label2);
+            _this.sprite.addChild(_this.label2);
             _this.initPage();
             _this.invateFriends();
             return _this;
@@ -162,7 +162,7 @@ var game;
                 // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
                 this.addChild(this.label);
                 this.label3 = new egret.TextField();
-                this.label3.text = "start ";
+                this.label3.text = "play game";
                 this.label3.height = 30;
                 this.label3.width = 200;
                 this.label3.anchorOffsetX = this.label3.width / 2;
@@ -208,6 +208,7 @@ var game;
                             success: function (res) {
                             }
                         });
+                        var desc = 'your friend ' + this.nickname + 'invite you to join the game';
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -215,7 +216,7 @@ var game;
                         // wx.onMenuShareAppMessage(bodyMenuShareAppMessage)
                         wx.onMenuShareAppMessage({
                             title: 'ARK',
-                            desc: '123',
+                            desc: desc,
                             link: link,
                             imgUrl: '',
                             type: '',

@@ -94,10 +94,10 @@ namespace game {
                 //     this.stage.addChild(inviteFriends)
                 //     this.sprite.visible = false
                 // }
-
             if( this.stage ) {
 
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, 'inviter');
+                
                 this.stage.addChild(inviteScene)
                 this.sprite.visible = false
                 this.label.visible = false
