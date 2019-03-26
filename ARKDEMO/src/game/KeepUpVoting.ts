@@ -54,7 +54,6 @@ namespace game {
             this.rightIcon()
         }
 
-
         private initNotice(){
             // let votedScalesNumber =this.votedScalesNumber.toString()
             // let scalesNumber = this.scalesNumber.toString()
@@ -68,8 +67,6 @@ namespace game {
             noticeBox.backgroundColor = 0xffcc33
 
         }
-
-
 
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 1 > Keep Up Voting")
@@ -162,11 +159,9 @@ namespace game {
                 let character2 = val[1]
                 let individualTensionScaleMedian = Number(val[2].toString())
                 let absoluteValueOfDeviation = Number(val[3].toString())
-
                 let player_score = Number(val[4].toString())
                 // let absoluteValueOfDeviation = Math.abs(player_score - middle_score)
                 // let individualTensionScaleMedian = middle_score
-
                 let teamTensionScaleMedian = 0
                 let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], absoluteValueOfDeviation, player_score, teamTensionScaleMedian, individualTensionScaleMedian)
                 tensionScale.x = 430

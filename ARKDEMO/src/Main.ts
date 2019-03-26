@@ -95,7 +95,7 @@ class Main extends egret.DisplayObjectContainer {
         var url = window.location.href;
         console.log(url)
 
-        if(url.indexOf('game_id')){
+        if(url.indexOf('game_id') != -1){
 
             let game_id = url.split('?')[1].split('&')[0].split('=')[1]
             let nickname = url.split('?')[1].split('&')[1].split('=')[1]
@@ -119,7 +119,7 @@ class Main extends egret.DisplayObjectContainer {
                 })
 
             }else {
-                var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html?game_id='+game_id)
+                var redirect_uri = encodeURIComponent('http://work.metatype.cn:8106/index.html?game_id='+game_id)
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
@@ -147,7 +147,7 @@ class Main extends egret.DisplayObjectContainer {
 
             }else {
 
-                var redirect_uri = encodeURIComponent('http://10.145.106.83:5365/index.html')
+                var redirect_uri = encodeURIComponent('http://work.metatype.cn:8106/index.html')
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx4f735f8d65cf5f28&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
