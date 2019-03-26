@@ -508,8 +508,8 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
 @api
 def wechatapi(url):
 
-    appid = 'wx4f735f8d65cf5f28'
-    secret = '101a2636c102453e871a7beed1cfefb1'
+    appid = 'wxc7594d7d49e0235f'
+    secret = 'ebbda5cbab00241032bc936fe3839393'
     access_token_params = {
         'appid': appid,
         'secret': secret,
@@ -820,7 +820,10 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
 
 
 @api
-def wechatlogin(code, inviter, game_name,game_secret):
+def wechatlogin(**params):
+
+    code = params['code']
+
 
     print(code)
     appid = 'wxc7594d7d49e0235f'
@@ -860,9 +863,15 @@ def wechatlogin(code, inviter, game_name,game_secret):
         'openid': res['openid']
     }
 
-    player = Player.objects.filter(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid).first()
-    if not player:
-        player = Player.objects.create(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid)
+    if 'inviter' in params.keys():
+        game_secret = params['game_secret']
+        game_name = params['game_name']
+        game_secret = params['game_secret']
+
+        player = Player.objects.filter(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid).first()
+        if not player:
+            player = Player.objects.create(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid)
+
 
     return {'code':0, 'result':user_data}
 
