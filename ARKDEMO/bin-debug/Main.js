@@ -160,7 +160,8 @@ var Main = (function (_super) {
             var game_id = url.split('?')[1].split('&')[0].split('=')[1];
             var nickname = url.split('?')[1].split('&')[1].split('=')[1];
             if (url.indexOf('code') != -1) {
-                var code = url.split('?')[1].split('&')[0].split('=')[1];
+                var code = url.split('?')[1].split('&')[2].split('=')[1];
+                alert('code:' + code);
                 console.log(code);
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 var self_1 = this;
@@ -175,7 +176,7 @@ var Main = (function (_super) {
                 });
             }
             else {
-                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_id);
+                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_id + '&nickname=' + nickname);
                 console.log(redirect_uri);
                 var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)

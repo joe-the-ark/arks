@@ -185,6 +185,7 @@ var game;
             var link = 'http://ark.metatype.cn/index.html?game_id=' + this.openid + '&inviter=' + this.nickname;
             console.log('link:');
             console.log(link);
+            alert('link:' + link);
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", { 'url': link1 }).then(function (response) {
                 console.log(response);
@@ -205,9 +206,6 @@ var game;
                                 "checkJsApi"
                             ],
                             success: function (res) {
-                                console.log(333);
-                                console.log(res);
-                                alert(res);
                             }
                         });
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
@@ -223,15 +221,15 @@ var game;
                             type: '',
                             dataUrl: '',
                             trigger: function () {
-                                console.log('trigger');
+                                // console.log('trigger')
                             },
                             success: function (res) {
-                                alert('分享完成');
-                                console.log('分享完成');
-                                console.log(res);
-                                alert(res);
-                                alert('success');
-                                console.log('success');
+                                // alert('分享完成');
+                                // console.log('分享完成')
+                                // console.log(res)
+                                // alert(res)
+                                // alert('success')
+                                // console.log('success')
                             },
                             cancel: function () {
                                 alert('淘气了哦，你取消分享');

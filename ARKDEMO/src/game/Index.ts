@@ -88,20 +88,14 @@ namespace game {
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
                 }).catch(function (err) {
-                    console.log(err);
                 });
-
                 // if (this.stage) {
                 //     let inviteFriends = new game.InviteFriends(game_id, inviter, gameName, this.stage.stageWidth, this.stage.stageHeight);
                 //     this.stage.addChild(inviteFriends)
                 //     this.sprite.visible = false
                 // }
 
-            console.log(this.stage)
             if( this.stage ) {
-
-
-
 
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, 'inviter');
                 this.stage.addChild(inviteScene)

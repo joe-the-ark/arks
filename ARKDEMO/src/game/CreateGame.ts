@@ -213,14 +213,12 @@ namespace game {
 
 
         private invateFriends(){
-
             console.log(1)
-
             var link1 = window.location.href
             var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
-
             console.log('link:')
             console.log(link)
+            alert('link:'+link)
 
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", {'url': link1 }).then(function (response) {
@@ -244,9 +242,6 @@ namespace game {
                                 "checkJsApi"
                             ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                             success: function(res) {
-                                console.log(333)
-                                console.log(res)
-                                alert(res)
                             }
                         });
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
@@ -262,16 +257,16 @@ namespace game {
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                             trigger:function(){
-                                console.log('trigger')
+                                // console.log('trigger')
                             },
                             success:function(res){
 
-                                alert('分享完成');
-                                console.log('分享完成')
-                                console.log(res)
-                                alert(res)
-                                alert('success')
-                                console.log('success')
+                                // alert('分享完成');
+                                // console.log('分享完成')
+                                // console.log(res)
+                                // alert(res)
+                                // alert('success')
+                                // console.log('success')
 
                             },
                             cancel: function(){
