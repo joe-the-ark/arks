@@ -868,7 +868,7 @@ def wechatlogin(**params):
         game_secret = params['game_secret']
         game_name = params['game_name']
 
-        player = Player.objects.filter(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid).first()
+        player = Player.objects.filter(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_name, nickname=nickname, openid=openid).first()
         if not player:
             player = Player.objects.create(name=nickname, inviter=inviter, game_secret=game_secret, game_name=game_id, nickname=nickname, openid=openid)
 
