@@ -98,10 +98,13 @@ var game;
             }
         };
         GamePageOne.prototype.nextTouch = function () {
-            var scoreCounts = this.sprite.numChildren - this.playerList.length - 4;
+            // var scoreCounts = this.sprite.numChildren - this.playerList.length - 4
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
                 var self = this;
+                console.log(self.player);
+                console.log(self.playerSCore);
+                console.log(self.game_secret);
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('firstvote', {
                     'score': self.playerSCore,

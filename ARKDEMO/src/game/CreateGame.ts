@@ -320,13 +320,14 @@ namespace game {
             base.API.Init("http://work.metatype.cn:8105/api/")
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game',  {'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
+                
             })
             this.timer.stop()
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
             this.sprite.visible = false
 
-            
+
             // if (inviter && gameName && game_id) {
             //     // base.API.Init("http://work.metatype.cn:8105/api/");
             //     base.API.Init("http://work.metatype.cn:8105/api/");

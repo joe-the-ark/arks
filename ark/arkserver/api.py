@@ -23,7 +23,15 @@ def create_game(inviter, gameName, game_id):
     if not player:
         player = Player.objects.create(name=inviter, game_secret=game_id, game_name=gameName, inviter_name=inviter, nickname=inviter, openid=game_id)
 
-    game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
+
+    game = Game.objects.filter(game_secret=game_id, game_name=gameName, inviter=player).first()
+    if game:
+
+        game.status = 1
+        game.save()
+
+    else:
+        game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
     # character_one = Character.objects.filter(name='Insufficiently').first()
     # character_two = Character.objects.filter(name='Fully').first()
     # print(character_two)
