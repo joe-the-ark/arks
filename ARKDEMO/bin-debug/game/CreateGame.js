@@ -39,6 +39,37 @@ var game;
             // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
             _this.sprite.addChild(_this.label2);
             if (status == 'inviter') {
+                _this.label = new egret.TextField();
+                _this.label.text = "Click on the top right corner to invite friends ";
+                _this.label.height = 30;
+                _this.label.anchorOffsetX = _this.label.width / 2;
+                _this.label.anchorOffsetY = _this.label.height / 2;
+                _this.label.x = _this.stageWidth / 2;
+                _this.label.y = _this.stageHeight / 4;
+                _this.label.background = true;
+                _this.label.backgroundColor = 0xffffff;
+                _this.label.border = true;
+                _this.label.borderColor = 0x00ff00;
+                _this.label.fontFamily = "Arial";
+                _this.label.textColor = 0xFF0000;
+                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                _this.addChild(_this.label);
+                _this.label3 = new egret.TextField();
+                _this.label3.text = "play game";
+                _this.label3.height = 30;
+                _this.label3.width = 200;
+                _this.label3.anchorOffsetX = _this.label3.width / 2;
+                _this.label3.anchorOffsetY = _this.label3.height / 2;
+                _this.label3.x = _this.stageWidth / 2;
+                _this.label3.y = _this.stageHeight / 1.5;
+                _this.label3.background = true;
+                _this.label3.backgroundColor = 0xffffff;
+                _this.label3.border = true;
+                _this.label3.borderColor = 0x00ff00;
+                _this.label3.fontFamily = "Arial";
+                _this.label3.textColor = 0xFF0000;
+                _this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
+                _this.addChild(_this.label3);
                 _this.invateFriends();
             }
             _this.initPage();
@@ -196,43 +227,12 @@ var game;
                                 // console.log('trigger')
                             },
                             success: function (res) {
-                                // alert('分享完成');
+                                alert('分享完成');
                                 // console.log('分享完成')
                                 // console.log(res)
                                 // alert(res)
                                 // alert('success')
                                 // console.log('success')
-                                this.label = new egret.TextField();
-                                this.label.text = "Click on the top right corner to invite friends ";
-                                this.label.height = 30;
-                                this.label.anchorOffsetX = this.label.width / 2;
-                                this.label.anchorOffsetY = this.label.height / 2;
-                                this.label.x = this.stageWidth / 2;
-                                this.label.y = this.stageHeight / 4;
-                                this.label.background = true;
-                                this.label.backgroundColor = 0xffffff;
-                                this.label.border = true;
-                                this.label.borderColor = 0x00ff00;
-                                this.label.fontFamily = "Arial";
-                                this.label.textColor = 0xFF0000;
-                                // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                                this.addChild(this.label);
-                                this.label3 = new egret.TextField();
-                                this.label3.text = "play game";
-                                this.label3.height = 30;
-                                this.label3.width = 200;
-                                this.label3.anchorOffsetX = this.label3.width / 2;
-                                this.label3.anchorOffsetY = this.label3.height / 2;
-                                this.label3.x = this.stageWidth / 2;
-                                this.label3.y = this.stageHeight / 1.5;
-                                this.label3.background = true;
-                                this.label3.backgroundColor = 0xffffff;
-                                this.label3.border = true;
-                                this.label3.borderColor = 0x00ff00;
-                                this.label3.fontFamily = "Arial";
-                                this.label3.textColor = 0xFF0000;
-                                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                                this.addChild(this.label3);
                             },
                             cancel: function () {
                                 alert('淘气了哦，你取消分享');
