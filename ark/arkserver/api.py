@@ -263,13 +263,19 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
         game_name=gameName, game_secret=game_secret
     ).first()
 
+
+    print(_inviter)
+
     game = Game.objects.filter(
         game_secret=game_secret, inviter=_inviter,
-        game_name=gameName, status=0
+        game_name=gameName, status=1
     ).first()
+
+    print(game)
 
     cha_list = CharacterChoose.objects.filter(game=game)
 
+    print(cha_list)
     data = [ [_.player.name, [_.character_one.name, _.character_two.name]]  for _ in cha_list if cha_list]
 
     return {'code':0, 'data':data}

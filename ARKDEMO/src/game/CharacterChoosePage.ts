@@ -259,7 +259,6 @@ namespace game {
                     console.log('player2')
                     console.log(player_name)
 
-
                     if(player_name == self.player){
                         self.select_list = val[1]
                         console.log(self.select_list)
