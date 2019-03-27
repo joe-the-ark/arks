@@ -245,14 +245,6 @@ var game;
                 if (wx) {
                     wx.config(bodyConfig);
                     wx.ready(function () {
-                        // wx.checkJsApi({
-                        //     jsApiList: [
-                        //         "onMenuShareAppMessage",
-                        //         "checkJsApi"
-                        //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                        //     success: function(res) {
-                        //     }
-                        // });
                         var desc = 'your friend ' + self.nickname + ' invite you to join the game';
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'

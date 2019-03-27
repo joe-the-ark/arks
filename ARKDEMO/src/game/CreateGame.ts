@@ -284,14 +284,6 @@ namespace game {
                 if(wx) {
                     wx.config(bodyConfig)
                     wx.ready(function(){
-                        // wx.checkJsApi({
-                        //     jsApiList: [
-                        //         "onMenuShareAppMessage",
-                        //         "checkJsApi"
-                        //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                        //     success: function(res) {
-                        //     }
-                        // });
                        let desc = 'your friend '+ self.nickname + ' invite you to join the game'
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
@@ -331,7 +323,6 @@ namespace game {
         }
         private onTouchBegin(): void {
 
-            
             var inviter = this.inviter
             var gameName = this.game_secret
             var game_id = this.game_secret  
@@ -340,7 +331,6 @@ namespace game {
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
             this.sprite.visible = false
-
             // if (inviter && gameName && game_id) {
             //     // base.API.Init("http://work.metatype.cn:8105/api/");
             //     base.API.Init("http://work.metatype.cn:8105/api/");
