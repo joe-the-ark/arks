@@ -813,9 +813,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     result = []
     result.append(chooserList)
     result.append(characterList)
-
     print(result)
-
     return {'code':0, 'characterListParams':result}
 
 
@@ -824,8 +822,8 @@ def wechatlogin(**params):
 
     code = params['code']
 
-
     print(code)
+
     appid = 'wxc7594d7d49e0235f'
     secret = 'ebbda5cbab00241032bc936fe3839393'
     #获取access_token、openid
@@ -856,7 +854,8 @@ def wechatlogin(**params):
     print(res)
 
     openid = res['openid']
-    nickname = res['nickname'].encode('raw_unicode_escape').decode(),
+
+    nickname = res['nickname'].encode('raw_unicode_escape').decode()
     #判断用户账号是否存在
     user_data = {
         'nickname': res['nickname'],
@@ -894,6 +893,50 @@ def wechatlogin(**params):
     #         username='1'
     #     )
     #     return {'msg': '当前用户未注册账号,转至注册页面', 'code': 1, 'user_data':user_data}
+
+@api
+def getPlayerList(**params):
+
+    inviter_name = params['inviter_name']
+    game_secret = param['game_secret']
+    gameName = param['gameName']
+
+    playerName = param['playerName']
+    nickname = param['playerName']
+
+     _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+        status=0
+    ).first()
+
+    playerList = Player.objects.filter(
+        name=playerName,
+        nickname=nickname,
+        openid=game_secret,
+        game_secret=game_secret,
+        game_name = gameName,
+        inviter_name = inviter_name
+    )
+
+    nicknameList = []
+
+    for _ in playerList:
+        nicknameList.append(_.nickname)
+
+    return {'code':0, 'result':nicknameList}
+
+
+
+
+
+
 
 
 

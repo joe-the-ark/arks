@@ -22,6 +22,9 @@ namespace game {
         public nickname
         public openid
         public status
+
+        public timer:egret.Timer
+
         public constructor(stageWidth, stageHeight, nickname, openid, status) {
             super();
             this.sprite = new egret.Sprite();
@@ -45,7 +48,7 @@ namespace game {
             this.label2.anchorOffsetY = this.label2.height/2
 
             this.label2.x = this.stageWidth /2 
-            this.label2.y = this.stageHeight / 3
+            this.label2.y = this.stageHeight / 6
             this.label2.background = true;
             this.label2.backgroundColor = 0xffffff;
             this.label2.border = true;
@@ -54,7 +57,6 @@ namespace game {
             this.label2.textColor = 0xFF0000;
             this.sprite.addChild(this.label2)
 
-
             if(status == 'inviter'){
                 this.label = new egret.TextField(); 
                 this.label.text = "Click on the top right corner to invite friends "; 
@@ -62,7 +64,7 @@ namespace game {
                 this.label.anchorOffsetX = this.label.width/2
                 this.label.anchorOffsetY = this.label.height/2
                 this.label.x = this.stageWidth /2 
-                this.label.y = this.stageHeight / 4
+                this.label.y = this.stageHeight / 10
                 this.label.background = true;
                 this.label.backgroundColor = 0xffffff;
                 this.label.border = true;
@@ -90,7 +92,13 @@ namespace game {
                 this.invateFriends()
 
             }
+
             
+            
+            this.timer = new egret.Timer(1000, 0);
+            this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
+            this.timer.start()
+
             // var shape: egret.Shape = new egret.Shape();
             // shape.graphics.beginFill(0xFFF5EE);
             // shape.graphics.drawRect(0, 0, 300, 50);
@@ -207,6 +215,38 @@ namespace game {
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
+        private getPlayeList(){
+
+            base.API.Init("http;//work.metatype.cn:8105/api/")
+            var self = this
+            base.API.call('getPlayerList', {}).then(function(response){
+
+                var playerList = response['result']
+                playerList.forEach( (val, index, array)=> {
+                    var player_name: egret.TextField = new egret.TextField()
+                    player_name.text = val
+                    player_name.textAlign = egret.HorizontalAlign.CENTER
+                    player_name.size = 30
+                    player_name.lineSpacing = 10
+                    player_name.touchEnabled = true
+                    player_name.border = true;
+
+                    if (val.length * 18 < 100) {
+                        player_name.width = 100
+                    } else {
+                        player_name.width = val.length * 18
+                    }
+                    player_name.borderColor = 0x00ff00;
+                    player_name.x = 70
+                    player_name.y = 300 + index * 50;
+                    self.sprite.addChild(player_name)
+
+                })
+
+            })
+
+        }
+
         private invateFriends(){
             console.log(1)
             var link1 = window.location.href
@@ -219,6 +259,7 @@ namespace game {
             alert('link:'+link)
 
             base.API.Init("http://work.metatype.cn:8105/api/");
+            var self = this
             base.API.call("wechatapi", {'url': link1 }).then(function (response) {
 
                 console.log(response)
@@ -241,7 +282,7 @@ namespace game {
                         //     success: function(res) {
                         //     }
                         // });
-                       let desc = 'your friend '+ this.nickname + ' invite you to join the game'
+                       let desc = 'your friend '+ self.nickname + ' invite you to join the game'
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -297,11 +338,9 @@ namespace game {
             //         this.stage.addChild(inviteFriends)
             //         this.sprite.visible = false
             //     }
-
             // } else {
             //     this.text2.text = "you must input your name , the game's name and the game_id"
             // }
-
             // if(){
             //     var duplicate = 0
             //     this.playerList.forEach((val, index, array) => {
@@ -318,7 +357,6 @@ namespace game {
             //         this.text2.text = 'You have invited '+ this.count + ' players'
             //     }
             // }
-
         }
         private onTouchEnd(): void {
             egret.log("onTouchEnd");

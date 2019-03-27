@@ -58,9 +58,6 @@ namespace game {
             tip.x = 3
             tip.width = stageWidth - 3
             this.sprite.addChild(tip)
-
-
-
         }
 
         private getGameResult() {

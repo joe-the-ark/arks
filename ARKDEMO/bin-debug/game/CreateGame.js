@@ -32,7 +32,7 @@ var game;
             _this.label2.anchorOffsetX = _this.label2.width / 2;
             _this.label2.anchorOffsetY = _this.label2.height / 2;
             _this.label2.x = _this.stageWidth / 2;
-            _this.label2.y = _this.stageHeight / 3;
+            _this.label2.y = _this.stageHeight / 6;
             _this.label2.background = true;
             _this.label2.backgroundColor = 0xffffff;
             _this.label2.border = true;
@@ -47,7 +47,7 @@ var game;
                 _this.label.anchorOffsetX = _this.label.width / 2;
                 _this.label.anchorOffsetY = _this.label.height / 2;
                 _this.label.x = _this.stageWidth / 2;
-                _this.label.y = _this.stageHeight / 4;
+                _this.label.y = _this.stageHeight / 10;
                 _this.label.background = true;
                 _this.label.backgroundColor = 0xffffff;
                 _this.label.border = true;
@@ -74,6 +74,9 @@ var game;
                 _this.sprite.addChild(_this.label3);
                 _this.invateFriends();
             }
+            _this.timer = new egret.Timer(1000, 0);
+            _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayeList, _this);
+            _this.timer.start();
             return _this;
             // var shape: egret.Shape = new egret.Shape();
             // shape.graphics.beginFill(0xFFF5EE);
@@ -178,6 +181,32 @@ var game;
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
+        CreateGame.prototype.getPlayeList = function () {
+            base.API.Init("http;//work.metatype.cn:8105/api/");
+            var self = this;
+            base.API.call('getPlayerList', {}).then(function (response) {
+                var playerList = response['result'];
+                playerList.forEach(function (val, index, array) {
+                    var player_name = new egret.TextField();
+                    player_name.text = val;
+                    player_name.textAlign = egret.HorizontalAlign.CENTER;
+                    player_name.size = 30;
+                    player_name.lineSpacing = 10;
+                    player_name.touchEnabled = true;
+                    player_name.border = true;
+                    if (val.length * 18 < 100) {
+                        player_name.width = 100;
+                    }
+                    else {
+                        player_name.width = val.length * 18;
+                    }
+                    player_name.borderColor = 0x00ff00;
+                    player_name.x = 70;
+                    player_name.y = 300 + index * 50;
+                    self.sprite.addChild(player_name);
+                });
+            });
+        };
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
             var link1 = window.location.href;
@@ -188,6 +217,7 @@ var game;
             console.log(link1);
             alert('link:' + link);
             base.API.Init("http://work.metatype.cn:8105/api/");
+            var self = this;
             base.API.call("wechatapi", { 'url': link1 }).then(function (response) {
                 console.log(response);
                 var bodyConfig = new BodyConfig();
@@ -208,7 +238,7 @@ var game;
                         //     success: function(res) {
                         //     }
                         // });
-                        var desc = 'your friend ' + this.nickname + ' invite you to join the game';
+                        var desc = 'your friend ' + self.nickname + ' invite you to join the game';
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'

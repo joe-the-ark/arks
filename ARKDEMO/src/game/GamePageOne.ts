@@ -227,10 +227,7 @@ namespace game {
             shape2.graphics.beginFill(0x359f93, 0.5);
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
-
-
         }
-
         //初始化赋值
         private initGraphics(): void {
             var shape: egret.Shape = this._shape;
@@ -255,10 +252,13 @@ namespace game {
             base.API.Init("http://work.metatype.cn:8105/api/");
             let self = this;
             base.API.call('get_player_list', {
+
                 'game_secret': self.game_secret,
                 'gameName': self.gameName,
                 'inviter': self.inviter
+
             }).then(function (response) {
+
                 self.playerList = response['player_list']
                 console.log(self.playerList)
                 // self.playerCounts = 
@@ -315,18 +315,14 @@ namespace game {
 
                                     if (player_name.x > (self.stageWidth - 250 - w)) {
                                         player_name.x = self.stageWidth - 250 - w
-
                                         if (player_name.y > 240 && player_name.y < self.stageHeight - 150 - player_name.height) {
-
                                             player_score.x = player_name.x + w
                                             player_score.y = player_name.y
                                             var scorey = (self.stageHeight - 150 - 240 - player_name.height) / 81
                                             player_score.text = (Math.ceil((player_score.y - 240) / scorey)).toString()
                                             self.sprite.addChild(player_score)
                                             let _score = (Math.ceil((player_score.y - 240) / scorey)).toString()
-
                                             self.playerSCore = _score
-
                                             let playerName = player_name.text
                                             self.map[playerName] = _score
                                             self.rightIcon.visible = true
@@ -335,7 +331,6 @@ namespace game {
                                     if (player_name.y > self.stageHeight - 150 - player_name.height) {
                                         player_name.y = self.stageHeight - 150 - player_name.height
                                     }
-
                                 }
                             }, this)
                         }, this);
@@ -344,7 +339,6 @@ namespace game {
                             self._touchStatus = false;
                             player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
                         }, this);
-
 
                         self.sprite.addChild(player_name)
 
