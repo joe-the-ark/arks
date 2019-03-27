@@ -914,7 +914,6 @@ def getPlayerList(**params):
     ).first()
 
     playerList = Player.objects.filter(
-        openid=game_secret,
         game_secret=game_secret,
         game_name = gameName,
         inviter_name = inviter_name
