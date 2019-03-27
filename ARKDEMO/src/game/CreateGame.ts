@@ -43,8 +43,6 @@ namespace game {
 
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
-            alert(status)
-
             this.label2 = new egret.TextField(); 
 
             this.label2.text = "be ready friends: "; 
@@ -81,7 +79,7 @@ namespace game {
                 this.label3 = new egret.TextField(); 
                 this.label3.text = "play game"; 
                 this.label3.height = 30;
-                this.label3.width = 200;
+                this.label3.width = 180;
                 this.label3.anchorOffsetX = this.label3.width/2
                 this.label3.anchorOffsetY = this.label3.height/2
                 this.label3.x = this.stageWidth /2 
@@ -90,10 +88,12 @@ namespace game {
                 this.label3.backgroundColor = 0xffffff;
                 this.label3.border = true;
                 this.label3.borderColor = 0x00ff00;
+                this.label3.touchEnabled = true
                 this.label3.fontFamily = "Arial";
                 this.label3.textColor = 0xFF0000;
                 this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
                 this.sprite.addChild(this.label3)
+
                 this.invateFriends()
             }
             
@@ -237,6 +237,7 @@ namespace game {
                     player_name.x = 70
                     player_name.y = 300 + index * 50;
                     self.sprite.addChild(player_name)
+
                 })
             })
 
@@ -244,35 +245,24 @@ namespace game {
 
                 var status = response['result']
                 if(status == 1){
-
                     var inviter = this.inviter
                     var gameName = this.game_secret
                     var game_id = this.game_secret  
-
                     this.timer.stop()
                     let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
                     this.stage.addChild(enter)
                     this.sprite.visible = false
-
                 }
             })
         }
 
         private invateFriends(){
-            console.log(1)
             var link1 = window.location.href
             var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
-            console.log('link:')
-            console.log(link)
-            console.log('linkurl:')
-            console.log(link1)
-            alert('link:'+link)
-
             base.API.Init("http://work.metatype.cn:8105/api/");
             var self = this
             base.API.call("wechatapi", {'url': link1 }).then(function (response) {
 
-                console.log(response)
                 var bodyConfig:BodyConfig = new BodyConfig();
                 bodyConfig.debug = true
                 bodyConfig.appId = response['params']['appId'];
@@ -321,12 +311,10 @@ namespace game {
                 console.log(err);
             });
         }
-        private onTouchBegin(): void {
-
+        private onTouchBegin(){
             var inviter = this.inviter
             var gameName = this.game_secret
             var game_id = this.game_secret  
-
             this.timer.stop()
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
@@ -364,7 +352,6 @@ namespace game {
             //         this.text2.text = 'You have invited '+ this.count + ' players'
             //     }
             // }
-
         }
         private onTouchEnd(): void {
             egret.log("onTouchEnd");
