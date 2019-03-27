@@ -901,9 +901,6 @@ def getPlayerList(**params):
     game_secret = param['game_secret']
     gameName = param['gameName']
 
-    playerName = param['playerName']
-    nickname = param['playerName']
-
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -917,8 +914,6 @@ def getPlayerList(**params):
     ).first()
 
     playerList = Player.objects.filter(
-        name=playerName,
-        nickname=nickname,
         openid=game_secret,
         game_secret=game_secret,
         game_name = gameName,

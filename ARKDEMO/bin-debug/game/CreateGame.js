@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var CreateGame = (function (_super) {
         __extends(CreateGame, _super);
-        function CreateGame(stageWidth, stageHeight, nickname, openid, status) {
+        function CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter, status) {
             var _this = _super.call(this) || this;
             _this.count = 0;
             _this.playerList = [];
@@ -23,6 +23,8 @@ var game;
             _this.nickname = nickname;
             _this.openid = openid;
             _this.status = status;
+            _this.game_secret = game_secret;
+            _this.inviter = inviter;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             alert(status);
@@ -184,7 +186,7 @@ var game;
         CreateGame.prototype.getPlayeList = function () {
             base.API.Init("http;//work.metatype.cn:8105/api/");
             var self = this;
-            base.API.call('getPlayerList', {}).then(function (response) {
+            base.API.call('getPlayerList', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret }).then(function (response) {
                 var playerList = response['result'];
                 playerList.forEach(function (val, index, array) {
                     var player_name = new egret.TextField();

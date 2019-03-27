@@ -23,18 +23,23 @@ namespace game {
         public openid
         public status
 
+        public game_secret
+        public inviter
+
         public timer:egret.Timer
 
-        public constructor(stageWidth, stageHeight, nickname, openid, status) {
+        public constructor(stageWidth, stageHeight, nickname, openid, game_secret, inviter, status) {
             super();
             this.sprite = new egret.Sprite();
             this.sprite.width = stageWidth
             this.sprite.height = stageHeight
             this.addChild(this.sprite)
 
-            this.nickname =nickname
+            this.nickname = nickname
             this.openid = openid
             this.status = status
+            this.game_secret = game_secret
+            this.inviter = inviter
 
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -216,11 +221,11 @@ namespace game {
 
             base.API.Init("http;//work.metatype.cn:8105/api/")
             var self = this
-            base.API.call('getPlayerList', {}).then(function(response){
+            base.API.call('getPlayerList', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName': self.game_secret}).then(function(response){
 
                 var playerList = response['result']
                 playerList.forEach( (val, index, array)=> {
-                    
+
                     var player_name: egret.TextField = new egret.TextField()
                     player_name.text = val
                     player_name.textAlign = egret.HorizontalAlign.CENTER
@@ -234,12 +239,10 @@ namespace game {
                     } else {
                         player_name.width = val.length * 18
                     }
-
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70
                     player_name.y = 300 + index * 50;
                     self.sprite.addChild(player_name)
-
                 })
 
             })

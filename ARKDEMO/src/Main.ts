@@ -94,28 +94,25 @@ class Main extends egret.DisplayObjectContainer {
         var url = window.location.href;
         console.log(url)
         if(url.indexOf('game_id') != -1){
-            let game_id = url.split('?')[1].split('&')[0].split('=')[1]
-            let nickname = url.split('?')[1].split('&')[1].split('=')[1]
+            let game_secret = url.split('?')[1].split('&')[0].split('=')[1]
+            let inviter = url.split('?')[1].split('&')[1].split('=')[1]
             if(url.indexOf('code') != -1){
-
                 var code = url.split('?')[1].split('&')[2].split('=')[1]
-
                 alert(url)
                 alert('code:'+code)
-
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 let self=this;
-                base.API.call('wechatlogin', {'code':code, 'inviter':nickname, 'game_name':game_id, 'game_secret':game_id}).then(function (response){
+                base.API.call('wechatlogin', {'code':code, 'inviter':inviter, 'game_name':game_secret, 'game_secret':game_secret}).then(function (response){
                     let user_data = response['result']
                     let openid = user_data['openid']
                     let nickname = user_data['nickname']
                     let stageWidth = self.stage.stageWidth
                     let stageHeight = self.stage.stageHeight
-                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, 'player')
+                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
                     self.stage.addChild(scene)
                 })
             }else {
-                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_id+'&nickname='+nickname)
+                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
@@ -134,9 +131,7 @@ class Main extends egret.DisplayObjectContainer {
                     let stageHeight = self.stage.stageHeight
                     let scene = new game.Index(stageWidth, stageHeight, nickname, openid)
                     self.stage.addChild(scene)
-
                 })
-
             }else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html')
                 console.log(redirect_uri)
