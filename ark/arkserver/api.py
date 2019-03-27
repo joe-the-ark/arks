@@ -898,8 +898,8 @@ def wechatlogin(**params):
 def getPlayerList(**params):
 
     inviter_name = params['inviter_name']
-    game_secret = param['game_secret']
-    gameName = param['gameName']
+    game_secret = params['game_secret']
+    gameName = params['gameName']
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
@@ -921,7 +921,6 @@ def getPlayerList(**params):
     )
 
     nicknameList = []
-
     for _ in playerList:
         nicknameList.append(_.nickname)
 

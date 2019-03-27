@@ -110,7 +110,6 @@ namespace game {
             // shape.anchorOffsetX = shape.width / 2
             // shape.anchorOffsetY = shape.height / 2
             // this.sprite.addChild(shape)
-
             // this.txInput = new egret.TextField();
             // this.txInput.type = egret.TextFieldType.INPUT;
             // this.txInput.inputType = egret.TextFieldInputType.TEXT;
@@ -190,8 +189,6 @@ namespace game {
             // text4.size = 30
             // this.sprite.addChild(text4)
             // this.sprite.addChild(this.txInput3)
-
-
             // var button: egret.Shape = new egret.Shape();
             // button.graphics.beginFill(0x00cc00);
             // button.graphics.drawRect(0, 0, 200, 50);
@@ -212,20 +209,17 @@ namespace game {
             // label.y = this.sprite.height / 2
             // this.sprite.addChild(label)
 
-
             // this.text2 = new egret.TextField()
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
         private getPlayeList(){
-
-            base.API.Init("http;//work.metatype.cn:8105/api/")
             var self = this
+            base.API.Init("http;//work.metatype.cn:8105/api/")
+            // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('getPlayerList', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName': self.game_secret}).then(function(response){
-
                 var playerList = response['result']
                 playerList.forEach( (val, index, array)=> {
-
                     var player_name: egret.TextField = new egret.TextField()
                     player_name.text = val
                     player_name.textAlign = egret.HorizontalAlign.CENTER
@@ -233,7 +227,6 @@ namespace game {
                     player_name.lineSpacing = 10
                     player_name.touchEnabled = true
                     player_name.border = true;
-
                     if (val.length * 18 < 100) {
                         player_name.width = 100
                     } else {
@@ -244,16 +237,13 @@ namespace game {
                     player_name.y = 300 + index * 50;
                     self.sprite.addChild(player_name)
                 })
-
             })
-
         }
 
         private invateFriends(){
             console.log(1)
             var link1 = window.location.href
             var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
-
             console.log('link:')
             console.log(link)
             console.log('linkurl:')

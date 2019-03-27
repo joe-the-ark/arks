@@ -126,6 +126,7 @@ class Main extends egret.DisplayObjectContainer {
                 base.API.call('wechatlogin', {'code':code}).then(function (response){
                     let user_data = response['result']
                     let openid = user_data['openid']
+                    
                     let nickname = user_data['nickname']
                     let stageWidth = self.stage.stageWidth
                     let stageHeight = self.stage.stageHeight
@@ -136,7 +137,6 @@ class Main extends egret.DisplayObjectContainer {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html')
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
-
             }
         }
     }
