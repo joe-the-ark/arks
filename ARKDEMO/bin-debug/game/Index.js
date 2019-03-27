@@ -87,7 +87,7 @@ var game;
             //     this.sprite.visible = false
             // }
             if (this.stage) {
-                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, this.nickname, this.openid, 'inviter');
+                var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, this.openid, this.nickname, 'inviter');
                 this.stage.addChild(inviteScene);
                 this.sprite.visible = false;
                 // this.label.visible = false
