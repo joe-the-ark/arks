@@ -930,6 +930,8 @@ def getPlayerList(**params):
     for _ in playerList:
         nicknameList.append(_.nickname)
 
+    print(nicknameList)
+
     return {'code':0, 'result':nicknameList}
 
 

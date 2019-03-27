@@ -90,10 +90,7 @@ namespace game {
                 this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
                 this.sprite.addChild(this.label3)
                 this.invateFriends()
-
             }
-
-            
             
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
@@ -223,6 +220,7 @@ namespace game {
 
                 var playerList = response['result']
                 playerList.forEach( (val, index, array)=> {
+                    
                     var player_name: egret.TextField = new egret.TextField()
                     player_name.text = val
                     player_name.textAlign = egret.HorizontalAlign.CENTER
@@ -236,6 +234,7 @@ namespace game {
                     } else {
                         player_name.width = val.length * 18
                     }
+
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70
                     player_name.y = 300 + index * 50;

@@ -94,7 +94,6 @@ namespace game {
             label2.y = this.sprite.height / 2 + 100
 
             this.sprite.addChild(label2)
-
             this.text2 = new egret.TextField()
             this.text2.text = 'You have invited ' + this.count + ' players'
             this.text2.width = stageWidth
@@ -109,7 +108,6 @@ namespace game {
                wx.config(bodyConfig)
                wx.ready(function(){
                    console.log(12)
-
                    wx.checkJsApi({
                     jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                     success: function(res) {
@@ -153,7 +151,6 @@ namespace game {
 
                 }
             }
-
         }
 
         private onTouchBegin2(): void {
