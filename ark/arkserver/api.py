@@ -856,7 +856,7 @@ def wechatlogin(**params):
     print(res)
 
     openid = res['openid']
-    nickname = res['nickname']
+    nickname = res['nickname'].encode('raw_unicode_escape').decode(),
     #判断用户账号是否存在
     user_data = {
         'nickname': res['nickname'],
@@ -871,7 +871,6 @@ def wechatlogin(**params):
         player = Player.objects.filter(name=nickname, inviter_name=inviter, game_secret=game_secret, game_name=game_name, nickname=nickname, openid=openid).first()
         if not player:
             player = Player.objects.create(name=nickname, inviter_name=inviter, game_secret=game_secret, game_name=game_name, nickname=nickname, openid=openid)
-
 
     return {'code':0, 'result':user_data}
 
