@@ -212,13 +212,13 @@ var game;
             base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret }).then(function (response) {
                 var status = response['result'];
                 if (status == 1) {
-                    var inviter = this.inviter;
-                    var gameName = this.game_secret;
-                    var game_id = this.game_secret;
-                    this.timer.stop();
-                    var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
-                    this.stage.addChild(enter);
-                    this.sprite.visible = false;
+                    var inviter = self.inviter;
+                    var gameName = self.game_secret;
+                    var game_id = self.game_secret;
+                    self.timer.stop();
+                    var enter = new game.GamePageOne(self.game_secret, self.inviter, this.inviter, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
+                    self.stage.addChild(enter);
+                    self.sprite.visible = false;
                 }
             });
         };
@@ -284,6 +284,8 @@ var game;
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game', { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
             });
+            console.log('timer');
+            console.log(this.timer);
             this.timer.stop();
             var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter);

@@ -42,6 +42,9 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.player = player
+
+            console.log('player')
+            console.log(player)
             this.gameName = gameName
             this.game_secret = game_secret
             this.inviter = inviter
@@ -130,7 +133,6 @@ namespace game {
 
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 20, 'Mission 1 > Tension Scales')
             this.sprite.addChild(probessBar)
-
             // this.createChildren()
             // this.createScrollableCharacterList()
         }
@@ -229,7 +231,6 @@ namespace game {
                     otherCharacterList.push(characterList)
                     playerAndOthersCharacterList.push(otherCharacterList)
                     console.log(playerAndOthersCharacterList)
-
                     
                     let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, self.characterList, playerAndOthersCharacterList);
                     self.stage.addChild(charater);
@@ -254,12 +255,17 @@ namespace game {
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
                     //如果玩家已选择scale
-                    if(player_name == self.player){
 
+
+
+                    console.log('player2')
+                    console.log(player_name)
+
+
+                    if(player_name == self.player){
                         self.select_list = val[1]
                         console.log(self.select_list)
                         self.sprite.addChild(self.rightIcon)
-
                         self.playerCharacterList = val[1]
                     }
 

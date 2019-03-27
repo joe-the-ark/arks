@@ -36,6 +36,8 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.player = player;
+            console.log('player');
+            console.log(player);
             _this.gameName = gameName;
             _this.game_secret = game_secret;
             _this.inviter = inviter;
@@ -224,6 +226,8 @@ var game;
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
                     //如果玩家已选择scale
+                    console.log('player2');
+                    console.log(player_name);
                     if (player_name == self.player) {
                         self.select_list = val[1];
                         console.log(self.select_list);
