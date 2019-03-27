@@ -248,7 +248,7 @@ namespace game {
                     var gameName = self.game_secret
                     var game_id = self.game_secret 
                     self.timer.stop() 
-                    let enter = new game.GamePageOne(self.game_secret, self.inviter, this.inviter, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
+                    let enter = new game.GamePageOne(self.game_secret, self.inviter, self.inviter, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                     self.stage.addChild(enter)
                     self.sprite.visible = false
                 }
@@ -323,11 +323,11 @@ namespace game {
 
             console.log('timer')
             console.log(this.timer)
-            this.timer.stop()
+            
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
             this.sprite.visible = false
-
+            this.timer.stop()
 
             // if (inviter && gameName && game_id) {
             //     // base.API.Init("http://work.metatype.cn:8105/api/");

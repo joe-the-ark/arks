@@ -256,8 +256,6 @@ namespace game {
                     var player_name = val[0]
                     //如果玩家已选择scale
 
-
-
                     console.log('player2')
                     console.log(player_name)
 
