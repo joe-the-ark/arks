@@ -40,7 +40,7 @@ var game;
             _this.label.fontFamily = "Arial";
             _this.label.textColor = 0xFF0000;
             _this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
-            _this.addChild(_this.label);
+            _this.sprite.addChild(_this.label);
             return _this;
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getGameList, this)
         }
@@ -90,7 +90,7 @@ var game;
                 var inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, 'inviter');
                 this.stage.addChild(inviteScene);
                 this.sprite.visible = false;
-                this.label.visible = false;
+                // this.label.visible = false
                 // this.stage.removeChild( this.sprite );
             }
         };

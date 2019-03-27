@@ -41,12 +41,9 @@ namespace game {
             this.label.fontFamily = "Arial";
             this.label.textColor = 0xFF0000;
             this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-            this.addChild(this.label)
-
+            this.sprite.addChild(this.label)
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getGameList, this)
-
         }
-
         // private getGameList():void {
         //     base.API.Init("http://work.metatype.cn:8105/api/");
         //     let self=this;
@@ -85,8 +82,10 @@ namespace game {
 
             base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
+
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
+
                 }).catch(function (err) {
                 });
                 // if (this.stage) {
@@ -97,10 +96,9 @@ namespace game {
             if( this.stage ) {
 
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid, 'inviter');
-                
                 this.stage.addChild(inviteScene)
                 this.sprite.visible = false
-                this.label.visible = false
+                // this.label.visible = false
                 // this.stage.removeChild( this.sprite );
             }
 

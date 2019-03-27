@@ -23,6 +23,7 @@ var game;
             _this.nickname = nickname;
             _this.openid = openid;
             _this.status = status;
+            alert(status);
             _this.label2 = new egret.TextField();
             _this.label2.text = "be ready friends: ";
             _this.label2.height = 30;
@@ -69,10 +70,9 @@ var game;
                 _this.label3.fontFamily = "Arial";
                 _this.label3.textColor = 0xFF0000;
                 _this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouchBegin, _this);
-                _this.addChild(_this.label3);
+                _this.sprite.addChild(_this.label3);
                 _this.invateFriends();
             }
-            _this.initPage();
             return _this;
             // var shape: egret.Shape = new egret.Shape();
             // shape.graphics.beginFill(0xFFF5EE);
@@ -187,6 +187,8 @@ var game;
             var link = 'http://ark.metatype.cn/index.html?game_id=' + this.openid + '&inviter=' + this.nickname;
             console.log('link:');
             console.log(link);
+            console.log('linkurl:');
+            console.log(link1);
             alert('link:' + link);
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", { 'url': link1 }).then(function (response) {
@@ -201,16 +203,15 @@ var game;
                 if (wx) {
                     wx.config(bodyConfig);
                     wx.ready(function () {
-                        console.log(12);
-                        wx.checkJsApi({
-                            jsApiList: [
-                                "onMenuShareAppMessage",
-                                "checkJsApi"
-                            ],
-                            success: function (res) {
-                            }
-                        });
-                        var desc = 'your friend ' + this.nickname + 'invite you to join the game';
+                        // wx.checkJsApi({
+                        //     jsApiList: [
+                        //         "onMenuShareAppMessage",
+                        //         "checkJsApi"
+                        //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                        //     success: function(res) {
+                        //     }
+                        // });
+                        var desc = 'your friend ' + this.nickname + ' invite you to join the game';
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -224,15 +225,9 @@ var game;
                             type: '',
                             dataUrl: '',
                             trigger: function () {
-                                // console.log('trigger')
                             },
                             success: function (res) {
                                 alert('分享完成');
-                                // console.log('分享完成')
-                                // console.log(res)
-                                // alert(res)
-                                // alert('success')
-                                // console.log('success')
                             },
                             cancel: function () {
                                 alert('淘气了哦，你取消分享');

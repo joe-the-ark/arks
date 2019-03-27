@@ -33,6 +33,8 @@ namespace game {
             this.openid = openid
             this.status = status
 
+            alert(status)
+
             this.label2 = new egret.TextField(); 
             this.label2.text = "be ready friends: "; 
             this.label2.height = 30;
@@ -50,7 +52,6 @@ namespace game {
             this.sprite.addChild(this.label2)
 
             if(status == 'inviter'){
-
                 this.label = new egret.TextField(); 
                 this.label.text = "Click on the top right corner to invite friends "; 
                 this.label.height = 30;
@@ -66,7 +67,6 @@ namespace game {
                 this.label.textColor = 0xFF0000;
                 // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
                 this.addChild(this.label)
-
                 this.label3 = new egret.TextField(); 
                 this.label3.text = "play game"; 
                 this.label3.height = 30;
@@ -82,12 +82,10 @@ namespace game {
                 this.label3.fontFamily = "Arial";
                 this.label3.textColor = 0xFF0000;
                 this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                this.addChild(this.label3)
-
+                this.sprite.addChild(this.label3)
                 this.invateFriends()
+
             }
-            
-            this.initPage()
             
             // var shape: egret.Shape = new egret.Shape();
             // shape.graphics.beginFill(0xFFF5EE);
@@ -138,7 +136,6 @@ namespace game {
             // shape3.anchorOffsetX = shape2.width / 2
             // shape3.anchorOffsetY = shape2.height / 2
             // this.sprite.addChild(shape3)
-
 
             // this.txInput2 = new egret.TextField();
             // this.txInput2.type = egret.TextFieldType.INPUT;
@@ -210,20 +207,21 @@ namespace game {
 
             if(this.status == 'inviter'){
 
-
-
             }
 
         }
-
 
         private invateFriends(){
             console.log(1)
             var link1 = window.location.href
             var link = 'http://ark.metatype.cn/index.html?game_id=' +this.openid + '&inviter=' + this.nickname
+
             console.log('link:')
             console.log(link)
+            console.log('linkurl:')
+            console.log(link1)
             alert('link:'+link)
+
 
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", {'url': link1 }).then(function (response) {
@@ -240,17 +238,15 @@ namespace game {
                 if(wx) {
                     wx.config(bodyConfig)
                     wx.ready(function(){
-                        console.log(12)
-                        wx.checkJsApi({
-                            jsApiList: [
-                                "onMenuShareAppMessage",
-                                "checkJsApi"
-                            ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                            success: function(res) {
-                            }
-                        });
-
-                       let desc = 'your friend '+ this.nickname + 'invite you to join the game'
+                        // wx.checkJsApi({
+                        //     jsApiList: [
+                        //         "onMenuShareAppMessage",
+                        //         "checkJsApi"
+                        //     ], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                        //     success: function(res) {
+                        //     }
+                        // });
+                       let desc = 'your friend '+ this.nickname + ' invite you to join the game'
                         // var bodyMenuShareAppMessage = new BodyMenuShareAppMessage()
                         // bodyMenuShareAppMessage.title = '123'
                         // bodyMenuShareAppMessage.desc = '123'
@@ -264,19 +260,9 @@ namespace game {
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                             trigger:function(){
-                                // console.log('trigger')
                             },
                             success:function(res){
                                 alert('分享完成');
-
-                                
-
-                                // console.log('分享完成')
-                                // console.log(res)
-                                // alert(res)
-                                // alert('success')
-                                // console.log('success')
-
                             },
                             cancel: function(){
                                 alert('淘气了哦，你取消分享');
@@ -311,7 +297,6 @@ namespace game {
             //     }).catch(function (err) {
             //         console.log(err);
             //     });
-
             //     if (this.stage) {
             //         let inviteFriends = new game.InviteFriends(game_id, inviter, gameName, this.stage.stageWidth, this.stage.stageHeight);
             //         this.stage.addChild(inviteFriends)
@@ -340,7 +325,6 @@ namespace game {
             // }
 
         }
-
         private onTouchEnd(): void {
             egret.log("onTouchEnd");
         }

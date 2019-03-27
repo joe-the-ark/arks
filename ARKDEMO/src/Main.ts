@@ -90,22 +90,23 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene() {
-
         console.log('首页')
         var url = window.location.href;
         console.log(url)
-
         if(url.indexOf('game_id') != -1){
-
             let game_id = url.split('?')[1].split('&')[0].split('=')[1]
             let nickname = url.split('?')[1].split('&')[1].split('=')[1]
-
             if(url.indexOf('code') != -1){
+
                 var code = url.split('?')[1].split('&')[2].split('=')[1]
+                
+                alert(url)
                 alert('code:'+code)
-                console.log(code)
+
                 base.API.Init("http://work.metatype.cn:8105/api/");
+
                 let self=this;
+
                 base.API.call('wechatlogin', {'code':code, 'inviter':nickname, 'game_name':game_id, 'game_secret':game_id}).then(function (response){
                     let user_data = response['result']
                     let openid = user_data['openid']
@@ -115,20 +116,22 @@ class Main extends egret.DisplayObjectContainer {
                     let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid,'player')
                     self.stage.addChild(scene)
                 })
+
             }else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_id+'&nickname='+nickname)
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                 // console.log(s)
             }    
-            
         }else{
 
             if(url.indexOf('code') != -1){
                 var code = url.split('?')[1].split('&')[0].split('=')[1]
                 console.log(code)
                 base.API.Init("http://work.metatype.cn:8105/api/");
+
                 let self=this;
+
                 base.API.call('wechatlogin', {'code':code}).then(function (response){
                     
                     let user_data = response['result']
@@ -142,15 +145,13 @@ class Main extends egret.DisplayObjectContainer {
                 })
 
             }else {
-
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html')
                 console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
-                // console.log(s)
+
             }
         }
     }
-
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
@@ -161,7 +162,6 @@ class Main extends egret.DisplayObjectContainer {
         result.texture = texture;
         return result;
     }
-
     /**
      * 描述文件加载成功，开始播放动画
      * Description file loading is successful, start to play the animation
