@@ -555,22 +555,32 @@ def wechatapi(url):
 @api
 def firstvote(score, game_secret, inviter_name, player, gameName):
 
+    print(score)
+    print(game_secret)
+    print(inviter_name)
+    print(player)
+    print(gameName)
+
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
     ).first()
+
+    print(_player)
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
+    print(_inviter)
     game = Game.objects.filter(
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
         status=1
     ).first()
+    print(game)
 
     firstScore = FirstScore.objects.filter(game=game, player=_player).first()
     if firstScore:
