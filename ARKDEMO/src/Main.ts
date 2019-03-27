@@ -99,24 +99,21 @@ class Main extends egret.DisplayObjectContainer {
             if(url.indexOf('code') != -1){
 
                 var code = url.split('?')[1].split('&')[2].split('=')[1]
-                
+
                 alert(url)
                 alert('code:'+code)
 
                 base.API.Init("http://work.metatype.cn:8105/api/");
-
                 let self=this;
-
                 base.API.call('wechatlogin', {'code':code, 'inviter':nickname, 'game_name':game_id, 'game_secret':game_id}).then(function (response){
                     let user_data = response['result']
                     let openid = user_data['openid']
                     let nickname = user_data['nickname']
                     let stageWidth = self.stage.stageWidth
                     let stageHeight = self.stage.stageHeight
-                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid,'player')
+                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, 'player')
                     self.stage.addChild(scene)
                 })
-
             }else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_id+'&nickname='+nickname)
                 console.log(redirect_uri)
@@ -124,16 +121,12 @@ class Main extends egret.DisplayObjectContainer {
                 // console.log(s)
             }    
         }else{
-
             if(url.indexOf('code') != -1){
                 var code = url.split('?')[1].split('&')[0].split('=')[1]
                 console.log(code)
                 base.API.Init("http://work.metatype.cn:8105/api/");
-
                 let self=this;
-
                 base.API.call('wechatlogin', {'code':code}).then(function (response){
-                    
                     let user_data = response['result']
                     let openid = user_data['openid']
                     let nickname = user_data['nickname']

@@ -33,13 +33,17 @@ namespace game {
             this.openid = openid
             this.status = status
 
+            this.stageWidth = stageWidth
+            this.stageHeight = stageHeight
             alert(status)
 
             this.label2 = new egret.TextField(); 
+
             this.label2.text = "be ready friends: "; 
             this.label2.height = 30;
             this.label2.anchorOffsetX = this.label2.width/2
             this.label2.anchorOffsetY = this.label2.height/2
+
             this.label2.x = this.stageWidth /2 
             this.label2.y = this.stageHeight / 3
             this.label2.background = true;
@@ -48,8 +52,8 @@ namespace game {
             this.label2.borderColor = 0x00ff00;
             this.label2.fontFamily = "Arial";
             this.label2.textColor = 0xFF0000;
-            // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
             this.sprite.addChild(this.label2)
+
 
             if(status == 'inviter'){
                 this.label = new egret.TextField(); 
@@ -203,14 +207,6 @@ namespace game {
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
-        private initPage(){
-
-            if(this.status == 'inviter'){
-
-            }
-
-        }
-
         private invateFriends(){
             console.log(1)
             var link1 = window.location.href
@@ -221,7 +217,6 @@ namespace game {
             console.log('linkurl:')
             console.log(link1)
             alert('link:'+link)
-
 
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("wechatapi", {'url': link1 }).then(function (response) {

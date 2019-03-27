@@ -23,6 +23,8 @@ var game;
             _this.nickname = nickname;
             _this.openid = openid;
             _this.status = status;
+            _this.stageWidth = stageWidth;
+            _this.stageHeight = stageHeight;
             alert(status);
             _this.label2 = new egret.TextField();
             _this.label2.text = "be ready friends: ";
@@ -37,7 +39,6 @@ var game;
             _this.label2.borderColor = 0x00ff00;
             _this.label2.fontFamily = "Arial";
             _this.label2.textColor = 0xFF0000;
-            // this.label2.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
             _this.sprite.addChild(_this.label2);
             if (status == 'inviter') {
                 _this.label = new egret.TextField();
@@ -177,10 +178,6 @@ var game;
             // this.text2.width = stageWidth
             // this.sprite.addChild(this.text2)
         }
-        CreateGame.prototype.initPage = function () {
-            if (this.status == 'inviter') {
-            }
-        };
         CreateGame.prototype.invateFriends = function () {
             console.log(1);
             var link1 = window.location.href;

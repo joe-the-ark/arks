@@ -77,12 +77,10 @@ namespace game {
         //         this.label.visible = false
         //     }
         // }
-
         private onTouchBegin():void {
 
             base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
-
                     // var play = new game.LevelOneScene(_this.index);
                     // _this.Switch(play);
 
@@ -101,9 +99,7 @@ namespace game {
                 // this.label.visible = false
                 // this.stage.removeChild( this.sprite );
             }
-
         }
-
         private onTouchEnd():void {
             egret.log("onTouchEnd");
         }
