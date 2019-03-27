@@ -56,7 +56,7 @@ var game;
                 _this.label.fontFamily = "Arial";
                 _this.label.textColor = 0xFF0000;
                 // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                _this.addChild(_this.label);
+                _this.sprite.addChild(_this.label);
                 _this.label3 = new egret.TextField();
                 _this.label3.text = "play game";
                 _this.label3.height = 30;
@@ -279,6 +279,11 @@ var game;
             var inviter = this.inviter;
             var gameName = this.game_secret;
             var game_id = this.game_secret;
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            // base.API.Init("http://127.0.0.1:8000/api/")
+            base.API.call('create_game', { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
+            });
             this.timer.stop();
             var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter);

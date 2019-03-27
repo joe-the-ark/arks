@@ -75,7 +75,7 @@ namespace game {
                 this.label.fontFamily = "Arial";
                 this.label.textColor = 0xFF0000;
                 // this.label.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                this.addChild(this.label)
+                this.sprite.addChild(this.label)
                 this.label3 = new egret.TextField(); 
                 this.label3.text = "play game"; 
                 this.label3.height = 30;
@@ -315,10 +315,18 @@ namespace game {
             var inviter = this.inviter
             var gameName = this.game_secret
             var game_id = this.game_secret  
+
+            var self = this
+            base.API.Init("http://work.metatype.cn:8105/api/")
+            // base.API.Init("http://127.0.0.1:8000/api/")
+            base.API.call('create_game',  {'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
+            })
             this.timer.stop()
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
             this.sprite.visible = false
+
+            
             // if (inviter && gameName && game_id) {
             //     // base.API.Init("http://work.metatype.cn:8105/api/");
             //     base.API.Init("http://work.metatype.cn:8105/api/");
