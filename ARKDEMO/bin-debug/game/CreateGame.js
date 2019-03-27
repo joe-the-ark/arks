@@ -197,7 +197,7 @@ var game;
                     player_name.lineSpacing = 10;
                     player_name.touchEnabled = true;
                     player_name.border = true;
-                    if (val.length * 18 < 100) {
+                    if (val.length * 20 < 100) {
                         player_name.width = 100;
                     }
                     else {
@@ -208,6 +208,18 @@ var game;
                     player_name.y = 300 + index * 50;
                     self.sprite.addChild(player_name);
                 });
+            });
+            base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret }).then(function (response) {
+                var status = response['result'];
+                if (status == 1) {
+                    var inviter = this.inviter;
+                    var gameName = this.game_secret;
+                    var game_id = this.game_secret;
+                    this.timer.stop();
+                    var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
+                    this.stage.addChild(enter);
+                    this.sprite.visible = false;
+                }
             });
         };
         CreateGame.prototype.invateFriends = function () {
@@ -279,9 +291,13 @@ var game;
             });
         };
         CreateGame.prototype.onTouchBegin = function () {
-            var inviter = this.txInput3.text;
-            var gameName = this.txInput2.text;
-            var game_id = this.txInput.text;
+            var inviter = this.inviter;
+            var gameName = this.game_secret;
+            var game_id = this.game_secret;
+            this.timer.stop();
+            var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
+            this.stage.addChild(enter);
+            this.sprite.visible = false;
             // if (inviter && gameName && game_id) {
             //     // base.API.Init("http://work.metatype.cn:8105/api/");
             //     base.API.Init("http://work.metatype.cn:8105/api/");

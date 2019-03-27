@@ -38,7 +38,7 @@ def create_game(inviter, gameName, game_id):
 @api
 def get_game_list(**params):
 
-    games = Game.objects.filter(status=0)
+    games = Game.objects.filter(status=1)
 
     game_list = []
     for game in games:
@@ -106,7 +106,7 @@ def set_player_score(
         game_secret=gameSecret,
         inviter=inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     character_one = Character.objects.filter(name=characterOne).first()
@@ -165,7 +165,7 @@ def save_character_choose(inviterName, gameSecret, playerName, gameName, charaCh
 
     game = Game.objects.filter(
         game_secret=gameSecret, inviter=inviter,
-        game_name=gameName, status=0
+        game_name=gameName, status=1
     ).first()
 
 
@@ -205,7 +205,7 @@ def get_player_score(inviter, gameName, gameSecret, player, character_one, chara
         game_secret=gameSecret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
 
@@ -284,7 +284,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         game_secret=gameSecret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     chooser_list = characterListParams[0]
@@ -339,7 +339,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         game_secret=gameSecret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     players = Player.objects.filter(
@@ -399,7 +399,7 @@ def save_players_process(inviter_name, game_secret, player, game_name, process, 
         game_secret=game_secret,
         inviter=_inviter,
         game_name=game_name,
-        status=0
+        status=1
     ).first()
 
     game_process = GameProcess.objects.filter(game=game, player=_player).first()
@@ -428,7 +428,7 @@ def get_players_process(game_secret, inviter_name, player, gameName):
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
@@ -458,7 +458,7 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
         game_secret=gameSecret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     players = Player.objects.filter(
@@ -569,7 +569,7 @@ def firstvote(score, game_secret, inviter_name, player, gameName):
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     firstScore = FirstScore.objects.filter(game=game, player=_player).first()
@@ -598,7 +598,7 @@ def getOthersSelfPerception(inviter_name, game_secret, player, gameName):
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     firstScore = FirstScore.objects.filter(game=game)
@@ -628,7 +628,7 @@ def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, choos
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
 
@@ -712,7 +712,7 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     print(game)
@@ -794,7 +794,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
-        status=0
+        status=1
     ).first()
 
     characterChooses = CharacterChoose.objects.filter(game=game)
@@ -904,8 +904,6 @@ def getPlayerList(**params):
     game_secret = params['game_secret']
     gameName = params['gameName']
 
-
-
     # _inviter = Player.objects.filter(
     #     name=inviter_name, game_secret=game_secret,
     #     inviter_name=inviter_name, game_name=gameName
@@ -935,6 +933,28 @@ def getPlayerList(**params):
 
     return {'code':0, 'result':nicknameList}
 
+
+@api
+def getGameStatus(**params):
+    inviter_name = params['inviter_name']
+    game_secret = params['game_secret']
+    gameName = params['gameName']
+
+    _inviter = Player.objects.filter(
+        name=inviter_name, game_secret=game_secret,
+        inviter_name=inviter_name, game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        inviter=_inviter,
+        game_name=gameName,
+    ).first()
+
+    if game.status == 1:
+        return {'code':0, 'result':1}
+    else:
+        return {'code':0, 'result':0}
 
 
 

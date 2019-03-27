@@ -153,39 +153,43 @@ var Main = (function (_super) {
      * Create a game scene
      */
     Main.prototype.createGameScene = function () {
+        base.API.Init("http://work.metatype.cn:8105/api/");
         console.log('首页');
         var url = window.location.href;
         console.log(url);
         if (url.indexOf('game_id') != -1) {
             var game_secret_1 = url.split('?')[1].split('&')[0].split('=')[1];
             var inviter_1 = url.split('?')[1].split('&')[1].split('=')[1];
-            if (url.indexOf('code') != -1) {
-                var code = url.split('?')[1].split('&')[2].split('=')[1];
-                alert(url);
-                alert('code:' + code);
-                base.API.Init("http://work.metatype.cn:8105/api/");
-                var self_1 = this;
-                base.API.call('wechatlogin', { 'code': code, 'inviter': inviter_1, 'game_name': game_secret_1, 'game_secret': game_secret_1 }).then(function (response) {
-                    var user_data = response['result'];
-                    var openid = user_data['openid'];
-                    var nickname = user_data['nickname'];
-                    var stageWidth = self_1.stage.stageWidth;
-                    var stageHeight = self_1.stage.stageHeight;
-                    var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'player');
-                    self_1.stage.addChild(scene);
-                });
-            }
-            else {
-                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
-                console.log(redirect_uri);
-                var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
-                // console.log(s)
-            }
+            base.API.call('getGameStatus', { 'inviter_name': inviter_1, 'game_secret': game_secret_1, 'gameName': game_secret_1 }).then(function (response) {
+                var status = response['result'];
+                if (status == 1) {
+                    alert('The game is in progress.');
+                }
+                else {
+                    if (url.indexOf('code') != -1) {
+                        var code = url.split('?')[1].split('&')[2].split('=')[1];
+                        var self_1 = this;
+                        base.API.call('wechatlogin', { 'code': code, 'inviter': inviter_1, 'game_name': game_secret_1, 'game_secret': game_secret_1 }).then(function (response) {
+                            var user_data = response['result'];
+                            var openid = user_data['openid'];
+                            var nickname = user_data['nickname'];
+                            var stageWidth = self_1.stage.stageWidth;
+                            var stageHeight = self_1.stage.stageHeight;
+                            var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'player');
+                            self_1.stage.addChild(scene);
+                        });
+                    }
+                    else {
+                        var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
+                        console.log(redirect_uri);
+                        var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                    }
+                }
+            });
         }
         else {
             if (url.indexOf('code') != -1) {
                 var code = url.split('?')[1].split('&')[0].split('=')[1];
-                console.log(code);
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 var self_2 = this;
                 base.API.call('wechatlogin', { 'code': code }).then(function (response) {
@@ -200,7 +204,6 @@ var Main = (function (_super) {
             }
             else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html');
-                console.log(redirect_uri);
                 var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
             }
         }

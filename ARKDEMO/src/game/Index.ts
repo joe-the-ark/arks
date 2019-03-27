@@ -107,7 +107,6 @@ namespace game {
         private onTouchMove():void {
             egret.log("onTouchMove");
         }
-
         private onTouchTap():void {
             egret.log("onTouchTap");
         }

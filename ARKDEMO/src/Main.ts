@@ -84,49 +84,57 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private textfield: egret.TextField;
-
     /**
      * 创建游戏场景
      * Create a game scene
      */
     private createGameScene() {
+        base.API.Init("http://work.metatype.cn:8105/api/");
         console.log('首页')
         var url = window.location.href;
         console.log(url)
         if(url.indexOf('game_id') != -1){
             let game_secret = url.split('?')[1].split('&')[0].split('=')[1]
             let inviter = url.split('?')[1].split('&')[1].split('=')[1]
-            if(url.indexOf('code') != -1){
-                var code = url.split('?')[1].split('&')[2].split('=')[1]
-                alert(url)
-                alert('code:'+code)
-                base.API.Init("http://work.metatype.cn:8105/api/");
-                let self=this;
-                base.API.call('wechatlogin', {'code':code, 'inviter':inviter, 'game_name':game_secret, 'game_secret':game_secret}).then(function (response){
-                    let user_data = response['result']
-                    let openid = user_data['openid']
-                    let nickname = user_data['nickname']
-                    let stageWidth = self.stage.stageWidth
-                    let stageHeight = self.stage.stageHeight
-                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
-                    self.stage.addChild(scene)
-                })
-            }else {
-                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
-                console.log(redirect_uri)
-                var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
-                // console.log(s)
-            }    
+
+            base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret}).then(function(response){
+
+                var status = response['result']
+                if(status == 1){
+
+                    alert('The game is in progress.')
+
+                }else{
+                    if(url.indexOf('code') != -1){
+                        var code = url.split('?')[1].split('&')[2].split('=')[1]
+                        let self=this;
+                        base.API.call('wechatlogin', {'code':code, 'inviter':inviter, 'game_name':game_secret, 'game_secret':game_secret}).then(function (response){
+                            let user_data = response['result']
+                            let openid = user_data['openid']
+                            let nickname = user_data['nickname']
+                            let stageWidth = self.stage.stageWidth
+                            let stageHeight = self.stage.stageHeight
+                            let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
+                            self.stage.addChild(scene)
+                        })
+                    }else {
+                        var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
+                        console.log(redirect_uri)
+                        var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                    }
+
+                }
+            })
+
+
         }else{
             if(url.indexOf('code') != -1){
                 var code = url.split('?')[1].split('&')[0].split('=')[1]
-                console.log(code)
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 let self=this;
                 base.API.call('wechatlogin', {'code':code}).then(function (response){
                     let user_data = response['result']
                     let openid = user_data['openid']
-                    
                     let nickname = user_data['nickname']
                     let stageWidth = self.stage.stageWidth
                     let stageHeight = self.stage.stageHeight
@@ -135,7 +143,6 @@ class Main extends egret.DisplayObjectContainer {
                 })
             }else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html')
-                console.log(redirect_uri)
                 var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
             }
         }
@@ -156,7 +163,6 @@ class Main extends egret.DisplayObjectContainer {
      */
     private startAnimation(result: string[]) {
         let parser = new egret.HtmlTextParser();
-
         let textflowArr = result.map(text => parser.parse(text));
         let textfield = this.textfield;
         let count = -1;

@@ -23,7 +23,7 @@ class Game(models.Model):
     inviter = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='creater', related_name='inviter_game')
     status = models.IntegerField(
         default=0,
-        choices=((0, 'nomal'), (1, 'end')),
+        choices=((0, 'start'), (1, 'running'), (2, 'end')),
         verbose_name='game_status'
     )
 
