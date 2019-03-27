@@ -897,27 +897,35 @@ def wechatlogin(**params):
 @api
 def getPlayerList(**params):
 
+
+    print(params)
+
     inviter_name = params['inviter_name']
     game_secret = params['game_secret']
     gameName = params['gameName']
 
-    _inviter = Player.objects.filter(
-        name=inviter_name, game_secret=game_secret,
-        inviter_name=inviter_name, game_name=gameName
-    ).first()
 
-    game = Game.objects.filter(
-        game_secret=game_secret,
-        inviter=_inviter,
-        game_name=gameName,
-        status=0
-    ).first()
+
+    # _inviter = Player.objects.filter(
+    #     name=inviter_name, game_secret=game_secret,
+    #     inviter_name=inviter_name, game_name=gameName
+    # ).first()
+
+    # game = Game.objects.filter(
+    #     game_secret=game_secret,
+    #     inviter=_inviter,
+    #     game_name=gameName,
+    #     status=0
+    # ).first()
+
 
     playerList = Player.objects.filter(
         game_secret=game_secret,
         game_name = gameName,
         inviter_name = inviter_name
     )
+
+    print(playerList)
 
     nicknameList = []
     for _ in playerList:
