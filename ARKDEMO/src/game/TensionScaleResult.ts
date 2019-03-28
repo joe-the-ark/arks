@@ -140,9 +140,6 @@ namespace game {
                     this.timer.stop()
                 }
             }
-
-
-
         }
         private rightNext() {
             // console.log('向右像牛')

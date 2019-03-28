@@ -194,18 +194,24 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
                 let characterListParams = response['characterListParams']
+
                 if(characterListParams[0].length > scorecount ){
 
-                    self.timer.stop()
-                    let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
-                    self.stage.addChild(charater);
-                    self.sprite.visible = false
-                    // self.rightIcon.visible = false
+                    if(characterListParams[1][scorecount] != undefined ){
+
+                        self.timer.stop()
+                        let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
+                        self.stage.addChild(charater);
+                        self.sprite.visible = false
+                        // self.rightIcon.visible = false
+                    }else {
+
+                        alert('Please wait for others to choose scale')
+                    }
                 }
                 else {
 
                     let playercount = characterListParams[0].length
-
                     console.log('所有性格打分结束')
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
