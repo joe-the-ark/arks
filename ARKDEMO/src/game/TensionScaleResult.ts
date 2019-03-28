@@ -129,10 +129,12 @@ namespace game {
             });
 
             console.log(this.simulatedData)
+            console.log(this.playerCount)
+            console.log(this.simulatedData[2])
 
             if (this.simulatedData[2]) {
                 if (this.playerCount == this.simulatedData[2].length - 1) {
-                    
+
                     this.sprite.addChild(this.rightIcon)
                     this.timer.stop()
                 }

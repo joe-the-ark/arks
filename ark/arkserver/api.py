@@ -335,6 +335,7 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
             result.append(middle)
             result.append(player_score)
+
         result_list.append(result)
 
     _inviter = Player.objects.filter(
@@ -383,8 +384,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
             print(middles)
         ttsms.append(str(int(sum(middles) / playercount)))
 
-    print('ttsms11111111:')
-    print(ttsms)
 
     return {'code':0, 'result': result_list, 'ttsms':ttsms}
 
