@@ -225,111 +225,116 @@ var game;
                 });
             }
             if (self.status == 'inviter') {
-                base.API.call('get_players_process', {
-                    'game_secret': self.game_secret,
-                    'inviter_name': self.inviter,
-                    'player': self.nickname,
-                    'gameName': self.game_secret
-                }).then(function (response) {
-                    console.log(response);
-                    var process = response['process'];
-                    if (process == '0.1') {
-                        var playerCount = response['playercount'];
-                        var playerScore = response['playerScore'];
-                        var game_secret = self.game_secret;
-                        var inviter_3 = self.inviter;
-                        var player = self.player;
-                        var gameName_3 = self.game_secret;
-                        var stageWidth = self.stageWidth;
-                        var stageHeight = self.stageHeight;
-                        var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_3, player, gameName_3, stageWidth, stageHeight, playerCount, playerScore);
-                        self.timer.stop();
-                        self.sprite.visible = false;
-                        self.stage.addChild(initiatePartialInsights);
-                    }
-                    else if (process == '0.2') {
-                        var playerCount = response['playercount'];
-                        var game_secret = self.game_secret;
-                        var inviter_4 = self.inviter;
-                        var player = self.player;
-                        var gameName_4 = self.game_secret;
-                        var stageWidth = self.stageWidth;
-                        var stageHeight = self.stageHeight;
-                        var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_4, player, gameName_4, stageWidth, stageHeight, playerCount);
-                        self.timer.stop();
-                        this.stage.addChild(characterChoosePage);
-                        this.sprite.visible = false;
-                    }
-                    else if (process == '0.3') {
-                        var that = self;
-                        var count = 0;
-                        base.API.call('get_player_characterlist', {
-                            'game_secret': that.game_secret,
-                            'inviter': that.inviter,
-                            'player': that.player,
-                            'gameName': that.game_secret,
+                base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret, 'openid': self.openid, 'nickname': self.nickname }).then(function (response) {
+                    var status = response['result'];
+                    if (status == 3) {
+                        base.API.call('get_players_process', {
+                            'game_secret': self.game_secret,
+                            'inviter_name': self.inviter,
+                            'player': self.nickname,
+                            'gameName': self.game_secret
                         }).then(function (response) {
-                            var character_list = response['data'];
-                            console.log(character_list);
-                            var characterList = [];
-                            character_list.forEach(function (val, index, array) {
-                                var player_name = val[0];
-                                if (self.playerList.indexOf(player_name) == -1) {
-                                    count++;
-                                    // console.log(count)
-                                    // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
-                                    that.allcharacterlist.push(val[1]);
-                                    // self.sprite.addChild(tensionScale)
-                                    // tensionScale.x = self.stageWidth - 200
-                                    // tensionScale.y = self.count * 150
-                                    that.playerList.push(player_name);
-                                }
-                            });
-                            // if (count == playerCount) {
-                            console.log('character_list');
-                            characterList.push(that.playerList);
-                            characterList.push(that.allcharacterlist);
-                            // }
-                            var playerAndOthersCharacterList = [];
-                            // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
-                            var otherCharacterList = [];
-                            var othersList = [];
-                            var characterList2 = [];
-                            self.playerList.forEach(function (val, index, array) {
-                                if (val == that.player) {
-                                    playerAndOthersCharacterList.push(val);
-                                    playerAndOthersCharacterList.push(that.allcharacterlist[index]);
-                                }
-                                else {
-                                    othersList.push(val);
-                                    characterList2.push(that.allcharacterlist[index]);
-                                }
-                            });
-                            otherCharacterList.push(othersList);
-                            otherCharacterList.push(characterList2);
-                            playerAndOthersCharacterList.push(otherCharacterList);
-                            console.log(playerAndOthersCharacterList);
-                            var game_secret = that.game_secret;
-                            var inviter = that.inviter;
-                            var player = that.player;
-                            var gameName = that.game_secret;
-                            var stageWidth = that.stage.stageWidth;
-                            var stageHeight = that.stage.stageHeight;
-                            // let processson1 = processson
-                            var count = 0;
-                            var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
-                            that.stage.addChild(charater);
-                            that.sprite.visible = false;
+                            console.log(response);
+                            var process = response['process'];
+                            if (process == '0.1') {
+                                var playerCount = response['playercount'];
+                                var playerScore = response['playerScore'];
+                                var game_secret = self.game_secret;
+                                var inviter_3 = self.inviter;
+                                var player = self.player;
+                                var gameName_3 = self.game_secret;
+                                var stageWidth = self.stageWidth;
+                                var stageHeight = self.stageHeight;
+                                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_3, player, gameName_3, stageWidth, stageHeight, playerCount, playerScore);
+                                self.timer.stop();
+                                self.sprite.visible = false;
+                                self.stage.addChild(initiatePartialInsights);
+                            }
+                            else if (process == '0.2') {
+                                var playerCount = response['playercount'];
+                                var game_secret = self.game_secret;
+                                var inviter_4 = self.inviter;
+                                var player = self.player;
+                                var gameName_4 = self.game_secret;
+                                var stageWidth = self.stageWidth;
+                                var stageHeight = self.stageHeight;
+                                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_4, player, gameName_4, stageWidth, stageHeight, playerCount);
+                                self.timer.stop();
+                                this.stage.addChild(characterChoosePage);
+                                this.sprite.visible = false;
+                            }
+                            else if (process == '0.3') {
+                                var that = self;
+                                var count = 0;
+                                base.API.call('get_player_characterlist', {
+                                    'game_secret': that.game_secret,
+                                    'inviter': that.inviter,
+                                    'player': that.player,
+                                    'gameName': that.game_secret,
+                                }).then(function (response) {
+                                    var character_list = response['data'];
+                                    console.log(character_list);
+                                    var characterList = [];
+                                    character_list.forEach(function (val, index, array) {
+                                        var player_name = val[0];
+                                        if (self.playerList.indexOf(player_name) == -1) {
+                                            count++;
+                                            // console.log(count)
+                                            // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
+                                            that.allcharacterlist.push(val[1]);
+                                            // self.sprite.addChild(tensionScale)
+                                            // tensionScale.x = self.stageWidth - 200
+                                            // tensionScale.y = self.count * 150
+                                            that.playerList.push(player_name);
+                                        }
+                                    });
+                                    // if (count == playerCount) {
+                                    console.log('character_list');
+                                    characterList.push(that.playerList);
+                                    characterList.push(that.allcharacterlist);
+                                    // }
+                                    var playerAndOthersCharacterList = [];
+                                    // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
+                                    var otherCharacterList = [];
+                                    var othersList = [];
+                                    var characterList2 = [];
+                                    self.playerList.forEach(function (val, index, array) {
+                                        if (val == that.player) {
+                                            playerAndOthersCharacterList.push(val);
+                                            playerAndOthersCharacterList.push(that.allcharacterlist[index]);
+                                        }
+                                        else {
+                                            othersList.push(val);
+                                            characterList2.push(that.allcharacterlist[index]);
+                                        }
+                                    });
+                                    otherCharacterList.push(othersList);
+                                    otherCharacterList.push(characterList2);
+                                    playerAndOthersCharacterList.push(otherCharacterList);
+                                    console.log(playerAndOthersCharacterList);
+                                    var game_secret = that.game_secret;
+                                    var inviter = that.inviter;
+                                    var player = that.player;
+                                    var gameName = that.game_secret;
+                                    var stageWidth = that.stage.stageWidth;
+                                    var stageHeight = that.stage.stageHeight;
+                                    // let processson1 = processson
+                                    var count = 0;
+                                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
+                                    that.stage.addChild(charater);
+                                    that.sprite.visible = false;
+                                });
+                            }
+                            else {
+                                var inviter = self.inviter;
+                                var gameName = self.game_secret;
+                                var game_id = self.game_secret;
+                                self.timer.stop();
+                                var enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
+                                self.stage.addChild(enter);
+                                self.sprite.visible = false;
+                            }
                         });
-                    }
-                    else {
-                        var inviter = self.inviter;
-                        var gameName = self.game_secret;
-                        var game_id = self.game_secret;
-                        self.timer.stop();
-                        var enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
-                        self.stage.addChild(enter);
-                        self.sprite.visible = false;
                     }
                 });
             }
