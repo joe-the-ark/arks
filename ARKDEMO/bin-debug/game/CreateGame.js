@@ -21,6 +21,7 @@ var game;
             _this.sprite.height = stageHeight;
             _this.addChild(_this.sprite);
             _this.nickname = nickname;
+            alert(nickname);
             _this.openid = openid;
             _this.status = status;
             _this.game_secret = game_secret;
@@ -108,7 +109,7 @@ var game;
             });
             base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret, 'openid': self.openid, 'nickname': self.nickname }).then(function (response) {
                 var status = response['result'];
-                if (status == 1) {
+                if (status == 0) {
                     var inviter = self.inviter;
                     var gameName = self.game_secret;
                     var game_id = self.game_secret;

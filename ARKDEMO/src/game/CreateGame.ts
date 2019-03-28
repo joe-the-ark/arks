@@ -36,6 +36,9 @@ namespace game {
             this.addChild(this.sprite)
 
             this.nickname = nickname
+            
+
+            alert(nickname)
             this.openid = openid
             this.status = status
             this.game_secret = game_secret
@@ -121,17 +124,17 @@ namespace game {
                     } else {
                         player_name.width = val.length * 18
                     }
+
                     player_name.borderColor = 0x00ff00;
                     player_name.x = 70
                     player_name.y = 300 + index * 50;
                     self.sprite.addChild(player_name)
-
                 })
             })
 
             base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
                 var status = response['result']
-                if(status == 1){
+                if(status == 0){
                     var inviter = self.inviter
                     var gameName = self.game_secret
                     var game_id = self.game_secret 
