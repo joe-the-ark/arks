@@ -53,12 +53,10 @@ class Main extends egret.DisplayObjectContainer {
         egret.lifecycle.onResume = () => {
             egret.ticker.resume();
         }
-
         this.runGame().catch(e => {
             console.log(e);
         })
     }
-
     private async runGame() {
         await this.loadResource()
         this.createGameScene();
@@ -82,7 +80,6 @@ class Main extends egret.DisplayObjectContainer {
             console.error(e);
         }
     }
-
     private textfield: egret.TextField;
     /**
      * 创建游戏场景
@@ -97,14 +94,8 @@ class Main extends egret.DisplayObjectContainer {
             let game_secret = url.split('?')[1].split('&')[0].split('=')[1]
             let inviter = url.split('?')[1].split('&')[1].split('=')[1]
 
-            base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret}).then(function(response){
+            
 
-                var status = response['result']
-                if(status == 1){
-
-                    alert('The game is in progress.')
-
-                }else{
                     if(url.indexOf('code') != -1){
                         var code = url.split('?')[1].split('&')[2].split('=')[1]
                         let self=this;
@@ -114,8 +105,21 @@ class Main extends egret.DisplayObjectContainer {
                             let nickname = user_data['nickname']
                             let stageWidth = self.stage.stageWidth
                             let stageHeight = self.stage.stageHeight
-                            let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
-                            self.stage.addChild(scene)
+
+                            base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret, 'openid':openid, 'nickname':nickname}).then(function(response){
+
+                                var status = response['result']
+                                if(status == 1){
+
+                                    alert('The game is in progress.')
+
+                                }else{
+                                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
+                                    self.stage.addChild(scene)
+                                }
+
+                            })
+                            
                         })
                     }else {
                         var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
@@ -123,8 +127,8 @@ class Main extends egret.DisplayObjectContainer {
                         var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
                     }
 
-                }
-            })
+
+
 
 
         }else{

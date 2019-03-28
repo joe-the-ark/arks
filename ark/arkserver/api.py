@@ -964,6 +964,12 @@ def getGameStatus(**params):
     game_secret = params['game_secret']
     gameName = params['gameName']
 
+    openid = params['openid']
+    nickname = params['nickname']
+
+
+    _player = Player.objects.filter(name=nickname, game_secret=game_secret, inviter_name=inviter_name, game_name=gameName]).first()
+
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -975,8 +981,10 @@ def getGameStatus(**params):
         game_name=gameName,
     ).first()
 
-    if game.status == 1:
+    if _player and game.status == 1:
+
         return {'code':0, 'result':1}
+
     else:
         return {'code':0, 'result':0}
 
