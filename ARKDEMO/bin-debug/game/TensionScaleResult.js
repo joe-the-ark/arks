@@ -123,10 +123,10 @@ var game;
             console.log(111111111);
             console.log(this.simulatedData);
             console.log(this.playerCount);
-            console.log(this.simulatedData[2]);
+            console.log(this.simulatedData.length);
             console.log(111111111);
-            if (this.simulatedData[2]) {
-                if (this.playerCount == this.simulatedData[2].length - 1) {
+            if (this.simulatedData) {
+                if (this.playerCount == this.simulatedData.length) {
                     this.sprite.addChild(this.rightIcon);
                     this.timer.stop();
                 }
