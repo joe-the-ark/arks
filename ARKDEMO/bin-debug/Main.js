@@ -172,11 +172,11 @@ var Main = (function (_super) {
                     base.API.call('getGameStatus', { 'inviter_name': inviter_1, 'game_secret': game_secret_1, 'gameName': game_secret_1, 'openid': openid, 'nickname': nickname }).then(function (response) {
                         var status = response['result'];
                         if (status == 1) {
-                            alert('The game is in progress.');
-                        }
-                        else {
                             var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'player');
                             self_1.stage.addChild(scene);
+                        }
+                        else {
+                            alert('The game is in progress.');
                         }
                     });
                 });

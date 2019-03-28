@@ -975,6 +975,7 @@ def getGameStatus(**params):
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
+
     game = Game.objects.filter(
         game_secret=game_secret,
         inviter=_inviter,
@@ -983,9 +984,12 @@ def getGameStatus(**params):
 
     if _player and game.status == 1:
 
+        print({'code':0, 'result':1})
+
         return {'code':0, 'result':1}
 
     else:
+        print({'code':0, 'result':0})
         return {'code':0, 'result':0}
 
 

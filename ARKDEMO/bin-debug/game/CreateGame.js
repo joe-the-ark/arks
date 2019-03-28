@@ -133,7 +133,6 @@ var game;
                 bodyConfig.jsApiList = response['params']['jsApiList'];
                 bodyConfig.signature = response['params']['signature'];
                 if (wx) {
-                    wx.config(bodyConfig);
                     wx.ready(function () {
                         var desc = 'your friend ' + self.nickname + ' invite you to join the game';
                         wx.onMenuShareAppMessage({
