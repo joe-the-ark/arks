@@ -46,12 +46,12 @@ namespace game {
             // this.tensionScale()
             this.initNotice()
             this.processBar()
+            this.rightIcon()
             
 
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
-            this.rightIcon()
         }
 
         private initNotice(){
@@ -193,9 +193,9 @@ namespace game {
                 'player': self.player,
                 'gameName': self.gameName,
             }).then(function (response) {
-                
                 let characterListParams = response['characterListParams']
-                if(characterListParams[1].length > scorecount ){
+                if(characterListParams[0].length > scorecount ){
+
                     self.timer.stop()
                     let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                     self.stage.addChild(charater);
@@ -204,7 +204,8 @@ namespace game {
                 }
                 else {
 
-                    let playercount = characterListParams[1].length
+                    let playercount = characterListParams[0].length
+
                     console.log('所有性格打分结束')
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
@@ -213,6 +214,7 @@ namespace game {
                         'game_name': self.gameName,
                         'process': '4.0'
                     }).then(function (response) {
+
                         let toTensionScaleResult = new game.TensionScaleResult(
                             self.stageWidth,
                             self.stageHeight,

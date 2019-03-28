@@ -50,10 +50,10 @@ var game;
             // this.tensionScale()
             _this.initNotice();
             _this.processBar();
+            _this.rightIcon();
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
-            _this.rightIcon();
             return _this;
         }
         KeepUpVoting.prototype.initNotice = function () {
@@ -180,7 +180,7 @@ var game;
                 'gameName': self.gameName,
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
-                if (characterListParams[1].length > scorecount) {
+                if (characterListParams[0].length > scorecount) {
                     self.timer.stop();
                     var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
                     self.stage.addChild(charater);
@@ -188,7 +188,7 @@ var game;
                     // self.rightIcon.visible = false
                 }
                 else {
-                    var playercount_1 = characterListParams[1].length;
+                    var playercount_1 = characterListParams[0].length;
                     console.log('所有性格打分结束');
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,

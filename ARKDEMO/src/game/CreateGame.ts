@@ -197,7 +197,6 @@ namespace game {
                                 this.stage.addChild(characterChoosePage)
                                 this.sprite.visible = false
                             }
-
                             else if (process == '0.3'){
                                     var count = 0
                                     base.API.call('get_player_characterlist', {

@@ -263,19 +263,12 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
         game_name=gameName, game_secret=game_secret
     ).first()
 
-
-    print(_inviter)
-
     game = Game.objects.filter(
         game_secret=game_secret, inviter=_inviter,
         game_name=gameName, status=1
     ).first()
 
-    print(game)
-
     cha_list = CharacterChoose.objects.filter(game=game)
-
-    print(cha_list)
     data = [ [_.player.name, [_.character_one.name, _.character_two.name]]  for _ in cha_list if cha_list]
 
     return {'code':0, 'data':data}
@@ -514,8 +507,6 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
 
         ttsms.append(str(int(sum(middles) / playercount)))
 
-    print(ttsms)
-
     return {'code':0, 'result':ttsms}
 
 
@@ -533,18 +524,14 @@ def wechatapi(url):
 
     response = requests.get(url=get_access_token_url, params=access_token_params)
     response.encoding = 'utf-8'
-    print(response)
     response = json.loads(response.text)
-    print(response)
     access_token = response['access_token']
     get_jsapi_ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi'.format(access_token)
 
     jsapi_response = requests.get(url=get_jsapi_ticket_url)
     jsapi_response.encoding = 'utf-8'
-    print(jsapi_response)
     jsapi_response = json.loads(jsapi_response.text)
     jsapi_ticket = jsapi_response['ticket']
-    print(jsapi_response)
 
     noncestr = ''.join(random.sample(string.ascii_letters + string.digits, 8))
 
@@ -569,11 +556,7 @@ def wechatapi(url):
 @api
 def firstvote(score, game_secret, inviter_name, player, gameName):
 
-    print(score)
-    print(game_secret)
-    print(inviter_name)
-    print(player)
-    print(gameName)
+
 
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
@@ -671,18 +654,13 @@ def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, choos
 
     characterChoose = CharacterChoose.objects.filter(character_one=character_one, character_two=character_two, player=chooser, game=game).first()
 
-    print(characterChoose)
     playerCount = Player.objects.filter(game_secret=game_secret,inviter_name=inviter_name, game_name=gameName).count()
 
-    print(playerCount)
     #找到所有已打分人
     playerScores =  PlayerScore.objects.filter(character_choose=characterChoose, game=game, player=_player)
-    print(playerScores)
 
     count = playerScores.count()
 
-    print('count:')
-    print(count)
 
     #所有打分人的分数
     individualTensionScale = []
@@ -692,8 +670,6 @@ def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, choos
         if _.scorer.id == _player.id:
             continue
         individualTensionScale.append(int(_.score))
-
-    print(individualTensionScale)
 
     #当前scale所有人的itsm
     #   找到所有被打分人
@@ -739,11 +715,8 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         status=1
     ).first()
 
-    print(game)
 
     characterChooses = CharacterChoose.objects.filter(game=game)
-
-    print(characterChooses)
 
     simulatedData1 = []
     simulatedData2 = []
@@ -767,8 +740,6 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
             else:
                 othersScoreList.append(int(_.score))
 
-        print(111111)
-        print(sp)
         #其他人对该玩家的评分的均值
         average = sum(othersScoreList)
         if othersCount:
@@ -793,7 +764,6 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
             simulatedData1.append(simulatedData)
 
 
-    print({'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2})
     return {'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2}
 
 
@@ -837,6 +807,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     result = []
     result.append(chooserList)
     result.append(characterList)
+
     print(result)
     return {'code':0, 'characterListParams':result}
 

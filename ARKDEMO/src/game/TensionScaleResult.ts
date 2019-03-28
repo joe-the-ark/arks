@@ -50,6 +50,9 @@ namespace game {
             this.rightIcon.y = stageHeight - 100
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+
+
+
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
 
@@ -129,7 +132,8 @@ namespace game {
 
             if (this.simulatedData[2]) {
                 if (this.playerCount == this.simulatedData[2].length - 1) {
-                    this.addChild(this.rightIcon)
+                    
+                    this.sprite.addChild(this.rightIcon)
                     this.timer.stop()
                 }
             }
@@ -155,7 +159,8 @@ namespace game {
                 var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams)
                 self.stage.addChild(missionResult)
                 self.sprite.visible = false
-                self.rightIcon.visible = false
+                // self.rightIcon.visible = false
+
             }
         }
 

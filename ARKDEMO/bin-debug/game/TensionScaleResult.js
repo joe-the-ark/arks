@@ -123,7 +123,7 @@ var game;
             console.log(this.simulatedData);
             if (this.simulatedData[2]) {
                 if (this.playerCount == this.simulatedData[2].length - 1) {
-                    this.addChild(this.rightIcon);
+                    this.sprite.addChild(this.rightIcon);
                     this.timer.stop();
                 }
             }
@@ -148,7 +148,7 @@ var game;
                 var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams);
                 self.stage.addChild(missionResult);
                 self.sprite.visible = false;
-                self.rightIcon.visible = false;
+                // self.rightIcon.visible = false
             }
         };
         TensionScaleResult.prototype.getRandomScore = function (Min, Max) {
