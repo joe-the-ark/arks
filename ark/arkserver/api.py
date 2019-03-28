@@ -882,7 +882,7 @@ def wechatlogin(**params):
     nickname = res['nickname'].encode('raw_unicode_escape').decode()
     #判断用户账号是否存在
     user_data = {
-        'nickname': res['nickname'],
+        'nickname': nickname,
         'openid': res['openid']
     }
 
