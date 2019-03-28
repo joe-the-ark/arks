@@ -194,12 +194,17 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
                 let characterListParams = response['characterListParams']
-
-                if(characterListParams[0].length > scorecount ){
-
+                    console.log(2222222222)
                     console.log(characterListParams)
                     console.log(scorecount)
                     console.log(characterListParams[1][scorecount] )
+                    console.log(2222222222)
+                if(characterListParams[0].length > scorecount ){
+                    console.log(3333333333)
+                    console.log(characterListParams)
+                    console.log(scorecount)
+                    console.log(characterListParams[1][scorecount] )
+                    console.log(3333333333)
 
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
