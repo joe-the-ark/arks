@@ -197,17 +197,20 @@ namespace game {
 
                 if(characterListParams[0].length > scorecount ){
 
-                    if(characterListParams[1][scorecount] != undefined ){
+                    console.log(characterListParams)
+                    console.log(scorecount)
+                    console.log(characterListParams[1][scorecount] )
 
+                    if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
                         self.sprite.visible = false
                         // self.rightIcon.visible = false
                     }else {
-
                         alert('Please wait for others to choose scale')
                     }
+
                 }
                 else {
 

@@ -181,6 +181,9 @@ var game;
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
                 if (characterListParams[0].length > scorecount) {
+                    console.log(characterListParams);
+                    console.log(scorecount);
+                    console.log(characterListParams[1][scorecount]);
                     if (characterListParams[1][scorecount] != undefined) {
                         self.timer.stop();
                         var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
