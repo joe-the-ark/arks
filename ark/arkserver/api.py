@@ -980,14 +980,13 @@ def getGameStatus(**params):
         game_name=gameName,
     ).first()
 
-    if _player and game.status == 1:
-
-        print({'code':0, 'result':1})
+    if game.status == 1:
+        if _player:
+            return {'code':0, 'result':0}
 
         return {'code':0, 'result':1}
 
     else:
-        print({'code':0, 'result':0})
         return {'code':0, 'result':0}
 
 
