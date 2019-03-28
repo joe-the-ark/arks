@@ -42,7 +42,6 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.player = player
-
             console.log('player')
             console.log(player)
             this.gameName = gameName
@@ -190,7 +189,7 @@ namespace game {
                 'game_secret': self.game_secret,
                 'player': self.player,
                 'game_name': self.gameName,
-                'process': '3.0'
+                'process': '0.3'
             }).then(function (response) {
                 if (self.stage) {
                     let game_secret = self.game_secret
@@ -203,14 +202,8 @@ namespace game {
 
                     self.characterList.push(self.playerList)
                     self.characterList.push(self.allcharacterlist)
-                    console.log('22222222')
-                    console.log(self.characterList)
-                    // [['1', '2'], [[c1,c2],[c1,c2]]]
-
-                    console.log('111111111')
                     self.timer.stop()
                     let playerAndOthersCharacterList = []
-                    // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
                     let otherCharacterList = []
                     let othersList = []
                     let characterList = []
@@ -224,9 +217,7 @@ namespace game {
                             othersList.push(val)
                             characterList.push(self.allcharacterlist[index])
                         }
-
                     })
-
                     otherCharacterList.push(othersList)
                     otherCharacterList.push(characterList)
                     playerAndOthersCharacterList.push(otherCharacterList)
@@ -238,6 +229,7 @@ namespace game {
                     self.rightIcon.visible = false
 
                 }
+
             })
         }
         private getPlayerCharacterList() {
@@ -255,17 +247,12 @@ namespace game {
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
                     //如果玩家已选择scale
-
-                    console.log('player2')
-                    console.log(player_name)
-
                     if(player_name == self.player){
                         self.select_list = val[1]
                         console.log(self.select_list)
                         self.sprite.addChild(self.rightIcon)
                         self.playerCharacterList = val[1]
                     }
-
                     if (self.playerList.indexOf(player_name) == -1) {
                         self.count++
                         let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0, 0, 0, 0)
@@ -329,15 +316,6 @@ namespace game {
                     unselectedCharacter.background = true;
                     unselectedCharacter.backgroundColor = 0x636363;
                     self.sprite.addChild(unselectedCharacter)
-                    // console.log('222222222222222')
-                    // console.log(self.select_list.length)
-                    // console.log('222222222222222')
-                    // if(self.select_list.length == 2){
-
-                    //     self.chooseone.text = self.select_list[0]
-                    //     self.choosetwo.text = self.select_list[1]
-                    // }
-                    // else {
 
                     if (val.length * 18 < 100) {
                         unselectedCharacter.width = 100

@@ -126,10 +126,6 @@ namespace game {
 
             if (this.stage) {
                 var self = this
-                console.log(self.player)
-                console.log(self.playerSCore)
-                console.log(self.game_secret)
-
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('firstvote', {
                     'score': self.playerSCore,
@@ -141,33 +137,21 @@ namespace game {
                     console.log(response)
                 })
 
-                // base.API.call('save_players_process', {
-                //     'inviter_name': self.inviter,
-                //     'game_secret': self.game_secret,
-                //     'player': self.player,
-                //     'game_name': self.gameName,
-                //     'process': '2.0'
-                // }).then(function (response) {
-
+                base.API.call('save_players_process', {
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
+                    'process': '0.1'
+                }).then(function (response) {
                     let game_secret = self.game_secret
                     let inviter = self.inviter
                     let player = self.player
                     let gameName = self.gameName
                     let stageWidth = self.stageWidth
                     let stageHeight = self.stageHeight
-                    // let count = 0
                     let playerSCore = self.playerSCore 
                     let playerCount = self.playerList.length
-                    // let characterChoosePage = new game.CharacterChoosePage(
-                    //     game_secret,
-                    //     inviter,
-                    //     player,
-                    //     gameName,
-                    //     stageWidth,
-                    //     stageHeight,
-                    //     playerCount
-                    // )
-                    // self.stage.addChild(characterChoosePage)
                     let initiatePartialInsights =  new game.InitiatePartialInsights(
                         game_secret,
                         inviter,
@@ -180,14 +164,12 @@ namespace game {
                     )
 
                     this.sprite.visible = false;
-                    
                     this.removeChild(self.rightIcon);
                     this.removeChild(self.closeIcon);
                     this.closeTip();
                     this._shape.visible = false
-
                     this.stage.addChild(initiatePartialInsights)
-                // })
+                })
 
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]

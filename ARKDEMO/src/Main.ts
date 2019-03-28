@@ -85,6 +85,7 @@ class Main extends egret.DisplayObjectContainer {
      * 创建游戏场景
      * Create a game scene
      */
+
     private createGameScene() {
         base.API.Init("http://work.metatype.cn:8105/api/");
         console.log('首页')
@@ -103,18 +104,14 @@ class Main extends egret.DisplayObjectContainer {
                             let nickname = user_data['nickname']
                             let stageWidth = self.stage.stageWidth
                             let stageHeight = self.stage.stageHeight
-
                             base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret, 'openid':openid, 'nickname':nickname}).then(function(response){
-
                                 var status = response['result']
-                                
-                                if(status == 3){
+                                if(status == 2){
                                     let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
                                     self.stage.addChild(scene)
                                 }else{
                                     alert('The game is in progress.')
                                 }
-                                
                             })
                         })
                     }else {

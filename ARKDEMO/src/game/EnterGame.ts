@@ -28,12 +28,8 @@ namespace game {
             this.inviter = inviter
 
             this.sprite = new egret.Sprite();
-
-
             this.stageHeight = stageHeight
             this.stageWidth = stageWidth
-
-
             this.sprite.width = stageWidth
             this.sprite.height = stageHeight
             this.addChild(this.sprite)
@@ -155,9 +151,9 @@ namespace game {
                                 var process = response['process']
                                 var playerCount = response['playercount']
                                 var processson = response['processson']
+
+
                                 self.playerCount = playerCount
-
-
                                 if (process == '2.0') {
                                     let characterChoosePage = new game.CharacterChoosePage(
                                         game_secret,
@@ -184,7 +180,6 @@ namespace game {
                                         var character_list = response['data']
 
                                         console.log(character_list)
-
                                         var characterList = []
 
                                         character_list.forEach((val, index, array) => {
@@ -235,6 +230,7 @@ namespace game {
                                         let stageWidth = that.stage.stageWidth
                                         let stageHeight = that.stage.stageHeight
                                         let processson1 = processson
+
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList, playerAndOthersCharacterList);
                                         that.stage.addChild(charater);
                                         that.sprite.visible = false

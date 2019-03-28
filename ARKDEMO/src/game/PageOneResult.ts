@@ -135,7 +135,6 @@ namespace game {
             this.middlePlayer.backgroundColor = 0x6CA6CD
             this.sprite.addChild(this.middlePlayer)
 
-
         }
         private getPlayScoreList(){
             var self = this

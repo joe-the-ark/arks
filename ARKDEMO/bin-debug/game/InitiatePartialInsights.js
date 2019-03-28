@@ -46,14 +46,6 @@ var game;
             this.sprite.addChild(processBar);
         };
         InitiatePartialInsights.prototype.tip = function () {
-            // let tip: egret.TextField = new egret.TextField()
-            // tip.text = "35% of your Team (6 out of 14) has so far voted the Potential Scale. Invite everyone to follow suit. Here are Early Insights:\n\n• 20 is the lowest and 63 the highest value on the Scale.\n• The teams preliminary median is 38.\n• The perception of 2 people varies remarkably from the team average."
-            // tip.width = 350
-            // tip.x = this._x
-            // tip.y = 80
-            // tip.background = true
-            // tip.backgroundColor = 0x359f93
-            // this.sprite.addChild(tip)
             var intro = new egret.TextField();
             intro.text = "Our Basic Hypothesis is simple: a containment of tensions within the team results in less conflict & a better deployment of the team‘s potentialities.\n\n\n\n\n\n";
             intro.width = this._width;
@@ -82,18 +74,28 @@ var game;
             this.sprite.addChild(potentialScale);
         };
         InitiatePartialInsights.prototype.nextTouch = function () {
-            var game_secret = this.game_secret;
-            var inviter = this.inviter;
-            var player = this.player;
-            var gameName = this.gameName;
-            var stageWidth = this.stageWidth;
-            var stageHeight = this.stageHeight;
-            // let count = 0
-            var playerSCore = this.selfPerception;
-            var playerCount = this.playerCount;
-            var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
-            this.stage.addChild(characterChoosePage);
-            this.sprite.visible = false;
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('save_players_process', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+                'process': '0.2'
+            }).then(function (response) {
+                var game_secret = this.game_secret;
+                var inviter = this.inviter;
+                var player = this.player;
+                var gameName = this.gameName;
+                var stageWidth = this.stageWidth;
+                var stageHeight = this.stageHeight;
+                // let count = 0
+                var playerSCore = this.selfPerception;
+                var playerCount = this.playerCount;
+                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
+                this.stage.addChild(characterChoosePage);
+                this.sprite.visible = false;
+            });
         };
         return InitiatePartialInsights;
     }(egret.DisplayObjectContainer));

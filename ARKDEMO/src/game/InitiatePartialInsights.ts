@@ -48,14 +48,6 @@ namespace game {
         }
         
         private tip(): void {
-            // let tip: egret.TextField = new egret.TextField()
-            // tip.text = "35% of your Team (6 out of 14) has so far voted the Potential Scale. Invite everyone to follow suit. Here are Early Insights:\n\n• 20 is the lowest and 63 the highest value on the Scale.\n• The teams preliminary median is 38.\n• The perception of 2 people varies remarkably from the team average."
-            // tip.width = 350
-            // tip.x = this._x
-            // tip.y = 80
-            // tip.background = true
-            // tip.backgroundColor = 0x359f93
-            // this.sprite.addChild(tip)
             let intro: egret.TextField = new egret.TextField()
             intro.text = "Our Basic Hypothesis is simple: a containment of tensions within the team results in less conflict & a better deployment of the team‘s potentialities.\n\n\n\n\n\n"
             intro.width = this._width
@@ -87,34 +79,37 @@ namespace game {
             this.sprite.addChild(potentialScale)
 
         }
-
         private nextTouch() {
-
-            let game_secret = this.game_secret
-            let inviter = this.inviter
-            let player = this.player
-            let gameName = this.gameName
-            let stageWidth = this.stageWidth
-            let stageHeight = this.stageHeight
-            // let count = 0
-            let playerSCore = this.selfPerception 
-            let playerCount = this.playerCount
-
-            let characterChoosePage = new game.CharacterChoosePage(
-                game_secret,
-                inviter,
-                player,
-                gameName,
-                stageWidth,
-                stageHeight,
-                playerCount
-            )
-
-            this.stage.addChild(characterChoosePage)
-            this.sprite.visible = false
-            
+            var self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('save_players_process', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+                'process': '0.2'
+            }).then(function (response) {
+                let game_secret = this.game_secret
+                let inviter = this.inviter
+                let player = this.player
+                let gameName = this.gameName
+                let stageWidth = this.stageWidth
+                let stageHeight = this.stageHeight
+                // let count = 0
+                let playerSCore = this.selfPerception 
+                let playerCount = this.playerCount
+                let characterChoosePage = new game.CharacterChoosePage(
+                    game_secret,
+                    inviter,
+                    player,
+                    gameName,
+                    stageWidth,
+                    stageHeight,
+                    playerCount
+                )
+                this.stage.addChild(characterChoosePage)
+                this.sprite.visible = false
+            })
         }
-
-
     }
 }

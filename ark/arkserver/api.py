@@ -424,9 +424,9 @@ def save_players_process(inviter_name, game_secret, player, game_name, process, 
     else:  # 玩家没有进度的情况
         GameProcess.objects.create(game=game, player=_player, process=process)
 
+
 @api
 def get_players_process(game_secret, inviter_name, player, gameName):
-
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -437,7 +437,6 @@ def get_players_process(game_secret, inviter_name, player, gameName):
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
-
     game = Game.objects.filter(
         game_secret=game_secret,
         inviter=_inviter,
@@ -447,18 +446,17 @@ def get_players_process(game_secret, inviter_name, player, gameName):
 
     playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
     gameProcess = GameProcess.objects.filter(game=game, player=_player).first()
-    if gameProcess:
-        process = gameProcess.process
-        if process[0] == '2':
-            return {'code':0, 'process':'2.0', 'playercount':playercount}
 
-        elif process[0] == '3':
-            return {'code':0, 'process':3, 'processson':int(process[2]), 'playercount':playercount}
+    if process == '0.1':
+        firstScore = FirstScore.objects.filter(game=game, player=_player)
+        playerScore = firstScore.first_score
+        return {'code':0, 'playercount':playercount, 'playerScore':playerScore, 'process':process}
 
-        elif process[0] == '4':
-            return {'code':0, 'process':4, 'playercount':playercount}
+    if process == '0.2':
+         return {'code':0, 'playercount':playercount, 'process':process}
 
-    return {'code': 0, 'process':1}
+
+    return return_data
 
 @api
 def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
@@ -967,14 +965,15 @@ def getGameStatus(**params):
     if game.status == 1:
         if _player:
             return {'code':0, 'result':3}
-
         return {'code':0, 'result':1}
 
-    else:
+    elif game.status == 0:
         if _player:
-            return { 'code':0, 'result':3}
+            return { 'code':0, 'result':2}
 
         return {'code':0, 'result':0}
+
+
 
 
 

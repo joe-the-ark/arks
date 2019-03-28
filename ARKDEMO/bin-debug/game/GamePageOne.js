@@ -102,9 +102,6 @@ var game;
             // if(this.playerList.length == scoreCounts){
             if (this.stage) {
                 var self = this;
-                console.log(self.player);
-                console.log(self.playerSCore);
-                console.log(self.game_secret);
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('firstvote', {
                     'score': self.playerSCore,
@@ -115,40 +112,29 @@ var game;
                 }).then(function (response) {
                     console.log(response);
                 });
-                // base.API.call('save_players_process', {
-                //     'inviter_name': self.inviter,
-                //     'game_secret': self.game_secret,
-                //     'player': self.player,
-                //     'game_name': self.gameName,
-                //     'process': '2.0'
-                // }).then(function (response) {
-                var game_secret = self.game_secret;
-                var inviter = self.inviter;
-                var player = self.player;
-                var gameName = self.gameName;
-                var stageWidth = self.stageWidth;
-                var stageHeight = self.stageHeight;
-                // let count = 0
-                var playerSCore = self.playerSCore;
-                var playerCount = self.playerList.length;
-                // let characterChoosePage = new game.CharacterChoosePage(
-                //     game_secret,
-                //     inviter,
-                //     player,
-                //     gameName,
-                //     stageWidth,
-                //     stageHeight,
-                //     playerCount
-                // )
-                // self.stage.addChild(characterChoosePage)
-                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
-                this.sprite.visible = false;
-                this.removeChild(self.rightIcon);
-                this.removeChild(self.closeIcon);
-                this.closeTip();
-                this._shape.visible = false;
-                this.stage.addChild(initiatePartialInsights);
-                // })
+                base.API.call('save_players_process', {
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
+                    'process': '0.1'
+                }).then(function (response) {
+                    var game_secret = self.game_secret;
+                    var inviter = self.inviter;
+                    var player = self.player;
+                    var gameName = self.gameName;
+                    var stageWidth = self.stageWidth;
+                    var stageHeight = self.stageHeight;
+                    var playerSCore = self.playerSCore;
+                    var playerCount = self.playerList.length;
+                    var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
+                    this.sprite.visible = false;
+                    this.removeChild(self.rightIcon);
+                    this.removeChild(self.closeIcon);
+                    this.closeTip();
+                    this._shape.visible = false;
+                    this.stage.addChild(initiatePartialInsights);
+                });
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
                 // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
