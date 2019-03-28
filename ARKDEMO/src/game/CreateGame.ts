@@ -132,18 +132,22 @@ namespace game {
                 })
             })
 
-            base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
-                var status = response['result']
-                if(status == 3){
-                    var inviter = self.inviter
-                    var gameName = self.game_secret
-                    var game_id = self.game_secret 
-                    self.timer.stop() 
-                    let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
-                    self.stage.addChild(enter)
-                    self.sprite.visible = false
-                }
-            })
+            if(self.status == 'player'){
+                base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
+                    var status = response['result']
+
+                    if(status == 3){
+                        var inviter = self.inviter
+                        var gameName = self.game_secret
+                        var game_id = self.game_secret 
+                        self.timer.stop() 
+                        let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
+                        self.stage.addChild(enter)
+                        self.sprite.visible = false
+                    }
+                })
+            }
+
         }
         private invateFriends(){
             var link1 = window.location.href
