@@ -90,15 +90,15 @@ namespace game {
                 'process': '0.2'
             }).then(function (response) {
                 
-                let game_secret = this.game_secret
-                let inviter = this.inviter
-                let player = this.player
-                let gameName = this.gameName
-                let stageWidth = this.stageWidth
-                let stageHeight = this.stageHeight
+                let game_secret = self.game_secret
+                let inviter = self.inviter
+                let player = self.player
+                let gameName = self.gameName
+                let stageWidth = self.stageWidth
+                let stageHeight = self.stageHeight
                 // let count = 0
-                let playerSCore = this.selfPerception 
-                let playerCount = this.playerCount
+                let playerSCore = self.selfPerception 
+                let playerCount = self.playerCount
                 let characterChoosePage = new game.CharacterChoosePage(
                     game_secret,
                     inviter,
@@ -108,8 +108,8 @@ namespace game {
                     stageHeight,
                     playerCount
                 )
-                this.stage.addChild(characterChoosePage)
-                this.sprite.visible = false
+                self.stage.addChild(characterChoosePage)
+                self.sprite.visible = false
             })
         }
     }

@@ -199,13 +199,12 @@ namespace game {
                             }
 
                             else if (process == '0.3'){
-                                    var that = self
                                     var count = 0
                                     base.API.call('get_player_characterlist', {
-                                        'game_secret': that.game_secret,
-                                        'inviter': that.inviter,
-                                        'player': that.player,
-                                        'gameName': that.game_secret,
+                                        'game_secret': self.game_secret,
+                                        'inviter': self.inviter,
+                                        'player': self.player,
+                                        'gameName': self.game_secret,
                                     }).then(function (response) {
                                         var character_list = response['data']
 
@@ -218,17 +217,17 @@ namespace game {
                                                 count++
                                                 // console.log(count)
                                                 // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
-                                                that.allcharacterlist.push(val[1])
+                                                self.allcharacterlist.push(val[1])
                                                 // self.sprite.addChild(tensionScale)
                                                 // tensionScale.x = self.stageWidth - 200
                                                 // tensionScale.y = self.count * 150
-                                                that.playerList.push(player_name)
+                                                self.playerList.push(player_name)
                                             }
                                         })
                                         // if (count == playerCount) {
                                         console.log('character_list')
-                                        characterList.push(that.playerList)
-                                        characterList.push(that.allcharacterlist)
+                                        characterList.push(self.playerList)
+                                        characterList.push(self.allcharacterlist)
 
                                         // }
                                         let playerAndOthersCharacterList = []
@@ -239,12 +238,12 @@ namespace game {
                                         
                                         self.playerList.forEach((val, index, array) => {
 
-                                            if(val == that.player){
+                                            if(val == self.player){
                                                 playerAndOthersCharacterList.push(val)
-                                                playerAndOthersCharacterList.push(that.allcharacterlist[index])
+                                                playerAndOthersCharacterList.push(self.allcharacterlist[index])
                                             }else {
                                                 othersList.push(val)
-                                                characterList2.push(that.allcharacterlist[index])
+                                                characterList2.push(self.allcharacterlist[index])
                                             }
                                         })
                                         otherCharacterList.push(othersList)
@@ -253,17 +252,17 @@ namespace game {
 
                                         console.log(playerAndOthersCharacterList)
 
-                                        let game_secret = that.game_secret
-                                        let inviter = that.inviter
-                                        let player = that.player
-                                        let gameName = that.game_secret
-                                        let stageWidth = that.stage.stageWidth
-                                        let stageHeight = that.stage.stageHeight
+                                        let game_secret = self.game_secret
+                                        let inviter = self.inviter
+                                        let player = self.player
+                                        let gameName = self.game_secret
+                                        let stageWidth = self.stage.stageWidth
+                                        let stageHeight = self.stage.stageHeight
                                         // let processson1 = processson
                                         var count = 0
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
-                                        that.stage.addChild(charater);
-                                        that.sprite.visible = false
+                                        self.stage.addChild(charater);
+                                        self.sprite.visible = false
 
                                     })
                             }else {

@@ -83,18 +83,18 @@ var game;
                 'game_name': self.gameName,
                 'process': '0.2'
             }).then(function (response) {
-                var game_secret = this.game_secret;
-                var inviter = this.inviter;
-                var player = this.player;
-                var gameName = this.gameName;
-                var stageWidth = this.stageWidth;
-                var stageHeight = this.stageHeight;
+                var game_secret = self.game_secret;
+                var inviter = self.inviter;
+                var player = self.player;
+                var gameName = self.gameName;
+                var stageWidth = self.stageWidth;
+                var stageHeight = self.stageHeight;
                 // let count = 0
-                var playerSCore = this.selfPerception;
-                var playerCount = this.playerCount;
+                var playerSCore = self.selfPerception;
+                var playerCount = self.playerCount;
                 var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
-                this.stage.addChild(characterChoosePage);
-                this.sprite.visible = false;
+                self.stage.addChild(characterChoosePage);
+                self.sprite.visible = false;
             });
         };
         return InitiatePartialInsights;
