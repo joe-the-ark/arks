@@ -447,17 +447,18 @@ def get_players_process(game_secret, inviter_name, player, gameName):
     playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
     gameProcess = GameProcess.objects.filter(game=game, player=_player).first()
 
-    process = gameProcess.process
+    if gameProcess:
+        process = gameProcess.process
 
-    if process == '0.1':
-        firstScore = FirstScore.objects.filter(game=game, player=_player)
-        playerScore = firstScore.first_score
-        return {'code':0, 'playercount':playercount, 'playerScore':playerScore, 'process':process}
+        if process == '0.1':
+            firstScore = FirstScore.objects.filter(game=game, player=_player)
+            playerScore = firstScore.first_score
+            return {'code':0, 'playercount':playercount, 'playerScore':playerScore, 'process':process}
 
-    if process == '0.2':
-         return {'code':0, 'playercount':playercount, 'process':process}
+        if process == '0.2':
+             return {'code':0, 'playercount':playercount, 'process':process}
 
-    return return_data
+    return {'code':0, 'process':'0.0'}
 
 @api
 def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
