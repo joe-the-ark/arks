@@ -99,7 +99,7 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
             this.timer.start()
-
+            
         }
         private getPlayeList(){
             var self = this
@@ -159,7 +159,7 @@ namespace game {
                 bodyConfig.signature = response['params']['signature']
 
                 if(wx) {
-                    
+                    wx.config(bodyConfig)
                     wx.ready(function(){
                        let desc = 'your friend '+ self.nickname + ' invite you to join the game'
                        

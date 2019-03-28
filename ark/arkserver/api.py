@@ -940,13 +940,11 @@ def getPlayerList(**params):
     #     status=0
     # ).first()
 
-
     playerList = Player.objects.filter(
         game_secret=game_secret,
         game_name = gameName,
         inviter_name = inviter_name
     )
-
     print(playerList)
 
     nicknameList = []
