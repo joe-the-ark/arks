@@ -1,5 +1,6 @@
 namespace game {
     export class InitiatePartialInsights extends egret.DisplayObjectContainer {
+      
         /***     初始赋值代码开始    ***/
         private sprite: egret.Sprite
         public stageWidth = 0
@@ -39,7 +40,6 @@ namespace game {
             this.rightIcon()
             this.drawPotentialScale()
         }
-
 
 
         private processBar(): void {
@@ -89,6 +89,7 @@ namespace game {
                 'game_name': self.gameName,
                 'process': '0.2'
             }).then(function (response) {
+                
                 let game_secret = this.game_secret
                 let inviter = this.inviter
                 let player = this.player

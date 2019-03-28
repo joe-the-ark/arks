@@ -128,12 +128,12 @@ var game;
                     var playerSCore = self.playerSCore;
                     var playerCount = self.playerList.length;
                     var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
-                    this.sprite.visible = false;
-                    this.removeChild(self.rightIcon);
-                    this.removeChild(self.closeIcon);
-                    this.closeTip();
-                    this._shape.visible = false;
-                    this.stage.addChild(initiatePartialInsights);
+                    self.sprite.visible = false;
+                    self.removeChild(self.rightIcon);
+                    self.removeChild(self.closeIcon);
+                    self.closeTip();
+                    self._shape.visible = false;
+                    self.stage.addChild(initiatePartialInsights);
                 });
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
                 // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]

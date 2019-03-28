@@ -427,9 +427,7 @@ namespace game {
 
 
                         })
-
                     }
-                        
                  })
             }
 

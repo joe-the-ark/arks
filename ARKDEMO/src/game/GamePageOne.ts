@@ -144,6 +144,7 @@ namespace game {
                     'game_name': self.gameName,
                     'process': '0.1'
                 }).then(function (response) {
+
                     let game_secret = self.game_secret
                     let inviter = self.inviter
                     let player = self.player
@@ -162,13 +163,12 @@ namespace game {
                         playerCount,
                         playerSCore
                     )
-
-                    this.sprite.visible = false;
-                    this.removeChild(self.rightIcon);
-                    this.removeChild(self.closeIcon);
-                    this.closeTip();
-                    this._shape.visible = false
-                    this.stage.addChild(initiatePartialInsights)
+                    self.sprite.visible = false;
+                    self.removeChild(self.rightIcon);
+                    self.removeChild(self.closeIcon);
+                    self.closeTip();
+                    self._shape.visible = false
+                    self.stage.addChild(initiatePartialInsights)
                 })
 
                 // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
