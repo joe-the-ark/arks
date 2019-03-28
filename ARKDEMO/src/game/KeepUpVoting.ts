@@ -23,7 +23,7 @@ namespace game {
         public ttsms = []
         public scorecount=0
 
-        public playercount
+        public playerCount
         
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
             super()
@@ -193,13 +193,18 @@ namespace game {
                 'player': self.player,
                 'gameName': self.gameName,
             }).then(function (response) {
+
+
                 let characterListParams = response['characterListParams']
+                let playerCount = response['playerCount']
+                self.playerCount = playerCount
+
                     console.log(2222222222)
                     console.log(characterListParams)
                     console.log(scorecount)
                     console.log(characterListParams[1][scorecount] )
                     console.log(2222222222)
-                if(characterListParams[0].length > scorecount ){
+                if(playerCount > scorecount ){
                     console.log(3333333333)
                     console.log(characterListParams)
                     console.log(scorecount)
@@ -219,7 +224,7 @@ namespace game {
                 }
                 else {
 
-                    let playercount = characterListParams[0].length
+                    
                     console.log('所有性格打分结束')
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
@@ -237,7 +242,7 @@ namespace game {
                             self.player,
                             self.gameName,
                             characterListParams,
-                            playercount
+                            self.playerCount
                         )
                         self.stage.addChild(toTensionScaleResult);
                         self.sprite.visible = false;

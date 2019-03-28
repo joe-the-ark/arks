@@ -180,12 +180,14 @@ var game;
                 'gameName': self.gameName,
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
+                var playerCount = response['playerCount'];
+                self.playerCount = playerCount;
                 console.log(2222222222);
                 console.log(characterListParams);
                 console.log(scorecount);
                 console.log(characterListParams[1][scorecount]);
                 console.log(2222222222);
-                if (characterListParams[0].length > scorecount) {
+                if (playerCount > scorecount) {
                     console.log(3333333333);
                     console.log(characterListParams);
                     console.log(scorecount);
@@ -203,7 +205,6 @@ var game;
                     }
                 }
                 else {
-                    var playercount_1 = characterListParams[0].length;
                     console.log('所有性格打分结束');
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
@@ -212,7 +213,7 @@ var game;
                         'game_name': self.gameName,
                         'process': '4.0'
                     }).then(function (response) {
-                        var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, playercount_1);
+                        var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                         self.stage.addChild(toTensionScaleResult);
                         self.sprite.visible = false;
                     });

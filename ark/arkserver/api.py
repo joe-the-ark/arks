@@ -789,6 +789,10 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
         status=1
     ).first()
 
+
+    playerCount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
+
+
     characterChooses = CharacterChoose.objects.filter(game=game)
     chooserList = []
     characterList = []
@@ -807,7 +811,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     result.append(characterList)
 
     print(result)
-    return {'code':0, 'characterListParams':result}
+    return {'code':0, 'characterListParams':result, 'playerCount':playerCount}
 
 
 @api
