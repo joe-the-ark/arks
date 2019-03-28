@@ -971,6 +971,9 @@ def getGameStatus(**params):
         return {'code':0, 'result':1}
 
     else:
+        if _player:
+            return { 'code':0, 'result':3}
+
         return {'code':0, 'result':0}
 
 
