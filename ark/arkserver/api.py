@@ -968,7 +968,7 @@ def getGameStatus(**params):
     nickname = params['nickname']
 
 
-    _player = Player.objects.filter(name=nickname, game_secret=game_secret, inviter_name=inviter_name, game_name=gameName]).first()
+    _player = Player.objects.filter(name=nickname, game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).first()
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
