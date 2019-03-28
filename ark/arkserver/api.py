@@ -615,7 +615,6 @@ def getOthersSelfPerception(inviter_name, game_secret, player, gameName):
 
     return {'code':0, 'OthersSelfPerceptionList':OthersSelfPerceptionList}
 
-
 @api
 def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, chooser):
 
@@ -907,7 +906,6 @@ def getPlayerList(**params):
     nicknameList = []
     for _ in playerList:
         nicknameList.append(_.nickname)
-
     return {'code':0, 'result':nicknameList}
 
 
@@ -947,6 +945,105 @@ def getGameStatus(**params):
             return { 'code':0, 'result':2}
 
         return {'code':0, 'result':0}
+
+
+@api
+def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):
+    _inviter = Player.objects.filter(
+        name=inviter_name,
+        game_secret=game_secret,
+        inviter_name=inviter_name,
+        game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter=_inviter,
+    ).first()
+
+    _teammate = Player.objects.filter(
+        teammate=teammate,
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter_name=inviter_name
+    ).first()
+
+    _player = Player.objects.filter(
+        name=player,
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter_name=inviter_name
+    ).first()
+
+    teammate = Feedback.objects.filter(love=love, add=add, ask=ask, game=game, player=player, teammate=teammate).first()
+    if not teammate:
+        Feedback.objects.create(love=love, add=add, ask=ask, game=game, player=player, teammate=teammate)
+
+    return {'message': 0}
+
+@api
+def get_players(inviter, game_secret, gameName):
+
+    player_list = Player.objects.filter(
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter_name=inviter
+    )
+
+    result = []
+    for player in player_list:
+        result.append(player.name)
+
+    return {'code':0, 'result':result}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

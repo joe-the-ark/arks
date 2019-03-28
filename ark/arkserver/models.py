@@ -100,3 +100,13 @@ class FirstScore(models.Model):
         return self.player.name + '__firstScore:'+self.first_score
 
 
+class Feedback(models.Model):
+    love = models.CharField(max_length=500, verbose_name='love')
+    add = models.CharField(max_length=500, verbose_name='add')
+    ask = models.CharField(max_length=500, verbose_name='ask')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='player', related_name='player')
+    teammate = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='teammate', related_name='teammate')
+    game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='game')
+
+    def __str__(self):
+        return self.game.game_name+'__'+self.player.name

@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var ZORAMap = (function (_super) {
         __extends(ZORAMap, _super);
-        function ZORAMap(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm) {
+        function ZORAMap(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm, simulatedData, inviter, game_secret, gameName) {
             var _this = _super.call(this) || this;
             _this.playerList = [];
             _this.game_secret = '';
@@ -43,11 +43,16 @@ var game;
             _this.stageHeight = stageHeight;
             _this.ttsm = Number(ttsm);
             console.log(stageWidth);
+            _this.inviter = inviter;
+            _this.player = player_name;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.playerScore = player_score;
             _this.tensionMedian = median;
             _this.characterTwo = characterTwo;
             _this.characterOne = characterOne;
             _this.player_name = player_name;
+            _this.simulatedData = simulatedData;
             _this.median = Math.abs(Number(player_score) - Number(median));
             _this.absoluteValueOfDeviation = _this.median;
             _this.selfPerciption = Number(_this.playerScore);
@@ -62,7 +67,7 @@ var game;
             _this.sprite.y = 0;
             _this.addChild(_this.sprite);
             _this._shape = new egret.Shape();
-            _this.addChild(_this._shape);
+            _this.sprite.addChild(_this._shape);
             _this.drawVoteArea();
             _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
             _this.rightIcon.width = 100;
@@ -77,7 +82,7 @@ var game;
             return _this;
         }
         ZORAMap.prototype.rightNext = function () {
-            var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0);
+            var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player_name, this.inviter, this.game_secret, this.gameName);
             this.stage.addChild(settingSail);
             this.sprite.visible = false;
         };

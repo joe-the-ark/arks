@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var LoveAddAsk = (function (_super) {
         __extends(LoveAddAsk, _super);
-        function LoveAddAsk(stageWidth, stageHeight, process, missionName, playerName) {
+        function LoveAddAsk(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -25,18 +25,20 @@ var game;
             _this._x = 20;
             _this._margin = 20;
             _this.playerName = "";
-            _this.simulatedData = [
-                ["Family", "Narcissism", 20, 40],
-                ["Sensuality", "Fighting", 10, 24],
-                ["Loyality", "Joy", 30, 19],
-                ["Harmony", "Disruption", 4, 15],
-                ["Carefulness", "Power", 12, 11],
-            ];
+            _this.simulatedData = [];
+            _this.player_list = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
-            _this.playerName = playerName;
+            // this.playerName = playerName
+            _this.count = count;
+            _this.simulatedData = simulatedData;
+            _this.player = player;
+            _this.inviter = inviter;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.addChild(_this.sprite);
+            _this.initData();
             _this.processBar();
             _this.notice();
             _this.love();
@@ -48,6 +50,19 @@ var game;
             _this.tensionScale();
             return _this;
         }
+        LoveAddAsk.prototype.initData = function () {
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('get_players', {
+                'inviter': self.inviter,
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+            }).then(function (response) {
+                var result = response['result'];
+                self.player_list = result;
+                self.playerName = self.player_list[self.count];
+            });
+        };
         LoveAddAsk.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 10, "Mission 2 > Love, Add, Ask");
             this.sprite.addChild(processBar);
@@ -152,12 +167,13 @@ var game;
             askInput.borderColor = 0x000000;
             askInput.multiline = true;
             this.sprite.addChild(askInput);
-            base.API.Init("http://127.0.0.1:8000/api/");
-            base.API.call("push_feedback", { "game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName }).then(function (response) {
-                askInput.addEventListener(egret.FocusEvent.FOCUS_OUT, this.pushFeedback, this);
-            }).catch(function (err) {
-                console.log(err);
-            });
+            // base.API.Init("http://127.0.0.1:8000/api/")
+            // base.API.Init("http://work.metatype.cn:8105/api/");
+            // base.API.call("push_feedback", {"game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName}).then(function (response) {
+            //     askInput.addEventListener(egret.FocusEvent.FOCUS_OUT, this.pushFeedback, this)
+            // }).catch(function (err) {
+            //     console.log(err)
+            // })
         };
         LoveAddAsk.prototype.pushFeedback = function () {
             console.log('123');

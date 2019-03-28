@@ -148,7 +148,6 @@ namespace game {
                 let count = this.count
                 let chooser = this.charaChooser[this.count]
                 let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
-
                 this.sprite.visible = false
                 this.removeChild(this.rightIcon)
                 this.removeChild(this.closeIcon)
@@ -248,7 +247,6 @@ namespace game {
             }
         }
 
-
         private tip(width, height, msg) {
             var tiptext: egret.TextField = this.tiptext;
             tiptext.x = width
@@ -316,9 +314,6 @@ namespace game {
                 self.playerList = response['player_list']
                 // self.playerCounts = 
                 self.playerList.forEach((val, index, array) => {
-
-
-
                     var player_name: egret.TextField = new egret.TextField()
                     player_name.text = val
 

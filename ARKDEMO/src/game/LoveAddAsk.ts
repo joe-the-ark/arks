@@ -14,22 +14,30 @@ namespace game {
         private _margin = 20
         private noticeBox: egret.TextField
         private playerName = ""
-        private simulatedData = [  // 玩家模拟数据
-            ["Family", "Narcissism", 20, 40],
-            ["Sensuality", "Fighting", 10, 24],
-            ["Loyality", "Joy", 30, 19],
-            ["Harmony", "Disruption", 4, 15],
-            ["Carefulness", "Power", 12, 11],
-            // ["Effort", "Loyality", 40, 4],
-            // ["Power", "Courage", 2, 1],
-        ]
-        public constructor(stageWidth, stageHeight, process, missionName, playerName) {
+        private simulatedData = []
+        private count
+
+        public player_list = []
+
+        public constructor(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
             super()
+
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
-            this.playerName = playerName
+            // this.playerName = playerName
+
+            this.count = count
+            this.simulatedData = simulatedData
+
+            this.player = player
+            this.inviter = inviter
+            this.game_secret = game_secret
+            this.gameName = gameName
+
+
             this.addChild(this.sprite)
+            this.initData()
             this.processBar()
             this.notice()
             this.love()
@@ -39,6 +47,25 @@ namespace game {
             this.ask()
             this.askInput()
             this.tensionScale()
+
+        }
+
+
+        private initData(){
+
+            let self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('get_players', {
+                'inviter':self.inviter,
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+            }).then(function (response){
+
+                let result = response['result']
+                self.player_list = result
+                self.playerName = self.player_list[self.count]
+            })     
+
         }
 
         private processBar(): void {
@@ -155,13 +182,13 @@ namespace game {
             askInput.borderColor = 0x000000
             askInput.multiline = true
             this.sprite.addChild(askInput)
-
-            base.API.Init("http://127.0.0.1:8000/api/")
-            base.API.call("push_feedback", {"game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName}).then(function (response) {
-                askInput.addEventListener(egret.FocusEvent.FOCUS_OUT, this.pushFeedback, this)
-            }).catch(function (err) {
-                console.log(err)
-            })
+            // base.API.Init("http://127.0.0.1:8000/api/")
+            // base.API.Init("http://work.metatype.cn:8105/api/");
+            // base.API.call("push_feedback", {"game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName}).then(function (response) {
+            //     askInput.addEventListener(egret.FocusEvent.FOCUS_OUT, this.pushFeedback, this)
+            // }).catch(function (err) {
+            //     console.log(err)
+            // })
         }
 
         private pushFeedback(): void {

@@ -51,8 +51,6 @@ namespace game {
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
 
-
-
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
 
@@ -76,7 +74,6 @@ namespace game {
                 var result = response['result']
 
                 self.ttsms = response['ttsms']
-
                 self.simulatedData = result
                 self.drawTensionScale();
             })
@@ -162,7 +159,6 @@ namespace game {
                 self.stage.addChild(missionResult)
                 self.sprite.visible = false
                 // self.rightIcon.visible = false
-
             }
         }
 

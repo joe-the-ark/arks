@@ -194,22 +194,11 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
 
-
                 let characterListParams = response['characterListParams']
                 let playerCount = response['playerCount']
                 self.playerCount = playerCount
 
-                    console.log(2222222222)
-                    console.log(characterListParams)
-                    console.log(scorecount)
-                    console.log(characterListParams[1][scorecount] )
-                    console.log(2222222222)
                 if(playerCount > scorecount ){
-                    console.log(3333333333)
-                    console.log(characterListParams)
-                    console.log(scorecount)
-                    console.log(characterListParams[1][scorecount] )
-                    console.log(3333333333)
 
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
@@ -220,10 +209,8 @@ namespace game {
                     }else {
                         alert('Please wait for others to choose scale')
                     }
-
                 }
                 else {
-
                     
                     console.log('所有性格打分结束')
                     base.API.call('save_players_process', {

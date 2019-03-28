@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var SettingSail = (function (_super) {
         __extends(SettingSail, _super);
-        function SettingSail(stageWidth, stageHeight, process) {
+        function SettingSail(stageWidth, stageHeight, process, simulatedData, player_name, inviter, game_secret, gameName) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -28,6 +28,11 @@ var game;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
             _this.addChild(_this.sprite);
+            _this.simulatedData = simulatedData;
+            _this.player = player_name;
+            _this.inviter = inviter;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.processBar();
             _this.intro();
             _this.rightIcon();
@@ -66,8 +71,14 @@ var game;
             rightIcon.x = this.stageWidth - 50;
             rightIcon.y = this.stageHeight / 2;
             rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this);
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
             this.sprite.addChild(rightIcon);
+        };
+        SettingSail.prototype.nextPage = function () {
+            var count = 0;
+            var loveAddAsk = new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
+            this.stage.addChild(loveAddAsk);
+            this.sprite.visible = false;
         };
         return SettingSail;
     }(egret.DisplayObjectContainer));

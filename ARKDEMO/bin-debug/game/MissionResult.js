@@ -95,33 +95,22 @@ var game;
                 }).then(function (response) {
                     var result = response['result'];
                     that.ttsms = result;
-                    console.log('ttsmsstart1:');
-                    console.log(that.ttsms);
-                    console.log('ttsmsend1:');
                     self.drawTensionScale(that.ttsms);
                 });
                 self.initGraphics();
                 // self.drawTensionScale();
             });
-            console.log(11111111111);
-            console.log(self.simulatedData);
-            console.log(111111111);
-            console.log('ttsmsstart2:');
-            console.log(self.ttsms);
-            console.log('ttsmsend2:');
         };
         MissionResult.prototype.drawTensionScale = function (ttsms) {
             var _this = this;
             console.log(this.simulatedData);
             this.ttsms = ttsms;
-            console.log(this.ttsms);
-            console.log(222222);
             this.simulatedData.forEach(function (val, index, array) {
                 try {
                     var ttsm = _this.ttsms[index];
                     var score = val[2].toString();
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
-                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[3], val[2], _this.stageWidth, _this.stageHeight, ttsm);
+                    var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[3], val[2], _this.stageWidth, _this.stageHeight, ttsm, _this.simulatedData, _this.inviter, _this.game_secret, _this.gameName);
                     // zoramap.x = 10
                     console.log(zoramap);
                     zoramap.y = 200 + (index - 1) * 150;

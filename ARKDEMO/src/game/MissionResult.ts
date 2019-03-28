@@ -76,7 +76,6 @@ namespace game{
             buffer.graphics.lineStyle(0)
             buffer.graphics.drawRect(this.stageWidth / 2 - Math.ceil(200/81*13), 130, Math.ceil(200/81*13)*2, this.stageHeight)
             buffer.graphics.endFill()
-            
         }
 
         private drawResult(){
@@ -102,9 +101,6 @@ namespace game{
                 }).then(function (response){
                     let result = response['result']
                     that.ttsms = result
-                    console.log('ttsmsstart1:')
-                    console.log(that.ttsms)
-                    console.log('ttsmsend1:')
 
                     self.drawTensionScale(that.ttsms)
                     
@@ -115,28 +111,18 @@ namespace game{
 
                 // self.drawTensionScale();
             })
-
-            console.log(11111111111)
-            console.log(self.simulatedData)
-            console.log(111111111)
-
-            console.log('ttsmsstart2:')
-            console.log(self.ttsms)
-            console.log('ttsmsend2:')
         }
 
         private drawTensionScale(ttsms) {
             console.log(this.simulatedData)
             this.ttsms = ttsms
-            console.log(this.ttsms)
-            console.log(222222)
             this.simulatedData.forEach((val, index, array) => {
                 try {
 
                     var ttsm = this.ttsms[index]
                     var score = val[2].toString()
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
-                    let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[3], val[2], this.stageWidth, this.stageHeight, ttsm)
+                    let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[3], val[2], this.stageWidth, this.stageHeight, ttsm, this.simulatedData, this.inviter, this.game_secret, this.gameName)
                     // zoramap.x = 10
                     console.log(zoramap)
                     zoramap.y = 200 + (index-1)*150

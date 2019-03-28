@@ -12,13 +12,23 @@ namespace game {
         private _width = 600
         private _x = 20
         private _margin = 20
-        public constructor(stageWidth, stageHeight, process) {
+
+        public simulatedData
+
+        
+        public constructor(stageWidth, stageHeight, process, simulatedData, player_name, inviter, game_secret, gameName) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
-
             this.addChild(this.sprite)
+
+            this.simulatedData = simulatedData
+            this.player = player_name
+            this.inviter = inviter
+            this.game_secret = game_secret
+            this.gameName = gameName
+
             this.processBar()
             this.intro()
             this.rightIcon()
@@ -61,8 +71,20 @@ namespace game {
             rightIcon.x = this.stageWidth - 50
             rightIcon.y = this.stageHeight / 2
             rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this)
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(rightIcon)
         }
+
+
+        private nextPage() {
+
+            var count = 0
+            var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
+            this.stage.addChild(loveAddAsk)
+            this.sprite.visible = false
+
+
+        }
+
     }
 }

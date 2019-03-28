@@ -46,9 +46,10 @@ namespace game {
         public teamTensionScaleMedian = 30
         public ZORAMin = 0
         public ZORAMax = 0
+        
+        public simulatedData
 
-
-        public constructor(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm) {
+        public constructor(characterOne, characterTwo, player_name, player_score, median, stageWidth, stageHeight, ttsm, simulatedData, inviter, game_secret, gameName) {
             super()
 
             this.stageWidth = stageWidth
@@ -56,12 +57,21 @@ namespace game {
             this.ttsm = Number(ttsm)
             console.log(stageWidth)
 
+
+            this.inviter = inviter
+            this.player = player_name
+            this.game_secret = game_secret
+            this.gameName = gameName
+
+
             this.playerScore = player_score
             this.tensionMedian = median
 
             this.characterTwo = characterTwo
             this.characterOne = characterOne
             this.player_name = player_name
+
+            this.simulatedData = simulatedData
 
             this.median = Math.abs(Number(player_score) - Number(median))
             this.absoluteValueOfDeviation = this.median
@@ -77,11 +87,9 @@ namespace game {
             this.sprite.x = 0
             this.sprite.y = 0
             this.addChild(this.sprite)
-
             this._shape = new egret.Shape()
-            this.addChild(this._shape)
+            this.sprite.addChild(this._shape)
             this.drawVoteArea()
-
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
@@ -97,9 +105,11 @@ namespace game {
 
         private rightNext() {
 
-            let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0)
+            let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player_name, this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(settingSail);
             this.sprite.visible = false
+
+
         }
 
 
@@ -243,8 +253,6 @@ namespace game {
             this.sprite.addChild(tensionScaleMedian)
             this.sprite.addChild(tensionScaleMedianName)
         }
-
-
 
     }
 }
