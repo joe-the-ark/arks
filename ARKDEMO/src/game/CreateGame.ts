@@ -134,7 +134,7 @@ namespace game {
 
             base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
                 var status = response['result']
-                if(status == 0){
+                if(status == 3){
                     var inviter = self.inviter
                     var gameName = self.game_secret
                     var game_id = self.game_secret 
