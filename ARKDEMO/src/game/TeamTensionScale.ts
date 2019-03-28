@@ -1,6 +1,6 @@
 namespace game {
 
-    export class TensionScale extends egret.DisplayObjectContainer {
+    export class TeamTensionScale extends egret.DisplayObjectContainer {
         /***     初始赋值代码开始    ***/
         private sprite: egret.Sprite
         public stageWidth = 0
@@ -8,17 +8,17 @@ namespace game {
         /***     初始赋值代码结束    ***/
         public select_list = []
         // public absoluteValueOfDeviation
-        public selfPerciption = 1
+        public selfPerception = 1
         public individualTensionScaleMedian = 60
-        // public deviationBetweenITSM_SP = this.selfPerciption - this.individualTensionScaleMedian
+        // public deviationBetweenITSM_SP = this.selfPerception - this.individualTensionScaleMedian
         public absoluteValueOfDeviation = 0
         public teamTensionScaleMedian = 30
         public ZORAMin = 0
         public ZORAMax = 0
-        public constructor(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerciption, teamTensionScaleMedian, individualTensionScaleMedian ) {
+        public constructor(stageWidth, stageHeight, select_list, absoluteValueOfDeviation, selfPerception, teamTensionScaleMedian, individualTensionScaleMedian) {
             super()
             this.select_list = select_list
-            this.selfPerciption = selfPerciption
+            this.selfPerception = selfPerception
             this.teamTensionScaleMedian = teamTensionScaleMedian
             this.absoluteValueOfDeviation = absoluteValueOfDeviation
             this.ZORAMin = this.teamTensionScaleMedian - 13
@@ -40,30 +40,30 @@ namespace game {
             let randomColor = 0x0000ff + Math.floor(Math.random() * 100) * (0xffffff / 100)
 
             let topCharacterBg: egret.Shape = new egret.Shape()
-            let bottomCharacterBg: egret.Shape = new egret.Shape()
             topCharacterBg.graphics.beginFill(0x7171C6)
             topCharacterBg.graphics.drawRect(0, 0, 180, 60)
             topCharacterBg.graphics.endFill()
+            this.sprite.addChild(topCharacterBg)
 
-            let toptext: egret.TextField = new egret.TextField()
-            toptext.x = topCharacterBg.x
-
-            toptext.y = 10
-            toptext.text = this.select_list[0]
+            let bottomCharacterBg: egret.Shape = new egret.Shape()
             bottomCharacterBg.graphics.beginFill(0x7171C6)
             bottomCharacterBg.graphics.drawRect(0, 80, 180, 60)
             bottomCharacterBg.graphics.endFill()
-
-            let buttomtext: egret.TextField = new egret.TextField()
-            buttomtext.x = bottomCharacterBg.x
-            buttomtext.y = 90
-            buttomtext.text = this.select_list[1]
-
-            this.sprite.addChild(topCharacterBg)
             this.sprite.addChild(bottomCharacterBg)
 
+            let toptext: egret.TextField = new egret.TextField()
+            toptext.textAlign = egret.HorizontalAlign.CENTER
+            toptext.x = topCharacterBg.x
+            toptext.y = 10
+            toptext.text = this.select_list[0]
             this.sprite.addChild(toptext)
-            this.sprite.addChild(buttomtext)
+
+            let bottomtext: egret.TextField = new egret.TextField()
+            bottomtext.textAlign = egret.HorizontalAlign.CENTER
+            bottomtext.x = bottomCharacterBg.x
+            bottomtext.y = 90
+            bottomtext.text = this.select_list[1]
+            this.sprite.addChild(bottomtext)
         }
 
         private drawScore(): void {
@@ -87,7 +87,7 @@ namespace game {
             scoreWhiteBg.graphics.drawCircle(90, 70, 30)
             scoreWhiteBg.graphics.endFill()
 
-            if (this.ZORAMin > this.selfPerciption || this.selfPerciption > this.ZORAMax) {
+            if (this.ZORAMin > this.selfPerception || this.selfPerception > this.ZORAMax) {
                 this.sprite.addChild(scoreRedBg)
                 if (this.ZORAMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > this.ZORAMax) {
                     scoreYellowBg.graphics.beginFill(0xC14343)
@@ -97,7 +97,7 @@ namespace game {
                     this.sprite.addChild(scoreYellowBg)
                 }
             }
-            else if (this.ZORAMin <= this.selfPerciption && this.selfPerciption <= this.ZORAMax) {
+            else if (this.ZORAMin <= this.selfPerception && this.selfPerception <= this.ZORAMax) {
                 if (this.ZORAMin <= this.individualTensionScaleMedian && this.individualTensionScaleMedian <= this.ZORAMax) {
                     this.sprite.addChild(scoreWhiteBg)
                 }

@@ -455,7 +455,6 @@ def get_players_process(game_secret, inviter_name, player, gameName):
     if process == '0.2':
          return {'code':0, 'playercount':playercount, 'process':process}
 
-
     return return_data
 
 @api

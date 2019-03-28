@@ -64,8 +64,23 @@ var game;
             _this._shape = new egret.Shape();
             _this.addChild(_this._shape);
             _this.drawVoteArea();
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight - 100;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
+            _this.sprite.addChild(_this.rightIcon);
             return _this;
         }
+        ZORAMap.prototype.rightNext = function () {
+            var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0);
+            this.stage.addChild(settingSail);
+            this.sprite.visible = false;
+        };
         ZORAMap.prototype.drawVoteArea = function () {
             var character1 = new egret.TextField();
             var character2 = new egret.TextField();
