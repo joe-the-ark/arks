@@ -447,6 +447,8 @@ def get_players_process(game_secret, inviter_name, player, gameName):
     playercount = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).count()
     gameProcess = GameProcess.objects.filter(game=game, player=_player).first()
 
+    process = game.process
+
     if process == '0.1':
         firstScore = FirstScore.objects.filter(game=game, player=_player)
         playerScore = firstScore.first_score
