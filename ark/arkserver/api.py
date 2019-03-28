@@ -373,7 +373,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
                 player=chooser, game=game
             ).first()
             player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
-            print(player_scores)
             _player_score_list = []
 
             for _ in player_scores:
@@ -381,10 +380,10 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 
             middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
             middles.append(middle)
-            print(middles)
         ttsms.append(str(int(sum(middles) / playercount)))
 
 
+    print(result_list)
     return {'code':0, 'result': result_list, 'ttsms':ttsms}
 
 
