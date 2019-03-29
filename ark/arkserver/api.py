@@ -1026,6 +1026,8 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         inviter_name=inviter
     ).first()
 
+    print(_player)
+
     _inviter = Player.objects.filter(
         name=inviter,
         game_secret=game_secret,
@@ -1033,13 +1035,20 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         game_name=gameName
     ).first()
 
+    print(_inviter)
+
     game = Game.objects.filter(
         game_secret=game_secret,
         game_name=gameName,
         inviter=_inviter,
     ).first()
 
+    print(game)
+
     feedbacks = Feedback.objects.filter(teammate=_player, game=game)
+
+    print(feedbacks)
+
 
     loveFeedback = []
     addFeedback = []
