@@ -946,9 +946,18 @@ def getGameStatus(**params):
 
         return {'code':0, 'result':0}
 
-
 @api
 def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):
+
+
+    player = player.encode('raw_unicode_escape').decode()
+    inviter_name = inviter_name.encode('raw_unicode_escape').decode()
+    love = love.encode('raw_unicode_escape').decode()
+    add = add.encode('raw_unicode_escape').decode()
+    ask = ask.encode('raw_unicode_escape').decode()
+
+    teammate = teammate.encode('raw_unicode_escape').decode()
+
     _inviter = Player.objects.filter(
         name=inviter_name,
         game_secret=game_secret,
