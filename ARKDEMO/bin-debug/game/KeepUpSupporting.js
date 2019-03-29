@@ -37,13 +37,15 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.addChild(_this.sprite);
             _this.player = player;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
             _this.count = count;
             _this.simulatedData = simulatedData;
-            _this.addChild(_this.sprite);
+            _this.noticeBox = new egret.TextField();
+            _this.sprite.addChild(_this.noticeBox);
             _this.processBar();
             _this.initData();
             _this.remainingPlayers();
@@ -73,13 +75,13 @@ var game;
                 var remainingScalesNumber = (player_count - self.count + 1).toString();
                 // self.noticeBox = new egret.TextField()
                 self.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!";
-                // self.noticeBox.textColor = 0x000000
-                // self.noticeBox.width = self._width
-                // self.noticeBox.height = self.noticeHeight
-                // self.noticeBox.x = self._x
-                // self.noticeBox.y = 60
-                // self.noticeBox.background = true
-                // self.noticeBox.backgroundColor = 0xffcc33
+                self.noticeBox.textColor = 0x000000;
+                self.noticeBox.width = self._width;
+                self.noticeBox.height = self.noticeHeight;
+                self.noticeBox.x = self._x;
+                self.noticeBox.y = 60;
+                self.noticeBox.background = true;
+                self.noticeBox.backgroundColor = 0xffcc33;
                 // self.sprite.addChild(self.noticeBox)
             });
         };
@@ -87,21 +89,21 @@ var game;
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Voting");
             this.sprite.addChild(processBar);
         };
-        KeepUpSupporting.prototype.notice = function () {
-            // let votedScalesNumber = this.votedScalesNumber.toString()
-            // let scalesNumber = this.scalesNumber.toString()
-            // let remainingScalesNumber = this.remainingScalesNumber.toString()
-            this.noticeBox = new egret.TextField();
-            // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
-            this.noticeBox.textColor = 0x000000;
-            this.noticeBox.width = this._width;
-            this.noticeBox.height = this.noticeHeight;
-            this.noticeBox.x = this._x;
-            this.noticeBox.y = 60;
-            this.noticeBox.background = true;
-            this.noticeBox.backgroundColor = 0xffcc33;
-            this.sprite.addChild(this.noticeBox);
-        };
+        // private notice(): void {
+        //     // let votedScalesNumber = this.votedScalesNumber.toString()
+        //     // let scalesNumber = this.scalesNumber.toString()
+        //     // let remainingScalesNumber = this.remainingScalesNumber.toString()
+        //     this.noticeBox = new egret.TextField()
+        //     // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
+        //     this.noticeBox.textColor = 0x000000
+        //     this.noticeBox.width = this._width
+        //     this.noticeBox.height = this.noticeHeight
+        //     this.noticeBox.x = this._x
+        //     this.noticeBox.y = 60
+        //     this.noticeBox.background = true
+        //     this.noticeBox.backgroundColor = 0xffcc33
+        //     this.sprite.addChild(this.noticeBox)
+        // }
         KeepUpSupporting.prototype.background = function () {
             var grey = new egret.Shape();
             grey.x = this._x / 2; // 20会多
