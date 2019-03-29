@@ -981,7 +981,7 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
 
     feedback = Feedback.objects.filter(love=love, add=add, ask=ask, game=game, player=_player, teammate=_teammate).first()
     if not feedback:
-
+        Feedback.objects.create(love=love, add=add, ask=ask, game=game, player=_player, teammate=_teammate).first()
 
 
 
@@ -1010,6 +1010,7 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
 
         print(love)
         print(ask)
+
 
     result.append(loveFeedback)
     result.append(addFeedback)
