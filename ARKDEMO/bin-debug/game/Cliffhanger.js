@@ -80,6 +80,9 @@ var game;
             }).then(function (response) {
                 var result = response['result'];
                 var player_list = result;
+                console.log(11111);
+                console.log(player_list);
+                console.log(11111);
                 var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list);
                 self.stage.addChild(cliffhanger);
                 self.sprite.visible = false;

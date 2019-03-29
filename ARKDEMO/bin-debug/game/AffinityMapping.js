@@ -29,6 +29,7 @@ var game;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
             _this.player_list = player_list;
+            console.log(_this.player_list);
             _this.text = new egret.TextField();
             _this.text.text = "My relation to \nis based on...";
             _this.text.width = 200;
@@ -128,7 +129,6 @@ var game;
                 else {
                     player.width = val.length * 18;
                 }
-                var flag = 0; //0：未被点击 1：已点击
                 player.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
                     player.backgroundColor = 0x00ff00;
                     player.alpha = 0.4;

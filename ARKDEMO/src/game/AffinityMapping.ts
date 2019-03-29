@@ -26,7 +26,9 @@ namespace game {
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
-            this.player_list =player_list
+            this.player_list = player_list
+
+            console.log(this.player_list)
 
             this.text = new egret.TextField()
             this.text.text = "My relation to \nis based on..."
@@ -140,9 +142,7 @@ namespace game {
                         player.width = val.length * 18
                     }
 
-                    var flag = 0 //0：未被点击 1：已点击
                     player.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
-
                             player.backgroundColor = 0x00ff00;
                             player.alpha = 0.4
                             player.touchEnabled = false
