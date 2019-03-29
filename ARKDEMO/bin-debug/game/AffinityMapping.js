@@ -84,6 +84,7 @@ var game;
             var emotion = ["Love", "Appreciation", "Indifference", "Hidden Conflict", "Open Conflict"];
             emotion.forEach(function (val, index, array) {
                 var area = new egret.TextField();
+                area.touchEnabled = true;
                 area.text = emotion[index];
                 area.width = 220;
                 area.height = 150;
@@ -96,9 +97,10 @@ var game;
             });
         };
         AffinityMapping.prototype.chooseArea = function (x, y) {
-            console.log(11111);
+            console.log('chooseArea');
             console.log(x);
             console.log(y);
+            console.log('chooseArea');
             var choose = new egret.TextField();
             choose.text = this.choose;
             choose.width = 200;

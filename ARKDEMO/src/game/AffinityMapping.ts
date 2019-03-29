@@ -89,6 +89,9 @@ namespace game {
             let emotion = ["Love", "Appreciation", "Indifference", "Hidden Conflict", "Open Conflict"]
             emotion.forEach((val, index, array) => {
                 let area = new egret.TextField()
+
+                area.touchEnabled = true
+
                 area.text = emotion[index]
                 area.width = 220
                 area.height = 150
@@ -103,11 +106,10 @@ namespace game {
         }
 
         private chooseArea(x,y){
-
-            console.log(11111)
+            console.log('chooseArea')
             console.log(x)
             console.log(y)
-
+            console.log('chooseArea')
             let choose = new egret.TextField()
             choose.text = this.choose
             choose.width = 200
