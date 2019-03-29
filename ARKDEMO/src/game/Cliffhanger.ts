@@ -19,6 +19,9 @@ namespace game {
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
+            console.log(inviter)
+            console.log(player)
+            
             this.inviter = inviter
             this.player = player
             this.game_secret = game_secret
@@ -78,7 +81,7 @@ namespace game {
             let self = this
             console.log(self.inviter)
             console.log(self.game_secret)
-            
+
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_players', {
                 'inviter':self.inviter,

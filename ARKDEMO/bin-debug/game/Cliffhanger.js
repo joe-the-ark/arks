@@ -27,6 +27,8 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            console.log(inviter);
+            console.log(player);
             _this.inviter = inviter;
             _this.player = player;
             _this.game_secret = game_secret;

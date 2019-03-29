@@ -98,6 +98,14 @@ namespace game {
 
         private nextPage(){
 
+            console.log('digestadd')
+
+            console.log(this.inviter)
+            console.log(this.player)
+
+            console.log('digestadd')
+
+
             let digestAsk =  new game.DigestAsk(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player)
             this.stage.addChild(digestAsk)
             this.sprite.visible = false

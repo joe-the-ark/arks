@@ -133,7 +133,6 @@ namespace game {
             myScroller.y = this.noticeBox.height + 80 + 2 * (this.stageHeight - 120 - this._margin * 2) / 3 + this._margin
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
-
         }
 
         private ask(): void {

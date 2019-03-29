@@ -94,6 +94,10 @@ var game;
             this.sprite.addChild(rightIcon);
         };
         DigestLove.prototype.nextPage = function () {
+            console.log('digestlove');
+            console.log(this.inviter);
+            console.log(this.player);
+            console.log('digestlove');
             var digestAdd = new game.DigestAdd(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             // let preview =  new game.Preview2(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAdd);

@@ -94,6 +94,10 @@ var game;
             this.sprite.addChild(rightIcon);
         };
         DigestAsk.prototype.nextPage = function () {
+            console.log('digestask');
+            console.log(this.inviter);
+            console.log(this.player);
+            console.log('digestask');
             var cliffhanger = new game.Cliffhanger(this.stageWidth, this.stageHeight, this.inviter, this.game_secret, this.gameName, this.player);
             this.stage.addChild(cliffhanger);
             this.sprite.visible = false;

@@ -97,6 +97,15 @@ namespace game {
         }
 
         private nextPage(){
+
+            console.log('digestask')
+
+            console.log(this.inviter)
+            console.log(this.player)
+
+            console.log('digestask')
+            
+
             let cliffhanger =  new game.Cliffhanger(this.stageWidth, this.stageHeight,this.inviter, this.game_secret, this.gameName, this.player)
             this.stage.addChild(cliffhanger)
             this.sprite.visible = false
