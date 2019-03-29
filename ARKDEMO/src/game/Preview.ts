@@ -14,6 +14,7 @@ namespace game {
         private _margin = 20
         private noticeBox: egret.TextField
 
+        public timer: egret.Timer
 
         private loveFeedbackList = []
         private addFeedbackList = []
@@ -26,16 +27,22 @@ namespace game {
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
-            this.initDate()
+
+
+
+            this.timer = new egret.Timer(1000, 0);
+            this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
+            this.timer.start()
+
+
             this.addChild(this.sprite)
             this.processBar()
             this.notice()
             this.love()
-            this.loveFeedback()
+            
             this.add()
             this.ask()
-            this.askFeedback()
-            this.addFeedback()
+
             this.rightIcon()
         }
 
@@ -59,7 +66,10 @@ namespace game {
                 self.loveFeedbackList = result['loveFeedback']
                 self.addFeedbackList = result['addFeedback']
                 self.askFeedbackList = result['loveFeedback']
-
+                
+                this.loveFeedback()
+                this.askFeedback()
+                this.addFeedback()
 
             })  
         }
@@ -103,7 +113,8 @@ namespace game {
             list.dataProvider = new eui.ArrayCollection(loveFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
-
+            
+            
             let myScroller = new eui.Scroller()
             myScroller.width = 470
             myScroller.height = (this.stageHeight - 120 - this._margin * 2) / 3

@@ -6,6 +6,7 @@ import string
 import random
 import time
 import hashlib
+import re
 
 @api
 def create_player(player_name, game_secret, gameName, inviter):
@@ -1059,6 +1060,9 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         ask = cut_text(_.ask, 30)
         ask.append('')
         askFeedback += ask
+
+        print(love)
+        print(ask)
 
 
     result.append(loveFeedback)
