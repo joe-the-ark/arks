@@ -1,5 +1,6 @@
 server {
-    listen 8106;
+    listen 80;
+    server_name ark.metatype.cn;
 
     root /root/mountainwater/ARKDEMO/bin-release/web/v1;
 
@@ -9,7 +10,12 @@ server {
 
     location /js/~.*(js)&{
 
-        root /root/mountainwater/ARKDEMO/bin-release/web/v1/js;
+        root /root/mountainwater/ARKDEMO/bin-release/web/v1/;
 
     }
+
+    location /~.*(txt)&{
+        root /root/;
+    }
+
 }
