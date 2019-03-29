@@ -91,7 +91,6 @@ namespace game {
                 let area = new egret.TextField()
 
                 area.touchEnabled = true
-
                 area.text = emotion[index]
                 area.width = 220
                 area.height = 150
@@ -99,19 +98,22 @@ namespace game {
                 area.y = 200 + index * 170
                 area.border = true
                 area.borderColor = 0x000000
-                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(area.x, area.y), this)
                 this.sprite.addChild(area)
+                
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(area.x, area.y), this)
 
             })
         }
 
         private chooseArea(x,y){
+
+            var self = this
             console.log('chooseArea')
             console.log(x)
             console.log(y)
             console.log('chooseArea')
             let choose = new egret.TextField()
-            choose.text = this.choose
+            choose.text = self.choose
             choose.width = 200
             choose.height = 50
             choose.size = 30
@@ -119,7 +121,8 @@ namespace game {
             choose.y = y + 50
             choose.border = true
             choose.borderColor = 0x000000
-            this.sprite.addChild(choose)
+
+            self.sprite.addChild(choose)
         }
 
         private playerListMove() {
