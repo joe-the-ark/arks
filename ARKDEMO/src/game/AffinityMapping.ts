@@ -95,17 +95,27 @@ namespace game {
                 area.width = 220
                 area.height = 150
                 area.x = this._x + this.text.width + this.votingPlayerName.width + this._margin
+
                 area.y = 200 + index * 170
+
+                console.log(area.x)
+                console.log(area.y)
+
+                
+
                 area.border = true
                 area.borderColor = 0x000000
                 this.sprite.addChild(area)
-                
+                console.log('x')
+                var x = area.x
+                var y = area.y
+                console.log('y')
                 area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(this, area.x, area.y), this)
 
             })
         }
 
-        private chooseArea(x:number,y:number){
+        private chooseArea(x:number, y:number){
 
             var self = this
             console.log('chooseArea')
