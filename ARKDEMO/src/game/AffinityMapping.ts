@@ -67,7 +67,6 @@ namespace game {
         }
 
         private playerName(): void {
-
             // let group = new eui.Group()
             // let exml = `
             //             <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50">
@@ -105,9 +104,12 @@ namespace game {
 
         private chooseArea(x,y){
 
+            console.log(11111)
+            console.log(x)
+            console.log(y)
+
             let choose = new egret.TextField()
             choose.text = this.choose
-            
             choose.width = 200
             choose.height = 50
             choose.size = 30
@@ -121,7 +123,6 @@ namespace game {
         private playerListMove() {
             this.player_list.forEach((val, index, array) => {
 
-
                     console.log(val)
                     var player: egret.TextField = new egret.TextField()
                     player.text = val
@@ -132,16 +133,17 @@ namespace game {
                     player.border = true;
                     player.borderColor = 0x00ff00;
                     player.x = 100
-                    player.y = 250 + index * 50;
+                    player.y = 270 + index * 50;
                     player.background = true;
                     player.backgroundColor = 0x636363;
                     this.sprite.addChild(player)
+                    player.width = 200
 
-                    if (val.length * 18 < 100) {
-                        player.width = 100
-                    } else {
-                        player.width = val.length * 18
-                    }
+                    // if (val.length * 18 < 100) {
+                    //     player.width = 100
+                    // } else {
+                    //     player.width = val.length * 18
+                    // }
 
                     player.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
                         player.backgroundColor = 0x00ff00;
@@ -166,7 +168,6 @@ namespace game {
             rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(rightIcon)
         }
-
 
         private nextPage(){
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)

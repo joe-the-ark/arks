@@ -96,6 +96,9 @@ var game;
             });
         };
         AffinityMapping.prototype.chooseArea = function (x, y) {
+            console.log(11111);
+            console.log(x);
+            console.log(y);
             var choose = new egret.TextField();
             choose.text = this.choose;
             choose.width = 200;
@@ -120,16 +123,16 @@ var game;
                 player.border = true;
                 player.borderColor = 0x00ff00;
                 player.x = 100;
-                player.y = 250 + index * 50;
+                player.y = 270 + index * 50;
                 player.background = true;
                 player.backgroundColor = 0x636363;
                 _this.sprite.addChild(player);
-                if (val.length * 18 < 100) {
-                    player.width = 100;
-                }
-                else {
-                    player.width = val.length * 18;
-                }
+                player.width = 200;
+                // if (val.length * 18 < 100) {
+                //     player.width = 100
+                // } else {
+                //     player.width = val.length * 18
+                // }
                 player.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
                     player.backgroundColor = 0x00ff00;
                     player.alpha = 0.4;
