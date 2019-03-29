@@ -22,7 +22,9 @@ namespace game {
 
         public count
 
-        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList) {
+        public simulatedData = []
+
+        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList,simulatedData) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -34,17 +36,11 @@ namespace game {
             this.gameName = gameName
             this.count = count
 
+            this.simulatedData = simulatedData
+
             this.loveFeedbackList = loveFeedbackList
             this.addFeedbackList = addFeedbackList
             this.askFeedbackList = askFeedbackList
-
-            console.log(count)
-            console.log(this.loveFeedbackList)
-            console.log(this.addFeedbackList)
-
-            // this.timer = new egret.Timer(1000, 0);
-            // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
-            // this.timer.start()
 
             this.addChild(this.sprite)
             this.processBar()
@@ -60,33 +56,6 @@ namespace game {
 
             this.rightIcon()
         }
-
-
-        // private initDate(){
-        //     let self = this
-        //     base.API.Init("http://work.metatype.cn:8105/api/");
-        //     base.API.call('getOthersFeedback', {
-
-        //         'inviter':self.inviter,
-        //         'game_secret':self.game_secret,
-        //         'gameName':self.gameName,
-        //         'player': self.player
-                
-        //     }).then(function (response){
-
-        //         var result = response['result']
-
-        //         console.log(result)
-
-        //         self.loveFeedbackList = result['loveFeedback']
-        //         self.addFeedbackList = result['addFeedback']
-        //         self.askFeedbackList = result['loveFeedback']
-        //         // self.loveFeedback()
-        //         // self.askFeedback()
-        //         // self.addFeedback()
-
-        //     })  
-        // }
 
 
         private processBar(): void {
@@ -208,8 +177,17 @@ namespace game {
             rightIcon.x = this.stageWidth - 50
             rightIcon.y = this.stageHeight / 2
             rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this)
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(rightIcon)
+        }
+
+
+        private nextPage(){
+
+            var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData)
+            this.stage.addChild(keepUpSupporting)
+            this.sprite.visible = false
+
         }
     }
 }

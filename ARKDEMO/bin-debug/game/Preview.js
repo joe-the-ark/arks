@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Preview = (function (_super) {
         __extends(Preview, _super);
-        function Preview(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList) {
+        function Preview(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList, simulatedData) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -27,6 +27,7 @@ var game;
             _this.loveFeedbackList = [];
             _this.addFeedbackList = [];
             _this.askFeedbackList = [];
+            _this.simulatedData = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
@@ -35,15 +36,10 @@ var game;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
             _this.count = count;
+            _this.simulatedData = simulatedData;
             _this.loveFeedbackList = loveFeedbackList;
             _this.addFeedbackList = addFeedbackList;
             _this.askFeedbackList = askFeedbackList;
-            console.log(count);
-            console.log(_this.loveFeedbackList);
-            console.log(_this.addFeedbackList);
-            // this.timer = new egret.Timer(1000, 0);
-            // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
-            // this.timer.start()
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.notice();
@@ -56,25 +52,6 @@ var game;
             _this.rightIcon();
             return _this;
         }
-        // private initDate(){
-        //     let self = this
-        //     base.API.Init("http://work.metatype.cn:8105/api/");
-        //     base.API.call('getOthersFeedback', {
-        //         'inviter':self.inviter,
-        //         'game_secret':self.game_secret,
-        //         'gameName':self.gameName,
-        //         'player': self.player
-        //     }).then(function (response){
-        //         var result = response['result']
-        //         console.log(result)
-        //         self.loveFeedbackList = result['loveFeedback']
-        //         self.addFeedbackList = result['addFeedback']
-        //         self.askFeedbackList = result['loveFeedback']
-        //         // self.loveFeedback()
-        //         // self.askFeedback()
-        //         // self.addFeedback()
-        //     })  
-        // }
         Preview.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 15, "Love, Add, Ask > PREVIEW");
             this.sprite.addChild(processBar);
@@ -171,8 +148,13 @@ var game;
             rightIcon.x = this.stageWidth - 50;
             rightIcon.y = this.stageHeight / 2;
             rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this);
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
             this.sprite.addChild(rightIcon);
+        };
+        Preview.prototype.nextPage = function () {
+            var keepUpSupporting = new game.KeepUpSupporting(this.stageWidth, this.stageHeight, this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData);
+            this.stage.addChild(keepUpSupporting);
+            this.sprite.visible = false;
         };
         return Preview;
     }(egret.DisplayObjectContainer));
