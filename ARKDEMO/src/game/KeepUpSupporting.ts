@@ -46,15 +46,14 @@ namespace game {
             this.noticeBox = new egret.TextField()
             this.sprite.addChild(this.noticeBox)
           
-
-            this.processBar()
-            this.initData()
-            
-            
+                  
             this.remainingPlayers()
             this.votedPlayers()
             this.background()
+            this.processBar()
+      
             this.rightIcon()
+            this.initData()
         }
 
 
@@ -72,8 +71,6 @@ namespace game {
                 let result = response['result']
                 console.log(result)
                 self.player_list = result
-                
-
                 var player_count = result.length
                 var votedPlayerList = result.slice(0,  self.count+1)
 
@@ -85,19 +82,18 @@ namespace game {
                 let remainingScalesNumber = (player_count-self.count+1).toString()
                 // self.noticeBox = new egret.TextField()
 
+                console.log(self.noticeBox)
                 self.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
-                self.noticeBox.textColor = 0x000000
-                self.noticeBox.width = self._width
-                self.noticeBox.height = self.noticeHeight
-                self.noticeBox.x = self._x
-                self.noticeBox.y = 60
-                self.noticeBox.background = true
-                self.noticeBox.backgroundColor = 0xffcc33
+                // self.noticeBox.textColor = 0x000000
+                // self.noticeBox.width = self._width
+                // self.noticeBox.height = self.noticeHeight
+                // self.noticeBox.x = self._x
+                // self.noticeBox.y = 60
+                // self.noticeBox.background = true
+                // self.noticeBox.backgroundColor = 0xffcc33
                 // self.sprite.addChild(self.noticeBox)
 
             })    
-
-
 
         }
 
@@ -106,22 +102,22 @@ namespace game {
             this.sprite.addChild(processBar)
         }
 
-        // private notice(): void {
-        //     // let votedScalesNumber = this.votedScalesNumber.toString()
-        //     // let scalesNumber = this.scalesNumber.toString()
-        //     // let remainingScalesNumber = this.remainingScalesNumber.toString()
-        //     this.noticeBox = new egret.TextField()
-        //     // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
+        private notice(): void {
+            // let votedScalesNumber = this.votedScalesNumber.toString()
+            // let scalesNumber = this.scalesNumber.toString()
+            // let remainingScalesNumber = this.remainingScalesNumber.toString()
+            // this.noticeBox = new egret.TextField()
+            // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
 
-        //     this.noticeBox.textColor = 0x000000
-        //     this.noticeBox.width = this._width
-        //     this.noticeBox.height = this.noticeHeight
-        //     this.noticeBox.x = this._x
-        //     this.noticeBox.y = 60
-        //     this.noticeBox.background = true
-        //     this.noticeBox.backgroundColor = 0xffcc33
-        //     this.sprite.addChild(this.noticeBox)
-        // }
+            this.noticeBox.textColor = 0x000000
+            this.noticeBox.width = this._width
+            this.noticeBox.height = this.noticeHeight
+            this.noticeBox.x = this._x
+            this.noticeBox.y = 60
+            this.noticeBox.background = true
+            this.noticeBox.backgroundColor = 0xffcc33
+            // this.sprite.addChild(this.noticeBox)
+        }
 
         private background(): void {
             let grey: egret.Shape = new egret.Shape()
