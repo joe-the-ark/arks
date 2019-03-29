@@ -11,7 +11,7 @@ namespace game {
         public player = ''
         public count
         private _width = 600
-        private noticeHeight = 120
+        private noticeHeight = 140
         private _x = 20
         private _margin = 20
         private noticeBox: egret.TextField
@@ -120,7 +120,7 @@ namespace game {
 
             let myScroller = new eui.Scroller()
             myScroller.width = 380
-            myScroller.height = this.stageHeight - 80 - 100
+            myScroller.height = this.stageHeight - 80 - 120
             myScroller.x = myScroller.width / 2 - 40
             myScroller.y = 100 + 80
             myScroller.viewport = group
@@ -141,7 +141,7 @@ namespace game {
 
             let myScroller = new eui.Scroller()
             myScroller.width = 380
-            myScroller.height = this.stageHeight - 80 - 100
+            myScroller.height = this.stageHeight - 80 - 120
             myScroller.x = this.stageWidth - myScroller.width / 2 + 30
             myScroller.y = 100 + 80
             myScroller.viewport = group

@@ -41,7 +41,6 @@ namespace game {
             this.inviter = inviter
             this.game_secret = game_secret
             this.gameName = gameName
-            
 
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
@@ -69,7 +68,6 @@ namespace game {
 
         private rightNext() {
 
-
             if(this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != ''){
 
                 let self = this
@@ -86,7 +84,7 @@ namespace game {
                     'teammate':self.playerName
 
                 }).then(function (response){
-                    var count = this.count
+                    var count = self.count
 
 
                     var result = response['result']
@@ -181,7 +179,6 @@ namespace game {
             add.x = this._x
             add.y = this.noticeBox.height + 100 + 250
             this.sprite.addChild(add)
-
             let sentence = new egret.TextField()
             sentence.text = "I would love this person even more, if..."
             sentence.size = 20

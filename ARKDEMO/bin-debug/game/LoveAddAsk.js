@@ -74,7 +74,7 @@ var game;
                     'ask': self_1.askInputText.text,
                     'teammate': self_1.playerName
                 }).then(function (response) {
-                    var count = this.count;
+                    var count = self_1.count;
                     var result = response['result'];
                     var loveFeedbackList = result[0];
                     var addFeedbackList = result[1];

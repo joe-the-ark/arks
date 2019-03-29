@@ -20,7 +20,7 @@ namespace game {
         private addFeedbackList = []
         private askFeedbackList = []
 
-        public count
+        public count = 0
 
         public simulatedData = []
 
@@ -179,7 +179,6 @@ namespace game {
             this.sprite.addChild(rightIcon)
         }
 
-
         private nextPage(){
             let self = this
             base.API.Init("http://work.metatype.cn:8105/api/");
@@ -193,12 +192,12 @@ namespace game {
                 let result = response['result']
                 console.log(1111)
                 console.log(result)
+                console.log(self.count)
                 var player_list = result
                 var votedPlayerList = result.slice(0, self.count+1)
                 var remainingPlayersList = result.slice(self.count+1)
                 console.log('votedPlayerList')
                 console.log(votedPlayerList)
-
                 console.log(remainingPlayersList)
                 var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
                 self.stage.addChild(keepUpSupporting)
