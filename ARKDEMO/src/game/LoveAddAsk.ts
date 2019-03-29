@@ -19,6 +19,7 @@ namespace game {
 
         public player_list = []
 
+
         public constructor(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
             super()
 

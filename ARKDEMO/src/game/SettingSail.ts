@@ -75,15 +75,11 @@ namespace game {
             this.sprite.addChild(rightIcon)
         }
 
-
         private nextPage() {
-
             var count = 0
             var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(loveAddAsk)
             this.sprite.visible = false
-
-
         }
 
     }
