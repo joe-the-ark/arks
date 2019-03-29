@@ -53,7 +53,6 @@ namespace game {
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             this.sprite.addChild(this.rightIcon)
             this.processBar()
-
             this.notice()
             this.love()
             this.loveInput()
@@ -72,12 +71,30 @@ namespace game {
 
             if(this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != ''){
 
-                alert(111111)
+                let self = this
+                base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.call('push_feedback', {
+
+                    'game_secret': self.game_secret,
+                    'gameName': self.gameName,
+                    'player':self.player,
+                    'inviter':self.inviter,
+                    'love':self.loveInputText.text,
+                    'add':self.addInputText.text,
+                    'ask':self.askInputText.text,
+                    'teammate':self.playerName
+
+                }).then(function (response){
+                    var count = this.count + 1
+                    let preview =  new game.Preview(self.stageWidth, self.stageHeight, )
+                    self.stage.addChild(preview)
+                    self.sprite.visible = false
+
+                })  
 
             }else {
 
-
-                alert(2222222)
+                alert('Please fill in all the feedback boards.')
             }
             
 
@@ -113,7 +130,7 @@ namespace game {
 
         private notice(): void {
             this.noticeBox = new egret.TextField()
-            // this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x

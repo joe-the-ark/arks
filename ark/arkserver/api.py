@@ -1008,12 +1008,61 @@ def get_players(inviter, game_secret, gameName, player):
 
 
 
+def cut_text(text, lenth):
+    textArr = re.findall('.{'+str(lenth)+'}', text)
+    textArr.append(text[(len(textArr)*lenth):])
+    return textArr
+
+@api
+def getOthersFeedback(inviter, game_secret, gameName, player):
+
+    _player = Player.objects.filter(
+        name=player,
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter_name=inviter_name
+    ).first()
+
+    _inviter = Player.objects.filter(
+        name=inviter_name,
+        game_secret=game_secret,
+        inviter_name=inviter_name,
+        game_name=gameName
+    ).first()
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter=_inviter,
+    ).first()
+
+    feedbacks = Feedback.objects.filter(teammate=_player, game=game)
+
+    loveFeedback = []
+    addFeedback = []
+    askFeedback = []
+
+    for _ in feedbacks:
+
+        love = cut_text(_.love, 30)
+        love.append('')
+        loveFeedback += love
+
+        add = cut_text(_.add, 30)
+        add.append('')
+        addFeedback += add
+
+        ask = cut_text(_.ask, 30)
+        ask.append('')
+        askFeedback += ask
 
 
+    result.append(loveFeedback)
+    result.append(addFeedback)
+    result.append(askFeedback)
+    print(result)
 
-
-
-
+    return {'code':0, 'result':result}
 
 
 

@@ -62,10 +62,26 @@ var game;
         }
         LoveAddAsk.prototype.rightNext = function () {
             if (this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != '') {
-                alert(111111);
+                var self_1 = this;
+                base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.call('push_feedback', {
+                    'game_secret': self_1.game_secret,
+                    'gameName': self_1.gameName,
+                    'player': self_1.player,
+                    'inviter': self_1.inviter,
+                    'love': self_1.loveInputText.text,
+                    'add': self_1.addInputText.text,
+                    'ask': self_1.askInputText.text,
+                    'teammate': self_1.playerName
+                }).then(function (response) {
+                    var count = this.count + 1;
+                    var preview = new game.Preview(self_1.stageWidth, self_1.stageHeight);
+                    self_1.stage.addChild(preview);
+                    self_1.sprite.visible = false;
+                });
             }
             else {
-                alert(2222222);
+                alert('Please fill in all the feedback boards.');
             }
         };
         LoveAddAsk.prototype.initData = function () {
@@ -90,7 +106,7 @@ var game;
         };
         LoveAddAsk.prototype.notice = function () {
             this.noticeBox = new egret.TextField();
-            // this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart.";
             this.noticeBox.textColor = 0x000000;
             this.noticeBox.width = this._width;
             this.noticeBox.x = this._x;
