@@ -203,9 +203,9 @@ namespace game {
                 let scalesNumber = player_count
                 let remainingScalesNumber = player_count-self.count+1
 
-                var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData, player_list, votedPlayerList, remainingPlayersList)
-                this.stage.addChild(keepUpSupporting)
-                this.sprite.visible = false
+                var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
+                self.stage.addChild(keepUpSupporting)
+                self.sprite.visible = false
             })
 
 
