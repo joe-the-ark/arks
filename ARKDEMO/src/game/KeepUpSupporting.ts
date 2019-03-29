@@ -122,7 +122,7 @@ namespace game {
             myScroller.width = 380
             myScroller.height = this.stageHeight - 80 - 120
             myScroller.x = myScroller.width / 2 - 40
-            myScroller.y = 100 + 80
+            myScroller.y = 130 + 80
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
         }
@@ -143,7 +143,7 @@ namespace game {
             myScroller.width = 380
             myScroller.height = this.stageHeight - 80 - 120
             myScroller.x = this.stageWidth - myScroller.width / 2 + 30
-            myScroller.y = 100 + 80
+            myScroller.y = 130 + 80
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
         }
