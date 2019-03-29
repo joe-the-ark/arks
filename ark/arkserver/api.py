@@ -1044,6 +1044,8 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
     addFeedback = []
     askFeedback = []
 
+    result = []
+
     for _ in feedbacks:
 
         love = cut_text(_.love, 30)

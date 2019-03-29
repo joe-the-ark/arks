@@ -9,3 +9,5 @@ admin.site.register(CharacterChoose)
 admin.site.register(PlayerScore)
 admin.site.register(GameProcess)
 admin.site.register(FirstScore)
+admin.site.register(Feedback)
+
