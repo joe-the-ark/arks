@@ -86,7 +86,7 @@ namespace game {
                     'teammate':self.playerName
 
                 }).then(function (response){
-                    var count = this.count + 1
+                    var count = this.count
 
 
                     var result = response['result']

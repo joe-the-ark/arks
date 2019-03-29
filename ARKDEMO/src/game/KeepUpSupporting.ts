@@ -49,10 +49,12 @@ namespace game {
             this.votedScalesNumber = this.votedPlayerList.length
 
             this.remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
-
+            
+            console.log(2222)
+            console.log(count)
             console.log(votedPlayerList)
             console.log(remainingPlayersList)
-            
+
             this.background() 
             this.remainingPlayers()
             this.votedPlayers()
@@ -167,7 +169,7 @@ namespace game {
 
             }else {
 
-                var count = this.count
+                var count = this.count + 1
                 var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
                 this.stage.addChild(loveAddAsk)
                 this.sprite.visible = false

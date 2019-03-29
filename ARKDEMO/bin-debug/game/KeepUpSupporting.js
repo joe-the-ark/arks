@@ -49,6 +49,8 @@ var game;
             _this.scalesNumber = _this.player_list.length;
             _this.votedScalesNumber = _this.votedPlayerList.length;
             _this.remainingScalesNumber = _this.scalesNumber - _this.votedScalesNumber;
+            console.log(2222);
+            console.log(count);
             console.log(votedPlayerList);
             console.log(remainingPlayersList);
             _this.background();
@@ -144,7 +146,7 @@ var game;
                 alert('所有人评价完');
             }
             else {
-                var count = this.count;
+                var count = this.count + 1;
                 var loveAddAsk = new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
                 this.stage.addChild(loveAddAsk);
                 this.sprite.visible = false;
