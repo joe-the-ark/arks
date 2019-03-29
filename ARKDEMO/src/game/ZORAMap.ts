@@ -26,7 +26,7 @@ namespace game {
         private characterText: egret.TextField
         private charater2: egret.TextField
 
-        private rightIcon: egret.Bitmap
+
         private closeIcon: egret.Bitmap
 
         private tiptext: egret.TextField
@@ -90,27 +90,9 @@ namespace game {
             this._shape = new egret.Shape()
             this.sprite.addChild(this._shape)
             this.drawVoteArea()
-            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
-            this.rightIcon.width = 100
-            this.rightIcon.height = 100
-            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
-            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
-            this.rightIcon.x = stageWidth - 50
-            this.rightIcon.y = stageHeight - 100
-            this.rightIcon.touchEnabled = true
-            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
-            this.sprite.addChild(this.rightIcon)
 
         }
 
-        private rightNext() {
-
-            let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player_name, this.inviter, this.game_secret, this.gameName)
-            this.stage.addChild(settingSail);
-            this.sprite.visible = false
-
-
-        }
 
 
         private drawVoteArea(): void {

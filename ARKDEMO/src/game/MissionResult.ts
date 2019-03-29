@@ -15,6 +15,7 @@ namespace game{
         public simulatedData = [];
         private _shape: egret.Shape
         private ttsms = []
+        private rightIcon: egret.Bitmap
 
         public constructor(stageWidth, stageHeight, inviter, game_secret, player, gameName, characterListParams) {
             super();
@@ -42,7 +43,24 @@ namespace game{
             console.log('ttsmsstart3:')
             console.log(this.ttsms)
             console.log('ttsmsend3:')
-            
+
+            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = stageWidth - 50
+            this.rightIcon.y = stageHeight - 100
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+            this.sprite.addChild(this.rightIcon)
+        }
+
+        private rightNext() {
+
+            let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName)
+            this.stage.addChild(settingSail);
+            this.sprite.visible = false
         }
 
         private getTTSMS(){

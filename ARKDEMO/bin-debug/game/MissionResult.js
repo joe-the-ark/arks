@@ -43,8 +43,23 @@ var game;
             console.log('ttsmsstart3:');
             console.log(_this.ttsms);
             console.log('ttsmsend3:');
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight - 100;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
+            _this.sprite.addChild(_this.rightIcon);
             return _this;
         }
+        MissionResult.prototype.rightNext = function () {
+            var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
+            this.stage.addChild(settingSail);
+            this.sprite.visible = false;
+        };
         MissionResult.prototype.getTTSMS = function () {
             var self = this;
             base.API.Init("http://work.metatype.cn:8105/api/");

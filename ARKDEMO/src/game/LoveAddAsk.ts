@@ -19,6 +19,9 @@ namespace game {
 
         public player_list = []
 
+        public loveInputText:egret.TextField
+        public askInputText:egret.TextField
+        public addInputText:egret.TextField
 
         public constructor(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
             super()
@@ -36,7 +39,6 @@ namespace game {
             this.game_secret = game_secret
             this.gameName = gameName
 
-
             this.addChild(this.sprite)
             this.initData()
             this.processBar()
@@ -50,7 +52,6 @@ namespace game {
             this.tensionScale()
 
         }
-
 
         private initData(){
 
@@ -66,7 +67,6 @@ namespace game {
                 self.player_list = result
                 self.playerName = self.player_list[self.count]
             })     
-
         }
 
         private processBar(): void {
@@ -104,19 +104,19 @@ namespace game {
         }
 
         private loveInput(): void {
-            let loveInput = new egret.TextField()
-            loveInput.type = egret.TextFieldType.INPUT
-            loveInput.inputType = egret.TextFieldInputType.TEXT
-            loveInput.width = 250
-            loveInput.height = 250
-            loveInput.x = this._x + 120
-            loveInput.y = this.noticeBox.height + 60 + this._margin
-            loveInput.textColor = 0x0d0d0d
-            loveInput.size = 20
-            loveInput.border = true
-            loveInput.borderColor = 0x000000
-            loveInput.multiline = true
-            this.sprite.addChild(loveInput)
+            this.loveInputText = new egret.TextField()
+            this.loveInputText.type = egret.TextFieldType.INPUT
+            this.loveInputText.inputType = egret.TextFieldInputType.TEXT
+            this.loveInputText.width = 250
+            this.loveInputText.height = 250
+            this.loveInputText.x = this._x + 120
+            this.loveInputText.y = this.noticeBox.height + 60 + this._margin
+            this.loveInputText.textColor = 0x0d0d0d
+            this.loveInputText.size = 20
+            this.loveInputText.border = true
+            this.loveInputText.borderColor = 0x000000
+            this.loveInputText.multiline = true
+            this.sprite.addChild(this.loveInputText)
         }
 
         private add(): void {
@@ -137,19 +137,19 @@ namespace game {
         }
 
         private addInput(): void {
-            let addInput = new egret.TextField()
-            addInput.type = egret.TextFieldType.INPUT
-            addInput.inputType = egret.TextFieldInputType.TEXT
-            addInput.width = 250
-            addInput.height = 250
-            addInput.x = this._x + 120
-            addInput.y = this.noticeBox.height + 60 + this._margin * 2 + 250
-            addInput.textColor = 0x0d0d0d
-            addInput.size = 20
-            addInput.border = true
-            addInput.borderColor = 0x000000
-            addInput.multiline = true
-            this.sprite.addChild(addInput)
+            this.addInputText = new egret.TextField()
+            this.addInputText.type = egret.TextFieldType.INPUT
+            this.addInputText.inputType = egret.TextFieldInputType.TEXT
+            this.addInputText.width = 250
+            this.addInputText.height = 250
+            this.addInputText.x = this._x + 120
+            this.addInputText.y = this.noticeBox.height + 60 + this._margin * 2 + 250
+            this.addInputText.textColor = 0x0d0d0d
+            this.addInputText.size = 20
+            this.addInputText.border = true
+            this.addInputText.borderColor = 0x000000
+            this.addInputText.multiline = true
+            this.sprite.addChild(this.addInputText)
         }
 
         private ask(): void {
@@ -159,7 +159,6 @@ namespace game {
             ask.x = this._x
             ask.y = this.noticeBox.height + 120 + 500
             this.sprite.addChild(ask)
-
             let sentence = new egret.TextField()
             sentence.text = "I always wanted to ask you..."
             sentence.size = 20
@@ -167,22 +166,23 @@ namespace game {
             sentence.y = this.noticeBox.height + 130 + 500 + this._margin * 2
             sentence.width = 100
             this.sprite.addChild(sentence)
+            
         }
 
         private askInput(): void {
-            let askInput = new egret.TextField()
-            askInput.type = egret.TextFieldType.INPUT
-            askInput.inputType = egret.TextFieldInputType.TEXT
-            askInput.width = 250
-            askInput.height = 250
-            askInput.x = this._x + 120
-            askInput.y = this.noticeBox.height + 60 + this._margin * 3 + 500
-            askInput.textColor = 0x0d0d0d
-            askInput.size = 20
-            askInput.border = true
-            askInput.borderColor = 0x000000
-            askInput.multiline = true
-            this.sprite.addChild(askInput)
+            this.askInputText = new egret.TextField()
+            this.askInputText.type = egret.TextFieldType.INPUT
+            this.askInputText.inputType = egret.TextFieldInputType.TEXT
+            this.askInputText.width = 250
+            this.askInputText.height = 250
+            this.askInputText.x = this._x + 120
+            this.askInputText.y = this.noticeBox.height + 60 + this._margin * 3 + 500
+            this.askInputText.textColor = 0x0d0d0d
+            this.askInputText.size = 20
+            this.askInputText.border = true
+            this.askInputText.borderColor = 0x000000
+            this.askInputText.multiline = true
+            this.sprite.addChild(this.askInputText)
             // base.API.Init("http://127.0.0.1:8000/api/")
             // base.API.Init("http://work.metatype.cn:8105/api/");
             // base.API.call("push_feedback", {"game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName}).then(function (response) {
