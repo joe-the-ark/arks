@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var KeepUpSupporting = (function (_super) {
         __extends(KeepUpSupporting, _super);
-        function KeepUpSupporting(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, simulatedData) {
+        function KeepUpSupporting(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -28,7 +28,6 @@ var game;
             _this.characterListParams = [];
             _this.votedScalesNumber = 1;
             _this.scalesNumber = 7;
-            _this.remainingScalesNumber = _this.scalesNumber - _this.votedScalesNumber;
             _this.ttsms = [];
             _this.player_list = [];
             _this.votedPlayerList = [];
@@ -44,68 +43,39 @@ var game;
             _this.gameName = gameName;
             _this.count = count;
             _this.simulatedData = simulatedData;
+            _this.player_list = player_list;
+            _this.votedPlayerList = votedPlayerList;
+            _this.remainingPlayersList = remainingPlayersList;
+            _this.scalesNumber = _this.player_list.length;
+            _this.votedScalesNumber = votedPlayerList;
+            _this.remainingScalesNumber = _this.scalesNumber - _this.votedScalesNumber;
             _this.background();
             _this.remainingPlayers();
             _this.votedPlayers();
             _this.processBar();
             _this.rightIcon();
-            _this.initData();
             _this.noticeBox = new egret.TextField();
             return _this;
         }
-        KeepUpSupporting.prototype.initData = function () {
-            var self = this;
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('get_players', {
-                'inviter': self.inviter,
-                'game_secret': self.game_secret,
-                'gameName': self.gameName,
-                'player': self.player
-            }).then(function (response) {
-                var result = response['result'];
-                console.log(result);
-                self.player_list = result;
-                var player_count = result.length;
-                var votedPlayerList = result.slice(0, self.count + 1);
-                console.log(votedPlayerList);
-                self.votedPlayerList = votedPlayerList;
-                self.remainingPlayersList = result.slice(self.count + 1);
-                console.log(self.remainingPlayersList);
-                var votedScalesNumber = votedPlayerList.length.toString();
-                var scalesNumber = player_count.toString();
-                var remainingScalesNumber = (player_count - self.count + 1).toString();
-                // self.noticeBox = new egret.TextField()
-                console.log(self.noticeBox);
-                self.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!";
-                self.noticeBox.textColor = 0x000000;
-                self.noticeBox.width = self._width;
-                self.noticeBox.height = self.noticeHeight;
-                self.noticeBox.x = self._x;
-                self.noticeBox.y = 60;
-                self.noticeBox.background = true;
-                self.noticeBox.backgroundColor = 0xffcc33;
-                self.sprite.addChild(self.noticeBox);
-            });
-        };
         KeepUpSupporting.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Voting");
             this.sprite.addChild(processBar);
         };
-        // private notice(): void {
-        //     // let votedScalesNumber = this.votedScalesNumber.toString()
-        //     // let scalesNumber = this.scalesNumber.toString()
-        //     // let remainingScalesNumber = this.remainingScalesNumber.toString()
-        //     // this.noticeBox = new egret.TextField()
-        //     // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
-        //     this.noticeBox.textColor = 0x000000
-        //     this.noticeBox.width = this._width
-        //     this.noticeBox.height = this.noticeHeight
-        //     this.noticeBox.x = this._x
-        //     this.noticeBox.y = 60
-        //     this.noticeBox.background = true
-        //     this.noticeBox.backgroundColor = 0xffcc33
-        //     // this.sprite.addChild(this.noticeBox)
-        // }
+        KeepUpSupporting.prototype.notice = function () {
+            var votedScalesNumber = this.votedScalesNumber.toString();
+            var scalesNumber = this.scalesNumber.toString();
+            var remainingScalesNumber = this.remainingScalesNumber.toString();
+            this.noticeBox = new egret.TextField();
+            this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!";
+            this.noticeBox.textColor = 0x000000;
+            this.noticeBox.width = this._width;
+            this.noticeBox.height = this.noticeHeight;
+            this.noticeBox.x = this._x;
+            this.noticeBox.y = 60;
+            this.noticeBox.background = true;
+            this.noticeBox.backgroundColor = 0xffcc33;
+            this.sprite.addChild(this.noticeBox);
+        };
         KeepUpSupporting.prototype.background = function () {
             var grey = new egret.Shape();
             grey.x = this._x / 2; // 20会多

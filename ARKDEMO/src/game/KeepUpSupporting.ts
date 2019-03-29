@@ -19,7 +19,7 @@ namespace game {
         private characterListParams = []
         private votedScalesNumber = 1
         private scalesNumber = 7
-        private remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
+        private remainingScalesNumber
         public ttsms = []
 
         public player_list = []
@@ -28,7 +28,7 @@ namespace game {
         public remainingPlayersList = []
 
         public simulatedData = []
-        public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData) {
+        public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -40,83 +40,46 @@ namespace game {
             this.game_secret= game_secret
             this.gameName = gameName
             this.count = count
-
             this.simulatedData = simulatedData
+
+            this.player_list = player_list
+            this.votedPlayerList = votedPlayerList
+            this.remainingPlayersList = remainingPlayersList
+            this.scalesNumber = this.player_list.length
+            this.votedScalesNumber = votedPlayerList
+            this.remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
+
             this.background() 
-            
             this.remainingPlayers()
             this.votedPlayers()
             this.processBar()
             this.rightIcon()
-            this.initData()
             this.noticeBox = new egret.TextField()
 
         }
 
-
-        private initData(){
-
-            let self = this
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('get_players', {
-                'inviter':self.inviter,
-                'game_secret': self.game_secret,
-                'gameName': self.gameName,
-                'player':self.player
-
-            }).then(function (response){
-                let result = response['result']
-                console.log(result)
-                self.player_list = result
-                var player_count = result.length
-                var votedPlayerList = result.slice(0,  self.count+1)
-
-                console.log(votedPlayerList)
-
-                self.votedPlayerList = votedPlayerList
-                self.remainingPlayersList = result.slice(self.count+1)
-
-                console.log(self.remainingPlayersList)
-
-                let votedScalesNumber = votedPlayerList.length.toString()
-                let scalesNumber = player_count.toString()
-                let remainingScalesNumber = (player_count-self.count+1).toString()
-                // self.noticeBox = new egret.TextField()
-                console.log(self.noticeBox)
-                self.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
-                self.noticeBox.textColor = 0x000000
-                self.noticeBox.width = self._width
-                self.noticeBox.height = self.noticeHeight
-                self.noticeBox.x = self._x
-                self.noticeBox.y = 60
-                self.noticeBox.background = true
-                self.noticeBox.backgroundColor = 0xffcc33
-                self.sprite.addChild(self.noticeBox)
-
-            })    
-        }
 
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Voting")
             this.sprite.addChild(processBar)
         }
 
-        // private notice(): void {
-        //     // let votedScalesNumber = this.votedScalesNumber.toString()
-        //     // let scalesNumber = this.scalesNumber.toString()
-        //     // let remainingScalesNumber = this.remainingScalesNumber.toString()
-        //     // this.noticeBox = new egret.TextField()
-        //     // this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
+        private notice(): void {
+            let votedScalesNumber = this.votedScalesNumber.toString()
+            let scalesNumber = this.scalesNumber.toString()
+            let remainingScalesNumber = this.remainingScalesNumber.toString()
+            this.noticeBox = new egret.TextField()
+            this.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
 
-        //     this.noticeBox.textColor = 0x000000
-        //     this.noticeBox.width = this._width
-        //     this.noticeBox.height = this.noticeHeight
-        //     this.noticeBox.x = this._x
-        //     this.noticeBox.y = 60
-        //     this.noticeBox.background = true
-        //     this.noticeBox.backgroundColor = 0xffcc33
-        //     // this.sprite.addChild(this.noticeBox)
-        // }
+            this.noticeBox.textColor = 0x000000
+            this.noticeBox.width = this._width
+            this.noticeBox.height = this.noticeHeight
+            this.noticeBox.x = this._x
+            this.noticeBox.y = 60
+            this.noticeBox.background = true
+            this.noticeBox.backgroundColor = 0xffcc33
+            this.sprite.addChild(this.noticeBox)
+        }
 
         private background(): void {
             let grey: egret.Shape = new egret.Shape()

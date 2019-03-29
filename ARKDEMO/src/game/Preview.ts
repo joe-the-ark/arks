@@ -182,10 +182,34 @@ namespace game {
 
         private nextPage(){
 
-            var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData)
-            this.stage.addChild(keepUpSupporting)
-            this.sprite.visible = false
+
+            let self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('get_players', {
+                'inviter':self.inviter,
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+                'player':self.player
+
+            }).then(function (response){
+                let result = response['result']
+                console.log(result)
+                var player_list = result
+                var player_count = result.length
+                var votedPlayerList = result.slice(0,  self.count+1)
+
+                var remainingPlayersList = result.slice(self.count+1)
+                let votedScalesNumber = votedPlayerList.length
+                let scalesNumber = player_count
+                let remainingScalesNumber = player_count-self.count+1
+
+                var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData, player_list, votedPlayerList, remainingPlayersList)
+                this.stage.addChild(keepUpSupporting)
+                this.sprite.visible = false
+            })
+
 
         }
+
     }
 }
