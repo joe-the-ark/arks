@@ -66,9 +66,27 @@ namespace game {
         }
 
         private nextPage(){
-            let cliffhanger =  new game.AffinityMapping(this.stageWidth, this.stageHeight)
-            this.stage.addChild(cliffhanger)
-            this.sprite.visible = false
+
+
+
+            let self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('get_players', {
+                'inviter':self.inviter,
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+                'player':self.player
+
+            }).then(function (response){
+                let result = response['result']
+                var player_list = result
+
+                let cliffhanger =  new game.AffinityMapping(this.stageWidth, this.stageHeight, player_list)
+                this.stage.addChild(cliffhanger)
+                this.sprite.visible = false
+            })
+
+
         }
 
     }

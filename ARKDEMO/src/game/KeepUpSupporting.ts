@@ -165,7 +165,6 @@ namespace game {
 
             if(this.count+1 == this.player_list.length){
 
-                alert('所有人评价完')
 
                 let self = this
                 base.API.Init("http://work.metatype.cn:8105/api/");

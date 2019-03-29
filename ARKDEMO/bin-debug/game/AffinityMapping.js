@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var AffinityMapping = (function (_super) {
         __extends(AffinityMapping, _super);
-        function AffinityMapping(stageWidth, stageHeight) {
+        function AffinityMapping(stageWidth, stageHeight, player_list) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -24,13 +24,28 @@ var game;
             _this._width = 600;
             _this._x = 20;
             _this._margin = 20;
+            _this.player_list = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.player_list = player_list;
+            var text = new egret.TextField();
+            text.text = "My relation to \nis based on...";
+            text.width = 200;
+            text.x = _this._x;
+            text.y = 200;
+            _this.sprite.addChild(text);
+            var votingPlayerName = new egret.TextField();
+            votingPlayerName.text = "Babettete";
+            votingPlayerName.width = 120;
+            votingPlayerName.x = _this._x + text.width;
+            votingPlayerName.y = 200;
+            _this.sprite.addChild(votingPlayerName);
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.intro();
             _this.playerName();
+            _this.rightIcon();
             return _this;
         }
         AffinityMapping.prototype.processBar = function () {
@@ -46,52 +61,99 @@ var game;
             this.sprite.addChild(intro);
         };
         AffinityMapping.prototype.playerName = function () {
+            // let group = new eui.Group()
+            // let exml = `
+            //             <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50">
+            //                 <e:Label text="{data}" textColor.down="0x666666" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
+            //             </e:Skin>`;
+            // let list = new eui.List()
+            // let addFeedback = 
+            // list.dataProvider = new eui.ArrayCollection(addFeedback)
+            // list.itemRendererSkinName = exml
+            // group.addChild(list)
             var _this = this;
-            var text = new egret.TextField();
-            text.text = "My relation to \nis based on...";
-            text.width = 200;
-            text.x = this._x;
-            text.y = 200;
-            this.sprite.addChild(text);
-            var votingPlayerName = new egret.TextField();
-            votingPlayerName.text = "Babettete";
-            votingPlayerName.width = 120;
-            votingPlayerName.x = this._x + text.width;
-            votingPlayerName.y = 200;
-            this.sprite.addChild(votingPlayerName);
-            var group = new eui.Group();
-            var exml = "\n                        <e:Skin xmlns:e=\"http://ns.egret.com/eui\" states=\"up,down\" height=\"50\">\n                            <e:Label text=\"{data}\" textColor.down=\"0x666666\" textColor.up=\"0x666666\" horizontalCenter=\"0\" verticalCenter=\"0\"/> \n                        </e:Skin>";
-            var list = new eui.List();
-            var addFeedback = [
-                "Jung", "James", "Element",
-                "Sidorica", "Andy", "Nuby",
-                "Jung", "James", "Element",
-                "Sidorica", "Andy", "Nuby",
-                "Jung", "James", "Element",
-                "Sidorica", "Andy", "Nuby",
-            ];
-            list.dataProvider = new eui.ArrayCollection(addFeedback);
-            list.itemRendererSkinName = exml;
-            group.addChild(list);
-            var myScroller = new eui.Scroller();
-            myScroller.width = 470;
-            myScroller.height = this.stageHeight - 300;
-            myScroller.x = 100;
-            myScroller.y = 200 + 80;
-            myScroller.viewport = group;
-            this.sprite.addChild(myScroller);
+            // let myScroller = new eui.Scroller()
+            // myScroller.width = 470
+            // myScroller.height = this.stageHeight - 300
+            // myScroller.x = 100
+            // myScroller.y = 200 + 80
+            // myScroller.viewport = group
+            // this.sprite.addChild(myScroller)
             var emotion = ["Love", "Appreciation", "Indifference", "Hidden Conflict", "Open Conflict"];
             emotion.forEach(function (val, index, array) {
                 var area = new egret.TextField();
                 area.text = emotion[index];
                 area.width = 220;
                 area.height = 150;
-                area.x = _this._x + text.width + votingPlayerName.width + _this._margin;
+                area.x = _this._x + _this.text.width + _this.votingPlayerName.width + _this._margin;
                 area.y = 200 + index * 170;
                 area.border = true;
                 area.borderColor = 0x000000;
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(area.x, area.y), _this);
                 _this.sprite.addChild(area);
             });
+        };
+        AffinityMapping.prototype.chooseArea = function (x, y) {
+            var choose = new egret.TextField();
+            choose.text = this.choose;
+            choose.width = 200;
+            choose.height = 50;
+            choose.size = 30;
+            choose.x = x;
+            choose.y = y + 50;
+            choose.border = true;
+            choose.borderColor = 0x000000;
+            this.sprite.addChild(choose);
+        };
+        AffinityMapping.prototype.playerListMove = function () {
+            var _this = this;
+            this.player_list.forEach(function (val, index, array) {
+                var player = new egret.TextField();
+                player.text = val;
+                player.textAlign = egret.HorizontalAlign.CENTER;
+                player.size = 30;
+                player.lineSpacing = 10;
+                player.touchEnabled = true;
+                player.width = 100;
+                player.border = true;
+                player.borderColor = 0x00ff00;
+                player.x = 100;
+                player.y = 250 + index * 50;
+                player.background = true;
+                player.backgroundColor = 0x636363;
+                _this.sprite.addChild(player);
+                if (val.length * 18 < 100) {
+                    player.width = 100;
+                }
+                else {
+                    player.width = val.length * 18;
+                }
+                var flag = 0; //0：未被点击 1：已点击
+                player.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+                    player.backgroundColor = 0x00ff00;
+                    player.alpha = 0.4;
+                    player.touchEnabled = false;
+                    _this.votingPlayerName.text = player.text;
+                    _this.choose = player.text;
+                }, _this);
+            });
+        };
+        AffinityMapping.prototype.rightIcon = function () {
+            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
+            rightIcon.width = 100;
+            rightIcon.height = 100;
+            rightIcon.anchorOffsetX = rightIcon.width / 2;
+            rightIcon.anchorOffsetY = rightIcon.height / 2;
+            rightIcon.x = this.stageWidth - 50;
+            rightIcon.y = this.stageHeight / 2;
+            rightIcon.touchEnabled = true;
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
+            this.sprite.addChild(rightIcon);
+        };
+        AffinityMapping.prototype.nextPage = function () {
+            var digestAsk = new game.Complete(this.stageWidth, this.stageHeight);
+            this.stage.addChild(digestAsk);
+            this.sprite.visible = false;
         };
         return AffinityMapping;
     }(egret.DisplayObjectContainer));

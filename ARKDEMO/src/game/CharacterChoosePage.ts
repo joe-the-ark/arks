@@ -326,9 +326,7 @@ namespace game {
                     var flag = 0 //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
 
-                        if (flag == 0) {
-
-                        }
+                        if (flag == 0) {}
 
                         if (self.chooseText.length == 2) {
                             // unselectedCharacter.touchEnabled = false
@@ -400,6 +398,7 @@ namespace game {
                             self.confirmButton.visible =true
                         }
                     }, this)
+
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
                         self._touchStatus = false;
                         // unselectedCharacter.width = w

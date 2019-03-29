@@ -143,7 +143,6 @@ var game;
         };
         KeepUpSupporting.prototype.nextPage = function () {
             if (this.count + 1 == this.player_list.length) {
-                alert('所有人评价完');
                 var self_1 = this;
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('getOthersFeedback', {

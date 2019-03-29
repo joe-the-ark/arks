@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Complete = (function (_super) {
         __extends(Complete, _super);
-        function Complete(stageWidth, stageHeight, process, missionName) {
+        function Complete(stageWidth, stageHeight) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
