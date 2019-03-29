@@ -38,6 +38,7 @@ var game;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
+            _this.notice();
             _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
             _this.rightIcon.width = 100;
             _this.rightIcon.height = 100;
@@ -48,9 +49,7 @@ var game;
             _this.rightIcon.touchEnabled = true;
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
             _this.sprite.addChild(_this.rightIcon);
-            _this.initData();
             _this.processBar();
-            _this.notice();
             _this.love();
             _this.loveInput();
             _this.add();
@@ -58,9 +57,16 @@ var game;
             _this.ask();
             _this.askInput();
             _this.tensionScale();
+            _this.initData();
             return _this;
         }
         LoveAddAsk.prototype.rightNext = function () {
+            if (this.loveInputText.text && this.addInputText.text && this.askInputText) {
+                alert(111111);
+            }
+            else {
+                alert(2222222);
+            }
         };
         LoveAddAsk.prototype.initData = function () {
             var self = this;
@@ -75,6 +81,7 @@ var game;
                 console.log(result);
                 self.player_list = result;
                 self.playerName = self.player_list[self.count];
+                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart.";
             });
         };
         LoveAddAsk.prototype.processBar = function () {
@@ -83,7 +90,7 @@ var game;
         };
         LoveAddAsk.prototype.notice = function () {
             this.noticeBox = new egret.TextField();
-            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart.";
+            // this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
             this.noticeBox.textColor = 0x000000;
             this.noticeBox.width = this._width;
             this.noticeBox.x = this._x;

@@ -40,7 +40,7 @@ namespace game {
             this.inviter = inviter
             this.game_secret = game_secret
             this.gameName = gameName
-
+            this.notice()
 
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
@@ -52,11 +52,8 @@ namespace game {
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             this.sprite.addChild(this.rightIcon)
-
-            
-            this.initData()
             this.processBar()
-            this.notice()
+           
             this.love()
             this.loveInput()
             this.add()
@@ -65,9 +62,27 @@ namespace game {
             this.askInput()
             this.tensionScale()
 
+            this.initData()
+            
         }
 
         private rightNext() {
+
+
+            if(this.loveInputText.text && this.addInputText.text && this.askInputText){
+
+
+                alert(111111)
+
+            }else {
+
+
+                alert(2222222)
+            }
+            
+
+
+
 
         }
 
@@ -83,11 +98,11 @@ namespace game {
 
             }).then(function (response){
                 let result = response['result']
-
                 console.log(result)
-
                 self.player_list = result
                 self.playerName = self.player_list[self.count]
+                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+
             })     
         }
 
@@ -98,7 +113,7 @@ namespace game {
 
         private notice(): void {
             this.noticeBox = new egret.TextField()
-            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+            // this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x
