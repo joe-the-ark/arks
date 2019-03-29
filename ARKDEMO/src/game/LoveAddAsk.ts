@@ -40,7 +40,7 @@ namespace game {
             this.inviter = inviter
             this.game_secret = game_secret
             this.gameName = gameName
-            this.notice()
+            
 
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
@@ -53,7 +53,8 @@ namespace game {
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             this.sprite.addChild(this.rightIcon)
             this.processBar()
-           
+
+            this.notice()
             this.love()
             this.loveInput()
             this.add()
@@ -69,8 +70,7 @@ namespace game {
         private rightNext() {
 
 
-            if(this.loveInputText.text && this.addInputText.text && this.askInputText){
-
+            if(this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != ''){
 
                 alert(111111)
 

@@ -38,7 +38,6 @@ var game;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
-            _this.notice();
             _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
             _this.rightIcon.width = 100;
             _this.rightIcon.height = 100;
@@ -50,6 +49,7 @@ var game;
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
             _this.sprite.addChild(_this.rightIcon);
             _this.processBar();
+            _this.notice();
             _this.love();
             _this.loveInput();
             _this.add();
@@ -61,7 +61,7 @@ var game;
             return _this;
         }
         LoveAddAsk.prototype.rightNext = function () {
-            if (this.loveInputText.text && this.addInputText.text && this.askInputText) {
+            if (this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != '') {
                 alert(111111);
             }
             else {
