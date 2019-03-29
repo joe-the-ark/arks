@@ -60,9 +60,9 @@ var game;
                 self.loveFeedbackList = result['loveFeedback'];
                 self.addFeedbackList = result['addFeedback'];
                 self.askFeedbackList = result['loveFeedback'];
-                this.loveFeedback();
-                this.askFeedback();
-                this.addFeedback();
+                self.loveFeedback();
+                self.askFeedback();
+                self.addFeedback();
             });
         };
         Preview.prototype.processBar = function () {
