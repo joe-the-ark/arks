@@ -951,16 +951,6 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
 
     print(teammate)
 
-    player = player.encode('raw_unicode_escape').decode()
-    inviter_name = inviter_name.encode('raw_unicode_escape').decode()
-    love = love.encode('raw_unicode_escape').decode()
-    add = add.encode('raw_unicode_escape').decode()
-    ask = ask.encode('raw_unicode_escape').decode()
-
-    teammate = teammate.encode('raw_unicode_escape').decode()
-
-    print(teammate)
-
     _inviter = Player.objects.filter(
         name=inviter_name,
         game_secret=game_secret,
@@ -975,7 +965,7 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
     ).first()
 
     _teammate = Player.objects.filter(
-        teammate=teammate,
+        name=teammate,
         game_secret=game_secret,
         game_name=gameName,
         inviter_name=inviter_name
