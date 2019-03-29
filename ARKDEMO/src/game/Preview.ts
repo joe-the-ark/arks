@@ -97,7 +97,6 @@ namespace game {
             list.itemRendererSkinName = exml
             group.addChild(list)
             
-            
             let myScroller = new eui.Scroller()
             myScroller.width = 470
             myScroller.height = (this.stageHeight - 120 - this._margin * 2) / 3
@@ -127,7 +126,6 @@ namespace game {
             list.dataProvider = new eui.ArrayCollection(addFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
-
             let myScroller = new eui.Scroller()
             myScroller.width = 470
             myScroller.height = (this.stageHeight - 120 - this._margin * 2) / 3
@@ -135,6 +133,7 @@ namespace game {
             myScroller.y = this.noticeBox.height + 80 + 2 * (this.stageHeight - 120 - this._margin * 2) / 3 + this._margin
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
+
         }
 
         private ask(): void {
@@ -145,7 +144,6 @@ namespace game {
             ask.y = this.noticeBox.height + 80 + 2 * (this.stageHeight - 120 - this._margin * 2) / 3 + this._margin
             this.sprite.addChild(ask)
         }
-
 
         private askFeedback(): void {
             let group = new eui.Group()
@@ -183,7 +181,7 @@ namespace game {
 
 
         private nextPage(){
-            
+
             var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData)
             this.stage.addChild(keepUpSupporting)
             this.sprite.visible = false
