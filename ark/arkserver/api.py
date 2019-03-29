@@ -1022,13 +1022,13 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         name=player,
         game_secret=game_secret,
         game_name=gameName,
-        inviter_name=inviter_name
+        inviter_name=inviter
     ).first()
 
     _inviter = Player.objects.filter(
-        name=inviter_name,
+        name=inviter,
         game_secret=game_secret,
-        inviter_name=inviter_name,
+        inviter_name=inviter,
         game_name=gameName
     ).first()
 
