@@ -14,12 +14,14 @@ namespace game {
         private _x = 20
         private _margin = 20
         private noticeBox: egret.TextField
-        public constructor(stageWidth, stageHeight, process, missionName) {
+        public result = []
+        public constructor(stageWidth, stageHeight,result) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
+            this.result =result
             this.addChild(this.sprite)
             this.processBar()
             this.notice()
@@ -61,21 +63,7 @@ namespace game {
                             <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
                         </e:Skin>`;
             let list = new eui.List()
-            let addFeedback = [
-                "Example text Example text text", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,", "",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,", "",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace", "",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",]
+            let addFeedback = this.result[1]
             list.dataProvider = new eui.ArrayCollection(addFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
@@ -98,8 +86,18 @@ namespace game {
             rightIcon.x = this.stageWidth - 50
             rightIcon.y = this.stageHeight / 2
             rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this)
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(rightIcon)
+        }
+
+
+        private nextPage(){
+
+            let digestAsk =  new game.DigestAsk(this.stageWidth, this.stageHeight, this.result)
+            this.stage.addChild(digestAsk)
+            this.sprite.visible = false
+
+
         }
     }
 }

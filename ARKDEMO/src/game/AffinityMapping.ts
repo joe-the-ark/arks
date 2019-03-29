@@ -12,7 +12,7 @@ namespace game {
         private _width = 600
         private _x = 20
         private _margin = 20
-        public constructor(stageWidth, stageHeight, process, missionName) {
+        public constructor(stageWidth, stageHeight) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight

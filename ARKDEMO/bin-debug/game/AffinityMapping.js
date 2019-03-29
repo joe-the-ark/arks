@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var AffinityMapping = (function (_super) {
         __extends(AffinityMapping, _super);
-        function AffinityMapping(stageWidth, stageHeight, process, missionName) {
+        function AffinityMapping(stageWidth, stageHeight) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;

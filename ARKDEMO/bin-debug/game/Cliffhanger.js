@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Cliffhanger = (function (_super) {
         __extends(Cliffhanger, _super);
-        function Cliffhanger(stageWidth, stageHeight, process, missionName) {
+        function Cliffhanger(stageWidth, stageHeight) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -66,8 +66,13 @@ var game;
             rightIcon.x = this.stageWidth - 50;
             rightIcon.y = this.stageHeight / 2;
             rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this);
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
             this.sprite.addChild(rightIcon);
+        };
+        Cliffhanger.prototype.nextPage = function () {
+            var cliffhanger = new game.AffinityMapping(this.stageWidth, this.stageHeight);
+            this.stage.addChild(cliffhanger);
+            this.sprite.visible = false;
         };
         return Cliffhanger;
     }(egret.DisplayObjectContainer));

@@ -97,6 +97,8 @@ namespace game {
                     self.sprite.visible = false
 
                 })  
+
+                
             }else {
                 alert('Please fill in all the feedback boards.')
             }

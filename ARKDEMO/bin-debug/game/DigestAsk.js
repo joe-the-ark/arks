@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var DigestAsk = (function (_super) {
         __extends(DigestAsk, _super);
-        function DigestAsk(stageWidth, stageHeight, process, missionName) {
+        function DigestAsk(stageWidth, stageHeight, result) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -25,9 +25,11 @@ var game;
             _this.noticeHeight = 90;
             _this._x = 20;
             _this._margin = 20;
+            _this.result = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.result = result;
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.notice();
@@ -63,22 +65,7 @@ var game;
             var group = new eui.Group();
             var exml = "\n                        <e:Skin xmlns:e=\"http://ns.egret.com/eui\" states=\"up,down\" height=\"50\">\n                            <e:Label text=\"{data}\" textColor.down=\"0xFFFFFF\" textColor.up=\"0x666666\" horizontalCenter=\"0\" verticalCenter=\"0\"/> \n                        </e:Skin>";
             var list = new eui.List();
-            var askFeedback = [
-                "Example text Example text text", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,", "",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,", "",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,", "",
-                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
-            ];
+            var askFeedback = this.result[2];
             list.dataProvider = new eui.ArrayCollection(askFeedback);
             list.itemRendererSkinName = exml;
             group.addChild(list);
@@ -99,8 +86,13 @@ var game;
             rightIcon.x = this.stageWidth - 50;
             rightIcon.y = this.stageHeight / 2;
             rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this);
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
             this.sprite.addChild(rightIcon);
+        };
+        DigestAsk.prototype.nextPage = function () {
+            var cliffhanger = new game.Cliffhanger(this.stageWidth, this.stageHeight);
+            this.stage.addChild(cliffhanger);
+            this.sprite.visible = false;
         };
         return DigestAsk;
     }(egret.DisplayObjectContainer));

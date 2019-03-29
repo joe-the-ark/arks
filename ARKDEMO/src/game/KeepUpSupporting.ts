@@ -167,6 +167,30 @@ namespace game {
 
                 alert('所有人评价完')
 
+                let self = this
+                base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.call('getOthersFeedback', {
+
+                    'game_secret': self.game_secret,
+                    'gameName': self.gameName,
+                    'player':self.player,
+                    'inviter':self.inviter,
+
+                }).then(function (response){
+
+                    var result = response['result']
+                    let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result)
+                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
+                    self.stage.addChild(preview)
+                    self.sprite.visible = false
+
+                })  
+
+                
+
+
+                
+
             }else {
 
                 var count = this.count + 1

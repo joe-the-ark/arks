@@ -12,7 +12,7 @@ namespace game {
         private _width = 600
         private _x = 20
         private _margin = 20
-        public constructor(stageWidth, stageHeight, process, missionName) {
+        public constructor(stageWidth, stageHeight) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -61,8 +61,14 @@ namespace game {
             rightIcon.x = this.stageWidth - 50
             rightIcon.y = this.stageHeight / 2
             rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this)
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(rightIcon)
+        }
+
+        private nextPage(){
+            let cliffhanger =  new game.AffinityMapping(this.stageWidth, this.stageHeight)
+            this.stage.addChild(cliffhanger)
+            this.sprite.visible = false
         }
 
     }
