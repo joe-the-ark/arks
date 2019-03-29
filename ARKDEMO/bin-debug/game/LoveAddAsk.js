@@ -68,7 +68,7 @@ var game;
                     'game_secret': self_1.game_secret,
                     'gameName': self_1.gameName,
                     'player': self_1.player,
-                    'inviter': self_1.inviter,
+                    'inviter_name': self_1.inviter,
                     'love': self_1.loveInputText.text,
                     'add': self_1.addInputText.text,
                     'ask': self_1.askInputText.text,

@@ -78,7 +78,7 @@ namespace game {
                     'game_secret': self.game_secret,
                     'gameName': self.gameName,
                     'player':self.player,
-                    'inviter':self.inviter,
+                    'inviter_name':self.inviter,
                     'love':self.loveInputText.text,
                     'add':self.addInputText.text,
                     'ask':self.askInputText.text,
