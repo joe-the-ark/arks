@@ -46,6 +46,7 @@ var game;
             _this.processBar();
             _this.intro();
             _this.playerName();
+            _this.playerListMove();
             _this.rightIcon();
             return _this;
         }
@@ -109,13 +110,13 @@ var game;
         AffinityMapping.prototype.playerListMove = function () {
             var _this = this;
             this.player_list.forEach(function (val, index, array) {
+                console.log(val);
                 var player = new egret.TextField();
                 player.text = val;
                 player.textAlign = egret.HorizontalAlign.CENTER;
                 player.size = 30;
                 player.lineSpacing = 10;
                 player.touchEnabled = true;
-                player.width = 100;
                 player.border = true;
                 player.borderColor = 0x00ff00;
                 player.x = 100;

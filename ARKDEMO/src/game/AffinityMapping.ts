@@ -43,13 +43,12 @@ namespace game {
             this.votingPlayerName.x = this._x + this.text.width
             this.votingPlayerName.y = 200
             this.sprite.addChild(this.votingPlayerName)
-            
 
             this.addChild(this.sprite)
             this.processBar()
             this.intro()
             this.playerName()
-
+            this.playerListMove()
             this.rightIcon()
         }
 
@@ -121,13 +120,15 @@ namespace game {
 
         private playerListMove() {
             this.player_list.forEach((val, index, array) => {
+
+
+                    console.log(val)
                     var player: egret.TextField = new egret.TextField()
                     player.text = val
                     player.textAlign = egret.HorizontalAlign.CENTER
                     player.size = 30
                     player.lineSpacing = 10
                     player.touchEnabled = true
-                    player.width = 100
                     player.border = true;
                     player.borderColor = 0x00ff00;
                     player.x = 100
@@ -143,12 +144,13 @@ namespace game {
                     }
 
                     player.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
-                            player.backgroundColor = 0x00ff00;
-                            player.alpha = 0.4
-                            player.touchEnabled = false
-                            this.votingPlayerName.text = player.text
-                            this.choose = player.text
+                        player.backgroundColor = 0x00ff00;
+                        player.alpha = 0.4
+                        player.touchEnabled = false
+                        this.votingPlayerName.text = player.text
+                        this.choose = player.text
                     }, this)
+
             })
         }
 
