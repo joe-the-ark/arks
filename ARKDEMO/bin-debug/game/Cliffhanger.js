@@ -80,9 +80,9 @@ var game;
             }).then(function (response) {
                 var result = response['result'];
                 var player_list = result;
-                var cliffhanger = new game.AffinityMapping(this.stageWidth, this.stageHeight, player_list);
-                this.stage.addChild(cliffhanger);
-                this.sprite.visible = false;
+                var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list);
+                self.stage.addChild(cliffhanger);
+                self.sprite.visible = false;
             });
         };
         return Cliffhanger;

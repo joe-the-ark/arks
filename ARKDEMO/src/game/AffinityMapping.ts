@@ -117,9 +117,7 @@ namespace game {
             this.sprite.addChild(choose)
         }
 
-
         private playerListMove() {
-
             this.player_list.forEach((val, index, array) => {
                     var player: egret.TextField = new egret.TextField()
                     player.text = val
@@ -149,10 +147,7 @@ namespace game {
                             player.alpha = 0.4
                             player.touchEnabled = false
                             this.votingPlayerName.text = player.text
-
                             this.choose = player.text
-
-
                     }, this)
             })
         }

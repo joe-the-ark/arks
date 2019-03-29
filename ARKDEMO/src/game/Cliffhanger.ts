@@ -80,10 +80,9 @@ namespace game {
             }).then(function (response){
                 let result = response['result']
                 var player_list = result
-
-                let cliffhanger =  new game.AffinityMapping(this.stageWidth, this.stageHeight, player_list)
-                this.stage.addChild(cliffhanger)
-                this.sprite.visible = false
+                let cliffhanger =  new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list)
+                self.stage.addChild(cliffhanger)
+                self.sprite.visible = false
             })
 
 
