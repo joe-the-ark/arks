@@ -75,8 +75,12 @@ var game;
                     'teammate': self_1.playerName
                 }).then(function (response) {
                     var count = this.count + 1;
-                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName )
-                    var preview = new game.Preview2(self_1.stageWidth, self_1.stageHeight);
+                    var result = response['result'];
+                    var loveFeedbackList = result['loveFeedback'];
+                    var addFeedbackList = result['addFeedback'];
+                    var askFeedbackList = result['loveFeedback'];
+                    var preview = new game.Preview(self_1.stageWidth, self_1.stageHeight, self_1.player, self_1.inviter, self_1.game_secret, self_1.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList);
+                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self_1.stage.addChild(preview);
                     self_1.sprite.visible = false;
                 });

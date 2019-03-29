@@ -18,7 +18,6 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeigh
             this.sprite = new egret.Sprite()
-
             this.addChild(this.sprite)
             this.processBar()
             this.notice()

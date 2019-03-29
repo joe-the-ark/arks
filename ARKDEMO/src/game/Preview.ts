@@ -21,7 +21,7 @@ namespace game {
         private askFeedbackList = []
 
 
-        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName) {
+        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -32,11 +32,14 @@ namespace game {
             this.game_secret= game_secret
             this.gameName = gameName
 
+            this.loveFeedbackList = loveFeedbackList
+            this.addFeedbackList = addFeedbackList
+            this.askFeedbackList = askFeedbackList
 
-            this.timer = new egret.Timer(1000, 0);
-            this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
-            this.timer.start()
 
+            // this.timer = new egret.Timer(1000, 0);
+            // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
+            // this.timer.start()
 
             this.addChild(this.sprite)
             this.processBar()
@@ -50,53 +53,31 @@ namespace game {
         }
 
 
-        private initDate(){
-            let self = this
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('getOthersFeedback', {
+        // private initDate(){
+        //     let self = this
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
+        //     base.API.call('getOthersFeedback', {
 
-                'inviter':self.inviter,
-                'game_secret':self.game_secret,
-                'gameName':self.gameName,
-                'player': self.player
+        //         'inviter':self.inviter,
+        //         'game_secret':self.game_secret,
+        //         'gameName':self.gameName,
+        //         'player': self.player
                 
-            }).then(function (response){
+        //     }).then(function (response){
 
-                var result = response['result']
+        //         var result = response['result']
 
-                console.log(result)
+        //         console.log(result)
 
-                self.loveFeedbackList = result['loveFeedback']
-                self.addFeedbackList = result['addFeedback']
-                self.askFeedbackList = result['loveFeedback']
+        //         self.loveFeedbackList = result['loveFeedback']
+        //         self.addFeedbackList = result['addFeedback']
+        //         self.askFeedbackList = result['loveFeedback']
+        //         // self.loveFeedback()
+        //         // self.askFeedback()
+        //         // self.addFeedback()
 
-
-                let group = new eui.Group()
-                let exml = `
-                            <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50">
-                                <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
-                            </e:Skin>`;
-                let list = new eui.List()
-                let loveFeedback = self.loveFeedbackList
-
-                list.dataProvider = new eui.ArrayCollection(loveFeedback)
-                list.itemRendererSkinName = exml
-                group.addChild(list)
-                
-                let myScroller = new eui.Scroller()
-                myScroller.width = 470
-                myScroller.height = (self.stageHeight - 120 - self._margin * 2) / 3
-                myScroller.x = 130 + self._margin
-                myScroller.y = self.noticeBox.height + 80
-                myScroller.viewport = group
-                self.sprite.addChild(myScroller)
-
-                // self.loveFeedback()
-                // self.askFeedback()
-                // self.addFeedback()
-
-            })  
-        }
+        //     })  
+        // }
 
 
         private processBar(): void {

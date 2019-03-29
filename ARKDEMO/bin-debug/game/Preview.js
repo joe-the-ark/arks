@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Preview = (function (_super) {
         __extends(Preview, _super);
-        function Preview(stageWidth, stageHeight, player, inviter, game_secret, gameName) {
+        function Preview(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -34,9 +34,12 @@ var game;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
-            _this.timer = new egret.Timer(1000, 0);
-            _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.initDate, _this);
-            _this.timer.start();
+            _this.loveFeedbackList = loveFeedbackList;
+            _this.addFeedbackList = addFeedbackList;
+            _this.askFeedbackList = askFeedbackList;
+            // this.timer = new egret.Timer(1000, 0);
+            // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
+            // this.timer.start()
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.notice();
@@ -46,39 +49,25 @@ var game;
             _this.rightIcon();
             return _this;
         }
-        Preview.prototype.initDate = function () {
-            var self = this;
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('getOthersFeedback', {
-                'inviter': self.inviter,
-                'game_secret': self.game_secret,
-                'gameName': self.gameName,
-                'player': self.player
-            }).then(function (response) {
-                var result = response['result'];
-                console.log(result);
-                self.loveFeedbackList = result['loveFeedback'];
-                self.addFeedbackList = result['addFeedback'];
-                self.askFeedbackList = result['loveFeedback'];
-                var group = new eui.Group();
-                var exml = "\n                            <e:Skin xmlns:e=\"http://ns.egret.com/eui\" states=\"up,down\" height=\"50\">\n                                <e:Label text=\"{data}\" textColor.down=\"0xFFFFFF\" textColor.up=\"0x666666\" horizontalCenter=\"0\" verticalCenter=\"0\"/> \n                            </e:Skin>";
-                var list = new eui.List();
-                var loveFeedback = self.loveFeedbackList;
-                list.dataProvider = new eui.ArrayCollection(loveFeedback);
-                list.itemRendererSkinName = exml;
-                group.addChild(list);
-                var myScroller = new eui.Scroller();
-                myScroller.width = 470;
-                myScroller.height = (self.stageHeight - 120 - self._margin * 2) / 3;
-                myScroller.x = 130 + self._margin;
-                myScroller.y = self.noticeBox.height + 80;
-                myScroller.viewport = group;
-                self.sprite.addChild(myScroller);
-                // self.loveFeedback()
-                // self.askFeedback()
-                // self.addFeedback()
-            });
-        };
+        // private initDate(){
+        //     let self = this
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
+        //     base.API.call('getOthersFeedback', {
+        //         'inviter':self.inviter,
+        //         'game_secret':self.game_secret,
+        //         'gameName':self.gameName,
+        //         'player': self.player
+        //     }).then(function (response){
+        //         var result = response['result']
+        //         console.log(result)
+        //         self.loveFeedbackList = result['loveFeedback']
+        //         self.addFeedbackList = result['addFeedback']
+        //         self.askFeedbackList = result['loveFeedback']
+        //         // self.loveFeedback()
+        //         // self.askFeedback()
+        //         // self.addFeedback()
+        //     })  
+        // }
         Preview.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 15, "Love, Add, Ask > PREVIEW");
             this.sprite.addChild(processBar);

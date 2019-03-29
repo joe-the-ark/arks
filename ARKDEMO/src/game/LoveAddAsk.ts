@@ -86,8 +86,15 @@ namespace game {
 
                 }).then(function (response){
                     var count = this.count + 1
-                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName )
-                    let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
+
+
+                    var result = response['result']
+                    var loveFeedbackList = result['loveFeedback']
+                    var addFeedbackList = result['addFeedback']
+                    var askFeedbackList = result['loveFeedback']
+
+                    let preview =  new game.Preview(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList)
+                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self.stage.addChild(preview)
                     self.sprite.visible = false
 
