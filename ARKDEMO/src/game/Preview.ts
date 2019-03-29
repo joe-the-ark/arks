@@ -70,9 +70,33 @@ namespace game {
                 self.addFeedbackList = result['addFeedback']
                 self.askFeedbackList = result['loveFeedback']
 
-                self.loveFeedback()
-                self.askFeedback()
-                self.addFeedback()
+
+                let group = new eui.Group()
+                let exml = `
+                            <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50">
+                                <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
+                            </e:Skin>`;
+                let list = new eui.List()
+                let loveFeedback = self.loveFeedbackList
+
+                list.dataProvider = new eui.ArrayCollection(loveFeedback)
+                list.itemRendererSkinName = exml
+                group.addChild(list)
+                
+                
+                let myScroller = new eui.Scroller()
+                myScroller.width = 470
+                myScroller.height = (self.stageHeight - 120 - self._margin * 2) / 3
+                myScroller.x = 130 + self._margin
+                myScroller.y = self.noticeBox.height + 80
+                myScroller.viewport = group
+                self.sprite.addChild(myScroller)
+
+
+                // self.loveFeedback()
+                // self.askFeedback()
+                // self.addFeedback()
+
 
             })  
         }
