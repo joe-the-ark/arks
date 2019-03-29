@@ -89,9 +89,9 @@ namespace game {
 
 
                     var result = response['result']
-                    var loveFeedbackList = result['loveFeedback']
-                    var addFeedbackList = result['addFeedback']
-                    var askFeedbackList = result['loveFeedback']
+                    var loveFeedbackList = result[0]
+                    var addFeedbackList = result[1]
+                    var askFeedbackList = result[2]
 
                     let preview =  new game.Preview(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList)
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)

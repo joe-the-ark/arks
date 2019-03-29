@@ -20,6 +20,7 @@ namespace game {
         private addFeedbackList = []
         private askFeedbackList = []
 
+        public count
 
         public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList) {
             super()
@@ -31,11 +32,15 @@ namespace game {
             this.inviter = inviter
             this.game_secret= game_secret
             this.gameName = gameName
+            this.count = count
 
             this.loveFeedbackList = loveFeedbackList
             this.addFeedbackList = addFeedbackList
             this.askFeedbackList = askFeedbackList
 
+            console.log(count)
+            console.log(this.loveFeedbackList)
+            console.log(this.addFeedbackList)
 
             // this.timer = new egret.Timer(1000, 0);
             // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);

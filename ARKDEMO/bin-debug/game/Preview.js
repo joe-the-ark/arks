@@ -34,9 +34,13 @@ var game;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
+            _this.count = count;
             _this.loveFeedbackList = loveFeedbackList;
             _this.addFeedbackList = addFeedbackList;
             _this.askFeedbackList = askFeedbackList;
+            console.log(count);
+            console.log(_this.loveFeedbackList);
+            console.log(_this.addFeedbackList);
             // this.timer = new egret.Timer(1000, 0);
             // this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
             // this.timer.start()
