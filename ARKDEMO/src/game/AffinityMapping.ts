@@ -28,19 +28,19 @@ namespace game {
 
             this.player_list =player_list
 
-            let text = new egret.TextField()
-            text.text = "My relation to \nis based on..."
-            text.width = 200
-            text.x = this._x
-            text.y = 200
-            this.sprite.addChild(text)
+            this.text = new egret.TextField()
+            this.text.text = "My relation to \nis based on..."
+            this.text.width = 200
+            this.text.x = this._x
+            this.text.y = 200
+            this.sprite.addChild(this.text)
 
-            let votingPlayerName = new egret.TextField()
-            votingPlayerName.text = "Babettete"
-            votingPlayerName.width = 120
-            votingPlayerName.x = this._x + text.width
-            votingPlayerName.y = 200
-            this.sprite.addChild(votingPlayerName)
+            this.votingPlayerName = new egret.TextField()
+            this.votingPlayerName.text = "Babettete"
+            this.votingPlayerName.width = 120
+            this.votingPlayerName.x = this._x + this.text.width
+            this.votingPlayerName.y = 200
+            this.sprite.addChild(this.votingPlayerName)
             
 
             this.addChild(this.sprite)
