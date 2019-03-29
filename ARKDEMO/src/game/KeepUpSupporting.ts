@@ -178,16 +178,12 @@ namespace game {
                 }).then(function (response){
 
                     var result = response['result']
-                    let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result)
+                    let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, this.player,  this.inviter, this.game_secret, this.gameName)
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self.stage.addChild(preview)
                     self.sprite.visible = false
 
                 })  
-
-                
-
-
                 
 
             }else {

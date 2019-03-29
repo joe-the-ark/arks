@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var DigestAdd = (function (_super) {
         __extends(DigestAdd, _super);
-        function DigestAdd(stageWidth, stageHeight, result) {
+        function DigestAdd(stageWidth, stageHeight, result, inviter, game_secret, gameName, player) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -29,6 +29,10 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.inviter = inviter;
+            _this.player = player;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.result = result;
             _this.addChild(_this.sprite);
             _this.processBar();
@@ -90,7 +94,7 @@ var game;
             this.sprite.addChild(rightIcon);
         };
         DigestAdd.prototype.nextPage = function () {
-            var digestAsk = new game.DigestAsk(this.stageWidth, this.stageHeight, this.result);
+            var digestAsk = new game.DigestAsk(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             this.stage.addChild(digestAsk);
             this.sprite.visible = false;
         };

@@ -152,7 +152,7 @@ var game;
                     'inviter': self_1.inviter,
                 }).then(function (response) {
                     var result = response['result'];
-                    var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result);
+                    var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, this.player, this.inviter, this.game_secret, this.gameName);
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self_1.stage.addChild(preview);
                     self_1.sprite.visible = false;

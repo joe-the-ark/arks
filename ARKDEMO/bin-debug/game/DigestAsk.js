@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var DigestAsk = (function (_super) {
         __extends(DigestAsk, _super);
-        function DigestAsk(stageWidth, stageHeight, result) {
+        function DigestAsk(stageWidth, stageHeight, result, inviter, game_secret, gameName, player) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -29,6 +29,10 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.inviter = inviter;
+            _this.player = player;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.result = result;
             _this.addChild(_this.sprite);
             _this.processBar();

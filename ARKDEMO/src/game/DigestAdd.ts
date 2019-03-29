@@ -15,11 +15,16 @@ namespace game {
         private _margin = 20
         private noticeBox: egret.TextField
         public result = []
-        public constructor(stageWidth, stageHeight,result) {
+        public constructor(stageWidth, stageHeight,result, inviter, game_secret, gameName, player) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
+
+            this.inviter = inviter
+            this.player = player
+            this.game_secret = game_secret
+            this.gameName = gameName
 
             this.result =result
             this.addChild(this.sprite)
@@ -93,7 +98,7 @@ namespace game {
 
         private nextPage(){
 
-            let digestAsk =  new game.DigestAsk(this.stageWidth, this.stageHeight, this.result)
+            let digestAsk =  new game.DigestAsk(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player)
             this.stage.addChild(digestAsk)
             this.sprite.visible = false
 
