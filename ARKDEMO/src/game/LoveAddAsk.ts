@@ -17,6 +17,7 @@ namespace game {
         private simulatedData = []
         private count
 
+        private rightIcon: egret.Bitmap;
         public player_list = []
 
         public loveInputText:egret.TextField
@@ -29,6 +30,7 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
+            this.addChild(this.sprite)
             // this.playerName = playerName
 
             this.count = count
@@ -39,7 +41,19 @@ namespace game {
             this.game_secret = game_secret
             this.gameName = gameName
 
-            this.addChild(this.sprite)
+
+            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = stageWidth - 50
+            this.rightIcon.y = stageHeight - 100
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+            this.sprite.addChild(this.rightIcon)
+
+            
             this.initData()
             this.processBar()
             this.notice()
@@ -53,6 +67,10 @@ namespace game {
 
         }
 
+        private rightNext() {
+
+        }
+
         private initData(){
 
             let self = this
@@ -61,9 +79,13 @@ namespace game {
                 'inviter':self.inviter,
                 'game_secret': self.game_secret,
                 'gameName': self.gameName,
-            }).then(function (response){
+                'player':self.player
 
+            }).then(function (response){
                 let result = response['result']
+
+                console.log(result)
+
                 self.player_list = result
                 self.playerName = self.player_list[self.count]
             })     

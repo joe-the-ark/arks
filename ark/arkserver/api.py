@@ -983,7 +983,7 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
     return {'message': 0}
 
 @api
-def get_players(inviter, game_secret, gameName):
+def get_players(inviter, game_secret, gameName, player):
 
     player_list = Player.objects.filter(
         game_secret=game_secret,
@@ -991,9 +991,16 @@ def get_players(inviter, game_secret, gameName):
         inviter_name=inviter
     )
 
+    print(player_list)
+
     result = []
-    for player in player_list:
-        result.append(player.name)
+    for p in player_list:
+        if p.name == player
+            continue
+
+        result.append(p.name)
+
+    print(result)
 
     return {'code':0, 'result':result}
 

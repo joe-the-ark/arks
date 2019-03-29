@@ -34,8 +34,7 @@ namespace game{
             // this.drawLine()
             this.drawResult()
             this._shape = new egret.Shape()
-            this.addChild(this._shape)
-
+            this.sprite.addChild(this._shape)
             this._shape.alpha = 0.5
 
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map')
@@ -88,7 +87,6 @@ namespace game{
             shape.graphics.lineStyle(2, 0xFAFAD2)
             shape.graphics.moveTo(this.stageWidth / 2, this.stageHeight)
             shape.graphics.lineTo(this.stageWidth / 2, 130)
-
             let buffer: egret.Shape = this._shape
             buffer.graphics.beginFill(0xFFF68F, 0.5)
             buffer.graphics.lineStyle(0)

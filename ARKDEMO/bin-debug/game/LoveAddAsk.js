@@ -30,6 +30,7 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.addChild(_this.sprite);
             // this.playerName = playerName
             _this.count = count;
             _this.simulatedData = simulatedData;
@@ -37,7 +38,16 @@ var game;
             _this.inviter = inviter;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
-            _this.addChild(_this.sprite);
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight - 100;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightNext, _this);
+            _this.sprite.addChild(_this.rightIcon);
             _this.initData();
             _this.processBar();
             _this.notice();
@@ -50,6 +60,8 @@ var game;
             _this.tensionScale();
             return _this;
         }
+        LoveAddAsk.prototype.rightNext = function () {
+        };
         LoveAddAsk.prototype.initData = function () {
             var self = this;
             base.API.Init("http://work.metatype.cn:8105/api/");
@@ -57,8 +69,10 @@ var game;
                 'inviter': self.inviter,
                 'game_secret': self.game_secret,
                 'gameName': self.gameName,
+                'player': self.player
             }).then(function (response) {
                 var result = response['result'];
+                console.log(result);
                 self.player_list = result;
                 self.playerName = self.player_list[self.count];
             });

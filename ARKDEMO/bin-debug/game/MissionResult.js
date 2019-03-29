@@ -36,7 +36,7 @@ var game;
             // this.drawLine()
             _this.drawResult();
             _this._shape = new egret.Shape();
-            _this.addChild(_this._shape);
+            _this.sprite.addChild(_this._shape);
             _this._shape.alpha = 0.5;
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map');
             _this.sprite.addChild(probessBar);

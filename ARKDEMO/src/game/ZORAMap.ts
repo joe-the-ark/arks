@@ -101,9 +101,7 @@ namespace game {
             let line: egret.Shape = this._shape
             let playerName: egret.TextField = new egret.TextField()
             let playerScore: egret.TextField = new egret.TextField()
-
             let playerX = Math.ceil((Number(this.playerScore) - this.ttsm) * (200 / 81) + (this.stageWidth / 2))
-
             let tensionScaleMedian: egret.TextField = new egret.TextField()
             let tensionScaleMedianName: egret.TextField = new egret.TextField()
 

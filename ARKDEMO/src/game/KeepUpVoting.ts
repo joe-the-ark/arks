@@ -221,6 +221,8 @@ namespace game {
                         'process': '4.0'
                     }).then(function (response) {
 
+
+                        self.timer.stop()
                         let toTensionScaleResult = new game.TensionScaleResult(
                             self.stageWidth,
                             self.stageHeight,

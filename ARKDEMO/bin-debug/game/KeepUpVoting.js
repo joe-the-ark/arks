@@ -203,6 +203,7 @@ var game;
                         'game_name': self.gameName,
                         'process': '4.0'
                     }).then(function (response) {
+                        self.timer.stop();
                         var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                         self.stage.addChild(toTensionScaleResult);
                         self.sprite.visible = false;
