@@ -49,6 +49,10 @@ namespace game {
             this.add()
             this.ask()
 
+            this.loveFeedback()
+            this.askFeedback()
+            this.addFeedback()
+
             this.rightIcon()
         }
 

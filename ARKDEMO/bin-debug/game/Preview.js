@@ -46,6 +46,9 @@ var game;
             _this.love();
             _this.add();
             _this.ask();
+            _this.loveFeedback();
+            _this.askFeedback();
+            _this.addFeedback();
             _this.rightIcon();
             return _this;
         }
