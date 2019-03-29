@@ -1,5 +1,5 @@
 namespace game {
-    export class Preview extends egret.DisplayObjectContainer {
+    export class Preview2 extends egret.DisplayObjectContainer {
         /***     初始赋值代码开始    ***/
         private sprite: egret.Sprite
         public stageWidth = 0
@@ -13,91 +13,23 @@ namespace game {
         private _x = 20
         private _margin = 20
         private noticeBox: egret.TextField
-
-        public timer: egret.Timer
-
-        private loveFeedbackList = []
-        private addFeedbackList = []
-        private askFeedbackList = []
-
-
-        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName) {
+        public constructor(stageWidth, stageHeigh){
             super()
             this.stageWidth = stageWidth
-            this.stageHeight = stageHeight
+            this.stageHeight = stageHeigh
             this.sprite = new egret.Sprite()
-
-            this.player = player
-            this.inviter = inviter
-            this.game_secret= game_secret
-            this.gameName = gameName
-
-
-            this.timer = new egret.Timer(1000, 0);
-            this.timer.addEventListener(egret.TimerEvent.TIMER, this.initDate, this);
-            this.timer.start()
-
 
             this.addChild(this.sprite)
             this.processBar()
             this.notice()
             this.love()
-            
+            this.loveFeedback()
             this.add()
             this.ask()
-
+            this.askFeedback()
+            this.addFeedback()
             this.rightIcon()
         }
-
-
-        private initDate(){
-            let self = this
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('getOthersFeedback', {
-
-                'inviter':self.inviter,
-                'game_secret':self.game_secret,
-                'gameName':self.gameName,
-                'player': self.player
-                
-            }).then(function (response){
-
-                var result = response['result']
-
-                console.log(result)
-
-                self.loveFeedbackList = result['loveFeedback']
-                self.addFeedbackList = result['addFeedback']
-                self.askFeedbackList = result['loveFeedback']
-
-
-                let group = new eui.Group()
-                let exml = `
-                            <e:Skin xmlns:e="http://ns.egret.com/eui" states="up,down" height="50">
-                                <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
-                            </e:Skin>`;
-                let list = new eui.List()
-                let loveFeedback = self.loveFeedbackList
-
-                list.dataProvider = new eui.ArrayCollection(loveFeedback)
-                list.itemRendererSkinName = exml
-                group.addChild(list)
-                
-                let myScroller = new eui.Scroller()
-                myScroller.width = 470
-                myScroller.height = (self.stageHeight - 120 - self._margin * 2) / 3
-                myScroller.x = 130 + self._margin
-                myScroller.y = self.noticeBox.height + 80
-                myScroller.viewport = group
-                self.sprite.addChild(myScroller)
-
-                // self.loveFeedback()
-                // self.askFeedback()
-                // self.addFeedback()
-
-            })  
-        }
-
 
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 15, "Love, Add, Ask > PREVIEW")
@@ -132,13 +64,25 @@ namespace game {
                             <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
                         </e:Skin>`;
             let list = new eui.List()
-            let loveFeedback = this.loveFeedbackList
-
+            let loveFeedback = [
+                "Example text Example text text", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",]
             list.dataProvider = new eui.ArrayCollection(loveFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
-            
-            
+
             let myScroller = new eui.Scroller()
             myScroller.width = 470
             myScroller.height = (this.stageHeight - 120 - this._margin * 2) / 3
@@ -164,7 +108,21 @@ namespace game {
                             <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
                         </e:Skin>`;
             let list = new eui.List()
-            let addFeedback = this.addFeedbackList
+            let addFeedback = [
+                "Example text Example text text", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",]
             list.dataProvider = new eui.ArrayCollection(addFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
@@ -195,7 +153,21 @@ namespace game {
                             <e:Label text="{data}" textColor.down="0xFFFFFF" textColor.up="0x666666" horizontalCenter="0" verticalCenter="0"/> 
                         </e:Skin>`;
             let list = new eui.List()
-            let askFeedback = this.askFeedbackList
+            let askFeedback = [
+                "Example text Example text text", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",
+                "atio. Uciaecte cus se volo te", "doloru inctiae et, qui tem eos ", "niminctur moluptu reius.Solum,",
+                "reiciis natureped molumet,cupta", "mint. Eimil inctur, volo et ut", ". Uciaecte cus se te nus ullace",]
             list.dataProvider = new eui.ArrayCollection(askFeedback)
             list.itemRendererSkinName = exml
             group.addChild(list)
