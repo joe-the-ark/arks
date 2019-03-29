@@ -42,18 +42,17 @@ namespace game {
             this.count = count
 
             this.simulatedData = simulatedData
-
-            this.noticeBox = new egret.TextField()
-            this.sprite.addChild(this.noticeBox)
-          
                   
             this.remainingPlayers()
             this.votedPlayers()
             this.background()
             this.processBar()
-      
             this.rightIcon()
             this.initData()
+            
+            this.noticeBox = new egret.TextField()
+            this.sprite.addChild(this.noticeBox)
+
         }
 
 
@@ -74,14 +73,18 @@ namespace game {
                 var player_count = result.length
                 var votedPlayerList = result.slice(0,  self.count+1)
 
+
+                console.log(votedPlayerList)
+
                 self.votedPlayerList = votedPlayerList
                 self.remainingPlayersList = result.slice(self.count+1)
+
+                console.log(self.remainingPlayersList)
 
                 let votedScalesNumber = votedPlayerList.length.toString()
                 let scalesNumber = player_count.toString()
                 let remainingScalesNumber = (player_count-self.count+1).toString()
                 // self.noticeBox = new egret.TextField()
-
                 console.log(self.noticeBox)
                 self.noticeBox.text = "Great! You answered " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Feedbacks. Fill in the remaining " + remainingScalesNumber.toString() + " to finish Mission 2 and Embrace your teammates anonymous Feedback for a better deployment of the team's potentialities.!"
                 // self.noticeBox.textColor = 0x000000
@@ -122,7 +125,7 @@ namespace game {
         private background(): void {
             let grey: egret.Shape = new egret.Shape()
             grey.x = this._x / 2  // 20会多
-            grey.y = this.noticeBox.height - 20  // 减掉多的空白
+            grey.y =100   // 减掉多的空白
             grey.graphics.beginFill(0xcccccc, 1)
             grey.graphics.drawRect(grey.x, grey.y, 380, this.stageHeight)
             grey.graphics.endFill()
@@ -130,7 +133,7 @@ namespace game {
 
             let orange: egret.Shape = new egret.Shape()
             orange.x = this._x / 2 + grey.width / 2 + this._margin / 2
-            orange.y = this.noticeBox.height - 20
+            orange.y = 100
             orange.graphics.beginFill(0xffcc33, 1)
             orange.graphics.drawRect(orange.x, orange.y, 200, this.stageHeight)
             orange.graphics.endFill()
@@ -151,9 +154,9 @@ namespace game {
 
             let myScroller = new eui.Scroller()
             myScroller.width = 380
-            myScroller.height = this.stageHeight - 80 - this.noticeBox.height
+            myScroller.height = this.stageHeight - 80 - 100
             myScroller.x = myScroller.width / 2 - 40
-            myScroller.y = this.noticeBox.height + 80
+            myScroller.y = 100 + 80
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
         }
@@ -172,9 +175,9 @@ namespace game {
 
             let myScroller = new eui.Scroller()
             myScroller.width = 380
-            myScroller.height = this.stageHeight - 80 - this.noticeBox.height
+            myScroller.height = this.stageHeight - 80 - 100
             myScroller.x = this.stageWidth - myScroller.width / 2 + 30
-            myScroller.y = this.noticeBox.height + 80
+            myScroller.y = 100 + 80
             myScroller.viewport = group
             this.sprite.addChild(myScroller)
         }

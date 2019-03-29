@@ -44,14 +44,14 @@ var game;
             _this.gameName = gameName;
             _this.count = count;
             _this.simulatedData = simulatedData;
-            _this.noticeBox = new egret.TextField();
-            _this.sprite.addChild(_this.noticeBox);
             _this.remainingPlayers();
             _this.votedPlayers();
             _this.background();
             _this.processBar();
             _this.rightIcon();
             _this.initData();
+            _this.noticeBox = new egret.TextField();
+            _this.sprite.addChild(_this.noticeBox);
             return _this;
         }
         KeepUpSupporting.prototype.initData = function () {
@@ -68,8 +68,10 @@ var game;
                 self.player_list = result;
                 var player_count = result.length;
                 var votedPlayerList = result.slice(0, self.count + 1);
+                console.log(votedPlayerList);
                 self.votedPlayerList = votedPlayerList;
                 self.remainingPlayersList = result.slice(self.count + 1);
+                console.log(self.remainingPlayersList);
                 var votedScalesNumber = votedPlayerList.length.toString();
                 var scalesNumber = player_count.toString();
                 var remainingScalesNumber = (player_count - self.count + 1).toString();
@@ -108,14 +110,14 @@ var game;
         KeepUpSupporting.prototype.background = function () {
             var grey = new egret.Shape();
             grey.x = this._x / 2; // 20会多
-            grey.y = this.noticeBox.height - 20; // 减掉多的空白
+            grey.y = 100; // 减掉多的空白
             grey.graphics.beginFill(0xcccccc, 1);
             grey.graphics.drawRect(grey.x, grey.y, 380, this.stageHeight);
             grey.graphics.endFill();
             this.sprite.addChild(grey);
             var orange = new egret.Shape();
             orange.x = this._x / 2 + grey.width / 2 + this._margin / 2;
-            orange.y = this.noticeBox.height - 20;
+            orange.y = 100;
             orange.graphics.beginFill(0xffcc33, 1);
             orange.graphics.drawRect(orange.x, orange.y, 200, this.stageHeight);
             orange.graphics.endFill();
@@ -131,9 +133,9 @@ var game;
             group.addChild(list);
             var myScroller = new eui.Scroller();
             myScroller.width = 380;
-            myScroller.height = this.stageHeight - 80 - this.noticeBox.height;
+            myScroller.height = this.stageHeight - 80 - 100;
             myScroller.x = myScroller.width / 2 - 40;
-            myScroller.y = this.noticeBox.height + 80;
+            myScroller.y = 100 + 80;
             myScroller.viewport = group;
             this.sprite.addChild(myScroller);
         };
@@ -147,9 +149,9 @@ var game;
             group.addChild(list);
             var myScroller = new eui.Scroller();
             myScroller.width = 380;
-            myScroller.height = this.stageHeight - 80 - this.noticeBox.height;
+            myScroller.height = this.stageHeight - 80 - 100;
             myScroller.x = this.stageWidth - myScroller.width / 2 + 30;
-            myScroller.y = this.noticeBox.height + 80;
+            myScroller.y = 100 + 80;
             myScroller.viewport = group;
             this.sprite.addChild(myScroller);
         };
