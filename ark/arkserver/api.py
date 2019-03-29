@@ -995,7 +995,7 @@ def get_players(inviter, game_secret, gameName, player):
 
     result = []
     for p in player_list:
-        if p.name == player
+        if p.name == player:
             continue
 
         result.append(p.name)
