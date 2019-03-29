@@ -106,12 +106,14 @@ class Main extends egret.DisplayObjectContainer {
                             let stageHeight = self.stage.stageHeight
                             base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret, 'openid':openid, 'nickname':nickname}).then(function(response){
                                 var status = response['result']
-                                if(status == 2){
+                                if(status == 3){
                                     let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
                                     self.stage.addChild(scene)
+                                    
                                 }else{
                                     alert('The game is in progress.')
                                 }
+
                             })
                         })
                     }else {

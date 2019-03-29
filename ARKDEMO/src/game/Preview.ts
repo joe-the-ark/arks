@@ -183,7 +183,7 @@ namespace game {
 
 
         private nextPage(){
-
+            
             var keepUpSupporting =  new game.KeepUpSupporting(this.stageWidth, this.stageHeight,this.player, this.inviter, this.game_secret, this.gameName, this.count, this.simulatedData)
             this.stage.addChild(keepUpSupporting)
             this.sprite.visible = false

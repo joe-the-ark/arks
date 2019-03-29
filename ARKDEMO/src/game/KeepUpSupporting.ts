@@ -200,7 +200,7 @@ namespace game {
                 alert('所有人评价完')
 
             }else {
-
+                
                 var count = this.count
                 var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
                 this.stage.addChild(loveAddAsk)
