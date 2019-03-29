@@ -46,13 +46,18 @@ namespace game {
             this.votedPlayerList = votedPlayerList
             this.remainingPlayersList = remainingPlayersList
             this.scalesNumber = this.player_list.length
-            this.votedScalesNumber = votedPlayerList
+            this.votedScalesNumber = this.votedPlayerList.length
+
             this.remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
 
+            console.log(votedPlayerList)
+            console.log(remainingPlayersList)
+            
             this.background() 
             this.remainingPlayers()
             this.votedPlayers()
             this.processBar()
+            this.notice()
             this.rightIcon()
             this.noticeBox = new egret.TextField()
 

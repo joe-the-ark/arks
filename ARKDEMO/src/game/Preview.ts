@@ -196,12 +196,9 @@ namespace game {
                 console.log(result)
                 var player_list = result
                 var player_count = result.length
-                var votedPlayerList = result.slice(0,  self.count+1)
+                var votedPlayerList = result.slice(0, self.count+1)
 
                 var remainingPlayersList = result.slice(self.count+1)
-                let votedScalesNumber = votedPlayerList.length
-                let scalesNumber = player_count
-                let remainingScalesNumber = player_count-self.count+1
 
                 var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
                 self.stage.addChild(keepUpSupporting)
