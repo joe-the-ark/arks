@@ -86,7 +86,7 @@ namespace game {
 
                 }).then(function (response){
                     var count = this.count + 1
-                    let preview =  new game.Preview(self.stageWidth, self.stageHeight, )
+                    let preview =  new game.Preview(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName )
                     self.stage.addChild(preview)
                     self.sprite.visible = false
 

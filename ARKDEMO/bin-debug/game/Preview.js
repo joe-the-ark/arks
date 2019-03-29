@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Preview = (function (_super) {
         __extends(Preview, _super);
-        function Preview(stageWidth, stageHeight) {
+        function Preview(stageWidth, stageHeight, player, inviter, game_secret, gameName) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -30,6 +30,10 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.player = player;
+            _this.inviter = inviter;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.initDate, _this);
             _this.timer.start();

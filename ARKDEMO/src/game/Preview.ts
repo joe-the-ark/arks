@@ -21,13 +21,16 @@ namespace game {
         private askFeedbackList = []
 
 
-        public constructor(stageWidth, stageHeight) {
+        public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
-
+            this.player = player
+            this.inviter = inviter
+            this.game_secret= game_secret
+            this.gameName = gameName
 
 
             this.timer = new egret.Timer(1000, 0);
@@ -66,7 +69,7 @@ namespace game {
                 self.loveFeedbackList = result['loveFeedback']
                 self.addFeedbackList = result['addFeedback']
                 self.askFeedbackList = result['loveFeedback']
-                
+
                 this.loveFeedback()
                 this.askFeedback()
                 this.addFeedback()
