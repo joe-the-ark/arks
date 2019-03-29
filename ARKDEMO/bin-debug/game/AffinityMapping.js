@@ -93,7 +93,7 @@ var game;
                 area.border = true;
                 area.borderColor = 0x000000;
                 _this.sprite.addChild(area);
-                area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(area.x, area.y), _this);
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(_this, area.x, area.y, false), _this);
             });
         };
         AffinityMapping.prototype.chooseArea = function (x, y) {
@@ -103,6 +103,7 @@ var game;
             console.log(y);
             console.log('chooseArea');
             var choose = new egret.TextField();
+            console.log(self.sprite);
             choose.text = self.choose;
             choose.width = 200;
             choose.height = 50;

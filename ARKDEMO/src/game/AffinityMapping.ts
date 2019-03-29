@@ -100,7 +100,7 @@ namespace game {
                 area.borderColor = 0x000000
                 this.sprite.addChild(area)
                 
-                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(area.x, area.y), this)
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(this, area.x, area.y, false), this)
 
             })
         }
@@ -113,6 +113,9 @@ namespace game {
             console.log(y)
             console.log('chooseArea')
             let choose = new egret.TextField()
+
+            console.log(self.sprite)
+
             choose.text = self.choose
             choose.width = 200
             choose.height = 50
