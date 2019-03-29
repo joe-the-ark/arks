@@ -12,11 +12,17 @@ namespace game {
         private _width = 600
         private _x = 20
         private _margin = 20
-        public constructor(stageWidth, stageHeight) {
+        public constructor(stageWidth, stageHeight, inviter, game_secret, gameName, player) {
             super()
+
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
+
+            this.inviter = inviter
+            this.player = player
+            this.game_secret = game_secret
+            this.gameName = gameName
 
             this.addChild(this.sprite)
             this.processBar()
@@ -66,7 +72,6 @@ namespace game {
         }
 
         private nextPage(){
-
 
 
             let self = this
