@@ -93,7 +93,7 @@ var game;
                 area.border = true;
                 area.borderColor = 0x000000;
                 _this.sprite.addChild(area);
-                area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(_this, area.x, area.y, false), _this);
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(_this, area.x, area.y), _this);
             });
         };
         AffinityMapping.prototype.chooseArea = function (x, y) {

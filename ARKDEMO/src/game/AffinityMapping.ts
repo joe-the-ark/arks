@@ -100,12 +100,12 @@ namespace game {
                 area.borderColor = 0x000000
                 this.sprite.addChild(area)
                 
-                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(this, area.x, area.y, false), this)
+                area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(this, area.x, area.y), this)
 
             })
         }
 
-        private chooseArea(x,y){
+        private chooseArea(x:number,y:number){
 
             var self = this
             console.log('chooseArea')
@@ -121,7 +121,9 @@ namespace game {
             choose.height = 50
             choose.size = 30
             choose.x = x
+
             choose.y = y + 50
+
             choose.border = true
             choose.borderColor = 0x000000
 
