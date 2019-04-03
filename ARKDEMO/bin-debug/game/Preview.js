@@ -175,7 +175,8 @@ var game;
                 var remainingPlayersList = result.slice(self.count + 1);
                 var scalesNumber = player_list.length;
                 var votedScalesNumber = votedPlayerList.length;
-                var remainingScalesNumber = this.scalesNumber - votedScalesNumber;
+                var remainingScalesNumber = scalesNumber - votedScalesNumber;
+                console.log(remainingScalesNumber);
                 if (remainingScalesNumber == 0) {
                     base.API.call('save_players_process', {
                         'inviter_name': this.inviter,

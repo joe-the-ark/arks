@@ -184,7 +184,6 @@ namespace game {
                 'process': '10'
             }).then(function (response){
 
-
                 var self = this
                 base.API.call('game_end', { 
                     'inviter_name': self.inviter, 

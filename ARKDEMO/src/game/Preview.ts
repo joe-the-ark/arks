@@ -208,7 +208,9 @@ namespace game {
 
                 var scalesNumber = player_list.length
                 var votedScalesNumber = votedPlayerList.length
-                var remainingScalesNumber = this.scalesNumber - votedScalesNumber
+                var remainingScalesNumber = scalesNumber - votedScalesNumber
+
+                console.log(remainingScalesNumber)
 
                 if(remainingScalesNumber == 0){
                     base.API.call('save_players_process', { 
@@ -235,6 +237,7 @@ namespace game {
                         let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
                         self.stage.addChild(preview)
                     })
+
                 }else {
 
                     self.sprite.visible = false
@@ -242,9 +245,6 @@ namespace game {
                     self.stage.addChild(keepUpSupporting)
 
                 }
-
-
-
             })
         }
     }
