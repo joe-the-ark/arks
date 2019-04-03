@@ -62,7 +62,7 @@ namespace game {
 
 
         private processBar(): void {
-            let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Voting")
+            let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Supporting")
             this.sprite.addChild(processBar)
         }
 

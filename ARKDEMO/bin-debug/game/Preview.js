@@ -173,6 +173,32 @@ var game;
                 var player_list = result;
                 var votedPlayerList = result.slice(0, self.count + 1);
                 var remainingPlayersList = result.slice(self.count + 1);
+                var scalesNumber = player_list.length;
+                var votedScalesNumber = votedPlayerList.length;
+                var remainingScalesNumber = this.scalesNumber - votedScalesNumber;
+                if (remainingScalesNumber == 0) {
+                    base.API.call('save_players_process', {
+                        'inviter_name': this.inviter,
+                        'game_secret': this.game_secret,
+                        'player': this.player,
+                        'game_name': this.gameName,
+                        'process': '5'
+                    }).then(function (response) {
+                    });
+                    var self_1 = this;
+                    base.API.Init("http://work.metatype.cn:8105/api/");
+                    base.API.call('getOthersFeedback', {
+                        'game_secret': self_1.game_secret,
+                        'gameName': self_1.gameName,
+                        'player': self_1.player,
+                        'inviter': self_1.inviter,
+                    }).then(function (response) {
+                        var result = response['result'];
+                        self_1.sprite.visible = false;
+                        var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
+                        self_1.stage.addChild(preview);
+                    });
+                }
                 self.sprite.visible = false;
                 var keepUpSupporting = new game.KeepUpSupporting(self.stageWidth, self.stageHeight, self.player, self.inviter, self.game_secret, self.gameName, self.count, self.simulatedData, player_list, votedPlayerList, remainingPlayersList);
                 self.stage.addChild(keepUpSupporting);

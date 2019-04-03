@@ -59,7 +59,7 @@ var game;
             return _this;
         }
         KeepUpSupporting.prototype.processBar = function () {
-            var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Voting");
+            var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Supporting");
             this.sprite.addChild(processBar);
         };
         KeepUpSupporting.prototype.notice = function () {

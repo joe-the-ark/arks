@@ -199,13 +199,50 @@ namespace game {
                 'player':self.player
 
             }).then(function (response){
+
+
                 let result = response['result']
                 var player_list = result
                 var votedPlayerList = result.slice(0, self.count+1)
                 var remainingPlayersList = result.slice(self.count+1)
+
+                var scalesNumber = player_list.length
+                var votedScalesNumber = votedPlayerList.length
+                var remainingScalesNumber = this.scalesNumber - votedScalesNumber
+
+                if(remainingScalesNumber == 0){
+                    base.API.call('save_players_process', { 
+                        'inviter_name': this.inviter, 
+                        'game_secret': this.game_secret,
+                        'player': this.player,
+                        'game_name': this.gameName,
+                        'process': '5'
+                    }).then(function (response){
+                    })
+
+                    let self = this
+                    base.API.Init("http://work.metatype.cn:8105/api/");
+                    base.API.call('getOthersFeedback', {
+
+                        'game_secret': self.game_secret,
+                        'gameName': self.gameName,
+                        'player':self.player,
+                        'inviter':self.inviter,
+
+                    }).then(function (response){
+                        var result = response['result']
+                        self.sprite.visible = false
+                        let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
+                        self.stage.addChild(preview)
+                    })
+                }
+
                 self.sprite.visible = false
                 var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
                 self.stage.addChild(keepUpSupporting)
+
+
+
             })
         }
     }

@@ -1110,19 +1110,32 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
 @api
 def game_end(inviter_name, game_secret, gameName, player):
     _inviter = Player.objects.filter(
-        name=inviter,
+        name=inviter_name,
         game_secret=game_secret,
-        inviter_name=inviter,
+        inviter_name=inviter_name,
         game_name=gameName
     ).first()
-
-    print(_inviter)
 
     game = Game.objects.filter(
         game_secret=game_secret,
         game_name=gameName,
         inviter=_inviter,
-    ).first().delete()
+    ).first()
+
+    flag = False
+
+    players = Player.objects.filter(game_name=gameName, game_secret=game_secret, inviter_name=inviter_name)
+    for p in players:
+        process = GameProcess.objects.filter(game=game, player=p).first()
+        if process.process != '10':
+            flag = True
+
+    if flag:
+        game = Game.objects.filter(
+            game_secret=game_secret,
+            game_name=gameName,
+            inviter=_inviter,
+        ).first().delete()
 
 
     return {'code':0}
