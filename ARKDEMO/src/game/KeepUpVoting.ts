@@ -45,7 +45,6 @@ namespace game {
             this.initNotice()
             this.processBar()
             this.rightIcon()
-            
 
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);

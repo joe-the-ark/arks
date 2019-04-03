@@ -905,8 +905,6 @@ def getPlayerList(**params):
 @api
 def getGameStatus(**params):
 
-    print(params)
-
     inviter_name = params['inviter_name']
     game_secret = params['game_secret']
     gameName = params['gameName']
@@ -1107,7 +1105,6 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
     print(result)
 
     return {'code':0, 'result':result}
-
 
 
 @api

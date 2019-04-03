@@ -45,9 +45,12 @@ namespace game {
         
         private onTouchBegin():void {
             base.API.Init("http://work.metatype.cn:8105/api/");
-                base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
-                }).catch(function (err) {
-                });
+            base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
+
+            }).catch(function (err) {
+                
+            });
+
             if( this.stage ) {
                 this.sprite.visible = false
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid,this.openid, this.nickname, 'inviter');

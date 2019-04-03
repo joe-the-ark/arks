@@ -266,15 +266,12 @@ namespace game {
 
                  base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
                     var status = response['result']
-
                     if(status == 1){
-
                         base.API.call('get_players_process', {
                             'game_secret': self.game_secret,
                             'inviter_name': self.inviter,
                             'player': self.nickname,
                             'gameName': self.game_secret
-
                         }).then(function (response) {
                                     var process = response['process']
                                     if(process == '0.1'){
