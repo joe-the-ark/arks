@@ -40,7 +40,6 @@ namespace game {
             this.background()
             this.sprite.addChild(this.noticeBox)
             // this.notice()
-            
             // this.tensionScale()
             this.initNotice()
             this.processBar()

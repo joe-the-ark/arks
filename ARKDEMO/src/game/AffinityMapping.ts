@@ -14,7 +14,6 @@ namespace game {
         private _margin = 20
         public player_list = []
 
-
         public text:egret.TextField
 
         public choose
@@ -110,11 +109,8 @@ namespace game {
 
             })
         }
-
         private chooseArea(x:number, y:number){
-
             var self = this
-            
             let choose = new egret.TextField()
 
             choose.text = self.choose
@@ -133,7 +129,6 @@ namespace game {
 
         private playerListMove() {
             this.player_list.forEach((val, index, array) => {
-
                     console.log(val)
                     var player: egret.TextField = new egret.TextField()
                     player.text = val
@@ -163,7 +158,6 @@ namespace game {
                         this.votingPlayerName.text = player.text
                         this.choose = player.text
                     }, this)
-
             })
         }
 
@@ -195,12 +189,5 @@ namespace game {
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAsk)
         }
-
-
-
-
-
-
-
     }
 }

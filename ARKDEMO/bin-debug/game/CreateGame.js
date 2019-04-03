@@ -322,7 +322,6 @@ var game;
             var self = this;
             base.API.call("wechatapi", { 'url': link1 }).then(function (response) {
                 var bodyConfig = new BodyConfig();
-                bodyConfig.debug = true;
                 bodyConfig.appId = response['params']['appId'];
                 bodyConfig.timestamp = response['params']['timestamp'];
                 bodyConfig.nonceStr = response['params']['nonceStr'];
