@@ -934,11 +934,10 @@ def getGameStatus(**params):
     if game.status == 1:
         if _player:
             return {'code':0, 'result':1} #游戏已开始之前，玩家已被记录
-
         return {'code':0, 'result':2} #游戏已开始前，玩家没被记录，不能进游戏
 
     if game.status == 2:
-        return {'code': 'result':3} #游戏结束
+        return {'code':0, 'result': 3} #游戏结束
 
 
 @api
