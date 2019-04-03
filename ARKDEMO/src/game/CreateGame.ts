@@ -135,7 +135,7 @@ namespace game {
             if(self.status == 'player'){
                 base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
                     var status = response['result']
-                    if(status == 3){
+                    if(status == 1){
                         base.API.call('get_players_process', {
                             'game_secret': self.game_secret,
                             'inviter_name': self.inviter,
@@ -170,7 +170,6 @@ namespace game {
                                 self.stage.addChild(initiatePartialInsights)
                             }
                             else if (process == '0.2'){
-
                                 var playerCount = response['playercount']
                                 let game_secret = self.game_secret
                                 let inviter = self.inviter
@@ -247,7 +246,7 @@ namespace game {
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                         self.stage.addChild(charater);
                                     })
-                            }else if(process == '0') {
+                            }else{
                                 var inviter = self.inviter
                                 var gameName = self.game_secret
                                 var game_id = self.game_secret 
@@ -258,6 +257,8 @@ namespace game {
                             }
                         })
                     }
+
+
                 })
             }
 
@@ -266,7 +267,7 @@ namespace game {
                  base.API.call('getGameStatus', {'inviter_name':self.inviter, 'game_secret':self.game_secret, 'gameName':self.game_secret, 'openid':self.openid, 'nickname':self.nickname}).then(function(response){
                     var status = response['result']
 
-                    if(status == 3){
+                    if(status == 1){
 
                         base.API.call('get_players_process', {
                             'game_secret': self.game_secret,
@@ -380,16 +381,14 @@ namespace game {
 
                                                 let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                                 that.stage.addChild(charater);
-                                                
 
                                             })
-                                    }else if(process == '0') {
+                                    }else{
                                         var inviter = self.inviter
                                         var gameName = self.game_secret
                                         var game_id = self.game_secret 
                                         self.timer.stop() 
                                         self.sprite.visible = false
-                                        
                                         let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                         self.stage.addChild(enter)
                                     }
@@ -451,18 +450,18 @@ namespace game {
             base.API.Init("http://work.metatype.cn:8105/api/")
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game',  {'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
-
             })
 
-            base.API.call('save_players_process', { 
-                'inviter_name': this.inviter, 
-                'game_secret': this.game_secret,
-                'player': this.player,
-                'game_name': this.game_secret,
-                'process': '0'
-            }).then(function (response){
+            // base.API.call('save_players_process', { 
+            //     'inviter_name': this.inviter, 
+            //     'game_secret': this.game_secret,
+            //     'player': this.player,
+            //     'game_name': this.game_secret,
+            //     'process': '0'
+            // }).then(function (response){
             
-            })
+            // })
+
             this.sprite.visible = false
             this.timer.stop()
 

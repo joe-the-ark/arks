@@ -31,15 +31,8 @@ def create_game(inviter, gameName, game_id):
         game.save()
 
     else:
-        game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player, status=1)
-    # character_one = Character.objects.filter(name='Insufficiently').first()
-    # character_two = Character.objects.filter(name='Fully').first()
-    # print(character_two)
-    # print(character_one)
-    # CharacterChoose.objects.create(
-    #     character_one=character_one, character_two=character_two,
-    #     player=player, game=game
-    # )
+        game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
+
     return {'code': 0}
 
 
@@ -935,16 +928,18 @@ def getGameStatus(**params):
         game_name=gameName,
     ).first()
 
+    if game.status == 0:
+        return {'code':0, 'result':0}
+
     if game.status == 1:
         if _player:
-            return {'code':0, 'result':3}
-        return {'code':0, 'result':1}
+            return {'code':0, 'result':1} #游戏已开始之前，玩家已被记录
 
-    elif game.status == 2:
-    #     if _player:
-    #         return { 'code':0, 'result':2}
+        return {'code':0, 'result':2} #游戏已开始前，玩家没被记录，不能进游戏
 
-        return {'code':0, 'result':2}
+    if game.status == 2:
+        return {'code': 'result':3} #游戏结束
+
 
 @api
 def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):

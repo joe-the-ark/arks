@@ -111,7 +111,7 @@ var game;
             if (self.status == 'player') {
                 base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret, 'openid': self.openid, 'nickname': self.nickname }).then(function (response) {
                     var status = response['result'];
-                    if (status == 3) {
+                    if (status == 1) {
                         base.API.call('get_players_process', {
                             'game_secret': self.game_secret,
                             'inviter_name': self.inviter,
@@ -197,7 +197,7 @@ var game;
                                     self.stage.addChild(charater);
                                 });
                             }
-                            else if (process == '0') {
+                            else {
                                 var inviter = self.inviter;
                                 var gameName = self.game_secret;
                                 var game_id = self.game_secret;
@@ -213,7 +213,7 @@ var game;
             if (self.status == 'inviter') {
                 base.API.call('getGameStatus', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret, 'openid': self.openid, 'nickname': self.nickname }).then(function (response) {
                     var status = response['result'];
-                    if (status == 3) {
+                    if (status == 1) {
                         base.API.call('get_players_process', {
                             'game_secret': self.game_secret,
                             'inviter_name': self.inviter,
@@ -301,7 +301,7 @@ var game;
                                     that.stage.addChild(charater);
                                 });
                             }
-                            else if (process == '0') {
+                            else {
                                 var inviter = self.inviter;
                                 var gameName = self.game_secret;
                                 var game_id = self.game_secret;
@@ -365,14 +365,14 @@ var game;
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game', { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
             });
-            base.API.call('save_players_process', {
-                'inviter_name': this.inviter,
-                'game_secret': this.game_secret,
-                'player': this.player,
-                'game_name': this.game_secret,
-                'process': '0'
-            }).then(function (response) {
-            });
+            // base.API.call('save_players_process', { 
+            //     'inviter_name': this.inviter, 
+            //     'game_secret': this.game_secret,
+            //     'player': this.player,
+            //     'game_name': this.game_secret,
+            //     'process': '0'
+            // }).then(function (response){
+            // })
             this.sprite.visible = false;
             this.timer.stop();
             var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
