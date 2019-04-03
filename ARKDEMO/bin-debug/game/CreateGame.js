@@ -78,7 +78,7 @@ var game;
                 _this.sprite.addChild(_this.label3);
                 _this.invateFriends();
             }
-            _this.timer = new egret.Timer(100, 0);
+            _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayeList, _this);
             _this.timer.start();
             return _this;
@@ -128,9 +128,9 @@ var game;
                                 var gameName_1 = self.game_secret;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
-                                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_1, player, gameName_1, stageWidth, stageHeight, playerCount, playerScore);
                                 self.timer.stop();
                                 self.sprite.visible = false;
+                                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_1, player, gameName_1, stageWidth, stageHeight, playerCount, playerScore);
                                 self.stage.addChild(initiatePartialInsights);
                             }
                             else if (process == '0.2') {
@@ -141,10 +141,10 @@ var game;
                                 var gameName_2 = self.game_secret;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
-                                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_2, player, gameName_2, stageWidth, stageHeight, playerCount);
                                 self.timer.stop();
-                                this.stage.addChild(characterChoosePage);
                                 this.sprite.visible = false;
+                                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_2, player, gameName_2, stageWidth, stageHeight, playerCount);
+                                this.stage.addChild(characterChoosePage);
                             }
                             else if (process == '1.0.0') {
                                 var count = 0;
@@ -191,20 +191,20 @@ var game;
                                     var stageWidth = self.stage.stageWidth;
                                     var stageHeight = self.stage.stageHeight;
                                     var count = 0;
-                                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                     self.timer.stop();
-                                    self.stage.addChild(charater);
                                     self.sprite.visible = false;
+                                    var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
+                                    self.stage.addChild(charater);
                                 });
                             }
-                            else {
+                            else if (process == '0') {
                                 var inviter = self.inviter;
                                 var gameName = self.game_secret;
                                 var game_id = self.game_secret;
+                                self.sprite.visible = false;
                                 self.timer.stop();
                                 var enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter);
-                                self.sprite.visible = false;
                             }
                         });
                     }
@@ -230,9 +230,9 @@ var game;
                                 var gameName_3 = self.game_secret;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
-                                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_3, player, gameName_3, stageWidth, stageHeight, playerCount, playerScore);
                                 self.timer.stop();
                                 self.sprite.visible = false;
+                                var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter_3, player, gameName_3, stageWidth, stageHeight, playerCount, playerScore);
                                 self.stage.addChild(initiatePartialInsights);
                             }
                             else if (process == '0.2') {
@@ -243,10 +243,10 @@ var game;
                                 var gameName_4 = self.game_secret;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
-                                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_4, player, gameName_4, stageWidth, stageHeight, playerCount);
-                                self.timer.stop();
-                                this.stage.addChild(characterChoosePage);
                                 this.sprite.visible = false;
+                                self.timer.stop();
+                                var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_4, player, gameName_4, stageWidth, stageHeight, playerCount);
+                                this.stage.addChild(characterChoosePage);
                             }
                             else if (process == '1.0.0') {
                                 var that = self;
@@ -296,9 +296,9 @@ var game;
                                     var stageHeight = that.stage.stageHeight;
                                     var count = 0;
                                     self.timer.stop();
+                                    that.sprite.visible = false;
                                     var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                     that.stage.addChild(charater);
-                                    that.sprite.visible = false;
                                 });
                             }
                             else if (process == '0') {
@@ -306,9 +306,9 @@ var game;
                                 var gameName = self.game_secret;
                                 var game_id = self.game_secret;
                                 self.timer.stop();
+                                self.sprite.visible = false;
                                 var enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter);
-                                self.sprite.visible = false;
                             }
                         });
                     }
@@ -373,10 +373,10 @@ var game;
                 'process': '0'
             }).then(function (response) {
             });
-            var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
-            this.stage.addChild(enter);
             this.sprite.visible = false;
             this.timer.stop();
+            var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
+            this.stage.addChild(enter);
         };
         return CreateGame;
     }(egret.DisplayObjectContainer));

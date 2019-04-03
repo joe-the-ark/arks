@@ -127,14 +127,14 @@ var game;
                     'process': '1.' + count.toString() + '.1'
                 }).then(function (response) {
                 });
-                var chooser = this.charaChooser[this.count];
-                var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser);
                 this.sprite.visible = false;
                 this.removeChild(this.rightIcon);
                 this.removeChild(this.closeIcon);
                 this._shape.visible = false;
-                this.stage.addChild(missionPartialInsights);
                 this.tiptext.text = '';
+                var chooser = this.charaChooser[this.count];
+                var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser);
+                this.stage.addChild(missionPartialInsights);
             }
             else {
                 this.addChild(this.tiptext);
@@ -271,15 +271,6 @@ var game;
                     self.sprite.addChild(player_name);
                 });
             });
-        };
-        Character.prototype.onTouchEnd = function () {
-            egret.log("onTouchEnd");
-        };
-        Character.prototype.onTouchMove = function () {
-            egret.log("onTouchMove");
-        };
-        Character.prototype.onTouchTap = function () {
-            egret.log("onTouchTap");
         };
         return Character;
     }(egret.DisplayObjectContainer));

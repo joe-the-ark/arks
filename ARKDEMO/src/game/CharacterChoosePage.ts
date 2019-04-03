@@ -124,7 +124,7 @@ namespace game {
             this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchtwo, this)
             this.sprite.addChild(this.choosetwo)
 
-            this.timer = new egret.Timer(10, 0);
+            this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerCharacterList, this);
             this.timer.start()
 
@@ -237,7 +237,6 @@ namespace game {
             }).then(function (response) {
 
                 var character_list = response['data']
-                console.log(character_list)
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
                     if(player_name == self.player){

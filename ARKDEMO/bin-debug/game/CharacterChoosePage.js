@@ -108,7 +108,7 @@ var game;
             _this.choosetwo.touchEnabled = true;
             _this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.touchtwo, _this);
             _this.sprite.addChild(_this.choosetwo);
-            _this.timer = new egret.Timer(10, 0);
+            _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerCharacterList, _this);
             _this.timer.start();
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 20, 'Mission 1 > Tension Scales');
@@ -194,13 +194,13 @@ var game;
                             characterList_1.push(self.allcharacterlist[index]);
                         }
                     });
+                    self.sprite.visible = false;
+                    self.rightIcon.visible = false;
                     otherCharacterList.push(othersList_1);
                     otherCharacterList.push(characterList_1);
                     playerAndOthersCharacterList_1.push(otherCharacterList);
                     var charater = new game.Character(game_secret, inviter, player_1, gameName, stageWidth, stageHeight, count, self.characterList, playerAndOthersCharacterList_1);
                     self.stage.addChild(charater);
-                    self.sprite.visible = false;
-                    self.rightIcon.visible = false;
                 }
             });
         };
@@ -214,7 +214,6 @@ var game;
                 'gameName': self.gameName,
             }).then(function (response) {
                 var character_list = response['data'];
-                console.log(character_list);
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
                     if (player_name == self.player) {
@@ -227,10 +226,10 @@ var game;
                         self.count++;
                         var tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0, 0, 0, 0);
                         self.allcharacterlist.push(val[1]);
+                        self.playerList.push(player_name);
                         self.sprite.addChild(tensionScale);
                         tensionScale.x = self.stageWidth - 200;
                         tensionScale.y = self.count * 150;
-                        self.playerList.push(player_name);
                     }
                 });
                 // if (self.count == self.playerCount) {
@@ -441,7 +440,6 @@ var game;
             }
             if (this.stage) {
                 var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list, 0, 0, 0, 0);
-                console.log(tensionScale);
                 this.sprite.addChild(tensionScale);
                 tensionScale.x = this.stageWidth - 200;
                 tensionScale.y = (this.count + 1) * 150;

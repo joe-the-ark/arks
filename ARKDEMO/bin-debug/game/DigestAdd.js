@@ -102,9 +102,9 @@ var game;
                 'process': '7'
             }).then(function (response) {
             });
+            this.sprite.visible = false;
             var digestAsk = new game.DigestAsk(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             this.stage.addChild(digestAsk);
-            this.sprite.visible = false;
         };
         return DigestAdd;
     }(egret.DisplayObjectContainer));

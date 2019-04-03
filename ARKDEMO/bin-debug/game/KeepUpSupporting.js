@@ -49,10 +49,6 @@ var game;
             _this.scalesNumber = _this.player_list.length;
             _this.votedScalesNumber = _this.votedPlayerList.length;
             _this.remainingScalesNumber = _this.scalesNumber - _this.votedScalesNumber;
-            console.log(2222);
-            console.log(count);
-            console.log(votedPlayerList);
-            console.log(remainingPlayersList);
             _this.background();
             _this.remainingPlayers();
             _this.votedPlayers();
@@ -160,17 +156,17 @@ var game;
                     'inviter': self_1.inviter,
                 }).then(function (response) {
                     var result = response['result'];
+                    self_1.sprite.visible = false;
                     var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self_1.stage.addChild(preview);
-                    self_1.sprite.visible = false;
                 });
             }
             else {
                 var count = this.count + 1;
+                this.sprite.visible = false;
                 var loveAddAsk = new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
                 this.stage.addChild(loveAddAsk);
-                this.sprite.visible = false;
             }
         };
         return KeepUpSupporting;

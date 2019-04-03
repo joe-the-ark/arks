@@ -33,7 +33,6 @@ var game;
             _this.game_secret = game_secret;
             _this.gameName = gameName;
             _this.player_list = player_list;
-            console.log(_this.player_list);
             _this.text = new egret.TextField();
             _this.text.text = "My relation to \nis based on...";
             _this.text.width = 200;
@@ -168,9 +167,9 @@ var game;
                 'process': '10'
             }).then(function (response) {
             });
+            this.sprite.visible = false;
             var digestAsk = new game.Complete(this.stageWidth, this.stageHeight);
             this.stage.addChild(digestAsk);
-            this.sprite.visible = false;
         };
         return AffinityMapping;
     }(egret.DisplayObjectContainer));

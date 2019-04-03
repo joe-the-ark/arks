@@ -100,7 +100,7 @@ namespace game {
                 this.invateFriends()
             }
             
-            this.timer = new egret.Timer(100, 0);
+            this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
             this.timer.start()
             
@@ -247,7 +247,7 @@ namespace game {
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                         self.stage.addChild(charater);
                                     })
-                            }else {
+                            }else if(process == '0') {
                                 var inviter = self.inviter
                                 var gameName = self.game_secret
                                 var game_id = self.game_secret 
@@ -256,13 +256,10 @@ namespace game {
                                 let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter)
                             }
-
                         })
-
                     }
                 })
             }
-
 
             if(self.status == 'inviter'){
 

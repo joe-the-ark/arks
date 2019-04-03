@@ -39,8 +39,6 @@ var game;
             _this.gameName = gameName;
             _this.inviter = inviter;
             _this.scorecount = scorecount;
-            console.log('scorecount');
-            console.log(scorecount);
             _this.sprite = new egret.Sprite();
             _this.addChild(_this.sprite);
             _this.noticeBox = new egret.TextField();
@@ -51,7 +49,7 @@ var game;
             _this.initNotice();
             _this.processBar();
             _this.rightIcon();
-            _this.timer = new egret.Timer(10, 0);
+            _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
             return _this;
@@ -111,7 +109,6 @@ var game;
                 'player': self.player,
                 'gameName': self.gameName,
             }).then(function (response) {
-                console.log(response);
                 self.simulatedData1 = response['simulatedData1'];
                 self.simulatedData2 = response['simulatedData2'];
                 var votedScalesNumber = self.simulatedData2.length;
@@ -185,9 +182,9 @@ var game;
                 if (playerCount > scorecount) {
                     if (characterListParams[1][scorecount] != undefined) {
                         self.timer.stop();
+                        self.sprite.visible = false;
                         var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
                         self.stage.addChild(charater);
-                        self.sprite.visible = false;
                         // self.rightIcon.visible = false
                     }
                     else {
@@ -195,7 +192,6 @@ var game;
                     }
                 }
                 else {
-                    console.log('所有性格打分结束');
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
                         'game_secret': self.game_secret,
@@ -204,11 +200,10 @@ var game;
                         'process': '2.0'
                     }).then(function (response) {
                         self.timer.stop();
+                        self.sprite.visible = false;
                         var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                         self.stage.addChild(toTensionScaleResult);
-                        self.sprite.visible = false;
                     });
-                    console.log('结束');
                 }
             });
         };

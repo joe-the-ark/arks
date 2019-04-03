@@ -125,12 +125,12 @@ var game;
                     var stageHeight = self.stageHeight;
                     var playerSCore = self.playerSCore;
                     var playerCount = self.playerList.length;
-                    var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
                     self.sprite.visible = false;
                     self.removeChild(self.rightIcon);
                     self.removeChild(self.closeIcon);
                     self.closeTip();
                     self._shape.visible = false;
+                    var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
                     self.stage.addChild(initiatePartialInsights);
                 });
             }

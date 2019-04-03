@@ -102,10 +102,10 @@ var game;
                 'process': '6'
             }).then(function (response) {
             });
+            this.sprite.visible = false;
             var digestAdd = new game.DigestAdd(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             // let preview =  new game.Preview2(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAdd);
-            this.sprite.visible = false;
         };
         return DigestLove;
     }(egret.DisplayObjectContainer));

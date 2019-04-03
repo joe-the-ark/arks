@@ -152,8 +152,6 @@ var game;
                 'c2': self.character2,
                 'chooser': self.chooser
             }).then(function (response) {
-                console.log('ttsm');
-                console.log(response);
                 self.teamTensionScaleMedian = response['ttsm'];
                 self.individualTensionScale = response['individualTensionScale'];
                 self.playerCount = response['playerCount'];
@@ -226,9 +224,9 @@ var game;
                 'process': '1.' + this.scorecount.toString() + '2'
             }).then(function (response) {
             });
+            this.sprite.visible = false;
             var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
             this.stage.addChild(keepUpVoting);
-            this.sprite.visible = false;
         };
         ExpandedTensionScale.prototype.tensionScale = function () {
             // // 上面的性格
