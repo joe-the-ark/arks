@@ -104,8 +104,8 @@ var game;
                 var gameName = this.gameName;
                 var stageWidth = this.stageWidth;
                 var stageHeight = this.stageHeight;
-                var characterone_1 = this.characterListParams[1][this.count][0];
-                var charactertwo_1 = this.characterListParams[1][this.count][1];
+                var characterone = this.characterListParams[1][this.count][0];
+                var charactertwo = this.characterListParams[1][this.count][1];
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('set_player_score', {
                     'params': this.map,
@@ -114,107 +114,27 @@ var game;
                     'player': this.player,
                     'gameName': this.gameName,
                     'charaChooser': this.charaChooser[this.count],
-                    'characterOne': characterone_1,
-                    'characterTwo': charactertwo_1
+                    'characterOne': characterone,
+                    'characterTwo': charactertwo
                 }).then(function (response) {
                 });
-                var count_1 = this.count;
+                var count = this.count;
                 base.API.call('save_players_process', {
                     'inviter_name': this.inviter,
                     'game_secret': this.game_secret,
                     'player': this.player,
                     'game_name': this.gameName,
-                    'process': '1.' + count_1.toString() + '.1'
+                    'process': '1.' + count.toString() + '.1'
                 }).then(function (response) {
-                    var chooser = this.charaChooser[this.count];
-                    var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone_1, charactertwo_1, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count_1, chooser);
-                    this.sprite.visible = false;
-                    this.removeChild(this.rightIcon);
-                    this.removeChild(this.closeIcon);
-                    this._shape.visible = false;
-                    this.stage.addChild(missionPartialInsights);
-                    this.tiptext.text = '';
                 });
-                // }
-                // if (this.count + 1 == this.characterList.length) {
-                //     console.log('打分结束')
-                //     base.API.Init("http://work.metatype.cn:8105/api/");
-                //     base.API.call('set_player_score', {
-                //         'params': this.map,
-                //         'inviter_name': this.inviter,
-                //         'gameSecret': this.game_secret,
-                //         'player': this.player,
-                //         'gameName': this.gameName,
-                //         'charaChooser': this.charaChooser[this.count],
-                //         'characterOne': this.characterOne,
-                //         'characterTwo': this.characterTwo
-                //     }).then(function (response) {
-                //         console.log(response)
-                //     })
-                //     console.log('所有性格打分结束')
-                //     var this = this
-                //     base.API.call('save_players_process', {
-                //         'inviter_name': self.inviter,
-                //         'game_secret': self.game_secret,
-                //         'player': self.player,
-                //         'game_name': self.gameName,
-                //         'process': '4.0'
-                //     }).then(function (response) {
-                //         let toTensionScaleResult = new game.TensionScaleResult(
-                //             stageWidth,
-                //             stageHeight,
-                //             inviter,
-                //             game_secret,
-                //             player,
-                //             gameName,
-                //             self.characterListParams,
-                //             self.count + 1
-                //         )
-                //         self.stage.addChild(toTensionScaleResult);
-                //         self.sprite.visible = false;
-                //         self._shape.visible = false
-                //         self.rightIcon.visible = false;
-                //     })
-                // } else {
-                //     console.log('打分结束')
-                //     base.API.Init("http://work.metatype.cn:8105/api/");
-                //     base.API.call('set_player_score', {
-                //         'params': this.map,
-                //         'inviter_name': this.inviter,
-                //         'gameSecret': this.game_secret,
-                //         'player': this.player,
-                //         'gameName': this.gameName,
-                //         'charaChooser': this.charaChooser[this.count],
-                //         'characterOne': this.characterOne,
-                //         'characterTwo': this.characterTwo
-                //     }).then(function (response) {
-                //         console.log(response)
-                //     })
-                //     this.count += 1
-                //     var self = this
-                //     var process = '3.' + self.count.toString()
-                //     base.API.call('save_players_process', {
-                //         'inviter_name': self.inviter,
-                //         'game_secret': self.game_secret,
-                //         'player': self.player,
-                //         'game_name': self.gameName,
-                //         'process': process
-                //     }).then(function (response) {
-                //         // let charater = new game.Character(
-                //         //     game_secret, inviter,
-                //         //     player, gameName,
-                //         //     stageWidth, stageHeight,
-                //         //     self.count, self.characterListParams);
-                //         //小循环的第二个页面
-                //         let missionPartialInsights =  new game.MissionPartialInsights(self.stageWidth, self.stageHeight, process, self.characterOne, self.characterTwo, self.player, self.player_score, self.inviter, self.game_secret, self.gameName, this.charaChooser[this.count])
-                //         self.sprite.visible = false
-                //         self.removeChild(self.rightIcon)
-                //         self.removeChild(self.closeIcon)
-                //         self._shape.visible = false
-                //         self.stage.addChild(missionPartialInsights);
-                //         self.tiptext.text = ''
-                //     })
-                // }
+                var chooser = this.charaChooser[this.count];
+                var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser);
+                this.sprite.visible = false;
+                this.removeChild(this.rightIcon);
+                this.removeChild(this.closeIcon);
+                this._shape.visible = false;
+                this.stage.addChild(missionPartialInsights);
+                this.tiptext.text = '';
             }
             else {
                 this.addChild(this.tiptext);

@@ -394,7 +394,6 @@ namespace game {
                                         self.sprite.visible = false
                                     }
 
-
                         })
                     }
                  })

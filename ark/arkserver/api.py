@@ -940,7 +940,6 @@ def getGameStatus(**params):
             return {'code':0, 'result':3}
         return {'code':0, 'result':1}
 
-
     elif game.status == 2:
     #     if _player:
     #         return { 'code':0, 'result':2}
