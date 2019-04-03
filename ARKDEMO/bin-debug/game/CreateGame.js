@@ -192,6 +192,7 @@ var game;
                                     var stageHeight = self.stage.stageHeight;
                                     var count = 0;
                                     var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
+                                    self.timer.stop();
                                     self.stage.addChild(charater);
                                     self.sprite.visible = false;
                                 });
@@ -294,12 +295,13 @@ var game;
                                     var stageWidth = that.stage.stageWidth;
                                     var stageHeight = that.stage.stageHeight;
                                     var count = 0;
+                                    self.timer.stop();
                                     var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                     that.stage.addChild(charater);
                                     that.sprite.visible = false;
                                 });
                             }
-                            else {
+                            else if (process == '0') {
                                 var inviter = self.inviter;
                                 var gameName = self.game_secret;
                                 var game_id = self.game_secret;
@@ -340,21 +342,14 @@ var game;
                             trigger: function () {
                             },
                             success: function (res) {
-                                alert('分享完成');
                             },
                             cancel: function () {
-                                alert('淘气了哦，你取消分享');
-                                console.log('cancel');
                             },
                             fail: function (res) {
-                                console.log(res);
-                                console.log('fail');
                             }
                         });
                     });
                     wx.error(function (res) {
-                        console.log('error');
-                        console.log(res);
                     });
                 }
             }).catch(function (err) {
@@ -369,6 +364,14 @@ var game;
             base.API.Init("http://work.metatype.cn:8105/api/");
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game', { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
+            });
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.game_secret,
+                'process': '0'
+            }).then(function (response) {
             });
             var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter);
