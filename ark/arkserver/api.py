@@ -1131,10 +1131,7 @@ def game_end(inviter_name, game_secret, gameName, player):
         game_secret=game_secret,
         game_name=gameName,
         inviter=_inviter,
-    ).first()
-
-    game.status = 2
-    game.save()
+    ).first().delete()
 
 
     return {'code':0}

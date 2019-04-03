@@ -49,9 +49,10 @@ namespace game {
                 }).catch(function (err) {
                 });
             if( this.stage ) {
+                this.sprite.visible = false
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid,this.openid, this.nickname, 'inviter');
                 this.stage.addChild(inviteScene)
-                this.sprite.visible = false
+                
             }
         }
     }

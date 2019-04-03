@@ -86,13 +86,11 @@ namespace game {
               
             })
 
-            console.log('SettingSail')
-            console.log('this.simulateDate')
 
             var count = 0
+            this.sprite.visible = false
             var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(loveAddAsk)
-            this.sprite.visible = false
 
 
         }

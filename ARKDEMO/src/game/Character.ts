@@ -154,15 +154,15 @@ namespace game {
      
 
                 });
-
-                let chooser = this.charaChooser[this.count]
-                let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
                 this.sprite.visible = false
                 this.removeChild(this.rightIcon)
                 this.removeChild(this.closeIcon)
                 this._shape.visible = false
-                this.stage.addChild(missionPartialInsights);
                 this.tiptext.text = ''
+
+                let chooser = this.charaChooser[this.count]
+                let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
+                this.stage.addChild(missionPartialInsights);
 
             } else {
                 this.addChild(this.tiptext)
@@ -321,18 +321,6 @@ namespace game {
 
                 })
             })
-        }
-
-        private onTouchEnd(): void {
-            egret.log("onTouchEnd");
-        }
-
-        private onTouchMove(): void {
-            egret.log("onTouchMove");
-        }
-
-        private onTouchTap(): void {
-            egret.log("onTouchTap");
         }
 
     }

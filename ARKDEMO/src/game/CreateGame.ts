@@ -154,6 +154,8 @@ namespace game {
                                 let gameName = self.game_secret
                                 let stageWidth = self.stageWidth
                                 let stageHeight = self.stageHeight
+                                self.timer.stop() 
+                                self.sprite.visible = false;
                                 let initiatePartialInsights =  new game.InitiatePartialInsights(
                                     game_secret,
                                     inviter,
@@ -164,8 +166,7 @@ namespace game {
                                     playerCount,
                                     playerScore
                                 )
-                                self.timer.stop() 
-                                self.sprite.visible = false;
+                                
                                 self.stage.addChild(initiatePartialInsights)
                             }
                             else if (process == '0.2'){
@@ -177,6 +178,8 @@ namespace game {
                                 let gameName = self.game_secret
                                 let stageWidth = self.stageWidth
                                 let stageHeight = self.stageHeight
+                                self.timer.stop() 
+                                this.sprite.visible = false
 
                                 let characterChoosePage = new game.CharacterChoosePage(
                                     game_secret,
@@ -187,9 +190,7 @@ namespace game {
                                     stageHeight,
                                     playerCount
                                 )
-                                self.timer.stop() 
                                 this.stage.addChild(characterChoosePage)
-                                this.sprite.visible = false
                             }
                             else if (process == '1.0.0'){
                                     var count = 0
@@ -241,19 +242,19 @@ namespace game {
                                         let stageWidth = self.stage.stageWidth
                                         let stageHeight = self.stage.stageHeight
                                         var count = 0
-                                        let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                         self.timer.stop() 
-                                        self.stage.addChild(charater);
                                         self.sprite.visible = false
+                                        let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
+                                        self.stage.addChild(charater);
                                     })
                             }else {
                                 var inviter = self.inviter
                                 var gameName = self.game_secret
                                 var game_id = self.game_secret 
+                                self.sprite.visible = false
                                 self.timer.stop() 
                                 let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter)
-                                self.sprite.visible = false
                             }
 
                         })
@@ -287,6 +288,8 @@ namespace game {
                                         let gameName = self.game_secret
                                         let stageWidth = self.stageWidth
                                         let stageHeight = self.stageHeight
+                                        self.timer.stop() 
+                                        self.sprite.visible = false;
                                         let initiatePartialInsights =  new game.InitiatePartialInsights(
                                             game_secret,
                                             inviter,
@@ -297,8 +300,6 @@ namespace game {
                                             playerCount,
                                             playerScore
                                         )
-                                        self.timer.stop() 
-                                        self.sprite.visible = false;
                                         self.stage.addChild(initiatePartialInsights)
                                     }
                                     else if (process == '0.2'){
@@ -310,6 +311,8 @@ namespace game {
                                         let gameName = self.game_secret
                                         let stageWidth = self.stageWidth
                                         let stageHeight = self.stageHeight
+                                        this.sprite.visible = false
+                                        self.timer.stop() 
 
                                         let characterChoosePage = new game.CharacterChoosePage(
                                             game_secret,
@@ -320,9 +323,7 @@ namespace game {
                                             stageHeight,
                                             playerCount
                                         )
-                                        self.timer.stop() 
                                         this.stage.addChild(characterChoosePage)
-                                        this.sprite.visible = false
                                     }
 
                                     else if (process == '1.0.0'){
@@ -378,10 +379,11 @@ namespace game {
                                                 let stageHeight = that.stage.stageHeight
                                                 var count = 0
                                                 self.timer.stop() 
-                                                
+                                                that.sprite.visible = false
+
                                                 let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                                 that.stage.addChild(charater);
-                                                that.sprite.visible = false
+                                                
 
                                             })
                                     }else if(process == '0') {
@@ -389,9 +391,10 @@ namespace game {
                                         var gameName = self.game_secret
                                         var game_id = self.game_secret 
                                         self.timer.stop() 
+                                        self.sprite.visible = false
+                                        
                                         let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                         self.stage.addChild(enter)
-                                        self.sprite.visible = false
                                     }
 
                         })
@@ -463,11 +466,11 @@ namespace game {
             }).then(function (response){
             
             })
+            this.sprite.visible = false
+            this.timer.stop()
 
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
             this.stage.addChild(enter)
-            this.sprite.visible = false
-            this.timer.stop()
 
         }
 

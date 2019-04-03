@@ -148,6 +148,12 @@ namespace game {
                     let stageHeight = self.stageHeight
                     let playerSCore = self.playerSCore 
                     let playerCount = self.playerList.length
+                    self.sprite.visible = false;
+                    self.removeChild(self.rightIcon);
+                    self.removeChild(self.closeIcon);
+                    self.closeTip();
+                    self._shape.visible = false
+                    
                     let initiatePartialInsights =  new game.InitiatePartialInsights(
                         game_secret,
                         inviter,
@@ -158,11 +164,6 @@ namespace game {
                         playerCount,
                         playerSCore
                     )
-                    self.sprite.visible = false;
-                    self.removeChild(self.rightIcon);
-                    self.removeChild(self.closeIcon);
-                    self.closeTip();
-                    self._shape.visible = false
                     self.stage.addChild(initiatePartialInsights)
                 })
             }

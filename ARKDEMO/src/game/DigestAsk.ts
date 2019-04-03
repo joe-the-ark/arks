@@ -108,9 +108,9 @@ namespace game {
                 
                 })
                 
+            this.sprite.visible = false
             let cliffhanger =  new game.Cliffhanger(this.stageWidth, this.stageHeight,this.inviter, this.game_secret, this.gameName, this.player)
             this.stage.addChild(cliffhanger)
-            this.sprite.visible = false
 
 
         }

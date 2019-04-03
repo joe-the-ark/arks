@@ -34,8 +34,6 @@ namespace game {
             this.gameName = gameName
             this.inviter = inviter
             this.scorecount = scorecount
-            console.log('scorecount')
-            console.log(scorecount)
             this.sprite = new egret.Sprite()
             this.addChild(this.sprite)
             this.noticeBox = new egret.TextField()
@@ -49,7 +47,7 @@ namespace game {
             this.rightIcon()
             
 
-            this.timer = new egret.Timer(10, 0);
+            this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
         }
@@ -116,7 +114,6 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
                 
-                console.log(response)
                 self.simulatedData1 = response['simulatedData1']
                 self.simulatedData2 = response['simulatedData2']
 
@@ -200,16 +197,15 @@ namespace game {
                 if(playerCount > scorecount ){
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
+                        self.sprite.visible = false
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
-                        self.sprite.visible = false
                         // self.rightIcon.visible = false
                     }else {
                         alert('Please wait for others to choose scale')
                     }
                 }
                 else {
-                    console.log('所有性格打分结束')
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
                         'game_secret': self.game_secret,
@@ -218,6 +214,7 @@ namespace game {
                         'process': '2.0'
                     }).then(function (response) {
                         self.timer.stop()
+                        self.sprite.visible = false;
                         let toTensionScaleResult = new game.TensionScaleResult(
                             self.stageWidth,
                             self.stageHeight,
@@ -229,11 +226,8 @@ namespace game {
                             self.playerCount
                         )
                         self.stage.addChild(toTensionScaleResult);
-                        self.sprite.visible = false;
 
                     })
-                    console.log('结束')
-
                 }
             })
         }

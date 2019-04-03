@@ -19,9 +19,6 @@ namespace game {
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
-            console.log(inviter)
-            console.log(player)
-            
             this.inviter = inviter
             this.player = player
             this.game_secret = game_secret
@@ -105,9 +102,9 @@ namespace game {
                 var player_list = result
 
 
+                self.sprite.visible = false
                 let cliffhanger =  new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list,self.inviter,self.game_secret,self.player,self.gameName)
                 self.stage.addChild(cliffhanger)
-                self.sprite.visible = false
             })
 
 

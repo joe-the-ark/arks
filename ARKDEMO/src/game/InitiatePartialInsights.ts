@@ -97,6 +97,7 @@ namespace game {
                 let stageHeight = self.stageHeight
                 let playerSCore = self.selfPerception 
                 let playerCount = self.playerCount
+                self.sprite.visible = false
                 let characterChoosePage = new game.CharacterChoosePage(
                     game_secret,
                     inviter,
@@ -107,9 +108,9 @@ namespace game {
                     playerCount
                 )
                 self.stage.addChild(characterChoosePage)
-                self.sprite.visible = false
+                
             })
-            
+
         }
     }
 }

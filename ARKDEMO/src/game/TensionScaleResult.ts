@@ -137,10 +137,8 @@ namespace game {
 
                 if(val.length < 4){
                      alert('Please wait for everyone to finish scoring.')
-                     flag = false
-                                         
+                     flag = false                     
                 }   
-
             })
 
 
@@ -157,9 +155,9 @@ namespace game {
                 })
                 
                 if (self.stage) {
+                    self.sprite.visible = false
                     var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams)
                     self.stage.addChild(missionResult)
-                    self.sprite.visible = false
                 }
             }
 

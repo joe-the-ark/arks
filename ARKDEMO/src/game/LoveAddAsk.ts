@@ -102,10 +102,10 @@ namespace game {
                     var loveFeedbackList = result[0]
                     var addFeedbackList = result[1]
                     var askFeedbackList = result[2]
+                    self.sprite.visible = false
                     let preview =  new game.Preview(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList, self.simulatedData)
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self.stage.addChild(preview)
-                    self.sprite.visible = false
 
                 })  
 

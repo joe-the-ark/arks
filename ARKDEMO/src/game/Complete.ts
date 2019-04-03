@@ -44,9 +44,6 @@ namespace game {
             }).then(function (response){
             
             })
-
-
         }
-
     }
 }

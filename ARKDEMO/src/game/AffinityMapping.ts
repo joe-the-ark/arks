@@ -32,7 +32,6 @@ namespace game {
             this.gameName = gameName
             this.player_list = player_list
 
-            console.log(this.player_list)
 
             this.text = new egret.TextField()
             this.text.text = "My relation to \nis based on..."
@@ -192,9 +191,9 @@ namespace game {
             }).then(function (response){
             })
 
+            this.sprite.visible = false
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAsk)
-            this.sprite.visible = false
         }
 
 

@@ -216,13 +216,13 @@ namespace game {
                             characterList.push(self.allcharacterlist[index])
                         }
                     })
+                    self.sprite.visible = false
+                    self.rightIcon.visible = false
                     otherCharacterList.push(othersList)
                     otherCharacterList.push(characterList)
                     playerAndOthersCharacterList.push(otherCharacterList)
                     let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, self.characterList, playerAndOthersCharacterList);
                     self.stage.addChild(charater);
-                    self.sprite.visible = false
-                    self.rightIcon.visible = false
                 }
             })
         }
@@ -250,10 +250,10 @@ namespace game {
                         self.count++
                         let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0, 0, 0, 0)
                         self.allcharacterlist.push(val[1])
+                        self.playerList.push(player_name)
                         self.sprite.addChild(tensionScale)
                         tensionScale.x = self.stageWidth - 200
                         tensionScale.y = self.count * 150
-                        self.playerList.push(player_name)
                     }
                 })
                 // if (self.count == self.playerCount) {
@@ -481,7 +481,6 @@ namespace game {
 
             if (this.stage) {
                 let tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list, 0, 0, 0, 0)
-                console.log(tensionScale)
                 this.sprite.addChild(tensionScale)
                 tensionScale.x = this.stageWidth - 200
                 tensionScale.y = (this.count + 1) * 150

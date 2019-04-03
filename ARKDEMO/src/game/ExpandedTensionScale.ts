@@ -83,7 +83,6 @@ namespace game {
             this.timer.start()
             this.rightIcon()
 
-
             this.tiptext = new egret.TextField()
             this.noticetext = new egret.TextField()
             this.sprite.addChild(this.noticetext)
@@ -184,8 +183,6 @@ namespace game {
                 'c2':self.character2,
                 'chooser':self.chooser
             }).then(function (response) {
-                console.log('ttsm')
-                console.log(response)
                 self.teamTensionScaleMedian = response['ttsm']
                 self.individualTensionScale = response['individualTensionScale']
 
@@ -272,9 +269,9 @@ namespace game {
 
             })
 
+            this.sprite.visible = false
             let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
             this.stage.addChild(keepUpVoting)
-            this.sprite.visible = false
 
         }
 

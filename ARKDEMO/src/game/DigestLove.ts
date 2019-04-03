@@ -110,10 +110,10 @@ namespace game {
                 })
 
 
+            this.sprite.visible = false
             let digestAdd =  new game.DigestAdd(this.stageWidth, this.stageHeight, this.result ,this.inviter, this.game_secret, this.gameName, this.player)
             // let preview =  new game.Preview2(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAdd)
-            this.sprite.visible = false
 
 
         }
