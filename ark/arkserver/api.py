@@ -27,12 +27,11 @@ def create_game(inviter, gameName, game_id):
 
     game = Game.objects.filter(game_secret=game_id, game_name=gameName, inviter=player).first()
     if game:
-
         game.status = 1
         game.save()
 
     else:
-        game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player)
+        game = Game.objects.create(game_secret=game_id, game_name=gameName, inviter=player, status=1)
     # character_one = Character.objects.filter(name='Insufficiently').first()
     # character_two = Character.objects.filter(name='Fully').first()
     # print(character_two)
@@ -941,11 +940,12 @@ def getGameStatus(**params):
             return {'code':0, 'result':3}
         return {'code':0, 'result':1}
 
-    elif game.status == 0:
-        if _player:
-            return { 'code':0, 'result':2}
 
-        return {'code':0, 'result':0}
+    elif game.status == 2:
+    #     if _player:
+    #         return { 'code':0, 'result':2}
+
+        return {'code':0, 'result':2}
 
 @api
 def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):

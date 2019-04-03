@@ -100,7 +100,7 @@ namespace game {
                 this.invateFriends()
             }
             
-            this.timer = new egret.Timer(1000, 0);
+            this.timer = new egret.Timer(100, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
             this.timer.start()
             
@@ -144,7 +144,6 @@ namespace game {
 
                         }).then(function (response) {
 
-                            console.log(response)
                             var process = response['process']
                             if(process == '0.1'){
                                 var playerCount = response['playercount']

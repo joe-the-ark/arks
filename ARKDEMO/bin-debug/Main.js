@@ -173,6 +173,9 @@ var Main = (function (_super) {
                             var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'player');
                             self_1.stage.addChild(scene);
                         }
+                        else if (status = 2) {
+                            alert('The game is in end.');
+                        }
                         else {
                             alert('The game is in progress.');
                         }

@@ -108,7 +108,11 @@ class Main extends egret.DisplayObjectContainer {
                                     let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
                                     self.stage.addChild(scene)
                                     
-                                }else{
+                                }else if(status = 2){
+                                    alert('The game is in end.')
+                                }
+
+                                else{
                                     alert('The game is in progress.')
                                 }
 

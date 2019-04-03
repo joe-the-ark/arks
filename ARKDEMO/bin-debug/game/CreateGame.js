@@ -78,7 +78,7 @@ var game;
                 _this.sprite.addChild(_this.label3);
                 _this.invateFriends();
             }
-            _this.timer = new egret.Timer(1000, 0);
+            _this.timer = new egret.Timer(100, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayeList, _this);
             _this.timer.start();
             return _this;
@@ -118,7 +118,6 @@ var game;
                             'player': self.nickname,
                             'gameName': self.game_secret
                         }).then(function (response) {
-                            console.log(response);
                             var process = response['process'];
                             if (process == '0.1') {
                                 var playerCount = response['playercount'];
