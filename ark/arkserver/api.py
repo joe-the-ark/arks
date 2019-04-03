@@ -727,8 +727,9 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         for _ in playerScores:
             if _.id == _player.id:
                 sp = int(_.score)
-            else:
-                othersScoreList.append(int(_.score))
+                continue
+            # else:
+            othersScoreList.append(int(_.score))
 
         print('sp')
         print(sp)
@@ -738,8 +739,6 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
             itsm = int(average/othersCount)
         else:
             itsm = 0
-
-
 
         spitsm = abs(sp - itsm)
 
