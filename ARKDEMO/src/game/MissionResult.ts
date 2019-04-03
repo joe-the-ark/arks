@@ -61,6 +61,10 @@ namespace game{
             }).then(function (response){
               
             })
+
+            console.log('missionResult')
+            console.log(this.simulatedData)
+
             let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(settingSail);
             this.sprite.visible = false
@@ -136,7 +140,6 @@ namespace game{
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
                     let zoramap = new game.ZORAMap(val[0], val[1], this.player, val[3], val[2], this.stageWidth, this.stageHeight, ttsm, this.simulatedData, this.inviter, this.game_secret, this.gameName)
                     // zoramap.x = 10
-                    console.log(zoramap)
                     zoramap.y = 200 + (index-1)*150
                     // if (index % 2 == 1) {
                     //     zoramap.x = 150;

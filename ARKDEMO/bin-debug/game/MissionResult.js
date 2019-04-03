@@ -60,6 +60,8 @@ var game;
                 'process': '3'
             }).then(function (response) {
             });
+            console.log('missionResult');
+            console.log(this.simulatedData);
             var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
             this.stage.addChild(settingSail);
             this.sprite.visible = false;
@@ -126,7 +128,6 @@ var game;
                     // let tensionScale = new game.TensionScale(100, 60, [val[0], val[1]], score);
                     var zoramap = new game.ZORAMap(val[0], val[1], _this.player, val[3], val[2], _this.stageWidth, _this.stageHeight, ttsm, _this.simulatedData, _this.inviter, _this.game_secret, _this.gameName);
                     // zoramap.x = 10
-                    console.log(zoramap);
                     zoramap.y = 200 + (index - 1) * 150;
                     // if (index % 2 == 1) {
                     //     zoramap.x = 150;

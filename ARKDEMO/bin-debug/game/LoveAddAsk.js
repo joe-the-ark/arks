@@ -27,6 +27,7 @@ var game;
             _this.playerName = "";
             _this.simulatedData = [];
             _this.player_list = [];
+            console.log(simulatedData);
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();

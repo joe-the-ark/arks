@@ -42,7 +42,6 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.ttsm = Number(ttsm);
-            console.log(stageWidth);
             _this.inviter = inviter;
             _this.player = player_name;
             _this.game_secret = game_secret;

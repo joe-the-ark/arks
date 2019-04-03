@@ -55,8 +55,6 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.ttsm = Number(ttsm)
-            console.log(stageWidth)
-
 
             this.inviter = inviter
             this.player = player_name

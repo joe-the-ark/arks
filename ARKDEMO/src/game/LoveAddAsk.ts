@@ -28,6 +28,9 @@ namespace game {
         public constructor(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
             super()
 
+
+            console.log(simulatedData)
+
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
