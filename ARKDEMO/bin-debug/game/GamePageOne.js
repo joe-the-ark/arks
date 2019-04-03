@@ -145,7 +145,7 @@ var game;
         };
         GamePageOne.prototype.clickTip = function () {
             var clickTip = new egret.TextField();
-            clickTip.text = "Drag & Drop your Icon on the scale as you see fit. The question: In retrospective, to what extent does your team tap into its full POTENTIAL...";
+            clickTip.text = "Drag & Drop your  Icon on the scale  as you see fit. The question: In retro-spective, to what e-xtent does your te-am tap into its full  POTENTIAL...";
             clickTip.width = 250;
             clickTip.x = 30;
             clickTip.y = 450;

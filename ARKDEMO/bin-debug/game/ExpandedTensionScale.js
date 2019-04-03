@@ -61,7 +61,7 @@ var game;
             _this.zoraMedianLine = new egret.Shape();
             _this.sprite.addChild(_this.zoraMedianLine);
             _this.initSprite();
-            _this.timer = new egret.Timer(10, 0);
+            _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getttsm, _this);
             _this.timer.start();
             _this.rightIcon();

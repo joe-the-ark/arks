@@ -78,7 +78,7 @@ namespace game {
             this.sprite.addChild(this.zoraMedianLine);
 
             this.initSprite()
-            this.timer = new egret.Timer(10, 0);
+            this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
             this.rightIcon()
