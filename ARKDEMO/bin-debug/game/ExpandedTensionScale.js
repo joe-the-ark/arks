@@ -221,7 +221,7 @@ var game;
             base.API.call('save_players_process', {
                 'inviter_name': this.inviter,
                 'game_secret': this.game_secret,
-                'player': this.player,
+                'player': this.playerName,
                 'game_name': this.gameName,
                 'process': '1.' + this.scorecount.toString() + '2'
             }).then(function (response) {

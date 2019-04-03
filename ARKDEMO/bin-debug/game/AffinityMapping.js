@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var AffinityMapping = (function (_super) {
         __extends(AffinityMapping, _super);
-        function AffinityMapping(stageWidth, stageHeight, player_list) {
+        function AffinityMapping(stageWidth, stageHeight, player_list, inviter, game_secret, player, gameName) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -28,6 +28,10 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.player = player;
+            _this.inviter = inviter;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.player_list = player_list;
             console.log(_this.player_list);
             _this.text = new egret.TextField();
@@ -90,26 +94,17 @@ var game;
                 area.height = 150;
                 area.x = _this._x + _this.text.width + _this.votingPlayerName.width + _this._margin;
                 area.y = 200 + index * 170;
-                console.log(area.x);
-                console.log(area.y);
                 area.border = true;
                 area.borderColor = 0x000000;
                 _this.sprite.addChild(area);
-                console.log('x');
                 var x = area.x;
                 var y = area.y;
-                console.log('y');
                 area.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.chooseArea.bind(_this, area.x, area.y), _this);
             });
         };
         AffinityMapping.prototype.chooseArea = function (x, y) {
             var self = this;
-            console.log('chooseArea');
-            console.log(x);
-            console.log(y);
-            console.log('chooseArea');
             var choose = new egret.TextField();
-            console.log(self.sprite);
             choose.text = self.choose;
             choose.width = 200;
             choose.height = 50;

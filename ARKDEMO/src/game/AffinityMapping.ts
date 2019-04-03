@@ -20,12 +20,16 @@ namespace game {
         public choose
 
         public votingPlayerName: egret.TextField
-        public constructor(stageWidth, stageHeight, player_list) {
+        public constructor(stageWidth, stageHeight, player_list,inviter,game_secret,player,gameName) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
 
+            this.player=player
+            this.inviter=inviter
+            this.game_secret=game_secret
+            this.gameName = gameName
             this.player_list = player_list
 
             console.log(this.player_list)
@@ -98,18 +102,11 @@ namespace game {
 
                 area.y = 200 + index * 170
 
-                console.log(area.x)
-                console.log(area.y)
-
-                
-
                 area.border = true
                 area.borderColor = 0x000000
                 this.sprite.addChild(area)
-                console.log('x')
                 var x = area.x
                 var y = area.y
-                console.log('y')
                 area.addEventListener(egret.TouchEvent.TOUCH_TAP, this.chooseArea.bind(this, area.x, area.y), this)
 
             })
@@ -118,13 +115,8 @@ namespace game {
         private chooseArea(x:number, y:number){
 
             var self = this
-            console.log('chooseArea')
-            console.log(x)
-            console.log(y)
-            console.log('chooseArea')
+            
             let choose = new egret.TextField()
-
-            console.log(self.sprite)
 
             choose.text = self.choose
             choose.width = 200
@@ -191,15 +183,14 @@ namespace game {
 
         private nextPage(){
 
-                base.API.call('save_players_process', { 
-                    'inviter_name': this.inviter, 
-                    'game_secret': this.game_secret,
-                    'player': this.player,
-                    'game_name': this.gameName,
-                    'process': '10'
-                }).then(function (response){
-                
-                })
+            base.API.call('save_players_process', { 
+                'inviter_name': this.inviter, 
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '10'
+            }).then(function (response){
+            })
 
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAsk)

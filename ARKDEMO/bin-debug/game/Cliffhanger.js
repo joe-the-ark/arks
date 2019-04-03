@@ -87,16 +87,16 @@ var game;
                 'player': self.player
             }).then(function (response) {
                 base.API.call('save_players_process', {
-                    'inviter_name': this.inviter,
-                    'game_secret': this.game_secret,
-                    'player': this.player,
-                    'game_name': this.gameName,
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
                     'process': '9'
                 }).then(function (response) {
                 });
                 var result = response['result'];
                 var player_list = result;
-                var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list);
+                var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list, self.inviter, self.game_secret, self.player, self.gameName);
                 self.stage.addChild(cliffhanger);
                 self.sprite.visible = false;
             });
