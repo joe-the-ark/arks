@@ -726,18 +726,12 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
 
         for _ in playerScores:
 
-            print(_)
-            print(_player)
-
             if _.scorer.id == _player.id:
                 sp = int(_.score)
 
                 continue
             # else:
             othersScoreList.append(int(_.score))
-
-        print('sp')
-        print(sp)
         #其他人对该玩家的评分的均值
         average = sum(othersScoreList)
         if othersCount:
@@ -747,12 +741,9 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
 
         spitsm = abs(sp - itsm)
 
-        print('spitsm')
-        print(spitsm)
 
         #判断是不是玩家打分过的scale
         s2 = PlayerScore.objects.filter(character_choose=c, scorer=_player, game=game).first()
-        print(s2)
         simulatedData.append(c1)
         simulatedData.append(c2)
         simulatedData.append(itsm)
@@ -764,10 +755,6 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
             simulatedData2.append(simulatedData)
         else:
             simulatedData1.append(simulatedData)
-
-
-        print(simulatedData1)
-        print(simulatedData2)
 
 
     return {'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2}
@@ -782,8 +769,6 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
     ).first()
-
-    print(_player)
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
@@ -818,7 +803,6 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     result.append(chooserList)
     result.append(characterList)
 
-    print(result)
     return {'code':0, 'characterListParams':result, 'playerCount':playerCount}
 
 
@@ -1004,10 +988,6 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
         ask.append('')
         askFeedback += ask
 
-        print(love)
-        print(ask)
-
-
     result.append(loveFeedback)
     result.append(addFeedback)
     result.append(askFeedback)
@@ -1087,9 +1067,6 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         ask.append('')
         askFeedback += ask
 
-        print(love)
-        print(ask)
-
 
     result.append(loveFeedback)
     result.append(addFeedback)
@@ -1113,13 +1090,13 @@ def game_end(inviter_name, game_secret, gameName, player):
         inviter=_inviter,
     ).first()
 
-    flag = False
+    flag = True
 
     players = Player.objects.filter(game_name=gameName, game_secret=game_secret, inviter_name=inviter_name)
     for p in players:
         process = GameProcess.objects.filter(game=game, player=p).first()
         if process.process != '10':
-            flag = True
+            flag = False
 
     if flag:
         game = Game.objects.filter(

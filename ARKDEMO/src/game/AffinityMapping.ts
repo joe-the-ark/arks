@@ -183,21 +183,24 @@ namespace game {
                 'game_name': this.gameName,
                 'process': '10'
             }).then(function (response){
-            })
 
 
-            base.API.call('game_end', { 
-                'inviter_name': this.inviter, 
-                'game_secret': this.game_secret,
-                'player': this.player,
-                'gameName': this.gameName,
-            }).then(function (response){
-            
+                var self = this
+                base.API.call('game_end', { 
+                    'inviter_name': self.inviter, 
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'gameName': self.gameName,
+                }).then(function (response){
+                
+                })
+
             })
 
             this.sprite.visible = false
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAsk)
+
         }
     }
 }

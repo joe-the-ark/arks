@@ -106,9 +106,6 @@ namespace game {
                 let cliffhanger =  new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list,self.inviter,self.game_secret,self.player,self.gameName)
                 self.stage.addChild(cliffhanger)
             })
-
-
         }
-
     }
 }
