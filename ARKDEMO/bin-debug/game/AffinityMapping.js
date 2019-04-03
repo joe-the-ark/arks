@@ -167,6 +167,13 @@ var game;
                 'process': '10'
             }).then(function (response) {
             });
+            base.API.call('game_end', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'gameName': this.gameName,
+            }).then(function (response) {
+            });
             this.sprite.visible = false;
             var digestAsk = new game.Complete(this.stageWidth, this.stageHeight);
             this.stage.addChild(digestAsk);

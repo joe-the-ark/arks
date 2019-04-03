@@ -235,11 +235,13 @@ namespace game {
                         let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
                         self.stage.addChild(preview)
                     })
-                }
+                }else {
 
-                self.sprite.visible = false
-                var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
-                self.stage.addChild(keepUpSupporting)
+                    self.sprite.visible = false
+                    var keepUpSupporting =  new game.KeepUpSupporting(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, self.count,self.simulatedData, player_list, votedPlayerList, remainingPlayersList)
+                    self.stage.addChild(keepUpSupporting)
+
+                }
 
 
 

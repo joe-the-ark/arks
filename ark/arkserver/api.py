@@ -730,6 +730,8 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
             else:
                 othersScoreList.append(int(_.score))
 
+        print('sp')
+        print(sp)
         #其他人对该玩家的评分的均值
         average = sum(othersScoreList)
         if othersCount:
@@ -737,7 +739,12 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         else:
             itsm = 0
 
+
+
         spitsm = abs(sp - itsm)
+
+        print('spitsm')
+        print(spitsm)
 
         #判断是不是玩家打分过的scale
         s2 = PlayerScore.objects.filter(character_choose=c, scorer=_player, game=game).first()
@@ -748,10 +755,15 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         simulatedData.append(spitsm)
         simulatedData.append(sp)
 
+
         if s2:
             simulatedData2.append(simulatedData)
         else:
             simulatedData1.append(simulatedData)
+
+
+        print(simulatedData1)
+        print(simulatedData2)
 
 
     return {'code':0, 'simulatedData1':simulatedData1, 'simulatedData2':simulatedData2}
@@ -811,8 +823,6 @@ def wechatlogin(**params):
 
     code = params['code']
 
-    print(code)
-
     appid = 'wxc7594d7d49e0235f'
     secret = 'ebbda5cbab00241032bc936fe3839393'
     #获取access_token、openid
@@ -826,11 +836,8 @@ def wechatlogin(**params):
     response = requests.get(url=get_access_token_url, params=access_token_params)
     response.encoding = 'utf-8'
 
-    print(response)
-
     response = json.loads(response.text)
 
-    print(response)
     access_token = response['access_token']
     openid = response['openid']
         #获取用户信息
@@ -840,7 +847,6 @@ def wechatlogin(**params):
         'openid': openid
     }
     res = json.loads(requests.get(url=get_user_info_url, params=user_info_params).text)
-    print(res)
 
     openid = res['openid']
 
@@ -913,7 +919,6 @@ def getGameStatus(**params):
 
     _player = Player.objects.filter(name=nickname, game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).first()
 
-    print(_player)
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -940,8 +945,6 @@ def getGameStatus(**params):
 
 @api
 def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):
-
-    print(teammate)
 
     _inviter = Player.objects.filter(
         name=inviter_name,
@@ -977,7 +980,6 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
 
     feedbacks = Feedback.objects.filter(teammate=_player, game=game)
 
-    print(feedbacks)
     loveFeedback = []
     addFeedback = []
     askFeedback = []
@@ -1005,7 +1007,6 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
     result.append(loveFeedback)
     result.append(addFeedback)
     result.append(askFeedback)
-    print(result)
     return {'code':0, 'result':result}
 
 
@@ -1019,16 +1020,12 @@ def get_players(inviter, game_secret, gameName, player):
         inviter_name=inviter
     )
 
-    print(player_list)
-
     result = []
     for p in player_list:
         if p.name == player:
             continue
 
         result.append(p.name)
-
-    print(result)
 
     return {'code':0, 'result':result}
 
@@ -1051,8 +1048,6 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         inviter_name=inviter
     ).first()
 
-    print(_player)
-
     _inviter = Player.objects.filter(
         name=inviter,
         game_secret=game_secret,
@@ -1060,20 +1055,13 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
         game_name=gameName
     ).first()
 
-    print(_inviter)
-
     game = Game.objects.filter(
         game_secret=game_secret,
         game_name=gameName,
         inviter=_inviter,
     ).first()
 
-    print(game)
-
     feedbacks = Feedback.objects.filter(teammate=_player, game=game)
-
-    print(feedbacks)
-
 
     loveFeedback = []
     addFeedback = []
@@ -1102,7 +1090,6 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
     result.append(loveFeedback)
     result.append(addFeedback)
     result.append(askFeedback)
-    print(result)
 
     return {'code':0, 'result':result}
 

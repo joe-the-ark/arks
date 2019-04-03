@@ -199,9 +199,11 @@ var game;
                         self_1.stage.addChild(preview);
                     });
                 }
-                self.sprite.visible = false;
-                var keepUpSupporting = new game.KeepUpSupporting(self.stageWidth, self.stageHeight, self.player, self.inviter, self.game_secret, self.gameName, self.count, self.simulatedData, player_list, votedPlayerList, remainingPlayersList);
-                self.stage.addChild(keepUpSupporting);
+                else {
+                    self.sprite.visible = false;
+                    var keepUpSupporting = new game.KeepUpSupporting(self.stageWidth, self.stageHeight, self.player, self.inviter, self.game_secret, self.gameName, self.count, self.simulatedData, player_list, votedPlayerList, remainingPlayersList);
+                    self.stage.addChild(keepUpSupporting);
+                }
             });
         };
         return Preview;
