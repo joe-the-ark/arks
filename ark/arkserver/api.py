@@ -725,8 +725,13 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         sp = 0
 
         for _ in playerScores:
-            if _.id == _player.id:
+
+            print(_)
+            print(_player)
+
+            if _.scorer.id == _player.id:
                 sp = int(_.score)
+
                 continue
             # else:
             othersScoreList.append(int(_.score))
