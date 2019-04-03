@@ -124,20 +124,28 @@ var game;
             }
         };
         TensionScaleResult.prototype.rightNext = function () {
-            console.log('向右像牛');
-            var self = this;
-            base.API.call('save_players_process', {
-                'inviter_name': self.inviter,
-                'game_secret': self.game_secret,
-                'player': self.player,
-                'game_name': self.gameName,
-                'process': '2.1'
-            }).then(function (response) {
+            var flag = true;
+            this.simulatedData.forEach(function (val, index, array) {
+                if (val.length < 4) {
+                    alert('Please wait for everyone to finish scoring.');
+                    flag = false;
+                }
             });
-            if (self.stage) {
-                var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams);
-                self.stage.addChild(missionResult);
-                self.sprite.visible = false;
+            if (flag == true) {
+                var self = this;
+                base.API.call('save_players_process', {
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
+                    'process': '2.1'
+                }).then(function (response) {
+                });
+                if (self.stage) {
+                    var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams);
+                    self.stage.addChild(missionResult);
+                    self.sprite.visible = false;
+                }
             }
         };
         TensionScaleResult.prototype.getRandomScore = function (Min, Max) {
