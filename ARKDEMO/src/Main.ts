@@ -106,7 +106,7 @@ class Main extends egret.DisplayObjectContainer {
                                 var status = response['result']
                                 if(status == 2){
                                     alert('The game is in progress.')
-                                }else if(status = 3){
+                                }else if(status == 3){
                                     alert('game over.')
                                 }
 
