@@ -127,9 +127,6 @@ namespace game {
                 let stageWidth = this.stageWidth
                 let stageHeight = this.stageHeight
 
-                // if(this.count == 0){
-                    // let characterone = this.playerAndOthersCharacterList[1][0]
-                    // let charactertwo = this.playerAndOthersCharacterList[1][1]
                 let characterone = this.characterListParams[1][this.count][0]
                 let charactertwo = this.characterListParams[1][this.count][1]
                 base.API.Init("http://work.metatype.cn:8105/api/");
@@ -143,18 +140,28 @@ namespace game {
                     'characterOne': characterone,
                     'characterTwo': charactertwo
                 }).then(function (response) {
-                    console.log(response)
                 })
+
                 let count = this.count
-                let chooser = this.charaChooser[this.count]
-                let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
-                this.sprite.visible = false
-                this.removeChild(this.rightIcon)
-                this.removeChild(this.closeIcon)
-                this._shape.visible = false
-                this.stage.addChild(missionPartialInsights);
-                this.tiptext.text = ''
-                
+                base.API.call('save_players_process', {
+                    'inviter_name': this.inviter,
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '1.'+count.toString()+'.1'
+                }).then(function (response) {                      
+
+                    let chooser = this.charaChooser[this.count]
+                    let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
+                    this.sprite.visible = false
+                    this.removeChild(this.rightIcon)
+                    this.removeChild(this.closeIcon)
+                    this._shape.visible = false
+                    this.stage.addChild(missionPartialInsights);
+                    this.tiptext.text = ''
+
+                });
+
                 // }
                 // if (this.count + 1 == this.characterList.length) {
                 //     console.log('打分结束')

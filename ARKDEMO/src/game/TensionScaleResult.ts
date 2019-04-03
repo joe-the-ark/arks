@@ -96,10 +96,7 @@ namespace game {
         }
 
         private drawTensionScale() {
-            console.log(this.simulatedData)
-            console.log('tssmsssssddsfasdfasdf')
-            console.log(this.ttsms)
-            console.log('tssmsssssddsfasdfasdf')
+    
             this.simulatedData.forEach((val, index, array) => {
                 try {
                     var player_score = Number(val[3].toString())
@@ -125,12 +122,6 @@ namespace game {
 
             });
 
-            console.log(111111111)
-            console.log(this.simulatedData)
-            console.log(this.playerCount)
-            console.log(this.simulatedData.length)
-            console.log(111111111)
-
             if (this.simulatedData) {
                 if (this.playerCount == this.simulatedData.length) {
                     this.sprite.addChild(this.rightIcon)
@@ -139,26 +130,22 @@ namespace game {
             }
         }
         private rightNext() {
-            // console.log('向右像牛')
-            // var self = this
-            // base.API.call('save_players_process', { 
-            //     'inviter_name': self.inviter, 
-            //     'game_secret': self.game_secret,
-            //     'player': self.player,
-            //     'game_name': self.gameName,
-            //     'process': '5.0'
-            // }).then(function (response){
-            //     var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName)
-            //     self.stage.addChild(missionResult)
-            //     self.sprite.visible=false
-            //     self.rightIcon.visible=false
-            // })
+            console.log('向右像牛')
             var self = this
+            base.API.call('save_players_process', { 
+                'inviter_name': self.inviter, 
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+                'process': '2.1'
+            }).then(function (response){
+              
+            })
+            
             if (self.stage) {
                 var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams)
                 self.stage.addChild(missionResult)
                 self.sprite.visible = false
-                // self.rightIcon.visible = false
             }
         }
 

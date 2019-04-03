@@ -49,7 +49,7 @@ namespace game {
             this.rightIcon()
             
 
-            this.timer = new egret.Timer(1000, 0);
+            this.timer = new egret.Timer(10, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
         }
@@ -119,7 +119,6 @@ namespace game {
                 console.log(response)
                 self.simulatedData1 = response['simulatedData1']
                 self.simulatedData2 = response['simulatedData2']
-
 
                 let votedScalesNumber = self.simulatedData2.length
                 let scalesNumber = votedScalesNumber + self.simulatedData1.length
@@ -199,7 +198,6 @@ namespace game {
                 self.playerCount = playerCount
 
                 if(playerCount > scorecount ){
-
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
@@ -211,17 +209,14 @@ namespace game {
                     }
                 }
                 else {
-                    
                     console.log('所有性格打分结束')
                     base.API.call('save_players_process', {
                         'inviter_name': self.inviter,
                         'game_secret': self.game_secret,
                         'player': self.player,
                         'game_name': self.gameName,
-                        'process': '4.0'
+                        'process': '2.0'
                     }).then(function (response) {
-
-
                         self.timer.stop()
                         let toTensionScaleResult = new game.TensionScaleResult(
                             self.stageWidth,

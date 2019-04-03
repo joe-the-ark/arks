@@ -76,10 +76,22 @@ namespace game {
         }
 
         private nextPage() {
+            base.API.call('save_players_process', { 
+                'inviter_name': this.inviter, 
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '4.0.0'
+            }).then(function (response){
+              
+            })
+
             var count = 0
             var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(loveAddAsk)
             this.sprite.visible = false
+
+
         }
 
     }

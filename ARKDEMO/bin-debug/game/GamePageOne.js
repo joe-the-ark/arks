@@ -98,8 +98,6 @@ var game;
             }
         };
         GamePageOne.prototype.nextTouch = function () {
-            // var scoreCounts = this.sprite.numChildren - this.playerList.length - 4
-            // if(this.playerList.length == scoreCounts){
             if (this.stage) {
                 var self = this;
                 base.API.Init("http://work.metatype.cn:8105/api/");
@@ -135,14 +133,6 @@ var game;
                     self._shape.visible = false;
                     self.stage.addChild(initiatePartialInsights);
                 });
-                // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
-                // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                // this.stage.addChild(charater);
-                // this.sprite.visible = false
-                // this.tiptext.text = ''
-                // this.removeChild(this.rightIcon)
-                // this.removeChild(this.closeIcon)
             }
         };
         GamePageOne.prototype.tip = function (width, height, msg, size) {
@@ -173,7 +163,6 @@ var game;
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
         };
-        //初始化赋值
         GamePageOne.prototype.initGraphics = function () {
             var shape = this._shape;
             shape.graphics.lineStyle(2, 0xff00ff);
@@ -201,8 +190,6 @@ var game;
             }).then(function (response) {
                 var _this = this;
                 self.playerList = response['player_list'];
-                console.log(self.playerList);
-                // self.playerCounts = 
                 self.playerList.forEach(function (val, index, array) {
                     if (val == self.player) {
                         var player_name = new egret.TextField();
@@ -245,7 +232,6 @@ var game;
                                     if (player_name.width > 100) {
                                         w = player_name.width;
                                     }
-                                    // player_score.visible = false
                                     if (player_name.x > (self.stageWidth - 250 - w)) {
                                         player_name.x = self.stageWidth - 250 - w;
                                         if (player_name.y > 240 && player_name.y < self.stageHeight - 150 - player_name.height) {

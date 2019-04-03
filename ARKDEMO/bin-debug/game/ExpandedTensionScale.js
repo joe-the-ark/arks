@@ -61,7 +61,7 @@ var game;
             _this.zoraMedianLine = new egret.Shape();
             _this.sprite.addChild(_this.zoraMedianLine);
             _this.initSprite();
-            _this.timer = new egret.Timer(1000, 0);
+            _this.timer = new egret.Timer(10, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getttsm, _this);
             _this.timer.start();
             _this.rightIcon();
@@ -69,7 +69,6 @@ var game;
             _this.noticetext = new egret.TextField();
             _this.sprite.addChild(_this.noticetext);
             _this.sprite.addChild(_this.tiptext);
-            // this.tip()
             _this.tip();
             _this.notice2();
             return _this;
@@ -218,6 +217,15 @@ var game;
             var process = '1';
             var missionName = '1';
             this.timer.stop();
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '1.' + this.scorecount.toString() + '2'
+            }).then(function (response) {
+            });
             var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
             this.stage.addChild(keepUpVoting);
             this.sprite.visible = false;

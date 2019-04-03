@@ -42,8 +42,6 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.player = player
-            console.log('player')
-            console.log(player)
             this.gameName = gameName
             this.game_secret = game_secret
             this.inviter = inviter
@@ -126,7 +124,7 @@ namespace game {
             this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchtwo, this)
             this.sprite.addChild(this.choosetwo)
 
-            this.timer = new egret.Timer(1000, 0);
+            this.timer = new egret.Timer(10, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerCharacterList, this);
             this.timer.start()
 
@@ -189,7 +187,7 @@ namespace game {
                 'game_secret': self.game_secret,
                 'player': self.player,
                 'game_name': self.gameName,
-                'process': '0.3'
+                'process': '1.0.0'
             }).then(function (response) {
                 if (self.stage) {
                     let game_secret = self.game_secret
@@ -221,15 +219,11 @@ namespace game {
                     otherCharacterList.push(othersList)
                     otherCharacterList.push(characterList)
                     playerAndOthersCharacterList.push(otherCharacterList)
-                    console.log(playerAndOthersCharacterList)
-                    
                     let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, self.characterList, playerAndOthersCharacterList);
                     self.stage.addChild(charater);
                     self.sprite.visible = false
                     self.rightIcon.visible = false
-
                 }
-
             })
         }
         private getPlayerCharacterList() {
@@ -246,7 +240,6 @@ namespace game {
                 console.log(character_list)
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
-                    //如果玩家已选择scale
                     if(player_name == self.player){
                         self.select_list = val[1]
                         console.log(self.select_list)
@@ -350,16 +343,11 @@ namespace game {
                         var py = unselectedCharacter.y
                         var dy = e.stageY
 
-                        // unselectedCharacter.width = w * 2
-                        // unselectedCharacter.height = h * 2
-
                         if(self.flag1 != 1 || self.flag2 != 1){
                             unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
                                 if(self._touchStatus){
                                     unselectedCharacter.x = e.stageX - dx + px;
                                     unselectedCharacter.y = e.stageY - dy + py
-                                    // unselectedCharacter.x = e.stageX
-                                    // unselectedCharacter.y = e.stageY
                                 }
                                 if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
                                     if(self.flag1 == 1){
@@ -401,18 +389,10 @@ namespace game {
 
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
                         self._touchStatus = false;
-                        // unselectedCharacter.width = w
-                        // unselectedCharacter.height = h
                         unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
                     }, this);
-
-                    // }
-                    
-
                 })
             })
-
-
         }
 
 

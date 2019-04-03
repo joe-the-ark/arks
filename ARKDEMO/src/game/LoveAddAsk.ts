@@ -70,6 +70,16 @@ namespace game {
 
             if(this.loveInputText.text != '' && this.addInputText.text != '' && this.askInputText.text != ''){
 
+                base.API.call('save_players_process', { 
+                    'inviter_name': this.inviter, 
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '4.'+this.count.toString()+'.1'
+                }).then(function (response){
+                
+                })
+
                 let self = this
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('push_feedback', {
@@ -85,8 +95,6 @@ namespace game {
 
                 }).then(function (response){
                     var count = self.count
-
-
                     var result = response['result']
                     var loveFeedbackList = result[0]
                     var addFeedbackList = result[1]

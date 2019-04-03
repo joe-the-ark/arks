@@ -51,7 +51,7 @@ var game;
             _this.initNotice();
             _this.processBar();
             _this.rightIcon();
-            _this.timer = new egret.Timer(1000, 0);
+            _this.timer = new egret.Timer(10, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
             return _this;
@@ -201,7 +201,7 @@ var game;
                         'game_secret': self.game_secret,
                         'player': self.player,
                         'game_name': self.gameName,
-                        'process': '4.0'
+                        'process': '2.0'
                     }).then(function (response) {
                         self.timer.stop();
                         var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);

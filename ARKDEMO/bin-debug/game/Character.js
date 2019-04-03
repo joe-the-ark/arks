@@ -104,11 +104,8 @@ var game;
                 var gameName = this.gameName;
                 var stageWidth = this.stageWidth;
                 var stageHeight = this.stageHeight;
-                // if(this.count == 0){
-                // let characterone = this.playerAndOthersCharacterList[1][0]
-                // let charactertwo = this.playerAndOthersCharacterList[1][1]
-                var characterone = this.characterListParams[1][this.count][0];
-                var charactertwo = this.characterListParams[1][this.count][1];
+                var characterone_1 = this.characterListParams[1][this.count][0];
+                var charactertwo_1 = this.characterListParams[1][this.count][1];
                 base.API.Init("http://work.metatype.cn:8105/api/");
                 base.API.call('set_player_score', {
                     'params': this.map,
@@ -117,20 +114,27 @@ var game;
                     'player': this.player,
                     'gameName': this.gameName,
                     'charaChooser': this.charaChooser[this.count],
-                    'characterOne': characterone,
-                    'characterTwo': charactertwo
+                    'characterOne': characterone_1,
+                    'characterTwo': charactertwo_1
                 }).then(function (response) {
-                    console.log(response);
                 });
-                var count = this.count;
-                var chooser = this.charaChooser[this.count];
-                var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser);
-                this.sprite.visible = false;
-                this.removeChild(this.rightIcon);
-                this.removeChild(this.closeIcon);
-                this._shape.visible = false;
-                this.stage.addChild(missionPartialInsights);
-                this.tiptext.text = '';
+                var count_1 = this.count;
+                base.API.call('save_players_process', {
+                    'inviter_name': this.inviter,
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '1.' + count_1.toString() + '.1'
+                }).then(function (response) {
+                    var chooser = this.charaChooser[this.count];
+                    var missionPartialInsights = new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone_1, charactertwo_1, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count_1, chooser);
+                    this.sprite.visible = false;
+                    this.removeChild(this.rightIcon);
+                    this.removeChild(this.closeIcon);
+                    this._shape.visible = false;
+                    this.stage.addChild(missionPartialInsights);
+                    this.tiptext.text = '';
+                });
                 // }
                 // if (this.count + 1 == this.characterList.length) {
                 //     console.log('打分结束')

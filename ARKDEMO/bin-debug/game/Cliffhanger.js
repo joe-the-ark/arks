@@ -86,11 +86,16 @@ var game;
                 'gameName': self.gameName,
                 'player': self.player
             }).then(function (response) {
+                base.API.call('save_players_process', {
+                    'inviter_name': this.inviter,
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '9'
+                }).then(function (response) {
+                });
                 var result = response['result'];
                 var player_list = result;
-                console.log(11111);
-                console.log(player_list);
-                console.log(11111);
                 var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list);
                 self.stage.addChild(cliffhanger);
                 self.sprite.visible = false;

@@ -89,7 +89,6 @@ var game;
                 var gameName = self.gameName;
                 var stageWidth = self.stageWidth;
                 var stageHeight = self.stageHeight;
-                // let count = 0
                 var playerSCore = self.selfPerception;
                 var playerCount = self.playerCount;
                 var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);

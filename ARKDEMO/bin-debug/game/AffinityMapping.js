@@ -165,6 +165,14 @@ var game;
             this.sprite.addChild(rightIcon);
         };
         AffinityMapping.prototype.nextPage = function () {
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '10'
+            }).then(function (response) {
+            });
             var digestAsk = new game.Complete(this.stageWidth, this.stageHeight);
             this.stage.addChild(digestAsk);
             this.sprite.visible = false;

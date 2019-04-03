@@ -40,7 +40,6 @@ namespace game {
             this.character2 = character2
             this.playerName = playerName
             this.selfPerception = selfPerception
-            // this.othersSelfPerception = othersSelfPerception
 
             this.game_secret = game_secret
             this.inviter = inviter
@@ -70,7 +69,7 @@ namespace game {
             this.tip()
 
             this.initSprite()
-            this.timer = new egret.Timer(1000, 0);
+            this.timer = new egret.Timer(10, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getOthersSelfPerception, this);
             this.timer.start()
 
@@ -160,10 +159,8 @@ namespace game {
                 self.othersSelfPerception = response['OthersSelfPerceptionList']
                 //  self.sprite.visible = false
                 self.potentialScale()
-                 
                 self.tiptext.text = Math.ceil(((self.othersSelfPerception.length+1)/self.playerCount) * 100).toString() + '% of your Team (' + (self.othersSelfPerception.length+1).toString() + 'out of ' + self.playerCount.toString() + ')) has so far voted the Potential Scale. Invite everyone to follow suit.Here are Early Insights:\n\n• ' + self.lowest.toString() + ' is the lowest and ' + self.highest.toString() + '    the highest value on the Scale.\n• The teams preliminary median is ' + self.median.toString() + '.\n• The perception of ' + self.count.toString() + ' people varies remarkably from the team average.'
 
-                 console.log(self.othersSelfPerception)
             })
         }
 

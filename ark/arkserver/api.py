@@ -1117,7 +1117,28 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
 
 
 
+@api
+def game_end(inviter_name, game_secret, gameName, player):
+    _inviter = Player.objects.filter(
+        name=inviter,
+        game_secret=game_secret,
+        inviter_name=inviter,
+        game_name=gameName
+    ).first()
 
+    print(_inviter)
+
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        game_name=gameName,
+        inviter=_inviter,
+    ).first()
+
+    game.status = 2
+    game.save()
+
+
+    return {'code':0}
 
 
 

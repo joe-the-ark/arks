@@ -94,10 +94,14 @@ var game;
             this.sprite.addChild(rightIcon);
         };
         DigestLove.prototype.nextPage = function () {
-            console.log('digestlove');
-            console.log(this.inviter);
-            console.log(this.player);
-            console.log('digestlove');
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '6'
+            }).then(function (response) {
+            });
             var digestAdd = new game.DigestAdd(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             // let preview =  new game.Preview2(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAdd);

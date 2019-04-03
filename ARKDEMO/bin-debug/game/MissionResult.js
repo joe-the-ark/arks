@@ -33,16 +33,12 @@ var game;
             _this.sprite = new egret.Sprite();
             _this.addChild(_this.sprite);
             _this.drawTitle();
-            // this.drawLine()
             _this.drawResult();
             _this._shape = new egret.Shape();
             _this.sprite.addChild(_this._shape);
             _this._shape.alpha = 0.5;
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map');
             _this.sprite.addChild(probessBar);
-            console.log('ttsmsstart3:');
-            console.log(_this.ttsms);
-            console.log('ttsmsend3:');
             _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
             _this.rightIcon.width = 100;
             _this.rightIcon.height = 100;
@@ -56,6 +52,14 @@ var game;
             return _this;
         }
         MissionResult.prototype.rightNext = function () {
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '3'
+            }).then(function (response) {
+            });
             var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
             this.stage.addChild(settingSail);
             this.sprite.visible = false;
@@ -72,9 +76,6 @@ var game;
             }).then(function (response) {
                 var result = response['result'];
                 self.ttsms = result;
-                console.log('ttsmsstart1:');
-                console.log(self.ttsms);
-                console.log('ttsmsend1:');
             });
         };
         MissionResult.prototype.initGraphics = function () {
@@ -113,12 +114,10 @@ var game;
                     self.drawTensionScale(that.ttsms);
                 });
                 self.initGraphics();
-                // self.drawTensionScale();
             });
         };
         MissionResult.prototype.drawTensionScale = function (ttsms) {
             var _this = this;
-            console.log(this.simulatedData);
             this.ttsms = ttsms;
             this.simulatedData.forEach(function (val, index, array) {
                 try {

@@ -59,7 +59,6 @@ namespace game {
             this.sprite.addChild(this.rectShapeTwo);
             this.drawRect()
 
-
             var character1: egret.TextField = new egret.TextField()
             character1.text = 'Insufficiently'
 
@@ -121,9 +120,6 @@ namespace game {
         }
 
         private nextTouch() {
-            // var scoreCounts = this.sprite.numChildren - this.playerList.length - 4
-            // if(this.playerList.length == scoreCounts){
-
             if (this.stage) {
                 var self = this
                 base.API.Init("http://work.metatype.cn:8105/api/");
@@ -144,7 +140,6 @@ namespace game {
                     'game_name': self.gameName,
                     'process': '0.1'
                 }).then(function (response) {
-
                     let game_secret = self.game_secret
                     let inviter = self.inviter
                     let player = self.player
@@ -170,15 +165,6 @@ namespace game {
                     self._shape.visible = false
                     self.stage.addChild(initiatePartialInsights)
                 })
-
-                // this.characterList = {'zjy':['Loyality', 'Joy'], '1':['Power', 'Courage'], '2':['Harmony', 'Disruption']}
-                // this.characterList = [['zjy', '1', '2'], [['Loyality', 'Joy'], ['Power', 'Courage'], ['Harmony', 'Disruption']]]
-                // let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList);
-                // this.stage.addChild(charater);
-                // this.sprite.visible = false
-                // this.tiptext.text = ''
-                // this.removeChild(this.rightIcon)
-                // this.removeChild(this.closeIcon)
             }
         }
 
@@ -214,7 +200,6 @@ namespace game {
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);
             shape2.graphics.endFill();
         }
-        //初始化赋值
         private initGraphics(): void {
             var shape: egret.Shape = this._shape;
             shape.graphics.lineStyle(2, 0xff00ff);
@@ -246,8 +231,6 @@ namespace game {
             }).then(function (response) {
 
                 self.playerList = response['player_list']
-                console.log(self.playerList)
-                // self.playerCounts = 
                 self.playerList.forEach((val, index, array) => {
 
                     if (val == self.player) {
@@ -297,7 +280,6 @@ namespace game {
                                     if (player_name.width > 100) {
                                         w = player_name.width
                                     }
-                                    // player_score.visible = false
 
                                     if (player_name.x > (self.stageWidth - 250 - w)) {
                                         player_name.x = self.stageWidth - 250 - w
@@ -325,15 +307,10 @@ namespace game {
                             self._touchStatus = false;
                             player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
                         }, this);
-
                         self.sprite.addChild(player_name)
-
                     }
-
-
                 })
             })
         }
-
     }
 }

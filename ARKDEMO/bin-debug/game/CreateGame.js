@@ -24,7 +24,6 @@ var game;
             _this.addChild(_this.sprite);
             _this.nickname = nickname;
             _this.player = nickname;
-            alert(nickname);
             _this.openid = openid;
             _this.status = status;
             _this.game_secret = game_secret;
@@ -87,7 +86,6 @@ var game;
         CreateGame.prototype.getPlayeList = function () {
             var self = this;
             base.API.Init("http://work.metatype.cn:8105/api/");
-            // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('getPlayerList', { 'inviter_name': self.inviter, 'game_secret': self.game_secret, 'gameName': self.game_secret }).then(function (response) {
                 var playerList = response['result'];
                 playerList.forEach(function (val, index, array) {
@@ -149,7 +147,7 @@ var game;
                                 this.stage.addChild(characterChoosePage);
                                 this.sprite.visible = false;
                             }
-                            else if (process == '0.3') {
+                            else if (process == '1.0.0') {
                                 var count = 0;
                                 base.API.call('get_player_characterlist', {
                                     'game_secret': self.game_secret,
@@ -158,26 +156,17 @@ var game;
                                     'gameName': self.game_secret,
                                 }).then(function (response) {
                                     var character_list = response['data'];
-                                    console.log(character_list);
                                     var characterList = [];
                                     character_list.forEach(function (val, index, array) {
                                         var player_name = val[0];
                                         if (self.playerList.indexOf(player_name) == -1) {
                                             count++;
-                                            // console.log(count)
-                                            // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
                                             self.allcharacterlist.push(val[1]);
-                                            // self.sprite.addChild(tensionScale)
-                                            // tensionScale.x = self.stageWidth - 200
-                                            // tensionScale.y = self.count * 150
                                             self.playerList.push(player_name);
                                         }
                                     });
-                                    // if (count == playerCount) {
-                                    console.log('character_list');
                                     characterList.push(self.playerList);
                                     characterList.push(self.allcharacterlist);
-                                    // }
                                     var playerAndOthersCharacterList = [];
                                     // ['1', [c1, c2], [['2', '3'], [[c1, c2], [c1, c2]]]
                                     var otherCharacterList = [];
@@ -196,14 +185,12 @@ var game;
                                     otherCharacterList.push(othersList);
                                     otherCharacterList.push(characterList2);
                                     playerAndOthersCharacterList.push(otherCharacterList);
-                                    console.log(playerAndOthersCharacterList);
                                     var game_secret = self.game_secret;
                                     var inviter = self.inviter;
                                     var player = self.player;
                                     var gameName = self.game_secret;
                                     var stageWidth = self.stage.stageWidth;
                                     var stageHeight = self.stage.stageHeight;
-                                    // let processson1 = processson
                                     var count = 0;
                                     var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                     self.stage.addChild(charater);
@@ -233,7 +220,6 @@ var game;
                             'player': self.nickname,
                             'gameName': self.game_secret
                         }).then(function (response) {
-                            console.log(response);
                             var process = response['process'];
                             if (process == '0.1') {
                                 var playerCount = response['playercount'];
@@ -262,7 +248,7 @@ var game;
                                 this.stage.addChild(characterChoosePage);
                                 this.sprite.visible = false;
                             }
-                            else if (process == '0.3') {
+                            else if (process == '1.0.0') {
                                 var that = self;
                                 var count = 0;
                                 base.API.call('get_player_characterlist', {
@@ -272,23 +258,15 @@ var game;
                                     'gameName': that.game_secret,
                                 }).then(function (response) {
                                     var character_list = response['data'];
-                                    console.log(character_list);
                                     var characterList = [];
                                     character_list.forEach(function (val, index, array) {
                                         var player_name = val[0];
                                         if (self.playerList.indexOf(player_name) == -1) {
                                             count++;
-                                            // console.log(count)
-                                            // let tensionScale = new game.TensionScale(self.stageWidth, self.stageHeight, val[1], 0)
                                             that.allcharacterlist.push(val[1]);
-                                            // self.sprite.addChild(tensionScale)
-                                            // tensionScale.x = self.stageWidth - 200
-                                            // tensionScale.y = self.count * 150
                                             that.playerList.push(player_name);
                                         }
                                     });
-                                    // if (count == playerCount) {
-                                    console.log('character_list');
                                     characterList.push(that.playerList);
                                     characterList.push(that.allcharacterlist);
                                     // }
@@ -310,14 +288,12 @@ var game;
                                     otherCharacterList.push(othersList);
                                     otherCharacterList.push(characterList2);
                                     playerAndOthersCharacterList.push(otherCharacterList);
-                                    console.log(playerAndOthersCharacterList);
                                     var game_secret = that.game_secret;
                                     var inviter = that.inviter;
                                     var player = that.player;
                                     var gameName = that.game_secret;
                                     var stageWidth = that.stage.stageWidth;
                                     var stageHeight = that.stage.stageHeight;
-                                    // let processson1 = processson
                                     var count = 0;
                                     var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                     that.stage.addChild(charater);

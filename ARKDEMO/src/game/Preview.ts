@@ -179,6 +179,17 @@ namespace game {
         }
 
         private nextPage(){
+
+            base.API.call('save_players_process', { 
+                    'inviter_name': this.inviter, 
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '4.'+this.count.toString()+'.2'
+                }).then(function (response){
+                
+                })                                 
+
             let self = this
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_players', {

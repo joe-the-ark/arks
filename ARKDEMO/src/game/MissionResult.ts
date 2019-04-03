@@ -31,7 +31,6 @@ namespace game{
             this.addChild(this.sprite);
 
             this.drawTitle();
-            // this.drawLine()
             this.drawResult()
             this._shape = new egret.Shape()
             this.sprite.addChild(this._shape)
@@ -39,10 +38,7 @@ namespace game{
 
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 100, 'Mission 1 > ZORA Map')
             this.sprite.addChild(probessBar)
-            console.log('ttsmsstart3:')
-            console.log(this.ttsms)
-            console.log('ttsmsend3:')
-
+       
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
@@ -56,7 +52,15 @@ namespace game{
         }
 
         private rightNext() {
-
+            base.API.call('save_players_process', { 
+                'inviter_name': this.inviter, 
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '3'
+            }).then(function (response){
+              
+            })
             let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(settingSail);
             this.sprite.visible = false
@@ -74,10 +78,6 @@ namespace game{
             }).then(function (response){
                 let result = response['result']
                 self.ttsms = result
-
-                console.log('ttsmsstart1:')
-                console.log(self.ttsms)
-                console.log('ttsmsend1:')
             })            
 
         }
@@ -119,18 +119,14 @@ namespace game{
                     that.ttsms = result
 
                     self.drawTensionScale(that.ttsms)
-                    
 
                 }) 
 
                 self.initGraphics()   
-
-                // self.drawTensionScale();
             })
         }
 
         private drawTensionScale(ttsms) {
-            console.log(this.simulatedData)
             this.ttsms = ttsms
             this.simulatedData.forEach((val, index, array) => {
                 try {

@@ -154,9 +154,7 @@ var Main = (function (_super) {
      */
     Main.prototype.createGameScene = function () {
         base.API.Init("http://work.metatype.cn:8105/api/");
-        console.log('首页');
         var url = window.location.href;
-        console.log(url);
         if (url.indexOf('game_id') != -1) {
             var game_secret_1 = url.split('?')[1].split('&')[0].split('=')[1];
             var inviter_1 = url.split('?')[1].split('&')[1].split('=')[1];
@@ -183,7 +181,6 @@ var Main = (function (_super) {
             }
             else {
                 var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
-                console.log(redirect_uri);
                 var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
             }
         }

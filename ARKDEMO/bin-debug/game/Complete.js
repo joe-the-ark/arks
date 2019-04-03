@@ -43,6 +43,13 @@ var game;
             intro.x = this._x;
             intro.y = 100;
             this.sprite.addChild(intro);
+            base.API.call('game_end', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'gameName': this.gameName,
+            }).then(function (response) {
+            });
         };
         return Complete;
     }(egret.DisplayObjectContainer));

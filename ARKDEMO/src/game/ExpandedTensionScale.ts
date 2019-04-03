@@ -35,7 +35,7 @@ namespace game {
         public median = 0
         public timer: egret.Timer
         public chooser
-        public scorecount
+        public scorecount:number
 
         public noticetext: egret.TextField
 
@@ -78,7 +78,7 @@ namespace game {
             this.sprite.addChild(this.zoraMedianLine);
 
             this.initSprite()
-            this.timer = new egret.Timer(1000, 0);
+            this.timer = new egret.Timer(10, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
             this.rightIcon()
@@ -88,8 +88,6 @@ namespace game {
             this.noticetext = new egret.TextField()
             this.sprite.addChild(this.noticetext)
             this.sprite.addChild(this.tiptext)
-            // this.tip()
-
             this.tip()
             this.notice2()
 
@@ -189,15 +187,12 @@ namespace game {
                 console.log('ttsm')
                 console.log(response)
                 self.teamTensionScaleMedian = response['ttsm']
-                self.individualTensionScale = response
-                ['individualTensionScale']
+                self.individualTensionScale = response['individualTensionScale']
 
                 self.playerCount = response['playerCount']
                 self.votedScalesNumber = self.individualTensionScale.length + 1
 
-
                 self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have so far voted the ' + self.character1 + " & " + self.character2 + "Tension Scale. Here are Early Insights:"
-
 
                 self.tensionScale()
             })
@@ -264,10 +259,20 @@ namespace game {
         private nextTouch() {
             let process = '1'
             let missionName = '1'
-
             this.timer.stop()
-            let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
 
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('save_players_process', {
+                'inviter_name': this.inviter,
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '1.'+this.scorecount.toString()+'2'
+            }).then(function (response) {
+
+            })
+
+            let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
             this.stage.addChild(keepUpVoting)
             this.sprite.visible = false
 
@@ -459,16 +464,6 @@ namespace game {
 
             let itsm = Math.ceil(s/this.playerCount)
 
-            
-
         }
-        
-        
-
-
-
-
-
-
     }
 }

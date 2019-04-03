@@ -36,8 +36,6 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.player = player;
-            console.log('player');
-            console.log(player);
             _this.gameName = gameName;
             _this.game_secret = game_secret;
             _this.inviter = inviter;
@@ -110,7 +108,7 @@ var game;
             _this.choosetwo.touchEnabled = true;
             _this.choosetwo.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.touchtwo, _this);
             _this.sprite.addChild(_this.choosetwo);
-            _this.timer = new egret.Timer(1000, 0);
+            _this.timer = new egret.Timer(10, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerCharacterList, _this);
             _this.timer.start();
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 20, 'Mission 1 > Tension Scales');
@@ -169,7 +167,7 @@ var game;
                 'game_secret': self.game_secret,
                 'player': self.player,
                 'game_name': self.gameName,
-                'process': '0.3'
+                'process': '1.0.0'
             }).then(function (response) {
                 if (self.stage) {
                     var game_secret = self.game_secret;
@@ -199,7 +197,6 @@ var game;
                     otherCharacterList.push(othersList_1);
                     otherCharacterList.push(characterList_1);
                     playerAndOthersCharacterList_1.push(otherCharacterList);
-                    console.log(playerAndOthersCharacterList_1);
                     var charater = new game.Character(game_secret, inviter, player_1, gameName, stageWidth, stageHeight, count, self.characterList, playerAndOthersCharacterList_1);
                     self.stage.addChild(charater);
                     self.sprite.visible = false;
@@ -220,7 +217,6 @@ var game;
                 console.log(character_list);
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
-                    //如果玩家已选择scale
                     if (player_name == self.player) {
                         self.select_list = val[1];
                         console.log(self.select_list);
@@ -316,15 +312,11 @@ var game;
                         var px = unselectedCharacter.x;
                         var py = unselectedCharacter.y;
                         var dy = e.stageY;
-                        // unselectedCharacter.width = w * 2
-                        // unselectedCharacter.height = h * 2
                         if (self.flag1 != 1 || self.flag2 != 1) {
                             unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, function (e) {
                                 if (self._touchStatus) {
                                     unselectedCharacter.x = e.stageX - dx + px;
                                     unselectedCharacter.y = e.stageY - dy + py;
-                                    // unselectedCharacter.x = e.stageX
-                                    // unselectedCharacter.y = e.stageY
                                 }
                                 if (unselectedCharacter.y < 185 && unselectedCharacter.y > 170 && unselectedCharacter.x > 0 && unselectedCharacter.x < 80) {
                                     if (self.flag1 == 1) {
@@ -365,11 +357,8 @@ var game;
                     }, _this);
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, function (e) {
                         self._touchStatus = false;
-                        // unselectedCharacter.width = w
-                        // unselectedCharacter.height = h
                         unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, _this.mouseMove, _this);
                     }, _this);
-                    // }
                 });
             });
         };

@@ -98,14 +98,16 @@ namespace game {
 
         private nextPage(){
 
-            console.log('digestask')
-
-            console.log(this.inviter)
-            console.log(this.player)
-
-            console.log('digestask')
-            
-
+            base.API.call('save_players_process', { 
+                    'inviter_name': this.inviter, 
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '8'
+                }).then(function (response){
+                
+                })
+                
             let cliffhanger =  new game.Cliffhanger(this.stageWidth, this.stageHeight,this.inviter, this.game_secret, this.gameName, this.player)
             this.stage.addChild(cliffhanger)
             this.sprite.visible = false
