@@ -87,7 +87,7 @@ namespace game {
             this.sprite.addChild(shape);
 
             let title: egret.TextField = new egret.TextField();
-            title.text = "Identify the major sources of tension with you teammates"
+            title.text = "Identify the major sources of tension with you t-eammates"
             title.size = 30;
             title.width = this.stageWidth;
             title.x = 1

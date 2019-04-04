@@ -47,7 +47,7 @@ var game;
         };
         InitiatePartialInsights.prototype.tip = function () {
             var intro = new egret.TextField();
-            intro.text = "Our Basic Hypothesis is simple: a containm-ent of tensions within the team results in less conflict & a better deployment of the team‘s potentialities.\n\n\n\n\n\n";
+            intro.text = "Our Basic Hypothesis is simple: a\ncontainment of tensions within the team results in less\nconflict & a better deployment of the team‘s\npotentialities.\n\n\n\n\n\n";
             intro.width = this._width;
             intro.x = this._x;
             intro.y = this.stageHeight - 180;

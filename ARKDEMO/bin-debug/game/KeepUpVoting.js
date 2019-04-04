@@ -76,7 +76,7 @@ var game;
             var scalesNumber = this.scalesNumber.toString();
             var remainingScalesNumber = this.remainingScalesNumber.toString();
             this.noticeBox = new egret.TextField();
-            this.noticeBox.text = "Great! You cleared " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Tension Scales. Vote the remaining " + remainingScalesNumber.toString() + " to finish Mission 1 and discover your teams Zone of Responsible Action!";
+            this.noticeBox.text = "Great! You cleared " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Tension Scales. Vote the remaining " + remainingScalesNumber.toString() + " to finish Mission 1 and discover your teams Zone of Responsible   Action!";
             this.noticeBox.textColor = 0x000000;
             this.noticeBox.width = this._width;
             this.noticeBox.x = this._x;

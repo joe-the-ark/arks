@@ -459,10 +459,25 @@ namespace game {
 
             let othersSelfPerception =  this.individualTensionScale
             othersSelfPerception.sort()
-            let hight = othersSelfPerception.pop()
-            let low = othersSelfPerception.shift()
 
-            var itsmtiptext = '• Your teammates rank you at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points higher than your self-perception at '+this.selfPerception.toString()+' points.\n\n'
+            let low = 0
+            let hight = 0
+            if (othersSelfPerception.length < 2){
+                low = othersSelfPerception[0]  
+                hight = othersSelfPerception[0]
+            }else {
+                hight = othersSelfPerception.pop()
+                low = othersSelfPerception.shift()
+            }
+
+            if(this.individualTensionScaleMedian >= this.selfPerception){
+                var itsmtiptext = '• Your teammates rank you at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points higher than your self-perception at '+this.selfPerception.toString()+' points.\n\n'
+
+            }else {
+                var itsmtiptext = '• Your teammates rank you at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points lower than your self-perception at '+this.selfPerception.toString()+' points.\n\n'
+            }
+
+
             var hightlowtexgt = '• While '+low+' points is the lowest and '+hight+' points the highest value that others attributed to you.\n\n'
             this.feedbacktext.text = selftiptext+itsmtiptext+hightlowtexgt
             var s = 0;

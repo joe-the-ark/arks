@@ -85,7 +85,7 @@ var game;
             shape.graphics.endFill();
             this.sprite.addChild(shape);
             var title = new egret.TextField();
-            title.text = "Identify the major sources of tension with you teammates";
+            title.text = "Identify the major sources of tension with you t-eammates";
             title.size = 30;
             title.width = this.stageWidth;
             title.x = 1;

@@ -86,7 +86,7 @@ var game;
             _this.addChild(_this.closeIcon);
             _this.tiptext = new egret.TextField();
             _this.addChild(_this.tiptext);
-            var msg = " The ARK is serving the cause of tapping into  your teams‘ full potential. Your first task:  ANONY- MOUSLY rank your team on this Potentia-lity Scale from 1 to 81.";
+            var msg = " The ARK is serving the cause of tapping into \n your teams‘ full potential. Your first task:\n ANON-YMOUSLY rank your team on this \n Potentiality Scale from 1 to 81.";
             _this.tip(1, 50, msg, 30);
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale');
             _this.sprite.addChild(probessBar);
@@ -145,7 +145,7 @@ var game;
         };
         GamePageOne.prototype.clickTip = function () {
             var clickTip = new egret.TextField();
-            clickTip.text = "Drag & Drop your  Icon on the scale  as you see fit. The question: In retro-spective, to what  extent does your  team tap into its  full POTENTIAL...";
+            clickTip.text = "Drag & Drop your\nIcon on the scale\nas you see fit. The\nquestion: In\nretrospective, to what\nextent does your\nt-eam tap into its\nfull POTENTIAL...";
             clickTip.width = 250;
             clickTip.x = 30;
             clickTip.y = 450;
