@@ -181,14 +181,14 @@ namespace game {
         private nextPage(){
 
             base.API.call('save_players_process', { 
-                    'inviter_name': this.inviter, 
-                    'game_secret': this.game_secret,
-                    'player': this.player,
-                    'game_name': this.gameName,
-                    'process': '4.'+this.count.toString()+'.2'
-                }).then(function (response){
-                
-                })                                 
+                'inviter_name': this.inviter, 
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '4.'+this.count.toString()+'.2'
+            }).then(function (response){
+            
+            })                                 
 
             let self = this
             base.API.Init("http://work.metatype.cn:8105/api/");
@@ -214,16 +214,15 @@ namespace game {
 
                 if(remainingScalesNumber == 0){
                     base.API.call('save_players_process', { 
-                        'inviter_name': this.inviter, 
-                        'game_secret': this.game_secret,
-                        'player': this.player,
-                        'game_name': this.gameName,
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
                         'process': '5'
                     }).then(function (response){
                     })
 
-                    let self = this
-                    base.API.Init("http://work.metatype.cn:8105/api/");
+                    console.log(self.inviter)
                     base.API.call('getOthersFeedback', {
 
                         'game_secret': self.game_secret,
@@ -237,6 +236,7 @@ namespace game {
                         let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
                         self.stage.addChild(preview)
                     })
+
 
                 }else {
 

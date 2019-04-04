@@ -179,25 +179,24 @@ var game;
                 console.log(remainingScalesNumber);
                 if (remainingScalesNumber == 0) {
                     base.API.call('save_players_process', {
-                        'inviter_name': this.inviter,
-                        'game_secret': this.game_secret,
-                        'player': this.player,
-                        'game_name': this.gameName,
+                        'inviter_name': self.inviter,
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
                         'process': '5'
                     }).then(function (response) {
                     });
-                    var self_1 = this;
-                    base.API.Init("http://work.metatype.cn:8105/api/");
+                    console.log(self.inviter);
                     base.API.call('getOthersFeedback', {
-                        'game_secret': self_1.game_secret,
-                        'gameName': self_1.gameName,
-                        'player': self_1.player,
-                        'inviter': self_1.inviter,
+                        'game_secret': self.game_secret,
+                        'gameName': self.gameName,
+                        'player': self.player,
+                        'inviter': self.inviter,
                     }).then(function (response) {
                         var result = response['result'];
-                        self_1.sprite.visible = false;
-                        var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
-                        self_1.stage.addChild(preview);
+                        self.sprite.visible = false;
+                        var preview = new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player);
+                        self.stage.addChild(preview);
                     });
                 }
                 else {
