@@ -130,6 +130,25 @@ var game;
             itsm_Deviation.borderColor = 0x000000;
             itsm_Deviation.background = true;
             itsm_Deviation.backgroundColor = 0xffffff;
+            itsm_Deviation.touchEnabled = true;
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                itsm_Deviation.width = itsm_Deviation.width * 2.5;
+                itsm_Deviation.height = itsm_Deviation.height * 2;
+                itsm_Deviation.size = itsm_Deviation.size * 2;
+                itsm_Deviation.x = itsm_Deviation.x - 100;
+            }, self);
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                itsm_Deviation.width = itsm_Deviation.width / 2.5;
+                itsm_Deviation.height = itsm_Deviation.height / 2;
+                itsm_Deviation.size = itsm_Deviation.size / 2;
+                itsm_Deviation.x = itsm_Deviation.x + 100;
+            }, self);
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                itsm_Deviation.width = itsm_Deviation.width / 2.5;
+                itsm_Deviation.height = itsm_Deviation.height / 2;
+                itsm_Deviation.size = itsm_Deviation.size / 2;
+                itsm_Deviation.x = itsm_Deviation.x + 100;
+            }, self);
             // ITSM 的玩家名
             var individualTensionScaleMedianPlayerName = this.individualTensionScaleMedianPlayerName;
             individualTensionScaleMedianPlayerName.text = this.playerName;
@@ -360,25 +379,6 @@ var game;
             var itsm_Deviation = this.itsm_Deviation;
             itsm_Deviation.text = this.individualTensionScaleMedian.toString() + "/" + this.deviationBetweenITSM_SP.toString();
             itsm_Deviation.y = this.individualTensionScaleMedian / 81 * 810 - itsm_Deviation.height / 2;
-            itsm_Deviation.touchEnabled = true;
-            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
-                itsm_Deviation.width = itsm_Deviation.width * 2.5;
-                itsm_Deviation.height = itsm_Deviation.height * 2;
-                itsm_Deviation.size = itsm_Deviation.size * 2;
-                itsm_Deviation.x = itsm_Deviation.x - 100;
-            }, self);
-            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_END, function () {
-                itsm_Deviation.width = itsm_Deviation.width / 2.5;
-                itsm_Deviation.height = itsm_Deviation.height / 2;
-                itsm_Deviation.size = itsm_Deviation.size / 2;
-                itsm_Deviation.x = itsm_Deviation.x + 100;
-            }, self);
-            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
-                itsm_Deviation.width = itsm_Deviation.width / 2.5;
-                itsm_Deviation.height = itsm_Deviation.height / 2;
-                itsm_Deviation.size = itsm_Deviation.size / 2;
-                itsm_Deviation.x = itsm_Deviation.x + 100;
-            }, self);
             if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {
                 itsm_Deviation.backgroundColor = 0xfeff33;
             }

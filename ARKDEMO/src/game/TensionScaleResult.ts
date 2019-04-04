@@ -133,13 +133,12 @@ namespace game {
 
 
             var flag  = true
-            this.simulatedData.forEach((val, index, array) => {
-
-                if(val.length < 4){
-                     alert('Please wait for everyone to finish scoring.')
-                     flag = false                     
-                }   
-            })
+            // this.simulatedData.forEach((val, index, array) => {
+            //     if(val.length < 4){
+            //          alert('Please wait for everyone to finish scoring.')
+            //          flag = false                     
+            //     }   
+            // })
 
 
             if(flag == true){
