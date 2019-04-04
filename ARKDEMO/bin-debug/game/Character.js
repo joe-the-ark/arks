@@ -74,27 +74,27 @@ var game;
             _this.addChild(_this.rightIcon);
             _this.rightIcon.touchEnabled = true;
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
-            _this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png'));
-            _this.closeIcon.width = 40;
-            _this.closeIcon.height = 40;
-            _this.closeIcon.anchorOffsetX = _this.closeIcon.width / 2;
-            _this.closeIcon.anchorOffsetY = _this.closeIcon.height / 2;
-            _this.closeIcon.x = stageWidth - 30;
-            _this.closeIcon.y = 150;
-            _this.closeIcon.touchEnabled = true;
-            _this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.closeTip, _this);
-            _this.addChild(_this.closeIcon);
+            // this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
+            // this.closeIcon.width = 40
+            // this.closeIcon.height = 40
+            // this.closeIcon.anchorOffsetX = this.closeIcon.width / 2
+            // this.closeIcon.anchorOffsetY = this.closeIcon.height / 2
+            // this.closeIcon.x = stageWidth - 30
+            // this.closeIcon.y = 150
+            // this.closeIcon.touchEnabled = true
+            // this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
+            // this.addChild(this.closeIcon)
             _this.tiptext = new egret.TextField();
             var process = Math.ceil(((count + 1) / _this.charaChooser.length) * 65 + 20);
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, process, 'Mission 1 > Vote Tension Scale');
             _this.sprite.addChild(probessBar);
             return _this;
         }
-        Character.prototype.closeTip = function () {
-            if (this.tiptext.parent) {
-                this.removeChild(this.tiptext);
-            }
-        };
+        // private closeTip(): void {
+        //     if (this.tiptext.parent) {
+        //         this.removeChild(this.tiptext)
+        //     }
+        // }
         Character.prototype.nextTouch = function () {
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5;
             if (this.playerList.length == scoreCounts) {

@@ -94,16 +94,17 @@ namespace game {
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
 
-            this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
-            this.closeIcon.width = 40
-            this.closeIcon.height = 40
-            this.closeIcon.anchorOffsetX = this.closeIcon.width / 2
-            this.closeIcon.anchorOffsetY = this.closeIcon.height / 2
-            this.closeIcon.x = stageWidth - 30
-            this.closeIcon.y = 150
-            this.closeIcon.touchEnabled = true
-            this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
-            this.addChild(this.closeIcon)
+            // this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
+            // this.closeIcon.width = 40
+            // this.closeIcon.height = 40
+            // this.closeIcon.anchorOffsetX = this.closeIcon.width / 2
+            // this.closeIcon.anchorOffsetY = this.closeIcon.height / 2
+            // this.closeIcon.x = stageWidth - 30
+            // this.closeIcon.y = 150
+            // this.closeIcon.touchEnabled = true
+            // this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
+            // this.addChild(this.closeIcon)
+
             this.tiptext = new egret.TextField()
             
             var process = Math.ceil(((count + 1) / this.charaChooser.length) * 65 + 20)
@@ -111,11 +112,11 @@ namespace game {
             this.sprite.addChild(probessBar)
         }
 
-        private closeTip(): void {
-            if (this.tiptext.parent) {
-                this.removeChild(this.tiptext)
-            }
-        }
+        // private closeTip(): void {
+        //     if (this.tiptext.parent) {
+        //         this.removeChild(this.tiptext)
+        //     }
+        // }
         private nextTouch() {
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5
             

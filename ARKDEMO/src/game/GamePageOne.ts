@@ -105,7 +105,7 @@ namespace game {
 
             this.tiptext = new egret.TextField()
             this.addChild(this.tiptext)
-            var msg = " The ARK is serving the cause of tapping into your teams‘ full potential. Your first task: ANONY- MOUSLY rank your team on this Potentiality Sca- le from 1 to 81."
+            var msg = " The ARK is serving the cause of tapping into  your teams‘ full potential. Your first task:  ANONY- MOUSLY rank your team on this Potentia-lity Scale from 1 to 81."
             this.tip(1, 50, msg, 30)
 
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale')
@@ -180,7 +180,7 @@ namespace game {
         }
         private clickTip(): void {
             let clickTip: egret.TextField = new egret.TextField()
-            clickTip.text = "Drag & Drop your  Icon on the scale  as you see fit. The question: In retro-spective, to what e-xtent does your te-am tap into its full  POTENTIAL..."
+            clickTip.text = "Drag & Drop your  Icon on the scale  as you see fit. The question: In retro-spective, to what  extent does your  team tap into its  full POTENTIAL..."
             clickTip.width = 250
             clickTip.x = 30
             clickTip.y = 450
@@ -221,37 +221,38 @@ namespace game {
         }
 
         private getPlayList(): void {
-            base.API.Init("http://work.metatype.cn:8105/api/");
             let self = this;
-            base.API.call('get_player_list', {
 
-                'game_secret': self.game_secret,
-                'gameName': self.gameName,
-                'inviter': self.inviter
+            // base.API.call('get_player_list', {
 
-            }).then(function (response) {
+            //     'game_secret': self.game_secret,
+            //     'gameName': self.gameName,
+            //     'inviter': self.inviter
 
-                self.playerList = response['player_list']
-                self.playerList.forEach((val, index, array) => {
+            // }).then(function (response) {
 
-                    if (val == self.player) {
+
+                // self.playerList = response['player_list']
+                // self.playerList.forEach((self.player, index, array) => {
+
+                    // if (val == self.player) {
                         var player_name: egret.TextField = new egret.TextField()
-                        player_name.text = val
+                        player_name.text = self.player
                         player_name.textAlign = egret.HorizontalAlign.CENTER
                         player_name.size = 30
                         player_name.lineSpacing = 10
                         player_name.touchEnabled = true
                         player_name.border = true;
 
-                        if (val.length * 18 < 100) {
+                        if (self.player.length * 18 < 100) {
                             player_name.width = 100
                         } else {
-                            player_name.width = val.length * 18
+                            player_name.width = self.player.length * 18
                         }
 
                         player_name.borderColor = 0x00ff00;
                         player_name.x = 70
-                        player_name.y = 300 + index * 50;
+                        player_name.y = 300
 
                         var player_score: egret.TextField = new egret.TextField()
                         player_score.text = ''
@@ -304,14 +305,15 @@ namespace game {
                             }, this)
                         }, this);
 
-                        player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
-                            self._touchStatus = false;
-                            player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-                        }, this);
+                        // player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
+                        //     self._touchStatus = false;
+                        //     player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+                        // }, this);
                         self.sprite.addChild(player_name)
-                    }
-                })
-            })
+
+                    // }
+                // })
+            // })
         }
     }
 }

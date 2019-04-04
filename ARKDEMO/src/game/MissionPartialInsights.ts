@@ -44,7 +44,6 @@ namespace game {
             
         }
 
-
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 50, "Mission 1 > Partial Insights")
             this.sprite.addChild(processBar)

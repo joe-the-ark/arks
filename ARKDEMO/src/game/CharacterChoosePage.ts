@@ -271,7 +271,7 @@ namespace game {
 
         private createTitle() {
             let title: egret.TextField = new egret.TextField();
-            title.text = "Task: screen through the list and name the twosomes of formative tensions that unite, seperate and define the organizing dynamics in your team.";
+            title.text = "Task: screen through the list and name the twosomes of  formative tensions that unite, seperate and define the or-ganizing dynamics in your team.";
             title.size = 25;
             title.width = this.stageWidth;
             title.x = 320 - title.textWidth / 2;

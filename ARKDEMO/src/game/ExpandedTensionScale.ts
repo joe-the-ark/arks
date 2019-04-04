@@ -29,6 +29,9 @@ namespace game {
         private zoraMedianLine: egret.Shape;
         private zoraMin = 0
         private  tiptext: egret.TextField
+
+        private  feedbacktext: egret.TextField
+
         public lowest = 0
         public highest = 0
         public count = 0
@@ -84,6 +87,7 @@ namespace game {
             this.rightIcon()
 
             this.tiptext = new egret.TextField()
+            this.feedbacktext = new egret.TextField()
             this.noticetext = new egret.TextField()
             this.sprite.addChild(this.noticetext)
             this.sprite.addChild(this.tiptext)
@@ -189,7 +193,7 @@ namespace game {
                 self.playerCount = response['playerCount']
                 self.votedScalesNumber = self.individualTensionScale.length + 1
 
-                self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have so far voted the ' + self.character1 + " & " + self.character2 + "Tension Scale. Here are Early Insights:"
+                self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "Tension Sca-le. Here are Early Insights:"
 
                 self.tensionScale()
             })
@@ -228,9 +232,9 @@ namespace game {
         }
 
         private tip(): void {
-            let tip: egret.TextField = new egret.TextField()
+            let tip: egret.TextField = this.feedbacktext
 
-            tip.text = "• Your Self-Perception at 6 points is inside the preliminary Zone of Responsible Action.\n\n• Your teammates rank you at 46 a total of 40 points higher than your self-perception at 6 points.\n\n• While 21 points is the lowest and 70 points the highest value that others attributed to you.\n\n• Thus 71% of your relationships on this scale are tense."
+            // tip.text = "• Your Self-Perception at 6 points is inside the preliminary Zone of Responsible Action.\n\n• Your teammates rank you at 46 a total of 40 points higher than your self-perception at 6 points.\n\n• While 21 points is the lowest and 70 points the highest value that others attributed to you.\n\n"
 
             tip.width = 350
             tip.x = -350
@@ -349,8 +353,12 @@ namespace game {
             selfPerception.borderColor = 0x000000
             selfPerception.background = true
             selfPerception.backgroundColor = 0xffffff
+
+            var selftiptext = '• Your Self-Perception at '+this.selfPerception.toString()+' points is inside the preliminary Zone of Responsible Action.\n\n'
+
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {  // 不在 ZORA 范围内
                 selfPerception.backgroundColor = 0xcc9932
+                selftiptext = '• Your Self-Perception at '+this.selfPerception.toString()+' points is outside the preliminary Zone of Responsible Action.\n\n'
             }
             this.sprite.addChild(selfPerception)
 
@@ -454,6 +462,9 @@ namespace game {
             let hight = othersSelfPerception.pop()
             let low = othersSelfPerception.shift()
 
+            var itsmtiptext = '• Your teammates rank you at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points higher than your self-perception at '+this.selfPerception.toString()+' points.\n\n'
+            var hightlowtexgt = '• While '+low+' points is the lowest and '+hight+' points the highest value that others attributed to you.\n\n'
+            this.feedbacktext.text = selftiptext+itsmtiptext+hightlowtexgt
             var s = 0;
             this.individualTensionScale.forEach(function(val, idx, arr) {
                 s += val;
