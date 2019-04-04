@@ -118,13 +118,13 @@ namespace game {
             choose.height = 50
             choose.size = 30
             choose.x = x
-
             choose.y = y + 50
 
             choose.border = true
             choose.borderColor = 0x000000
-
             self.sprite.addChild(choose)
+            self.choose = ''
+            
         }
 
         private playerListMove() {
@@ -158,6 +158,7 @@ namespace game {
                         this.votingPlayerName.text = player.text
                         this.choose = player.text
                     }, this)
+
             })
         }
 

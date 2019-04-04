@@ -113,6 +113,7 @@ var game;
             choose.border = true;
             choose.borderColor = 0x000000;
             self.sprite.addChild(choose);
+            self.choose = '';
         };
         AffinityMapping.prototype.playerListMove = function () {
             var _this = this;

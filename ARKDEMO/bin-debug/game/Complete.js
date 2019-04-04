@@ -38,7 +38,7 @@ var game;
         };
         Complete.prototype.intro = function () {
             var intro = new egret.TextField();
-            intro.text = "Thank you for travelling with The ARK!\n\nDownload a PDF with your journeys data\n\nWeChat with the developer \n\nRe-Embark on The ARK \n\nRecommend The ARK to your friends\n\nCoffee for the developer";
+            intro.text = "Thank you for travelling with The ARK!\n\nWeChat with the developer \n\nRe-Embark on The ARK \n\nRecommend The ARK to your friends\n\nCoffee for the developer";
             intro.width = this._width;
             intro.x = this._x;
             intro.y = 100;
