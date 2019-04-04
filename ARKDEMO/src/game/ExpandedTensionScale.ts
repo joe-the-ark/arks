@@ -193,7 +193,7 @@ namespace game {
                 self.playerCount = response['playerCount']
                 self.votedScalesNumber = self.individualTensionScale.length + 1
 
-                self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "Tension\nScale. Here are Early Insights:"
+                self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "\nTensionScale. Here are Early Insights:"
 
                 self.tensionScale()
             })
@@ -381,6 +381,9 @@ namespace game {
                 playerName.x = selfPerception.x - playerName.width
             }
             this.sprite.addChild(playerName)
+            playerName.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                    this.setChildIndex(playerName, this.sprite.numChildren - 1);
+            }, this );
 
             
             // 绘制 ITSM
@@ -438,6 +441,11 @@ namespace game {
                 individualTensionScale.borderColor = 0x000000
                 individualTensionScale.background = true
                 individualTensionScale.backgroundColor = 0xffffff
+
+
+
+
+
                 if (index % 2 == 0) {  // 偶数项在左侧
                     individualTensionScale.x = this._x + this.character1Sprite.width / 2 - individualTensionScale.width
                 }
@@ -445,6 +453,11 @@ namespace game {
                     individualTensionScale.backgroundColor = 0xcc9932
                 }
                 this.sprite.addChild(individualTensionScale)
+
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+                    this.setChildIndex(individualTensionScale, this.sprite.numChildren - 1);
+                }, this ); 
+
 
 
             })
@@ -460,8 +473,8 @@ namespace game {
             let othersSelfPerception =  this.individualTensionScale
             othersSelfPerception.sort()
 
-            let low = 0
-            let hight = 0
+            var low = 0
+            var hight = 0
             if (othersSelfPerception.length < 2){
                 low = othersSelfPerception[0]  
                 hight = othersSelfPerception[0]
@@ -471,12 +484,11 @@ namespace game {
             }
 
             if(this.individualTensionScaleMedian >= this.selfPerception){
-                var itsmtiptext = '• Your teammates rank\nyou at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points\nhigher than your\nself-perception at '+this.selfPerception.toString()+' points.\n\n'
+                var itsmtiptext = '• Your teammates rank\nyou at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+'\npoints higher than your\nself-perception at '+this.selfPerception.toString()+' points.\n\n'
 
             }else {
-                var itsmtiptext = '• Your teammates rank\nyou at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+' points\nlower than your\nself-perception at '+this.selfPerception.toString()+' points.\n\n'
+                var itsmtiptext = '• Your teammates rank\nyou at '+this.individualTensionScaleMedian.toString()+' a total of '+(Math.abs(this.individualTensionScaleMedian-this.selfPerception)).toString()+'\npoints lower than your\nself-perception at '+this.selfPerception.toString()+' points.\n\n'
             }
-
 
             var hightlowtexgt = '• While '+low+' points is the\nlowest and '+hight+' points the\nhighest value that others\nattributed to you.\n\n'
             this.feedbacktext.text = selftiptext+itsmtiptext+hightlowtexgt

@@ -176,7 +176,6 @@ namespace game {
                 this.sprite.addChild(selectedCharacter)
                 this.confirmButton.visible = true
                 this.confirmText.visible = true
-
             }
         }
 

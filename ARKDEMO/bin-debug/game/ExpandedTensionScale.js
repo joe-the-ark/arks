@@ -157,7 +157,7 @@ var game;
                 self.individualTensionScale = response['individualTensionScale'];
                 self.playerCount = response['playerCount'];
                 self.votedScalesNumber = self.individualTensionScale.length + 1;
-                self.noticetext.text = Math.ceil(((self.votedScalesNumber) / self.playerCount) * 100).toString() + "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "Tension\nScale. Here are Early Insights:";
+                self.noticetext.text = Math.ceil(((self.votedScalesNumber) / self.playerCount) * 100).toString() + "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "\nTensionScale. Here are Early Insights:";
                 self.tensionScale();
             });
         };
@@ -323,6 +323,9 @@ var game;
                 playerName.x = selfPerception.x - playerName.width;
             }
             this.sprite.addChild(playerName);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                _this.setChildIndex(playerName, _this.sprite.numChildren - 1);
+            }, this);
             // 绘制 ITSM
             if (this.individualTensionScale.length > 0) {
                 console.log(this.individualTensionScale);
@@ -377,6 +380,9 @@ var game;
                     individualTensionScale.backgroundColor = 0xcc9932;
                 }
                 _this.sprite.addChild(individualTensionScale);
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+                    _this.setChildIndex(individualTensionScale, _this.sprite.numChildren - 1);
+                }, _this);
             });
             // 添加玩家 SelfPerception
             // let allSelfPerception = []
@@ -398,10 +404,10 @@ var game;
                 low = othersSelfPerception.shift();
             }
             if (this.individualTensionScaleMedian >= this.selfPerception) {
-                var itsmtiptext = '• Your teammates rank\nyou at ' + this.individualTensionScaleMedian.toString() + ' a total of ' + (Math.abs(this.individualTensionScaleMedian - this.selfPerception)).toString() + ' points\nhigher than your\nself-perception at ' + this.selfPerception.toString() + ' points.\n\n';
+                var itsmtiptext = '• Your teammates rank\nyou at ' + this.individualTensionScaleMedian.toString() + ' a total of ' + (Math.abs(this.individualTensionScaleMedian - this.selfPerception)).toString() + '\npoints higher than your\nself-perception at ' + this.selfPerception.toString() + ' points.\n\n';
             }
             else {
-                var itsmtiptext = '• Your teammates rank\nyou at ' + this.individualTensionScaleMedian.toString() + ' a total of ' + (Math.abs(this.individualTensionScaleMedian - this.selfPerception)).toString() + ' points\nlower than your\nself-perception at ' + this.selfPerception.toString() + ' points.\n\n';
+                var itsmtiptext = '• Your teammates rank\nyou at ' + this.individualTensionScaleMedian.toString() + ' a total of ' + (Math.abs(this.individualTensionScaleMedian - this.selfPerception)).toString() + '\npoints lower than your\nself-perception at ' + this.selfPerception.toString() + ' points.\n\n';
             }
             var hightlowtexgt = '• While ' + low + ' points is the\nlowest and ' + hight + ' points the\nhighest value that others\nattributed to you.\n\n';
             this.feedbacktext.text = selftiptext + itsmtiptext + hightlowtexgt;
