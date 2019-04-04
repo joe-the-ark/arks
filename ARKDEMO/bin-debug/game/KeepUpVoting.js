@@ -32,6 +32,7 @@ var game;
             _this.simulatedData2 = [];
             _this.ttsms = [];
             _this.scorecount = 0;
+            _this.simulatedData = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.game_secret = game_secret;
@@ -192,18 +193,38 @@ var game;
                     }
                 }
                 else {
-                    base.API.call('save_players_process', {
-                        'inviter_name': self.inviter,
-                        'game_secret': self.game_secret,
+                    base.API.call('get_game_score', {
+                        'characterListParams': self.characterListParams,
+                        'inviter': self.inviter,
+                        'gameSecret': self.game_secret,
                         'player': self.player,
-                        'game_name': self.gameName,
-                        'process': '2.0'
+                        'gameName': self.gameName,
                     }).then(function (response) {
-                        self.timer.stop();
-                        self.sprite.visible = false;
-                        var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
-                        self.stage.addChild(toTensionScaleResult);
+                        var result = response['result'];
+                        self.simulatedData = result;
                     });
+                    var flag = true;
+                    for (var i = 0; i < self.simulatedData.length; i++) {
+                        if (self.simulatedData[i].length < 4) {
+                            alert('Please wait for everyone to finish scoring.');
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag == true) {
+                        base.API.call('save_players_process', {
+                            'inviter_name': self.inviter,
+                            'game_secret': self.game_secret,
+                            'player': self.player,
+                            'game_name': self.gameName,
+                            'process': '2.0'
+                        }).then(function (response) {
+                            self.timer.stop();
+                            self.sprite.visible = false;
+                            var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
+                            self.stage.addChild(toTensionScaleResult);
+                        });
+                    }
                 }
             });
         };

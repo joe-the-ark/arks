@@ -23,6 +23,8 @@ namespace game {
         public ttsms = []
         public scorecount=0
 
+        public simulatedData = []
+
         public playerCount
         
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
@@ -204,28 +206,53 @@ namespace game {
                     }
                 }
                 else {
-                    base.API.call('save_players_process', {
-                        'inviter_name': self.inviter,
-                        'game_secret': self.game_secret,
-                        'player': self.player,
-                        'game_name': self.gameName,
-                        'process': '2.0'
-                    }).then(function (response) {
-                        self.timer.stop()
-                        self.sprite.visible = false;
-                        let toTensionScaleResult = new game.TensionScaleResult(
-                            self.stageWidth,
-                            self.stageHeight,
-                            self.inviter,
-                            self.game_secret,
-                            self.player,
-                            self.gameName,
-                            characterListParams,
-                            self.playerCount
-                        )
-                        self.stage.addChild(toTensionScaleResult);
 
+
+                    base.API.call('get_game_score', {
+                        'characterListParams': self.characterListParams,
+                        'inviter': self.inviter,
+                        'gameSecret': self.game_secret,
+                        'player': self.player,
+                        'gameName': self.gameName,
+                    }).then(function (response) {
+                        var result = response['result']
+                        self.simulatedData = result
                     })
+
+
+                    var flag  = true
+                     for(var i=0;i<self.simulatedData.length;i++){
+                         
+                        if(self.simulatedData[i].length < 4){
+                            alert('Please wait for everyone to finish scoring.')
+                            flag = false 
+                            break
+                        }
+                     }
+
+                    if(flag == true){
+                        base.API.call('save_players_process', {
+                            'inviter_name': self.inviter,
+                            'game_secret': self.game_secret,
+                            'player': self.player,
+                            'game_name': self.gameName,
+                            'process': '2.0'
+                        }).then(function (response) {
+                            self.timer.stop()
+                            self.sprite.visible = false;
+                            let toTensionScaleResult = new game.TensionScaleResult(
+                                self.stageWidth,
+                                self.stageHeight,
+                                self.inviter,
+                                self.game_secret,
+                                self.player,
+                                self.gameName,
+                                characterListParams,
+                                self.playerCount
+                            )
+                            self.stage.addChild(toTensionScaleResult);
+                        })
+                    }
                 }
             })
         }

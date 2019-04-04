@@ -110,8 +110,7 @@ var game;
             choose.size = 30;
             choose.x = x;
             choose.y = y + 50;
-            choose.border = true;
-            choose.borderColor = 0x000000;
+            // choose.border = true
             self.sprite.addChild(choose);
             self.choose = '';
         };
