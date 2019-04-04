@@ -478,7 +478,7 @@ namespace game {
             }
 
 
-            var hightlowtexgt = '• While '+low+' points is the lowest and '+hight+' points the\nhighest value that others\nattributed to you.\n\n'
+            var hightlowtexgt = '• While '+low+' points is the\nlowest and '+hight+' points the\nhighest value that others\nattributed to you.\n\n'
             this.feedbacktext.text = selftiptext+itsmtiptext+hightlowtexgt
             var s = 0;
             this.individualTensionScale.forEach(function(val, idx, arr) {

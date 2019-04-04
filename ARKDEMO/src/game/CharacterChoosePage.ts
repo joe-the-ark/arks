@@ -155,6 +155,7 @@ namespace game {
                 this.sprite.addChild(selectedCharacter)
             }
         }
+
         private touchtwo() {
             if (this.chooseText[1]) {
                 this.choosetwo.text = ''
@@ -291,109 +292,179 @@ namespace game {
         private getCharacterList(): void {
             base.API.Init("http://work.metatype.cn:8105/api/");
             const self = this;
+            let group = new eui.Group()
             base.API.call('get_character_list', {}).then(function (response) {
                 self.unselectedCharacterList = response['characters']
-                self.unselectedCharacterList.forEach((val, index, array) => {
-                    var unselectedCharacter: egret.TextField = new egret.TextField()
-                    unselectedCharacter.text = val
-                    unselectedCharacter.textAlign = egret.HorizontalAlign.CENTER
-                    unselectedCharacter.size = 30
-                    unselectedCharacter.lineSpacing = 10
-                    unselectedCharacter.touchEnabled = true
-                    unselectedCharacter.width = 100
-                    unselectedCharacter.border = true;
-                    unselectedCharacter.borderColor = 0x00ff00;
-                    unselectedCharacter.x = 50
-                    unselectedCharacter.y = 300 + index * 50;
-                    unselectedCharacter.background = true;
-                    unselectedCharacter.backgroundColor = 0x636363;
+                for (var i = 0; i < self.unselectedCharacterList.length; ++i) {
+                    let unselectedCharacter = new eui.Button()
+                    var buttonSkin =
+                        `<e:Skin class="skins.ButtonSkin" states="up,down,disabled" minHeight="50" minWidth="100" xmlns:e="http://ns.egret.com/eui">
+                            <e:Image width="100%" height="100%" scale9Grid="1,3,8,8" alpha.disabled="0.5"
+                                    source="resource/assets/Button/button_up.png"
+                                    source.down="resource/assets/Button/button_down.png"/>
+                            <e:Label id="labelDisplay" top="8" bottom="8" left="8" right="8"
+                                    textColor="0xFFFFFF" verticalAlign="middle" textAlign="center"/>
+                            <e:Image id="iconDisplay" horizontalCenter="0" verticalCenter="0"/>
+                        </e:Skin>`;
+                    unselectedCharacter.skinName = buttonSkin;
+                    unselectedCharacter.label = self.unselectedCharacterList[i]
+                    unselectedCharacter.x = 50;
+                    unselectedCharacter.y = 50 + i * 60;
                     self.sprite.addChild(unselectedCharacter)
+                    group.addChild(unselectedCharacter)
 
-                    if (val.length * 18 < 100) {
-                        unselectedCharacter.width = 100
-                    } else {
-                        unselectedCharacter.width = val.length * 18
-                    }
+                    let myScroller = new eui.Scroller()
+                    myScroller.width = 300
+                    myScroller.height = 700
+                    myScroller.x = 75
+                    myScroller.y = 300
+                    myScroller.viewport = group
+                    self.sprite.addChild(myScroller)
 
                     var flag = 0 //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
 
-                        if (flag == 0) {}
+                        if (flag == 0) {
 
+                        }
                         if (self.chooseText.length == 2) {
                             // unselectedCharacter.touchEnabled = false
                             self.chooseText.pop()
-                            self.chooseText.push(unselectedCharacter.text)
-                            self.select_list.push(unselectedCharacter.text)
+                            self.chooseText.push(unselectedCharacter.label)
+                            self.select_list.push(unselectedCharacter.label)
                         } else {
-                            self.chooseText.push(unselectedCharacter.text)
-                            self.select_list.push(unselectedCharacter.text)
-                            unselectedCharacter.backgroundColor = 0x00ff00;
+                            self.chooseText.push(unselectedCharacter.label)
+                            self.select_list.push(unselectedCharacter.label)
                             unselectedCharacter.alpha = 0.4
                             unselectedCharacter.touchEnabled = false
                         }
 
                     }, this)
-
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
-                        self._touchStatus = true;
-                        var dx = e.stageX
-                        var px = unselectedCharacter.x
-                        var py = unselectedCharacter.y
-                        var dy = e.stageY
-
-                        if(self.flag1 != 1 || self.flag2 != 1){
-                            unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
-                                if(self._touchStatus){
-                                    unselectedCharacter.x = e.stageX - dx + px;
-                                    unselectedCharacter.y = e.stageY - dy + py
-                                }
-                                if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
-                                    if(self.flag1 == 1){
-                                        console.log('already have')
-                                    }else {
-                                        self.flag1 = 1
-                                    }
-                                    unselectedCharacter.touchEnabled = false
-                                    self.select_list.push(unselectedCharacter.text)
-                                    self.chooseone.text = ''
-
-                                    if(self.flag1 ==1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true
-                                        self.confirmButton.visible =true
-                                    }
-                                }
-                                else if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 210 && unselectedCharacter.x <280){
-
-                                    if(self.flag2 == 1){
-                                        console.log('already have')
-                                    }else {
-                                        self.flag2 = 1
-                                    }
-                                    unselectedCharacter.touchEnabled = false
-                                    self.select_list.push(unselectedCharacter.text)
-                                    self.choosetwo.text = ''
-                                    if(self.flag1 ==1 && self.flag2 == 1) {
-                                        self.confirmText.visible = true
-                                        self.confirmButton.visible =true
-                                    }
-                                }
-                            }, this)
-
-                        }else if(self.flag1 ==1 && self.flag2 == 1) {
-                            self.confirmText.visible = true
-                            self.confirmButton.visible =true
-                        }
-                    }, this)
-
-                    unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
-                        self._touchStatus = false;
-                        unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-                    }, this);
-                })
+                }
+                //     self.sprite.addChild(unselectedCharacter)
+                // })
             })
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // private getCharacterList(): void {
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
+        //     const self = this;
+        //     base.API.call('get_character_list', {}).then(function (response) {
+        //         self.unselectedCharacterList = response['characters']
+        //         self.unselectedCharacterList.forEach((val, index, array) => {
+        //             var unselectedCharacter: egret.TextField = new egret.TextField()
+        //             unselectedCharacter.text = val
+        //             unselectedCharacter.textAlign = egret.HorizontalAlign.CENTER
+        //             unselectedCharacter.size = 30
+        //             unselectedCharacter.lineSpacing = 10
+        //             unselectedCharacter.touchEnabled = true
+        //             unselectedCharacter.width = 100
+        //             unselectedCharacter.border = true;
+        //             unselectedCharacter.borderColor = 0x00ff00;
+        //             unselectedCharacter.x = 50
+        //             unselectedCharacter.y = 300 + index * 50;
+        //             unselectedCharacter.background = true;
+        //             unselectedCharacter.backgroundColor = 0x636363;
+        //             self.sprite.addChild(unselectedCharacter)
+
+        //             if (val.length * 18 < 100) {
+        //                 unselectedCharacter.width = 100
+        //             } else {
+        //                 unselectedCharacter.width = val.length * 18
+        //             }
+
+        //             var flag = 0 //0：未被点击 1：已点击
+        //             unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
+        //                 if (flag == 0) {}
+        //                 if (self.chooseText.length == 2) {
+        //                     // unselectedCharacter.touchEnabled = false
+        //                     self.chooseText.pop()
+        //                     self.chooseText.push(unselectedCharacter.text)
+        //                     self.select_list.push(unselectedCharacter.text)
+        //                 } else {
+        //                     self.chooseText.push(unselectedCharacter.text)
+        //                     self.select_list.push(unselectedCharacter.text)
+        //                     unselectedCharacter.backgroundColor = 0x00ff00;
+        //                     unselectedCharacter.alpha = 0.4
+        //                     unselectedCharacter.touchEnabled = false
+        //                 }
+        //             }, this)
+
+        //             unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_BEGIN, (e) => {
+        //                 self._touchStatus = true;
+        //                 var dx = e.stageX
+        //                 var px = unselectedCharacter.x
+        //                 var py = unselectedCharacter.y
+        //                 var dy = e.stageY
+
+        //                 if(self.flag1 != 1 || self.flag2 != 1){
+        //                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_MOVE, (e) =>{
+        //                         if(self._touchStatus){
+        //                             unselectedCharacter.x = e.stageX - dx + px;
+        //                             unselectedCharacter.y = e.stageY - dy + py
+        //                         }
+        //                         if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 0 && unselectedCharacter.x <80){
+        //                             if(self.flag1 == 1){
+        //                                 console.log('already have')
+        //                             }else {
+        //                                 self.flag1 = 1
+        //                             }
+        //                             unselectedCharacter.touchEnabled = false
+        //                             self.select_list.push(unselectedCharacter.text)
+        //                             self.chooseone.text = ''
+
+        //                             if(self.flag1 ==1 && self.flag2 == 1) {
+        //                                 self.confirmText.visible = true
+        //                                 self.confirmButton.visible =true
+        //                             }
+        //                         }
+        //                         else if(unselectedCharacter.y < 185 && unselectedCharacter.y >170 && unselectedCharacter.x > 210 && unselectedCharacter.x <280){
+
+        //                             if(self.flag2 == 1){
+        //                                 console.log('already have')
+        //                             }else {
+        //                                 self.flag2 = 1
+        //                             }
+        //                             unselectedCharacter.touchEnabled = false
+        //                             self.select_list.push(unselectedCharacter.text)
+        //                             self.choosetwo.text = ''
+        //                             if(self.flag1 ==1 && self.flag2 == 1) {
+        //                                 self.confirmText.visible = true
+        //                                 self.confirmButton.visible =true
+        //                             }
+        //                         }
+        //                     }, this)
+
+        //                 }else if(self.flag1 ==1 && self.flag2 == 1) {
+        //                     self.confirmText.visible = true
+        //                     self.confirmButton.visible =true
+        //                 }
+        //             }, this)
+
+        //             unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
+        //                 self._touchStatus = false;
+        //                 unselectedCharacter.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
+        //             }, this);
+        //         })
+        //     })
+
+
+
+            
+        // }
 
     //     private list: eui.List;
     //     protected createScrollableCharacterList() {
