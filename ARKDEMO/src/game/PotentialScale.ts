@@ -30,7 +30,6 @@ namespace game {
         public highest = 0
         public count = 0
         public median = 0
-        
 
         public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, player, gameName, playerCount) {
             super()
@@ -160,46 +159,11 @@ namespace game {
                 //  self.sprite.visible = false
                 self.potentialScale()
                 self.tiptext.text = Math.ceil(((self.othersSelfPerception.length+1)/self.playerCount) * 100).toString() + '% of your Team \n (' + (self.othersSelfPerception.length+1).toString() + ' out of ' + self.playerCount.toString() + ' ) has so far\n voted the Potential Scale.\nInvite ev-eryone to follow suit.\nHere are Early Insights:\n\n• ' + self.lowest.toString() + ' is the lowest and ' + self.highest.toString() + '    the highest value on the  Scale.\n• The teams preliminary  median is ' + self.median.toString() + '.\n\n• The perception of ' + self.count.toString() + '\npeople varies remarkably \nfrom the team average.'
-
             })
         }
 
         private potentialScale(): void {
-            // 上面的性格
-            // this.sprite.visible = true
-            // let character1: egret.TextField = new egret.TextField()
-            // character1.text = this.character1
-            // character1.x = this._x
-            // character1.width = this._width
-            // character1.textAlign = egret.HorizontalAlign.CENTER
-            // character1.border = true
-            // character1.borderColor = 0x000000
-            // character1.background = true
-            // character1.backgroundColor = 0x539f93
-            // this.sprite.addChild(character1)
-
-            // // 下面的性格
-            // let character2: egret.TextField = new egret.TextField()
-            // character2.text = this.character2
-            // character2.x = this._x
-            // character2.y = 840
-            // character2.width = this._width
-            // character2.textAlign = egret.HorizontalAlign.CENTER
-            // character2.border = true
-            // character2.borderColor = 0x000000
-            // character2.background = true
-            // character2.backgroundColor = 0x539f93
-            // this.sprite.addChild(character2)
             
-            // // 性格连接线
-            // let line: egret.Shape = this._shape
-            // line.graphics.lineStyle(2, 0xaa2200)
-            // line.graphics.moveTo(this._x + character1.width / 2, character1.height)
-            // line.graphics.lineTo(this._x + character1.width / 2, character2.y)
-            // line.graphics.endFill()
-            // this.sprite.addChild(line)
-
-            // 添加玩家 SelfPerception
             let allSelfPerception = []
             let count = 0
             allSelfPerception.push(Number(this.selfPerception))
@@ -233,6 +197,26 @@ namespace game {
                 othersSelfPerception.borderColor = 0x000000
                 othersSelfPerception.background = true
                 othersSelfPerception.backgroundColor = 0xfffecc
+
+
+                othersSelfPerception.touchEnabled = true
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                    othersSelfPerception.width = othersSelfPerception.width * 2.5
+                    othersSelfPerception.height = othersSelfPerception.height * 2
+                    othersSelfPerception.size = othersSelfPerception.size * 2
+                    othersSelfPerception.x = othersSelfPerception.x - 100
+                }, self)
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                    othersSelfPerception.width = othersSelfPerception.width / 2.5
+                    othersSelfPerception.height = othersSelfPerception.height / 2
+                    othersSelfPerception.size = othersSelfPerception.size / 2
+                    othersSelfPerception.x = othersSelfPerception.x + 100
+                }, self)
+
+
+
+
+
                 if (index % 2 == 0) {  // 偶数项在左侧
                     othersSelfPerception.x = this._x + this.character1Sprite.width / 2 - othersSelfPerception.width
                 }
@@ -283,6 +267,21 @@ namespace game {
             selfPerception.borderColor = 0x000000
             selfPerception.background = true
             selfPerception.backgroundColor = 0xffffff
+
+            selfPerception.touchEnabled = true
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                selfPerception.width = selfPerception.width * 2.5
+                selfPerception.height = selfPerception.height * 2
+                selfPerception.size = selfPerception.size * 2
+                selfPerception.x = selfPerception.x - 100
+            }, self)
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                selfPerception.width = selfPerception.width / 2.5
+                selfPerception.height = selfPerception.height / 2
+                selfPerception.size = selfPerception.size / 2
+                selfPerception.x = selfPerception.x + 100
+            }, self)
+
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {  // 不在 ZORA 区域
                 selfPerception.backgroundColor = 0xcc9932
                 count ++ 
@@ -300,6 +299,20 @@ namespace game {
             playerName.border = true
             playerName.borderColor = 0x000000
 
+            playerName.touchEnabled = true
+            playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                playerName.width = playerName.width * 2.5
+                playerName.height = playerName.height * 2
+                playerName.size = playerName.size * 2
+                playerName.x = playerName.x - 100
+            }, self)
+            playerName.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                playerName.width = playerName.width / 2.5
+                playerName.height = playerName.height / 2
+                playerName.size = playerName.size / 2
+                playerName.x = playerName.x + 100
+            }, self)
+
             if (this.playerName.length * 18 < 100) {
                 playerName.width = 100
                 playerName.x = selfPerception.x - playerName.width
@@ -308,8 +321,6 @@ namespace game {
                 playerName.x = selfPerception.x - playerName.width
             }
             this.sprite.addChild(playerName)
-
-
 
         }
     }

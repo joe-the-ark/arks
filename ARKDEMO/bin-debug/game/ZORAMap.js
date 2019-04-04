@@ -120,6 +120,19 @@ var game;
             playerName.y = 260;
             playerName.rotation = 270;
             playerName.textColor = 0x000000;
+            playerName.touchEnabled = true;
+            playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                playerName.width = playerName.width * 3;
+                playerName.height = playerName.height * 3;
+                playerName.size = playerName.size * 2;
+                // playerName.x = playerName.x - 100
+            }, self);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                playerName.width = playerName.width / 3;
+                playerName.height = playerName.height / 3;
+                playerName.size = playerName.size / 2;
+                // playerName.x = playerName.x + 100
+            }, self);
             playerScore.text = this.playerScore;
             playerScore.textAlign = egret.HorizontalAlign.CENTER;
             playerScore.size = 20;
@@ -133,6 +146,19 @@ var game;
             playerScore.textColor = 0x000000;
             playerScore.anchorOffsetX = playerScore.width / 2;
             playerScore.anchorOffsetY = playerScore.height / 2;
+            playerScore.touchEnabled = true;
+            playerScore.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                playerScore.width = playerScore.width * 3;
+                playerScore.height = playerScore.height * 3;
+                playerScore.size = playerScore.size * 2;
+                // playerScore.x = playerScore.x - 100
+            }, self);
+            playerScore.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                playerScore.width = playerScore.width / 3;
+                playerScore.height = playerScore.height / 3;
+                playerScore.size = playerScore.size / 2;
+                // playerName.x = playerName.x + 100
+            }, self);
             tensionScaleMedian.text = this.tensionMedian + '/' + this.median;
             tensionScaleMedian.textAlign = egret.HorizontalAlign.CENTER;
             tensionScaleMedian.size = 20;
@@ -146,6 +172,19 @@ var game;
             tensionScaleMedian.textColor = 0x000000;
             tensionScaleMedian.anchorOffsetX = tensionScaleMedian.width / 2;
             tensionScaleMedian.anchorOffsetY = tensionScaleMedian.height / 2;
+            tensionScaleMedian.touchEnabled = true;
+            tensionScaleMedian.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                tensionScaleMedian.width = tensionScaleMedian.width * 3;
+                tensionScaleMedian.height = tensionScaleMedian.height * 3;
+                tensionScaleMedian.size = tensionScaleMedian.size * 2;
+                // tensionScaleMedian.x = tensionScaleMedian.x - 100
+            }, self);
+            tensionScaleMedian.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                tensionScaleMedian.width = tensionScaleMedian.width / 3;
+                tensionScaleMedian.height = tensionScaleMedian.height / 3;
+                tensionScaleMedian.size = tensionScaleMedian.size / 2;
+                // playerName.x = playerName.x + 100
+            }, self);
             tensionScaleMedianName.text = this.player_name;
             tensionScaleMedianName.textAlign = egret.HorizontalAlign.CENTER;
             tensionScaleMedianName.size = 20;
@@ -159,6 +198,17 @@ var game;
             tensionScaleMedianName.textColor = 0x000000;
             tensionScaleMedianName.anchorOffsetX = tensionScaleMedianName.width / 2;
             tensionScaleMedianName.anchorOffsetY = tensionScaleMedianName.height / 2;
+            tensionScaleMedianName.touchEnabled = true;
+            tensionScaleMedianName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                tensionScaleMedianName.width = tensionScaleMedianName.width * 3;
+                tensionScaleMedianName.height = tensionScaleMedianName.height * 3;
+                tensionScaleMedianName.size = tensionScaleMedianName.size * 2;
+            }, self);
+            tensionScaleMedianName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                tensionScaleMedianName.width = tensionScaleMedianName.width / 3;
+                tensionScaleMedianName.height = tensionScaleMedianName.height / 3;
+                tensionScaleMedianName.size = tensionScaleMedianName.size / 2;
+            }, self);
             if (this.ZORAMin > this.selfPerciption || this.selfPerciption > this.ZORAMax) {
                 playerScore.background = true;
                 playerScore.backgroundColor = 0xC14343;

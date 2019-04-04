@@ -136,39 +136,7 @@ var game;
             });
         };
         PotentialScale.prototype.potentialScale = function () {
-            // 上面的性格
-            // this.sprite.visible = true
-            // let character1: egret.TextField = new egret.TextField()
-            // character1.text = this.character1
-            // character1.x = this._x
-            // character1.width = this._width
-            // character1.textAlign = egret.HorizontalAlign.CENTER
-            // character1.border = true
-            // character1.borderColor = 0x000000
-            // character1.background = true
-            // character1.backgroundColor = 0x539f93
-            // this.sprite.addChild(character1)
             var _this = this;
-            // // 下面的性格
-            // let character2: egret.TextField = new egret.TextField()
-            // character2.text = this.character2
-            // character2.x = this._x
-            // character2.y = 840
-            // character2.width = this._width
-            // character2.textAlign = egret.HorizontalAlign.CENTER
-            // character2.border = true
-            // character2.borderColor = 0x000000
-            // character2.background = true
-            // character2.backgroundColor = 0x539f93
-            // this.sprite.addChild(character2)
-            // // 性格连接线
-            // let line: egret.Shape = this._shape
-            // line.graphics.lineStyle(2, 0xaa2200)
-            // line.graphics.moveTo(this._x + character1.width / 2, character1.height)
-            // line.graphics.lineTo(this._x + character1.width / 2, character2.y)
-            // line.graphics.endFill()
-            // this.sprite.addChild(line)
-            // 添加玩家 SelfPerception
             var allSelfPerception = [];
             var count = 0;
             allSelfPerception.push(Number(this.selfPerception));
@@ -196,6 +164,19 @@ var game;
                 othersSelfPerception.borderColor = 0x000000;
                 othersSelfPerception.background = true;
                 othersSelfPerception.backgroundColor = 0xfffecc;
+                othersSelfPerception.touchEnabled = true;
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                    othersSelfPerception.width = othersSelfPerception.width * 2.5;
+                    othersSelfPerception.height = othersSelfPerception.height * 2;
+                    othersSelfPerception.size = othersSelfPerception.size * 2;
+                    othersSelfPerception.x = othersSelfPerception.x - 100;
+                }, self);
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                    othersSelfPerception.width = othersSelfPerception.width / 2.5;
+                    othersSelfPerception.height = othersSelfPerception.height / 2;
+                    othersSelfPerception.size = othersSelfPerception.size / 2;
+                    othersSelfPerception.x = othersSelfPerception.x + 100;
+                }, self);
                 if (index % 2 == 0) {
                     othersSelfPerception.x = _this._x + _this.character1Sprite.width / 2 - othersSelfPerception.width;
                 }
@@ -240,6 +221,19 @@ var game;
             selfPerception.borderColor = 0x000000;
             selfPerception.background = true;
             selfPerception.backgroundColor = 0xffffff;
+            selfPerception.touchEnabled = true;
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                selfPerception.width = selfPerception.width * 2.5;
+                selfPerception.height = selfPerception.height * 2;
+                selfPerception.size = selfPerception.size * 2;
+                selfPerception.x = selfPerception.x - 100;
+            }, self);
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                selfPerception.width = selfPerception.width / 2.5;
+                selfPerception.height = selfPerception.height / 2;
+                selfPerception.size = selfPerception.size / 2;
+                selfPerception.x = selfPerception.x + 100;
+            }, self);
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {
                 selfPerception.backgroundColor = 0xcc9932;
                 count++;
@@ -256,6 +250,19 @@ var game;
             playerName.textAlign = egret.HorizontalAlign.CENTER;
             playerName.border = true;
             playerName.borderColor = 0x000000;
+            playerName.touchEnabled = true;
+            playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
+                playerName.width = playerName.width * 2.5;
+                playerName.height = playerName.height * 2;
+                playerName.size = playerName.size * 2;
+                playerName.x = playerName.x - 100;
+            }, self);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                playerName.width = playerName.width / 2.5;
+                playerName.height = playerName.height / 2;
+                playerName.size = playerName.size / 2;
+                playerName.x = playerName.x + 100;
+            }, self);
             if (this.playerName.length * 18 < 100) {
                 playerName.width = 100;
                 playerName.x = selfPerception.x - playerName.width;

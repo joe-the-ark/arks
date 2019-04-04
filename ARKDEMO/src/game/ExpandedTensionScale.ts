@@ -354,6 +354,25 @@ namespace game {
             selfPerception.background = true
             selfPerception.backgroundColor = 0xffffff
 
+            selfPerception.touchEnabled = true
+            this.sprite.addChild(selfPerception)
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                selfPerception.width = selfPerception.width * 2.5
+                selfPerception.height = selfPerception.height * 2
+                selfPerception.size = selfPerception.size * 2
+                selfPerception.x = selfPerception.x - 100
+            }, self)
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                selfPerception.width = selfPerception.width / 2.5
+                selfPerception.height = selfPerception.height / 2
+                selfPerception.size = selfPerception.size / 2
+                selfPerception.x = selfPerception.x + 100
+            }, self)
+
+
+
+
+
             var selftiptext = '• Your Self-Perception at '+this.selfPerception.toString()+' points is inside the\npreliminary Zone of\nResponsible Action.\n\n'
 
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {  // 不在 ZORA 范围内
@@ -373,6 +392,25 @@ namespace game {
             playerName.border = true
             playerName.borderColor = 0x000000
 
+            playerName.touchEnabled = true
+            this.sprite.addChild(playerName)
+            playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                playerName.width = playerName.width * 2.5
+                playerName.height = playerName.height * 2
+                playerName.size = playerName.size * 2
+                playerName.x = playerName.x - 100
+            }, self)
+            playerName.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                playerName.width = playerName.width / 2.5
+                playerName.height = playerName.height / 2
+                playerName.size = playerName.size / 2
+                playerName.x = playerName.x + 100
+            }, self)
+
+
+
+
+
             if (this.playerName.length * 18 < 100) {
                 playerName.width = 100
                 playerName.x = selfPerception.x - playerName.width
@@ -385,7 +423,6 @@ namespace game {
                     this.setChildIndex(playerName, this.sprite.numChildren - 1);
             }, this );
 
-            
             // 绘制 ITSM
 
             if(this.individualTensionScale.length > 0){
@@ -414,6 +451,20 @@ namespace game {
             }
             this.sprite.addChild(itsm_Deviation)
 
+            itsm_Deviation.touchEnabled = true
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                itsm_Deviation.width = itsm_Deviation.width * 2.5
+                itsm_Deviation.height = itsm_Deviation.height * 2
+                itsm_Deviation.size = itsm_Deviation.size * 2
+                itsm_Deviation.x = itsm_Deviation.x - 100
+            }, self)
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                itsm_Deviation.width = itsm_Deviation.width / 2.5
+                itsm_Deviation.height = itsm_Deviation.height / 2
+                itsm_Deviation.size = itsm_Deviation.size / 2
+                itsm_Deviation.x = itsm_Deviation.x + 100
+            }, self)
+
             // ITSM 的玩家名
             let individualTensionScaleMedianPlayerName: egret.TextField = this.individualTensionScaleMedianPlayerName
             individualTensionScaleMedianPlayerName.text = this.playerName
@@ -441,9 +492,29 @@ namespace game {
                 individualTensionScale.borderColor = 0x000000
                 individualTensionScale.background = true
                 individualTensionScale.backgroundColor = 0xffffff
+                this.sprite.addChild(individualTensionScale)
 
+                // individualTensionScale.touchEnabled = true
+                // individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                //     individualTensionScale.width = individualTensionScale.width * 3
+                // }, self)
+                // individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                //     individualTensionScale.width = individualTensionScale.width / 3
+                // }, self)
 
-
+                individualTensionScale.touchEnabled = true
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                    individualTensionScale.width = individualTensionScale.width * 2.5
+                    individualTensionScale.height = individualTensionScale.height * 2
+                    individualTensionScale.size = individualTensionScale.size * 2
+                    individualTensionScale.x = individualTensionScale.x - 100
+                }, self)
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                    individualTensionScale.width = individualTensionScale.width / 2.5
+                    individualTensionScale.height = individualTensionScale.height / 2
+                    individualTensionScale.size = individualTensionScale.size / 2
+                    individualTensionScale.x = individualTensionScale.x + 100
+                }, self)
 
 
                 if (index % 2 == 0) {  // 偶数项在左侧
@@ -457,8 +528,6 @@ namespace game {
                 individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
                     this.setChildIndex(individualTensionScale, this.sprite.numChildren - 1);
                 }, this ); 
-
-
 
             })
             // 添加玩家 SelfPerception
