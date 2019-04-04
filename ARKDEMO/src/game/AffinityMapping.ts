@@ -176,15 +176,15 @@ namespace game {
 
         private nextPage(){
 
+            var self = this
             base.API.call('save_players_process', { 
-                'inviter_name': this.inviter, 
-                'game_secret': this.game_secret,
-                'player': this.player,
-                'game_name': this.gameName,
+                'inviter_name': self.inviter, 
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
                 'process': '10'
             }).then(function (response){
 
-                var self = this
                 base.API.call('game_end', { 
                     'inviter_name': self.inviter, 
                     'game_secret': self.game_secret,
