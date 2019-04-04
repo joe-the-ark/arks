@@ -1099,6 +1099,7 @@ def game_end(inviter_name, game_secret, gameName, player):
             flag = False
 
     if flag:
+        Player.objects.filter(game_secret=game_secret, game_name=gameName, inviter_name=inviter_name).delete()
         game = Game.objects.filter(
             game_secret=game_secret,
             game_name=gameName,
