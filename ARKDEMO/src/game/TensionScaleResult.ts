@@ -139,8 +139,6 @@ namespace game {
             //          flag = false                     
             //     }   
             // })
-
-
             if(flag == true){
                 var self = this
                 base.API.call('save_players_process', { 
@@ -152,14 +150,12 @@ namespace game {
                 }).then(function (response){
                 
                 })
-                
                 if (self.stage) {
                     self.sprite.visible = false
                     var missionResult = new game.MissionResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, self.characterListParams)
                     self.stage.addChild(missionResult)
                 }
             }
-
         }
 
         public getRandomScore(Min, Max): Number {
