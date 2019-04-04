@@ -72,12 +72,10 @@ namespace game {
         }
 
         private drawPotentialScale(): void {
-
             let potentialScale = new game.PotentialScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception, this.game_secret, this.inviter, this.player, this.gameName, this.playerCount)
             potentialScale.x = this._x + 350
             potentialScale.y = 80
             this.sprite.addChild(potentialScale)
-
         }
         private nextTouch() {
             var self = this

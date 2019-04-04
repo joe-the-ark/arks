@@ -159,6 +159,11 @@ var game;
                 playerScore.size = playerScore.size / 2;
                 // playerName.x = playerName.x + 100
             }, self);
+            playerScore.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                playerScore.width = playerScore.width / 3;
+                playerScore.height = playerScore.height / 3;
+                playerScore.size = playerScore.size / 2;
+            }, self);
             tensionScaleMedian.text = this.tensionMedian + '/' + this.median;
             tensionScaleMedian.textAlign = egret.HorizontalAlign.CENTER;
             tensionScaleMedian.size = 20;
@@ -185,6 +190,11 @@ var game;
                 tensionScaleMedian.size = tensionScaleMedian.size / 2;
                 // playerName.x = playerName.x + 100
             }, self);
+            tensionScaleMedian.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                tensionScaleMedian.width = tensionScaleMedian.width / 3;
+                tensionScaleMedian.height = tensionScaleMedian.height / 3;
+                tensionScaleMedian.size = tensionScaleMedian.size / 2;
+            }, self);
             tensionScaleMedianName.text = this.player_name;
             tensionScaleMedianName.textAlign = egret.HorizontalAlign.CENTER;
             tensionScaleMedianName.size = 20;
@@ -205,6 +215,11 @@ var game;
                 tensionScaleMedianName.size = tensionScaleMedianName.size * 2;
             }, self);
             tensionScaleMedianName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                tensionScaleMedianName.width = tensionScaleMedianName.width / 3;
+                tensionScaleMedianName.height = tensionScaleMedianName.height / 3;
+                tensionScaleMedianName.size = tensionScaleMedianName.size / 2;
+            }, self);
+            tensionScaleMedianName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
                 tensionScaleMedianName.width = tensionScaleMedianName.width / 3;
                 tensionScaleMedianName.height = tensionScaleMedianName.height / 3;
                 tensionScaleMedianName.size = tensionScaleMedianName.size / 2;

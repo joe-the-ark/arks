@@ -194,7 +194,6 @@ namespace game {
                 self.votedScalesNumber = self.individualTensionScale.length + 1
 
                 self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "\nTensionScale. Here are Early Insights:"
-
                 self.tensionScale()
             })
         }
@@ -369,8 +368,12 @@ namespace game {
                 selfPerception.x = selfPerception.x + 100
             }, self)
 
-
-
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                selfPerception.width = selfPerception.width / 2.5
+                selfPerception.height = selfPerception.height / 2
+                selfPerception.size = selfPerception.size / 2
+                selfPerception.x = selfPerception.x + 100
+            }, self)
 
 
             var selftiptext = '• Your Self-Perception at '+this.selfPerception.toString()+' points is inside the\npreliminary Zone of\nResponsible Action.\n\n'
@@ -407,8 +410,12 @@ namespace game {
                 playerName.x = playerName.x + 100
             }, self)
 
-
-
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                playerName.width = playerName.width / 2.5
+                playerName.height = playerName.height / 2
+                playerName.size = playerName.size / 2
+                playerName.x = playerName.x + 100
+            }, self)
 
 
             if (this.playerName.length * 18 < 100) {
@@ -465,6 +472,14 @@ namespace game {
                 itsm_Deviation.x = itsm_Deviation.x + 100
             }, self)
 
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                itsm_Deviation.width = itsm_Deviation.width / 2.5
+                itsm_Deviation.height = itsm_Deviation.height / 2
+                itsm_Deviation.size = itsm_Deviation.size / 2
+                itsm_Deviation.x = itsm_Deviation.x + 100
+            }, self)
+
+
             // ITSM 的玩家名
             let individualTensionScaleMedianPlayerName: egret.TextField = this.individualTensionScaleMedianPlayerName
             individualTensionScaleMedianPlayerName.text = this.playerName
@@ -510,6 +525,13 @@ namespace game {
                     individualTensionScale.x = individualTensionScale.x - 100
                 }, self)
                 individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                    individualTensionScale.width = individualTensionScale.width / 2.5
+                    individualTensionScale.height = individualTensionScale.height / 2
+                    individualTensionScale.size = individualTensionScale.size / 2
+                    individualTensionScale.x = individualTensionScale.x + 100
+                }, self)
+
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
                     individualTensionScale.width = individualTensionScale.width / 2.5
                     individualTensionScale.height = individualTensionScale.height / 2
                     individualTensionScale.size = individualTensionScale.size / 2

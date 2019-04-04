@@ -312,6 +312,12 @@ var game;
                 selfPerception.size = selfPerception.size / 2;
                 selfPerception.x = selfPerception.x + 100;
             }, self);
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                selfPerception.width = selfPerception.width / 2.5;
+                selfPerception.height = selfPerception.height / 2;
+                selfPerception.size = selfPerception.size / 2;
+                selfPerception.x = selfPerception.x + 100;
+            }, self);
             var selftiptext = '• Your Self-Perception at ' + this.selfPerception.toString() + ' points is inside the\npreliminary Zone of\nResponsible Action.\n\n';
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {
                 selfPerception.backgroundColor = 0xcc9932;
@@ -337,6 +343,12 @@ var game;
                 playerName.x = playerName.x - 100;
             }, self);
             playerName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                playerName.width = playerName.width / 2.5;
+                playerName.height = playerName.height / 2;
+                playerName.size = playerName.size / 2;
+                playerName.x = playerName.x + 100;
+            }, self);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
                 playerName.width = playerName.width / 2.5;
                 playerName.height = playerName.height / 2;
                 playerName.size = playerName.size / 2;
@@ -388,6 +400,12 @@ var game;
                 itsm_Deviation.size = itsm_Deviation.size / 2;
                 itsm_Deviation.x = itsm_Deviation.x + 100;
             }, self);
+            itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                itsm_Deviation.width = itsm_Deviation.width / 2.5;
+                itsm_Deviation.height = itsm_Deviation.height / 2;
+                itsm_Deviation.size = itsm_Deviation.size / 2;
+                itsm_Deviation.x = itsm_Deviation.x + 100;
+            }, self);
             // ITSM 的玩家名
             var individualTensionScaleMedianPlayerName = this.individualTensionScaleMedianPlayerName;
             individualTensionScaleMedianPlayerName.text = this.playerName;
@@ -430,6 +448,12 @@ var game;
                     individualTensionScale.x = individualTensionScale.x - 100;
                 }, self);
                 individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                    individualTensionScale.width = individualTensionScale.width / 2.5;
+                    individualTensionScale.height = individualTensionScale.height / 2;
+                    individualTensionScale.size = individualTensionScale.size / 2;
+                    individualTensionScale.x = individualTensionScale.x + 100;
+                }, self);
+                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
                     individualTensionScale.width = individualTensionScale.width / 2.5;
                     individualTensionScale.height = individualTensionScale.height / 2;
                     individualTensionScale.size = individualTensionScale.size / 2;

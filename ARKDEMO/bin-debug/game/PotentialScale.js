@@ -177,6 +177,12 @@ var game;
                     othersSelfPerception.size = othersSelfPerception.size / 2;
                     othersSelfPerception.x = othersSelfPerception.x + 100;
                 }, self);
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                    othersSelfPerception.width = othersSelfPerception.width / 2.5;
+                    othersSelfPerception.height = othersSelfPerception.height / 2;
+                    othersSelfPerception.size = othersSelfPerception.size / 2;
+                    othersSelfPerception.x = othersSelfPerception.x + 100;
+                }, self);
                 if (index % 2 == 0) {
                     othersSelfPerception.x = _this._x + _this.character1Sprite.width / 2 - othersSelfPerception.width;
                 }
@@ -193,8 +199,6 @@ var game;
             this.lowest = allscore[0];
             this.highest = allscore.pop();
             this.median = zoraMedian;
-            console.log(zoraMinPosition);
-            console.log(zoraMaxPosition);
             var zora = this.zora;
             zora.height = zoraMaxPosition - zoraMinPosition;
             zora.y = zoraMinPosition;
@@ -234,6 +238,12 @@ var game;
                 selfPerception.size = selfPerception.size / 2;
                 selfPerception.x = selfPerception.x + 100;
             }, self);
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                selfPerception.width = selfPerception.width / 2.5;
+                selfPerception.height = selfPerception.height / 2;
+                selfPerception.size = selfPerception.size / 2;
+                selfPerception.x = selfPerception.x + 100;
+            }, self);
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {
                 selfPerception.backgroundColor = 0xcc9932;
                 count++;
@@ -258,6 +268,12 @@ var game;
                 playerName.x = playerName.x - 100;
             }, self);
             playerName.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+                playerName.width = playerName.width / 2.5;
+                playerName.height = playerName.height / 2;
+                playerName.size = playerName.size / 2;
+                playerName.x = playerName.x + 100;
+            }, self);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
                 playerName.width = playerName.width / 2.5;
                 playerName.height = playerName.height / 2;
                 playerName.size = playerName.size / 2;

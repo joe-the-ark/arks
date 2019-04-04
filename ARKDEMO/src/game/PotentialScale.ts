@@ -213,6 +213,12 @@ namespace game {
                     othersSelfPerception.x = othersSelfPerception.x + 100
                 }, self)
 
+                othersSelfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                    othersSelfPerception.width = othersSelfPerception.width / 2.5
+                    othersSelfPerception.height = othersSelfPerception.height / 2
+                    othersSelfPerception.size = othersSelfPerception.size / 2
+                    othersSelfPerception.x = othersSelfPerception.x + 100
+                }, self)
 
 
 
@@ -235,10 +241,6 @@ namespace game {
             this.lowest = allscore[0]
             this.highest = allscore.pop()
             this.median = zoraMedian
-
-            console.log(zoraMinPosition)
-            console.log(zoraMaxPosition)
-
             let zora: egret.TextField = this.zora
             zora.height = zoraMaxPosition - zoraMinPosition
             zora.y = zoraMinPosition
@@ -282,6 +284,16 @@ namespace game {
                 selfPerception.x = selfPerception.x + 100
             }, self)
 
+            selfPerception.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                selfPerception.width = selfPerception.width / 2.5
+                selfPerception.height = selfPerception.height / 2
+                selfPerception.size = selfPerception.size / 2
+                selfPerception.x = selfPerception.x + 100
+            }, self)
+
+            
+
+
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {  // 不在 ZORA 区域
                 selfPerception.backgroundColor = 0xcc9932
                 count ++ 
@@ -312,6 +324,14 @@ namespace game {
                 playerName.size = playerName.size / 2
                 playerName.x = playerName.x + 100
             }, self)
+
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                playerName.width = playerName.width / 2.5
+                playerName.height = playerName.height / 2
+                playerName.size = playerName.size / 2
+                playerName.x = playerName.x + 100
+            }, self)
+
 
             if (this.playerName.length * 18 < 100) {
                 playerName.width = 100
