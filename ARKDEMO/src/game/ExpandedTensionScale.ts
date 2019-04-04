@@ -173,6 +173,29 @@ namespace game {
             individualTensionScaleMedianPlayerName.border = true
             individualTensionScaleMedianPlayerName.borderColor = 0x00000
 
+            individualTensionScaleMedianPlayerName.touchEnabled = true
+            individualTensionScaleMedianPlayerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
+                individualTensionScaleMedianPlayerName.width = individualTensionScaleMedianPlayerName.width * 2.5
+                individualTensionScaleMedianPlayerName.height = individualTensionScaleMedianPlayerName.height * 2
+                individualTensionScaleMedianPlayerName.size = individualTensionScaleMedianPlayerName.size * 2
+                individualTensionScaleMedianPlayerName.x = individualTensionScaleMedianPlayerName.x - 100
+            }, self)
+            individualTensionScaleMedianPlayerName.addEventListener(egret.TouchEvent.TOUCH_END, () => {
+                individualTensionScaleMedianPlayerName.width = individualTensionScaleMedianPlayerName.width / 2.5
+                individualTensionScaleMedianPlayerName.height = individualTensionScaleMedianPlayerName.height / 2
+                individualTensionScaleMedianPlayerName.size = individualTensionScaleMedianPlayerName.size / 2
+                individualTensionScaleMedianPlayerName.x = individualTensionScaleMedianPlayerName.x + 100
+            }, self)
+
+            individualTensionScaleMedianPlayerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                individualTensionScaleMedianPlayerName.width = individualTensionScaleMedianPlayerName.width / 2.5
+                individualTensionScaleMedianPlayerName.height = individualTensionScaleMedianPlayerName.height / 2
+                individualTensionScaleMedianPlayerName.size = individualTensionScaleMedianPlayerName.size / 2
+                individualTensionScaleMedianPlayerName.x = individualTensionScaleMedianPlayerName.x + 100
+            }, self)
+
+
+
         }
 
         private getttsm(){
@@ -280,36 +303,7 @@ namespace game {
 
         private tensionScale(): void {
             // // 上面的性格
-            // let character1: egret.TextField = new egret.TextField()
-            // character1.text = this.character1
-            // character1.x = this._x
-            // character1.width = this._width
-            // character1.textAlign = egret.HorizontalAlign.CENTER
-            // character1.border = true
-            // character1.borderColor = 0x000000
-            // character1.background = true
-            // character1.backgroundColor = 0x539f93
-            // this.sprite.addChild(character1)
-            // // 下面的性格
-            // let character2: egret.TextField = new egret.TextField()
-            // character2.text = this.character2
-            // character2.x = this._x
-            // character2.y = 840
-            // character2.width = this._width
-            // character2.textAlign = egret.HorizontalAlign.CENTER
-            // character2.border = true
-            // character2.borderColor = 0x000000
-            // character2.background = true
-            // character2.backgroundColor = 0x539f93
-            // this.sprite.addChild(character2)
-
-            // 性格连接线
-            // let line: egret.Shape = new egret.Shape()
-            // line.graphics.lineStyle(2, 0xaa2200)
-            // line.graphics.moveTo(this._x + character1.width / 2, character1.height)
-            // line.graphics.lineTo(this._x + character1.width / 2, character2.y)
-            // line.graphics.endFill()
-            // this.sprite.addChild(line)
+     
 
             // ZORA 区域绘制
             let zoraMedian = this.teamTensionScaleMedian
@@ -438,16 +432,8 @@ namespace game {
 
             let itsm_Deviation: egret.TextField = this.itsm_Deviation
             itsm_Deviation.text = this.individualTensionScaleMedian.toString() + "/" + this.deviationBetweenITSM_SP.toString()
-            // itsm_Deviation.textColor = 0x000000
-            // itsm_Deviation.x = this._x + this.character1Sprite.width / 2
             itsm_Deviation.y = this.individualTensionScaleMedian / 81 * 810 - itsm_Deviation.height / 2
-            // itsm_Deviation.width = 100
-            // itsm_Deviation.textAlign = egret.HorizontalAlign.CENTER
-            // itsm_Deviation.border = true
-            // itsm_Deviation.borderColor = 0x000000
-            // itsm_Deviation.background = true
-            // itsm_Deviation.backgroundColor = 0xffffff
-                        
+
             itsm_Deviation.touchEnabled = true
             itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
                 itsm_Deviation.width = itsm_Deviation.width * 2.5
@@ -468,7 +454,8 @@ namespace game {
                 itsm_Deviation.size = itsm_Deviation.size / 2
                 itsm_Deviation.x = itsm_Deviation.x + 100
             }, self)
-            
+
+
 
             if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {  // 不在 ZORA 范围内
                 itsm_Deviation.backgroundColor = 0xfeff33
@@ -503,15 +490,6 @@ namespace game {
                 individualTensionScale.borderColor = 0x000000
                 individualTensionScale.background = true
                 individualTensionScale.backgroundColor = 0xffffff
-                this.sprite.addChild(individualTensionScale)
-
-                // individualTensionScale.touchEnabled = true
-                // individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
-                //     individualTensionScale.width = individualTensionScale.width * 3
-                // }, self)
-                // individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_END, () => {
-                //     individualTensionScale.width = individualTensionScale.width / 3
-                // }, self)
 
                 individualTensionScale.touchEnabled = true
                 individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
@@ -543,9 +521,6 @@ namespace game {
                 }
                 this.sprite.addChild(individualTensionScale)
 
-                individualTensionScale.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-                    this.setChildIndex(individualTensionScale, this.sprite.numChildren - 1);
-                }, this ); 
 
             })
             // 添加玩家 SelfPerception
