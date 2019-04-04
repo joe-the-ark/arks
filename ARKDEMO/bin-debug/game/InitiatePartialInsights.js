@@ -23,6 +23,7 @@ var game;
             _this.character2 = "Fully";
             _this.playerName = "Joe";
             _this.selfPerception = 20;
+            _this.playerCount = 0;
             _this.othersSelfPerception = [27, 31, 40, 47, 63];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
@@ -47,7 +48,7 @@ var game;
         };
         InitiatePartialInsights.prototype.tip = function () {
             var intro = new egret.TextField();
-            intro.text = "Our Basic Hypothesis is simple: a\ncontainment of tensions within the team results in less\nconflict & a better deployment of the team‘s\npotentialities.\n\n\n\n\n\n";
+            intro.text = "Our Basic Hypothesis is simple: a\ncontainment of tensions within the team\nresults in less conflict & a better deployment of \n the team‘s potentialities.\n\n\n\n\n\n";
             intro.width = this._width;
             intro.x = this._x;
             intro.y = this.stageHeight - 180;

@@ -74,6 +74,7 @@ namespace game {
             this._shape = new egret.Shape();
             this.addChild(this._shape);
             this.initGraphics();
+            this.initdata();
 
             this.charater2 = new egret.TextField();
             this.sprite.addChild(this.charater2)
@@ -111,6 +112,18 @@ namespace game {
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale')
             this.sprite.addChild(probessBar)
 
+        }
+
+        private initdata(){
+
+            var self = this
+            base.API.call('get_player_list', {
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+                'inviter': self.inviter
+            }).then(function (response) {
+                self.playerList = response['player_list']
+            })
         }
 
         private closeTip(): void {
@@ -180,7 +193,7 @@ namespace game {
         }
         private clickTip(): void {
             let clickTip: egret.TextField = new egret.TextField()
-            clickTip.text = "Drag & Drop your\nIcon on the scale\nas you see fit. The\nquestion: In\nretrospective, to what\nextent does your\nt-eam tap into its\nfull POTENTIAL..."
+            clickTip.text = "Drag & Drop your\nIcon on the scale\nas you see fit. The\nquestion: In\nretrospective, to\nwhat extent does your\nteam tap into its\nfull POTENTIAL..."
             clickTip.width = 250
             clickTip.x = 30
             clickTip.y = 450

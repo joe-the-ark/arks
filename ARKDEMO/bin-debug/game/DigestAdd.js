@@ -48,7 +48,7 @@ var game;
         };
         DigestAdd.prototype.notice = function () {
             this.noticeBox = new egret.TextField();
-            this.noticeBox.text = "Digest your 1 to 1 Feedback. Keep in mind: Feedback is a present from the heart. Direct feedback expresses care for your relationship.";
+            this.noticeBox.text = "Digest your 1 to 1 Feedback. Keep in mind: Feedback is a present from the heart. Direct feedback expresses care for your\nrelationship.";
             this.noticeBox.textColor = 0x000000;
             this.noticeBox.width = this._width;
             this.noticeBox.x = this._x;
@@ -59,7 +59,7 @@ var game;
         };
         DigestAdd.prototype.add = function () {
             var add = new egret.TextField();
-            add.text = "I would \nLOVE \nJOE\neven\nmore,\nif...";
+            add.text = "I would \nLOVE \n...\neven\nmore,\nif...";
             add.size = 30;
             add.x = this._x;
             add.y = this.noticeBox.height + 80;

@@ -43,7 +43,8 @@ var game;
         };
         Cliffhanger.prototype.intro = function () {
             var intro = new egret.TextField();
-            intro.text = "Before you may download the PDF with souvenirs from your journey, please ano- nymously vote one last scale.";
+            // intro.text = "Before you may download the PDF with\nsouvenirs from your journey, please anonymously vote one last scale."
+            intro.text = "please anonymously vote one last scale.";
             intro.width = this._width;
             intro.x = this._x;
             intro.y = 100;
@@ -55,7 +56,7 @@ var game;
             img.y = intro.y + intro.height + this._margin;
             this.sprite.addChild(img);
             var tip = new egret.TextField();
-            tip.text = "We call it the relationship scale. The results will be displays to nobody, yet will help us developing the next level on your journey with The ARK: Missi- on 3 > Empathy Walk";
+            tip.text = "We call it the relationship scale. The results will be displays to nobody, yet will help us\ndeveloping the next level on your journey\nwith The ARK: Missi- on 3 > Empathy Walk";
             tip.width = this._width;
             tip.x = this._x;
             tip.y = img.y + img.height + this._margin;

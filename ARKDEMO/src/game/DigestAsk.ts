@@ -43,7 +43,7 @@ namespace game {
 
         private notice(): void {
             this.noticeBox = new egret.TextField()
-            this.noticeBox.text = "Digest your 1 to 1 Feedback. Keep in mind: Feedback is a present from the heart. Direct feedback expresses care for your relationship."
+            this.noticeBox.text = "Digest your 1 to 1 Feedback. Keep in mind: Feedback is a present from the heart. Direct feedback expresses care for your\nrelationship."
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x
@@ -55,7 +55,7 @@ namespace game {
 
         private ask(): void {
             let ask: egret.TextField = new egret.TextField()
-            ask.text = "I always \nwanted\nto\nASK...\nJOE"
+            ask.text = "I always \nwanted\nto\nASK...\n"
             ask.size = 30
             ask.x = this._x
             ask.y = this.noticeBox.height + 80

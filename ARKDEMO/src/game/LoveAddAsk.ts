@@ -130,7 +130,7 @@ namespace game {
                 console.log(result)
                 self.player_list = result
                 self.playerName = self.player_list[self.count]
-                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute per\nquestion, write fast & from the heart."
 
             })     
         }
@@ -142,7 +142,7 @@ namespace game {
 
         private notice(): void {
             this.noticeBox = new egret.TextField()
-            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers & tensions as a basis for ANONYMOUS feedback. What do you LOVE about her as a teammate, what could she ADD and did you always wanted to ask her? Take 1 minute per question, write fast & from the heart."
+            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute per\nquestion, write fast & from the heart."
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x

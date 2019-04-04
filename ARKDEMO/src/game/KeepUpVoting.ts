@@ -76,7 +76,7 @@ namespace game {
             let scalesNumber = this.scalesNumber.toString()
             let remainingScalesNumber = this.remainingScalesNumber.toString()
             this.noticeBox = new egret.TextField()
-            this.noticeBox.text = "Great! You cleared " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Tension Scales. Vote the remaining " + remainingScalesNumber.toString() + " to finish Mission 1 and discover your teams Zone of Responsible   Action!"
+            this.noticeBox.text = "Great! You cleared " + votedScalesNumber.toString() + " out of " + scalesNumber.toString() + " Tension Scales\n. Vote the remaining " + remainingScalesNumber.toString() + " to finish Mission 1 and\ndiscover your teams Zone of Responsible\nAction!"
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x
@@ -221,14 +221,14 @@ namespace game {
 
 
                     var flag  = true
-                     for(var i=0;i<self.simulatedData.length;i++){
+                    //  for(var i=0;i<self.simulatedData.length;i++){
                          
-                        if(self.simulatedData[i].length < 4){
-                            alert('Please wait for everyone to finish scoring.')
-                            flag = false 
-                            break
-                        }
-                     }
+                    //     if(self.simulatedData[i].length < 4){
+                    //         alert('Please wait for everyone to finish scoring.')
+                    //         flag = false 
+                    //         break
+                    //     }
+                    //  }
 
                     if(flag == true){
                         base.API.call('save_players_process', {

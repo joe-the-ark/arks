@@ -60,6 +60,7 @@ var game;
             _this._shape = new egret.Shape();
             _this.addChild(_this._shape);
             _this.initGraphics();
+            _this.initdata();
             _this.charater2 = new egret.TextField();
             _this.sprite.addChild(_this.charater2);
             _this.initCharacter(stageWidth - 390, _this.stageHeight - 150);
@@ -92,6 +93,16 @@ var game;
             _this.sprite.addChild(probessBar);
             return _this;
         }
+        GamePageOne.prototype.initdata = function () {
+            var self = this;
+            base.API.call('get_player_list', {
+                'game_secret': self.game_secret,
+                'gameName': self.gameName,
+                'inviter': self.inviter
+            }).then(function (response) {
+                self.playerList = response['player_list'];
+            });
+        };
         GamePageOne.prototype.closeTip = function () {
             if (this.tiptext.parent) {
                 this.removeChild(this.tiptext);
@@ -145,7 +156,7 @@ var game;
         };
         GamePageOne.prototype.clickTip = function () {
             var clickTip = new egret.TextField();
-            clickTip.text = "Drag & Drop your\nIcon on the scale\nas you see fit. The\nquestion: In\nretrospective, to what\nextent does your\nt-eam tap into its\nfull POTENTIAL...";
+            clickTip.text = "Drag & Drop your\nIcon on the scale\nas you see fit. The\nquestion: In\nretrospective, to\nwhat extent does your\nteam tap into its\nfull POTENTIAL...";
             clickTip.width = 250;
             clickTip.x = 30;
             clickTip.y = 450;

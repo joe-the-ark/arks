@@ -16,7 +16,7 @@ namespace game {
         public inviter
         public player
         public gameName
-        public playerCount
+        public playerCount = 0
         public othersSelfPerception = [27, 31, 40, 47, 63]
 
         public constructor(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore) {
@@ -49,7 +49,7 @@ namespace game {
         
         private tip(): void {
             let intro: egret.TextField = new egret.TextField()
-            intro.text = "Our Basic Hypothesis is simple: a\ncontainment of tensions within the team results in less\nconflict & a better deployment of the team‘s\npotentialities.\n\n\n\n\n\n"
+            intro.text = "Our Basic Hypothesis is simple: a\ncontainment of tensions within the team\nresults in less conflict & a better deployment of \n the team‘s potentialities.\n\n\n\n\n\n"
             intro.width = this._width
             intro.x = this._x
             intro.y = this.stageHeight - 180
