@@ -299,7 +299,6 @@ var game;
             selfPerception.background = true;
             selfPerception.backgroundColor = 0xffffff;
             selfPerception.touchEnabled = true;
-            this.sprite.addChild(selfPerception);
             selfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
                 selfPerception.width = selfPerception.width * 2.5;
                 selfPerception.height = selfPerception.height * 2;
@@ -335,7 +334,6 @@ var game;
             playerName.border = true;
             playerName.borderColor = 0x000000;
             playerName.touchEnabled = true;
-            this.sprite.addChild(playerName);
             playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
                 playerName.width = playerName.width * 2.5;
                 playerName.height = playerName.height * 2;
@@ -363,9 +361,6 @@ var game;
                 playerName.x = selfPerception.x - playerName.width;
             }
             this.sprite.addChild(playerName);
-            playerName.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-                _this.setChildIndex(playerName, _this.sprite.numChildren - 1);
-            }, this);
             // 绘制 ITSM
             if (this.individualTensionScale.length > 0) {
                 console.log(this.individualTensionScale);
@@ -383,10 +378,6 @@ var game;
             // itsm_Deviation.borderColor = 0x000000
             // itsm_Deviation.background = true
             // itsm_Deviation.backgroundColor = 0xffffff
-            if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {
-                itsm_Deviation.backgroundColor = 0xfeff33;
-            }
-            this.sprite.addChild(itsm_Deviation);
             itsm_Deviation.touchEnabled = true;
             itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function () {
                 itsm_Deviation.width = itsm_Deviation.width * 2.5;
@@ -406,6 +397,9 @@ var game;
                 itsm_Deviation.size = itsm_Deviation.size / 2;
                 itsm_Deviation.x = itsm_Deviation.x + 100;
             }, self);
+            if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {
+                itsm_Deviation.backgroundColor = 0xfeff33;
+            }
             // ITSM 的玩家名
             var individualTensionScaleMedianPlayerName = this.individualTensionScaleMedianPlayerName;
             individualTensionScaleMedianPlayerName.text = this.playerName;

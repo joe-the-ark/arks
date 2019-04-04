@@ -354,7 +354,6 @@ namespace game {
             selfPerception.backgroundColor = 0xffffff
 
             selfPerception.touchEnabled = true
-            this.sprite.addChild(selfPerception)
             selfPerception.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
                 selfPerception.width = selfPerception.width * 2.5
                 selfPerception.height = selfPerception.height * 2
@@ -396,7 +395,6 @@ namespace game {
             playerName.borderColor = 0x000000
 
             playerName.touchEnabled = true
-            this.sprite.addChild(playerName)
             playerName.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
                 playerName.width = playerName.width * 2.5
                 playerName.height = playerName.height * 2
@@ -426,9 +424,6 @@ namespace game {
                 playerName.x = selfPerception.x - playerName.width
             }
             this.sprite.addChild(playerName)
-            playerName.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-                    this.setChildIndex(playerName, this.sprite.numChildren - 1);
-            }, this );
 
             // 绘制 ITSM
 
@@ -452,12 +447,7 @@ namespace game {
             // itsm_Deviation.borderColor = 0x000000
             // itsm_Deviation.background = true
             // itsm_Deviation.backgroundColor = 0xffffff
-
-            if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {  // 不在 ZORA 范围内
-                itsm_Deviation.backgroundColor = 0xfeff33
-            }
-            this.sprite.addChild(itsm_Deviation)
-
+                        
             itsm_Deviation.touchEnabled = true
             itsm_Deviation.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
                 itsm_Deviation.width = itsm_Deviation.width * 2.5
@@ -478,6 +468,12 @@ namespace game {
                 itsm_Deviation.size = itsm_Deviation.size / 2
                 itsm_Deviation.x = itsm_Deviation.x + 100
             }, self)
+            
+
+            if (zoraMin > this.individualTensionScaleMedian || this.individualTensionScaleMedian > zoraMax) {  // 不在 ZORA 范围内
+                itsm_Deviation.backgroundColor = 0xfeff33
+            }
+
 
 
             // ITSM 的玩家名

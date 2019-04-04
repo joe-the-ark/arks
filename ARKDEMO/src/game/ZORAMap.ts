@@ -162,6 +162,11 @@ namespace game {
                 playerName.size = playerName.size / 2
                 // playerName.x = playerName.x + 100
             }, self)
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
+                playerName.width = playerName.width / 3
+                playerName.height = playerName.height / 3
+                playerName.size = playerName.size / 2
+            }, self)
 
             playerScore.text = this.playerScore
             playerScore.textAlign = egret.HorizontalAlign.CENTER
@@ -176,7 +181,6 @@ namespace game {
             playerScore.textColor = 0x000000
             playerScore.anchorOffsetX = playerScore.width / 2
             playerScore.anchorOffsetY = playerScore.height / 2
-
             playerScore.touchEnabled = true
             playerScore.addEventListener(egret.TouchEvent.TOUCH_BEGIN, () => {
                 playerScore.width = playerScore.width * 3
@@ -190,7 +194,6 @@ namespace game {
                 playerScore.size = playerScore.size / 2
                 // playerName.x = playerName.x + 100
             }, self)
-
             playerScore.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, () => {
                 playerScore.width = playerScore.width / 3
                 playerScore.height = playerScore.height / 3

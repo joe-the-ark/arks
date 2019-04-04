@@ -133,6 +133,11 @@ var game;
                 playerName.size = playerName.size / 2;
                 // playerName.x = playerName.x + 100
             }, self);
+            playerName.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, function () {
+                playerName.width = playerName.width / 3;
+                playerName.height = playerName.height / 3;
+                playerName.size = playerName.size / 2;
+            }, self);
             playerScore.text = this.playerScore;
             playerScore.textAlign = egret.HorizontalAlign.CENTER;
             playerScore.size = 20;
