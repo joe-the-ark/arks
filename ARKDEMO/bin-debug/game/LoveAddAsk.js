@@ -152,6 +152,7 @@ var game;
             this.loveInputText.height = 250;
             this.loveInputText.x = this._x + 120;
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin;
+            this.loveInputText.text = '‘click here to write...';
             this.loveInputText.textColor = 0x0d0d0d;
             this.loveInputText.size = 20;
             this.loveInputText.border = true;

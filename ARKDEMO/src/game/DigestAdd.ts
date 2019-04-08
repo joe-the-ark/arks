@@ -54,7 +54,7 @@ namespace game {
 
         private add(): void {
             let add: egret.TextField = new egret.TextField()
-            add.text = "I would \nLOVE \n...\neven\nmore,\nif..."
+            add.text = "I would \nLOVE \nyou\neven\nmore,\nif..."
             add.size = 30
             add.x = this._x
             add.y = this.noticeBox.height + 80

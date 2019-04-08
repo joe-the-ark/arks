@@ -55,7 +55,7 @@ namespace game {
 
         private love(): void {
             let love: egret.TextField = new egret.TextField()
-            love.text = "I LOVE \n\n...\nbecause..."
+            love.text = "I LOVE\nyou\nbecause..."
             love.size = 30
             love.x = this._x
             love.y = this.noticeBox.height + 80
