@@ -185,7 +185,13 @@ namespace game {
             this.loveInputText.borderColor = 0x000000
             this.loveInputText.multiline = true
 
+            this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
+
             this.sprite.addChild(this.loveInputText)
+        }
+
+        private lovetouch(){
+            this.loveInputText.text = ''
         }
 
         private add(): void {
@@ -196,7 +202,7 @@ namespace game {
             add.y = this.noticeBox.height + 100 + 250
             this.sprite.addChild(add)
             let sentence = new egret.TextField()
-            sentence.text = "I would love this person even more, if..."
+            sentence.text = "I would\nlove this\nperson \neven more,\n if..."
             sentence.size = 20
             sentence.x = this._x
             sentence.y = this.noticeBox.height + 130 + 250 + this._margin
@@ -228,7 +234,7 @@ namespace game {
             ask.y = this.noticeBox.height + 120 + 500
             this.sprite.addChild(ask)
             let sentence = new egret.TextField()
-            sentence.text = "I always wanted to ask you..."
+            sentence.text = "I always\nwanted to\nask you..."
             sentence.size = 20
             sentence.x = this._x
             sentence.y = this.noticeBox.height + 130 + 500 + this._margin * 2

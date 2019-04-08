@@ -326,10 +326,10 @@ var game;
                 selfPerception.size = selfPerception.size / 2;
                 selfPerception.x = selfPerception.x + 100;
             }, self);
-            var selftiptext = '• Your Self-Perception at ' + this.selfPerception.toString() + ' points is inside the\npreliminary Zone of\nResponsible Action.\n\n';
+            var selftiptext = '• Your Self-Perception at\n' + this.selfPerception.toString() + ' points is inside the\npreliminary Zone of\nResponsible Action.\n\n';
             if (zoraMin > this.selfPerception || this.selfPerception > zoraMax) {
                 selfPerception.backgroundColor = 0xcc9932;
-                selftiptext = '• Your Self-Perception at ' + this.selfPerception.toString() + ' points is outside the\npreliminary Zone of\nResponsible Action.\n\n';
+                selftiptext = '• Your Self-Perception at\n' + this.selfPerception.toString() + ' points is outside the\npreliminary Zone of\nResponsible Action.\n\n';
             }
             this.sprite.addChild(selfPerception);
             // 玩家名

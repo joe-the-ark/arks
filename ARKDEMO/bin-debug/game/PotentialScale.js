@@ -132,7 +132,7 @@ var game;
                 self.othersSelfPerception = response['OthersSelfPerceptionList'];
                 //  self.sprite.visible = false
                 self.potentialScale();
-                self.tiptext.text = Math.ceil(((self.othersSelfPerception.length + 1) / self.playerCount) * 100).toString() + '% of your Team \n (' + (self.othersSelfPerception.length + 1).toString() + ' out of ' + self.playerCount.toString() + ' ) has so far\n voted the Potential Scale.\nInvite ev-eryone to follow suit.\nHere are Early Insights:\n\n• ' + self.lowest.toString() + ' is the lowest and ' + self.highest.toString() + '    the highest value on the  Scale.\n• The teams preliminary  median is ' + self.median.toString() + '.\n\n• The perception of ' + self.count.toString() + '\npeople varies remarkably \nfrom the team average.';
+                self.tiptext.text = Math.ceil(((self.othersSelfPerception.length + 1) / self.playerCount) * 100).toString() + '% of your Team \n (' + (self.othersSelfPerception.length + 1).toString() + ' out of ' + self.playerCount.toString() + ' ) has so far\n voted the Potential Scale.\nInvite ev-eryone to follow suit.\nHere are Early Insights:\n\n• ' + self.lowest.toString() + ' is the lowest and ' + self.highest.toString() + '    the highest value on the\nScale.\n• The teams preliminary  median is ' + self.median.toString() + '.\n\n• The perception of ' + self.count.toString() + '\npeople varies remarkably \nfrom the team average.';
             });
         };
         PotentialScale.prototype.potentialScale = function () {

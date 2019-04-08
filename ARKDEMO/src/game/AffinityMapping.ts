@@ -61,10 +61,10 @@ namespace game {
 
         private intro(): void {
             let intro = new egret.TextField()
-            intro.text = "Describe the nature of your relationships..."
+            intro.text = "Describe the nature of your relationships to the other players by selecting and clicking their names into the appropriate box..."
             intro.width = this._width
             intro.x = this._x
-            intro.y = 100
+            intro.y = 50
             this.sprite.addChild(intro)
         }
 
