@@ -58,7 +58,7 @@ var game;
             character1.y = 200;
             _this.sprite.addChild(character1);
             _this._shape = new egret.Shape();
-            _this.addChild(_this._shape);
+            _this.sprite.addChild(_this._shape);
             _this.initGraphics();
             _this.initdata();
             _this.charater2 = new egret.TextField();
@@ -73,20 +73,20 @@ var game;
             _this.rightIcon.y = stageHeight / 2;
             _this.rightIcon.touchEnabled = true;
             _this.rightIcon.visible = false;
-            _this.addChild(_this.rightIcon);
+            _this.sprite.addChild(_this.rightIcon);
             _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
-            _this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png'));
-            _this.closeIcon.width = 40;
-            _this.closeIcon.height = 40;
-            _this.closeIcon.anchorOffsetX = _this.closeIcon.width / 2;
-            _this.closeIcon.anchorOffsetY = _this.closeIcon.height / 2;
-            _this.closeIcon.x = stageWidth - 30;
-            _this.closeIcon.y = 150;
-            _this.closeIcon.touchEnabled = true;
-            _this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.closeTip, _this);
-            _this.addChild(_this.closeIcon);
+            // this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
+            // this.closeIcon.width = 40
+            // this.closeIcon.height = 40
+            // this.closeIcon.anchorOffsetX = this.closeIcon.width / 2
+            // this.closeIcon.anchorOffsetY = this.closeIcon.height / 2
+            // this.closeIcon.x = stageWidth - 30
+            // this.closeIcon.y = 150
+            // this.closeIcon.touchEnabled = true
+            // this.closeIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.closeTip, this)
+            // this.sprite.addChild(this.closeIcon)
             _this.tiptext = new egret.TextField();
-            _this.addChild(_this.tiptext);
+            _this.sprite.addChild(_this.tiptext);
             var msg = " The ARK is serving the cause of tapping into \n your teams‘ full potential. Your first task:\n ANON-YMOUSLY rank your team on this \n Potentiality Scale from 1 to 81.";
             _this.tip(1, 50, msg, 30);
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 5, 'Inititate > Potential Scale');
@@ -103,11 +103,11 @@ var game;
                 self.playerList = response['player_list'];
             });
         };
-        GamePageOne.prototype.closeTip = function () {
-            if (this.tiptext.parent) {
-                this.removeChild(this.tiptext);
-            }
-        };
+        // private closeTip(): void {
+        //     if (this.tiptext.parent) {
+        //         this.removeChild(this.tiptext)
+        //     }
+        // }
         GamePageOne.prototype.nextTouch = function () {
             if (this.stage) {
                 var self = this;
@@ -119,7 +119,6 @@ var game;
                     'player': self.player,
                     'gameName': self.gameName,
                 }).then(function (response) {
-                    console.log(response);
                 });
                 base.API.call('save_players_process', {
                     'inviter_name': self.inviter,
@@ -137,9 +136,6 @@ var game;
                     var playerSCore = self.playerSCore;
                     var playerCount = self.playerList.length;
                     self.sprite.visible = false;
-                    self.removeChild(self.rightIcon);
-                    self.removeChild(self.closeIcon);
-                    self.closeTip();
                     self._shape.visible = false;
                     var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
                     self.stage.addChild(initiatePartialInsights);
@@ -194,14 +190,6 @@ var game;
         GamePageOne.prototype.getPlayList = function () {
             var _this = this;
             var self = this;
-            // base.API.call('get_player_list', {
-            //     'game_secret': self.game_secret,
-            //     'gameName': self.gameName,
-            //     'inviter': self.inviter
-            // }).then(function (response) {
-            // self.playerList = response['player_list']
-            // self.playerList.forEach((self.player, index, array) => {
-            // if (val == self.player) {
             var player_name = new egret.TextField();
             player_name.text = self.player;
             player_name.textAlign = egret.HorizontalAlign.CENTER;
@@ -263,14 +251,7 @@ var game;
                     }
                 }, _this);
             }, this);
-            // player_name.addEventListener(egret.TouchEvent.TOUCH_END, (e) => {
-            //     self._touchStatus = false;
-            //     player_name.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.mouseMove, this);
-            // }, this);
             self.sprite.addChild(player_name);
-            // }
-            // })
-            // })
         };
         return GamePageOne;
     }(egret.DisplayObjectContainer));
