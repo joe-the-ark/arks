@@ -75,7 +75,6 @@ def set_player_score(
     params, inviter_name, gameSecret, player, gameName,
     charaChooser, characterOne, characterTwo):
 
-    # print(params, inviter_name, gameSecret, player, gameName, charaChooser, characterOne, characterTwo, sep='\n')
 
     inviter = Player.objects.filter(
         name=inviter_name,
@@ -91,10 +90,6 @@ def set_player_score(
         game_name=gameName,
         game_secret=gameSecret
     ).first()
-
-    print(player)
-    print(inviter_name)
-    print(scorer)
 
     charaChooser2 = Player.objects.filter(
         name=charaChooser,
@@ -376,7 +371,6 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
         ttsms.append(str(int(sum(middles) / playercount)))
 
 
-    print(result_list)
     return {'code':0, 'result': result_list, 'ttsms':ttsms}
 
 
@@ -463,7 +457,6 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
         game_secret=gameSecret, inviter_name=inviter, game_name=gameName
     )
 
-    print(players)
     ttsms = []
     for _player in players:
 
@@ -485,7 +478,6 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
                 player=chooser, game=game
             ).first()
             player_scores = PlayerScore.objects.filter(game=game, player=_player, character_choose=characterChoose)
-            print(player_scores)
             _player_score_list = []
 
             for _ in player_scores:
@@ -494,7 +486,6 @@ def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
             middle = int(sum(list(map(int, _player_score_list))) / len(_player_score_list))
             middles.append(middle)
 
-            print(middles)
 
         ttsms.append(str(int(sum(middles) / playercount)))
 
@@ -529,7 +520,6 @@ def wechatapi(url):
     timestamp = int(time.time())
 
     string1 = 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}'.format(jsapi_ticket, noncestr, timestamp, url)
-    print(string1)
     signature = hashlib.sha1(string1.encode('utf-8')).hexdigest()
 
     params = {
@@ -552,21 +542,18 @@ def firstvote(score, game_secret, inviter_name, player, gameName):
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
-    print(_player)
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
-    print(_inviter)
     game = Game.objects.filter(
         game_secret=game_secret,
         inviter=_inviter,
         game_name=gameName,
         status=1
     ).first()
-    print(game)
 
     firstScore = FirstScore.objects.filter(game=game, player=_player).first()
     if firstScore:
@@ -654,7 +641,6 @@ def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, choos
     individualTensionScale = []
     for _ in playerScores:
 
-        print(_.score)
         if _.scorer.id == _player.id:
             continue
         individualTensionScale.append(int(_.score))
@@ -689,7 +675,6 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
         inviter_name=inviter_name, game_name=gameName
     ).first()
 
-    print(_player)
 
     _inviter = Player.objects.filter(
         name=inviter_name, game_secret=game_secret,
@@ -903,6 +888,8 @@ def getGameStatus(**params):
     openid = params['openid']
     nickname = params['nickname']
 
+    print('getGameStatus:', params)
+
     _player = Player.objects.filter(name=nickname, game_secret=game_secret, inviter_name=inviter_name, game_name=gameName).first()
 
     _inviter = Player.objects.filter(
@@ -911,6 +898,7 @@ def getGameStatus(**params):
     ).first()
 
     print(_inviter)
+
     game = Game.objects.filter(
         game_secret=game_secret,
         inviter=_inviter,
