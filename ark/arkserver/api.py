@@ -1157,10 +1157,28 @@ def game_end(inviter_name, game_secret, gameName, player):
     return {'code':0}
 
 
+@api
+def check_game(inviter_name, game_name, game_secret):
 
+    inviter_name = urllib.parse.unquote(inviter_name)
 
+    _inviter = Player.objects.filter(
+        name=inviter_name,
+        game_secret=game_secret,
+        inviter_name=inviter_name,
+        game_name=game_name
+    ).first()
 
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        game_name=game_name,
+        inviter=_inviter,
+    ).first()
 
+    if game:
+        return {'gameExist':0}
+    else:
+        return {'gameExist':1}
 
 
 

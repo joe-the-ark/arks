@@ -92,7 +92,6 @@ class Main extends egret.DisplayObjectContainer {
         if(url.indexOf('game_id') != -1){
             let game_secret = url.split('?')[1].split('&')[0].split('=')[1]
             let inviter = url.split('?')[1].split('&')[1].split('=')[1]
-
                     if(url.indexOf('code') != -1){
                         var code = url.split('?')[1].split('&')[2].split('=')[1]
                         let self=this;
@@ -103,24 +102,43 @@ class Main extends egret.DisplayObjectContainer {
                             let stageWidth = self.stage.stageWidth
                             let stageHeight = self.stage.stageHeight
                             base.API.call('getGameStatus', {'inviter_name':inviter, 'game_secret':game_secret, 'gameName':game_secret, 'openid':openid, 'nickname':nickname}).then(function(response){
+
+
+                                
                                 var status = response['result']
                                 if(status == 2){
                                     alert('The game is in progress.')
                                 }else if(status == 3){
                                     alert('game over.')
                                 }
-
+                                if(nickname == inviter){
+                                    let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'inviter')
+                                    self.stage.addChild(scene)
+                                }
                                 else{
                                     let scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret, inviter,  'player')
                                     self.stage.addChild(scene)
-                                    
                                 }
 
                             })
                         })
                     }else {
-                        var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
-                        var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+
+                        base.API.call('check_game',{'inviter_name':inviter, 'game_name':game_secret, 'game_secret':game_secret}).then(function (response){
+
+                            var gameExist = response['gameExist']
+                            if(gameExist == 1){
+                                alert('The game is over.')
+                            }else{
+
+                                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
+                                var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+
+                            }
+
+                        })
+
+
                     }
         }else{
             if(url.indexOf('code') != -1){

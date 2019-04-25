@@ -257,8 +257,6 @@ namespace game {
                             }
                         })
                     }
-
-
                 })
             }
 
@@ -453,6 +451,7 @@ namespace game {
             //     'process': '0'
             // }).then(function (response){
             // })
+
             this.sprite.visible = false
 
             this.timer.stop()

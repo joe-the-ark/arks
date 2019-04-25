@@ -175,6 +175,10 @@ var Main = (function (_super) {
                         else if (status == 3) {
                             alert('game over.');
                         }
+                        if (nickname == inviter_1) {
+                            var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'inviter');
+                            self_1.stage.addChild(scene);
+                        }
                         else {
                             var scene = new game.CreateGame(stageWidth, stageHeight, nickname, openid, game_secret_1, inviter_1, 'player');
                             self_1.stage.addChild(scene);
@@ -183,8 +187,16 @@ var Main = (function (_super) {
                 });
             }
             else {
-                var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
-                var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                base.API.call('check_game', { 'inviter_name': inviter_1, 'game_name': game_secret_1, 'game_secret': game_secret_1 }).then(function (response) {
+                    var gameExist = response['gameExist'];
+                    if (gameExist == 1) {
+                        alert('The game is over.');
+                    }
+                    else {
+                        var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
+                        var s = window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";
+                    }
+                });
             }
         }
         else {

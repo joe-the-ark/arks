@@ -331,6 +331,7 @@ namespace game {
                             self.chooseText.pop()
                             self.chooseText.push(unselectedCharacter.label)
                             self.select_list.push(unselectedCharacter.label)
+                            
                         } else {
                             self.chooseText.push(unselectedCharacter.label)
                             self.select_list.push(unselectedCharacter.label)
