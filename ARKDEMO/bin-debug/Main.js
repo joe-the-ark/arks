@@ -187,10 +187,27 @@ var Main = (function (_super) {
                 });
             }
             else {
+                var self_2 = this;
                 base.API.call('check_game', { 'inviter_name': inviter_1, 'game_name': game_secret_1, 'game_secret': game_secret_1 }).then(function (response) {
                     var gameExist = response['gameExist'];
                     if (gameExist == 1) {
                         alert('The game is over.');
+                        var label = new egret.TextField();
+                        label.text = "The game is over.";
+                        label.height = 30;
+                        label.width = 280;
+                        label.anchorOffsetX = this.label.width / 2;
+                        label.anchorOffsetY = this.label.height / 2;
+                        label.x = this.stageWidth / 2;
+                        label.y = this.stageHeight / 2;
+                        label.touchEnabled = true;
+                        label.background = true;
+                        label.backgroundColor = 0xffffff;
+                        label.border = true;
+                        label.borderColor = 0x00ff00;
+                        label.fontFamily = "Arial";
+                        label.textColor = 0xFF0000;
+                        self_2.stage.addChild(label);
                     }
                     else {
                         var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id=' + game_secret_1 + '&nickname=' + inviter_1);
@@ -203,15 +220,15 @@ var Main = (function (_super) {
             if (url.indexOf('code') != -1) {
                 var code = url.split('?')[1].split('&')[0].split('=')[1];
                 base.API.Init("http://work.metatype.cn:8105/api/");
-                var self_2 = this;
+                var self_3 = this;
                 base.API.call('wechatlogin', { 'code': code }).then(function (response) {
                     var user_data = response['result'];
                     var openid = user_data['openid'];
                     var nickname = user_data['nickname'];
-                    var stageWidth = self_2.stage.stageWidth;
-                    var stageHeight = self_2.stage.stageHeight;
+                    var stageWidth = self_3.stage.stageWidth;
+                    var stageHeight = self_3.stage.stageHeight;
                     var scene = new game.Index(stageWidth, stageHeight, nickname, openid);
-                    self_2.stage.addChild(scene);
+                    self_3.stage.addChild(scene);
                 });
             }
             else {
