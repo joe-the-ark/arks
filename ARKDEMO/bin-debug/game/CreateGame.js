@@ -142,9 +142,9 @@ var game;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
                                 self.timer.stop();
-                                this.sprite.visible = false;
+                                self.sprite.visible = false;
                                 var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_2, player, gameName_2, stageWidth, stageHeight, playerCount);
-                                this.stage.addChild(characterChoosePage);
+                                self.stage.addChild(characterChoosePage);
                             }
                             else if (process == '1.0.0') {
                                 var count = 0;
@@ -372,10 +372,10 @@ var game;
             //     'process': '0'
             // }).then(function (response){
             // })
-            this.sprite.visible = false;
-            this.timer.stop();
+            self.sprite.visible = false;
+            self.timer.stop();
             var enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
-            this.stage.addChild(enter);
+            self.stage.addChild(enter);
         };
         return CreateGame;
     }(egret.DisplayObjectContainer));

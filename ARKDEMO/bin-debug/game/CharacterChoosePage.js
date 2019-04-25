@@ -284,7 +284,8 @@ var game;
                     myScroller.viewport = group;
                     self.sprite.addChild(myScroller);
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-                        if (unselectedCharacter.alpha = 0.4) {
+                        console.log('unselectedCharacter', unselectedCharacter);
+                        if (unselectedCharacter.alpha == 0.4) {
                             unselectedCharacter.alpha = 1;
                             var index = self.chooseText.indexOf(unselectedCharacter.label);
                             if (index > -1) {

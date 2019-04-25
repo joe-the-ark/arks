@@ -323,7 +323,9 @@ namespace game {
 
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
 
-                        if(unselectedCharacter.alpha = 0.4){
+                        console.log('unselectedCharacter',unselectedCharacter)
+
+                        if(unselectedCharacter.alpha == 0.4){
                             unselectedCharacter.alpha = 1
                             var index = self.chooseText.indexOf(unselectedCharacter.label)
                             if(index > -1){
@@ -334,8 +336,6 @@ namespace game {
                             if(index > -1){
                                 self.select_list.splice(index, 1)
                             }
-                            
-
 
                         }else {
 
@@ -352,7 +352,7 @@ namespace game {
                                 unselectedCharacter.alpha = 0.4
                                 // unselectedCharacter.touchEnabled = false
                             }
-                            
+
                         }
                         
 

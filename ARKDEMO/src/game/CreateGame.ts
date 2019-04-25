@@ -178,7 +178,7 @@ namespace game {
                                 let stageWidth = self.stageWidth
                                 let stageHeight = self.stageHeight
                                 self.timer.stop() 
-                                this.sprite.visible = false
+                                self.sprite.visible = false
 
                                 let characterChoosePage = new game.CharacterChoosePage(
                                     game_secret,
@@ -189,7 +189,7 @@ namespace game {
                                     stageHeight,
                                     playerCount
                                 )
-                                this.stage.addChild(characterChoosePage)
+                                self.stage.addChild(characterChoosePage)
                             }
                             else if (process == '1.0.0'){
                                     var count = 0
@@ -452,12 +452,12 @@ namespace game {
             // }).then(function (response){
             // })
 
-            this.sprite.visible = false
+            self.sprite.visible = false
 
-            this.timer.stop()
+            self.timer.stop()
 
             let enter = new game.GamePageOne(this.game_secret, this.inviter, this.inviter, this.game_secret, this.stage.stageWidth, this.stage.stageHeight);
-            this.stage.addChild(enter)
+            self.stage.addChild(enter)
 
         }
 
