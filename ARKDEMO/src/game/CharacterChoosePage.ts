@@ -13,6 +13,7 @@ namespace game {
         public stageWidth = 0
         public stageHeight = 0
         public count = 0
+        private choosestatus
 
         public _touchStatus: boolean = false;
         public label: egret.TextField
@@ -180,7 +181,6 @@ namespace game {
             this.choose.forEach((val, index, array)=>{
                 this.chooseText.push(val.label)
             })
-            console.log(this.chooseText[1])
             if (this.chooseText[1]) {
                 this.choosetwo.text = this.chooseText[1]
                 this.choosetwo.background = true;
@@ -202,8 +202,11 @@ namespace game {
                 // selectedCharacter.x = this.choosetwo.x
                 // selectedCharacter.y = this.choosetwo.y
                 // this.sprite.addChild(selectedCharacter)
-                this.confirmButton.visible = true
-                this.confirmText.visible = true
+
+                if(this.choosestatus != 1){
+                    this.confirmButton.visible = true
+                    this.confirmText.visible = true
+                }
             }
         }
 
@@ -268,7 +271,7 @@ namespace game {
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
                     if(player_name == self.player){
-                        // self.chooseText = val[1]
+                        self.choosestatus = 1
                         self.sprite.addChild(self.rightIcon)
                         self.playerCharacterList = val[1]
                     }

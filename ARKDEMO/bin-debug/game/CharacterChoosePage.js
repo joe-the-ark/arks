@@ -155,7 +155,6 @@ var game;
             this.choose.forEach(function (val, index, array) {
                 _this.chooseText.push(val.label);
             });
-            console.log(this.chooseText[1]);
             if (this.chooseText[1]) {
                 this.choosetwo.text = this.chooseText[1];
                 this.choosetwo.background = true;
@@ -176,8 +175,10 @@ var game;
                 // selectedCharacter.x = this.choosetwo.x
                 // selectedCharacter.y = this.choosetwo.y
                 // this.sprite.addChild(selectedCharacter)
-                this.confirmButton.visible = true;
-                this.confirmText.visible = true;
+                if (this.choosestatus != 1) {
+                    this.confirmButton.visible = true;
+                    this.confirmText.visible = true;
+                }
             }
         };
         CharacterChoosePage.prototype.rightNext = function () {
@@ -238,7 +239,7 @@ var game;
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
                     if (player_name == self.player) {
-                        // self.chooseText = val[1]
+                        self.choosestatus = 1;
                         self.sprite.addChild(self.rightIcon);
                         self.playerCharacterList = val[1];
                     }
