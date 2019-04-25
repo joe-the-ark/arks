@@ -21,8 +21,8 @@ namespace game {
         public player_list = []
 
         public loveInputText:eui.TextInput;
-        public askInputText:egret.TextField
-        public addInputText:egret.TextField
+        public askInputText:eui.TextInput;
+        public addInputText:eui.TextInput;
 
 
         public constructor(stageWidth, stageHeight, count, simulatedData, player, inviter, game_secret, gameName) {
@@ -176,8 +176,6 @@ namespace game {
             
 
             this.loveInputText = new eui.TextInput();
-            // this.loveInputText.type = egret.TextFieldType.INPUT
-            // this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250
             var buttonSkin =
                 `<e:Skin class="skins.TextInputSkin" minHeight="40" minWidth="300" 
@@ -191,21 +189,10 @@ namespace game {
             this.loveInputText.height = 250
             this.loveInputText.x = this._x + 120
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin
-            // this.loveInputText.text = 'click here to write...'
             this.loveInputText.prompt = 'click here to write...'
-            this.loveInputText.textColor = 0xFF34B3
-            // this.loveInputText.size = 20
-            // this.loveInputText.border = true
-            // this.loveInputText.borderColor = 0x000000
-            // this.loveInputText.multiline = true
-            // this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
-            console.log(this.loveInputText)
+            this.loveInputText.textColor = 0x4D4D4D
             this.sprite.addChild(this.loveInputText)
 
-        }
-
-        private lovetouch(){
-            this.loveInputText.text = ''
         }
 
         private add(): void {
@@ -225,18 +212,22 @@ namespace game {
         }
 
         private addInput(): void {
-            this.addInputText = new egret.TextField()
-            this.addInputText.type = egret.TextFieldType.INPUT
-            this.addInputText.inputType = egret.TextFieldInputType.PASSWORD
+            this.addInputText = new eui.TextInput();
             this.addInputText.width = 250
             this.addInputText.height = 250
+            var buttonSkin =
+                `<e:Skin class="skins.TextInputSkin" minHeight="40" minWidth="300" 
+                    states="normal,disabled,normalWithPrompt,disabledWithPrompt" xmlns:e="http://ns.egret.com/eui"> <e:Image width="100%" height="100%" scale9Grid="1,3,8,8" source="button_up_png"/> <e:Rect height="100%" width="100%" fillColor="0xffffff"/> <e:EditableText id="textDisplay" verticalCenter="0" left="10" right="10"
+                    textColor="0x000000" textColor.disabled="0xff0000" 
+                    width="200" height="100%" size="20" /> <e:Label id="promptDisplay" verticalCenter="0" left="10" right="10"
+                    textColor="0xa9a9a9" width="100%" height="24" size="20" 
+                    touchEnabled="false" includeIn="normalWithPrompt,disabledWithPrompt"/> 
+                </e:Skin>`;
+            this.addInputText.skinName = buttonSkin;
             this.addInputText.x = this._x + 120
             this.addInputText.y = this.noticeBox.height + 60 + this._margin * 2 + 250
-            this.addInputText.textColor = 0x0d0d0d
-            this.addInputText.size = 20
-            this.addInputText.border = true
-            this.addInputText.borderColor = 0x000000
-            this.addInputText.multiline = true
+            this.loveInputText.textColor = 0x4D4D4D
+            this.addInputText.prompt = 'click here to write...'
             this.sprite.addChild(this.addInputText)
         }
 
@@ -258,26 +249,23 @@ namespace game {
         }
 
         private askInput(): void {
-            this.askInputText = new egret.TextField()
-            this.askInputText.type = egret.TextFieldType.INPUT
-            this.askInputText.inputType = egret.TextFieldInputType.PASSWORD
+            this.askInputText =  new eui.TextInput();
             this.askInputText.width = 250
             this.askInputText.height = 250
             this.askInputText.x = this._x + 120
             this.askInputText.y = this.noticeBox.height + 60 + this._margin * 3 + 500
-            this.askInputText.textColor = 0x0d0d0d
-            this.askInputText.size = 20
-            this.askInputText.border = true
-            this.askInputText.borderColor = 0x000000
-            this.askInputText.multiline = true
+            var buttonSkin =
+                `<e:Skin class="skins.TextInputSkin" minHeight="40" minWidth="300" 
+                    states="normal,disabled,normalWithPrompt,disabledWithPrompt" xmlns:e="http://ns.egret.com/eui"> <e:Image width="100%" height="100%" scale9Grid="1,3,8,8" source="button_up_png"/> <e:Rect height="100%" width="100%" fillColor="0xffffff"/> <e:EditableText id="textDisplay" verticalCenter="0" left="10" right="10"
+                    textColor="0x000000" textColor.disabled="0xff0000" 
+                    width="200" height="100%" size="20" /> <e:Label id="promptDisplay" verticalCenter="0" left="10" right="10"
+                    textColor="0xa9a9a9" width="100%" height="24" size="20" 
+                    touchEnabled="false" includeIn="normalWithPrompt,disabledWithPrompt"/> 
+                </e:Skin>`;
+            this.loveInputText.textColor = 0x4D4D4D
+            this.askInputText.prompt = 'click here to write...'
+            this.askInputText.skinName = buttonSkin;
             this.sprite.addChild(this.askInputText)
-            // base.API.Init("http://127.0.0.1:8000/api/")
-            // base.API.Init("http://work.metatype.cn:8105/api/");
-            // base.API.call("push_feedback", {"game_secret": this.game_secret, "gameName": this.gameName, "player": this.player, "inviter_name": this.inviter, "love": this.love, "add": this.add, "ask": this.ask, "teammate": this.playerName}).then(function (response) {
-            //     askInput.addEventListener(egret.FocusEvent.FOCUS_OUT, this.pushFeedback, this)
-            // }).catch(function (err) {
-            //     console.log(err)
-            // })
         }
 
         private pushFeedback(): void {
