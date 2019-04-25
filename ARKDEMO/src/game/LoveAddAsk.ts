@@ -39,11 +39,21 @@ namespace game {
 
             this.count = count
             this.simulatedData = simulatedData
-
             this.player = player
             this.inviter = inviter
             this.game_secret = game_secret
             this.gameName = gameName
+
+            
+            this.processBar()
+            this.notice()
+            this.love()
+            this.loveInput()
+            this.add()
+            this.addInput()
+            this.ask()
+            this.askInput()
+            this.tensionScale()
 
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
@@ -55,15 +65,7 @@ namespace game {
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
             this.sprite.addChild(this.rightIcon)
-            this.processBar()
-            this.notice()
-            this.love()
-            this.loveInput()
-            this.add()
-            this.addInput()
-            this.ask()
-            this.askInput()
-            this.tensionScale()
+
 
             this.initData()
             
@@ -103,6 +105,7 @@ namespace game {
                     var addFeedbackList = result[1]
                     var askFeedbackList = result[2]
                     self.sprite.visible = false
+
                     let preview =  new game.Preview(self.stageWidth, self.stageHeight,self.player, self.inviter, self.game_secret, self.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList, self.simulatedData)
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self.stage.addChild(preview)
@@ -130,7 +133,7 @@ namespace game {
                 console.log(result)
                 self.player_list = result
                 self.playerName = self.player_list[self.count]
-                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute per\nquestion, write fast & from the heart."
+                self.noticeBox.text = "Feedback time for " + self.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute\nper question, write fast & from the heart."
 
             })     
         }
@@ -142,7 +145,7 @@ namespace game {
 
         private notice(): void {
             this.noticeBox = new egret.TextField()
-            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute per\nquestion, write fast & from the heart."
+            this.noticeBox.text = "Feedback time for " + this.playerName + "\nLook at the basic integrative powers &\ntensions as a basis for ANONYMOUS\nfeedback. What do you LOVE about her as a\nteammate, what could she ADD and did you\nalways wanted to ask her? Take 1 minute\nper question, write fast & from the heart."
             this.noticeBox.textColor = 0x000000
             this.noticeBox.width = this._width
             this.noticeBox.x = this._x
@@ -172,12 +175,12 @@ namespace game {
         private loveInput(): void {
             this.loveInputText = new egret.TextField()
             this.loveInputText.type = egret.TextFieldType.INPUT
-            this.loveInputText.inputType = egret.TextFieldInputType.TEXT
+            this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD
             this.loveInputText.width = 250
             this.loveInputText.height = 250
             this.loveInputText.x = this._x + 120
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin
-            this.loveInputText.text = '‘click here to write...'
+            this.loveInputText.text = 'click here to write...'
 
             this.loveInputText.textColor = 0x0d0d0d
             this.loveInputText.size = 20
@@ -213,7 +216,7 @@ namespace game {
         private addInput(): void {
             this.addInputText = new egret.TextField()
             this.addInputText.type = egret.TextFieldType.INPUT
-            this.addInputText.inputType = egret.TextFieldInputType.TEXT
+            this.addInputText.inputType = egret.TextFieldInputType.PASSWORD
             this.addInputText.width = 250
             this.addInputText.height = 250
             this.addInputText.x = this._x + 120
@@ -246,7 +249,7 @@ namespace game {
         private askInput(): void {
             this.askInputText = new egret.TextField()
             this.askInputText.type = egret.TextFieldType.INPUT
-            this.askInputText.inputType = egret.TextFieldInputType.TEXT
+            this.askInputText.inputType = egret.TextFieldInputType.PASSWORD
             this.askInputText.width = 250
             this.askInputText.height = 250
             this.askInputText.x = this._x + 120
