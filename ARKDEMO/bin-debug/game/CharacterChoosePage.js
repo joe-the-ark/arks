@@ -175,6 +175,7 @@ var game;
                 // selectedCharacter.x = this.choosetwo.x
                 // selectedCharacter.y = this.choosetwo.y
                 // this.sprite.addChild(selectedCharacter)
+                console.log('choosestatus', this.choosestatus);
                 if (this.choosestatus != 1) {
                     this.confirmButton.visible = true;
                     this.confirmText.visible = true;
