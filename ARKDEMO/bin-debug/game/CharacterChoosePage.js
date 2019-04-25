@@ -122,6 +122,7 @@ var game;
         }
         CharacterChoosePage.prototype.touchone = function () {
             var _this = this;
+            this.chooseText = [];
             this.choose.forEach(function (val, index, array) {
                 _this.chooseText.push(val.label);
             });
@@ -150,6 +151,7 @@ var game;
         };
         CharacterChoosePage.prototype.touchtwo = function () {
             var _this = this;
+            this.chooseText = [];
             this.choose.forEach(function (val, index, array) {
                 _this.chooseText.push(val.label);
             });

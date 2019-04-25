@@ -139,6 +139,8 @@ namespace game {
 
         private touchone() {
 
+            this.chooseText = []
+
             this.choose.forEach((val, index, array)=>{
 
                 this.chooseText.push(val.label)
@@ -173,7 +175,7 @@ namespace game {
 
         private touchtwo() {
 
-            
+            this.chooseText = []            
 
             this.choose.forEach((val, index, array)=>{
                 this.chooseText.push(val.label)
