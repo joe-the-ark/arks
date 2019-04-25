@@ -63,6 +63,10 @@ def find_players(game_secret, gameName):
 
 @api
 def get_player_list(game_secret, gameName, inviter):
+
+    inviter = urllib.parse.unquote(inviter)
+
+
     players = Player.objects.filter(game_secret=game_secret, game_name=gameName, inviter_name=inviter)
     player_list = [ p.name for p in players ]
 
@@ -81,6 +85,9 @@ def set_player_score(
     params, inviter_name, gameSecret, player, gameName,
     charaChooser, characterOne, characterTwo):
 
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
 
     inviter = Player.objects.filter(
         name=inviter_name,
@@ -152,6 +159,9 @@ def set_player_score(
 @api
 def save_character_choose(inviterName, gameSecret, playerName, gameName, charaChooser):
 
+    inviterName = urllib.parse.unquote(inviterName)
+    player = urllib.parse.unquote(player)
+
     character_one = Character.objects.filter(name=charaChooser[0]).first()
     character_two = Character.objects.filter(name=charaChooser[1]).first()
 
@@ -187,6 +197,8 @@ def save_character_choose(inviterName, gameSecret, playerName, gameName, charaCh
 @api
 def get_player_score(inviter, gameName, gameSecret, player, character_one, character_two, chooser):
 
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
 
     _player = Player.objects.filter(
         name=player, game_secret=gameSecret,
@@ -252,6 +264,9 @@ def get_player_score(inviter, gameName, gameSecret, player, character_one, chara
 @api
 def get_player_characterlist(game_secret,inviter,player,gameName):
 
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
+
     _inviter = Player.objects.filter(
         name=inviter, inviter_name=inviter,
         game_name=gameName, game_secret=game_secret
@@ -270,6 +285,9 @@ def get_player_characterlist(game_secret,inviter,player,gameName):
 
 @api
 def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
+
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
 
     _player = Player.objects.filter(
         name=player, game_secret=gameSecret,
@@ -383,6 +401,9 @@ def get_game_score(characterListParams, inviter, gameSecret, player, gameName):
 @api
 def save_players_process(inviter_name, game_secret, player, game_name, process, *args, **kwargs):
 
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=game_name
@@ -411,6 +432,10 @@ def save_players_process(inviter_name, game_secret, player, game_name, process, 
 
 @api
 def get_players_process(game_secret, inviter_name, player, gameName):
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -446,6 +471,9 @@ def get_players_process(game_secret, inviter_name, player, gameName):
 
 @api
 def get_ttsm(characterListParams, inviter, gameSecret, player, gameName):
+
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
 
     _inviter = Player.objects.filter(
         name=inviter, game_secret=gameSecret,
@@ -543,6 +571,9 @@ def wechatapi(url):
 @api
 def firstvote(score, game_secret, inviter_name, player, gameName):
 
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     print('inviter_name', inviter_name)
     print('player', player)
 
@@ -576,6 +607,10 @@ def firstvote(score, game_secret, inviter_name, player, gameName):
 
 @api
 def getOthersSelfPerception(inviter_name, game_secret, player, gameName):
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
         inviter_name=inviter_name, game_name=gameName
@@ -604,6 +639,9 @@ def getOthersSelfPerception(inviter_name, game_secret, player, gameName):
 
 @api
 def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, chooser):
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
 
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
@@ -678,6 +716,10 @@ def getttsmindividual(inviter_name, game_secret, player, gameName, c1, c2, choos
 
 @api
 def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     #1、获取所有性格 2、所有人在该scale对该玩家评分的平均值 3、sp-itsm的差值的绝对值
     _player = Player.objects.filter(
         name=player, game_secret=game_secret,
@@ -754,6 +796,8 @@ def getKeepUpVotingData(inviter_name, game_secret, player, gameName):
 
 @api
 def getCharacterList(inviter_name, game_secret, player, gameName):
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
 
     #获取所有已经选择的性格
 
@@ -929,6 +973,9 @@ def getGameStatus(**params):
 @api
 def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, teammate):
 
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     _inviter = Player.objects.filter(
         name=inviter_name,
         game_secret=game_secret,
@@ -993,6 +1040,9 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
 @api
 def get_players(inviter, game_secret, gameName, player):
 
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
+
     player_list = Player.objects.filter(
         game_secret=game_secret,
         game_name=gameName,
@@ -1019,6 +1069,9 @@ def cut_text(text, lenth):
 
 @api
 def getOthersFeedback(inviter, game_secret, gameName, player):
+
+    inviter = urllib.parse.unquote(inviter)
+    player = urllib.parse.unquote(player)
 
     _player = Player.objects.filter(
         name=player,
@@ -1072,6 +1125,10 @@ def getOthersFeedback(inviter, game_secret, gameName, player):
 
 @api
 def game_end(inviter_name, game_secret, gameName, player):
+
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+
     _inviter = Player.objects.filter(
         name=inviter_name,
         game_secret=game_secret,
