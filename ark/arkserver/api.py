@@ -1175,9 +1175,12 @@ def check_game(inviter_name, game_name, game_secret):
         inviter=_inviter,
     ).first()
 
+    print('game:', game)
+
     if game:
         return {'gameExist':0}
     else:
+
         return {'gameExist':1}
 
 
