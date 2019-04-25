@@ -12,6 +12,9 @@ import  urllib.parse
 @api
 def create_player(player_name, game_secret, gameName, inviter):
 
+    player_name = urllib.parse.unquote(player_name)
+    inviter = urllib.parse.unquote(inviter)
+
     player = Player.objects.filter(name=player_name, game_secret=game_secret, game_name=gameName, inviter_name=inviter).first()
     if not player:
         player = Player.objects.create(name=player_name, game_secret=game_secret, game_name=gameName, inviter_name=inviter)
@@ -20,6 +23,8 @@ def create_player(player_name, game_secret, gameName, inviter):
 
 @api
 def create_game(inviter, gameName, game_id):
+
+    inviter = urllib.parse.unquote(inviter)
 
     player = Player.objects.filter(name=inviter, nickname=inviter, openid=game_id).first()
     if not player:
@@ -830,7 +835,7 @@ def wechatlogin(**params):
     }
 
     if 'inviter' in params.keys():
-        inviter = params['inviter']
+        inviter = urllib.parse.unquote(params['inviter'])
         game_secret = params['game_secret']
         game_name = params['game_name']
 
@@ -864,7 +869,7 @@ def wechatlogin(**params):
 @api
 def getPlayerList(**params):
 
-    inviter_name = params['inviter_name']
+    inviter_name = urllib.parse.unquote(params['inviter_name'])
     game_secret = params['game_secret']
     gameName = params['gameName']
 
