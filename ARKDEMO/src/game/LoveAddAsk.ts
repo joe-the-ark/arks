@@ -20,7 +20,7 @@ namespace game {
         private rightIcon: egret.Bitmap;
         public player_list = []
 
-        public loveInputText:egret.TextField
+        public loveInputText:eui.TextInput;
         public askInputText:egret.TextField
         public addInputText:egret.TextField
 
@@ -173,24 +173,25 @@ namespace game {
         }
 
         private loveInput(): void {
-            this.loveInputText = new egret.TextField()
-            this.loveInputText.type = egret.TextFieldType.INPUT
+
+            this.loveInputText = new eui.TextInput();
+            // this.loveInputText.type = egret.TextFieldType.INPUT
             this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250
             this.loveInputText.height = 250
             this.loveInputText.x = this._x + 120
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin
-            this.loveInputText.text = 'click here to write...'
-
+            // this.loveInputText.text = 'click here to write...'
+            this.loveInputText.prompt = 'click here to write...'
             this.loveInputText.textColor = 0x0d0d0d
-            this.loveInputText.size = 20
-            this.loveInputText.border = true
-            this.loveInputText.borderColor = 0x000000
-            this.loveInputText.multiline = true
-
-            this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
+            // this.loveInputText.size = 20
+            // this.loveInputText.border = true
+            // this.loveInputText.borderColor = 0x000000
+            // this.loveInputText.multiline = true
+            // this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
 
             this.sprite.addChild(this.loveInputText)
+            
         }
 
         private lovetouch(){

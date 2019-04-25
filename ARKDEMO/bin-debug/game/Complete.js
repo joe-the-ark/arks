@@ -38,18 +38,20 @@ var game;
         };
         Complete.prototype.intro = function () {
             var intro = new egret.TextField();
-            intro.text = "Thank you for travelling with The ARK!\n\nWeChat with the developer \n\nRe-Embark on The ARK \n\nRecommend The ARK to your friends\n";
+            intro.text = "Thank you for travelling with The ARK!\n\nWeChat with the developer \n\nRe-Embark on The ARK \n\nYou can recommend it to your friends by sharing the link ark. metatype. cn\n";
             intro.width = this._width;
             intro.x = this._x;
             intro.y = 100;
             var tx = new egret.TextField;
             tx.textFlow = new Array({ text: "Coffee for the developer", style: { "href": "https://www.paypal.me/joetheark" } });
             tx.touchEnabled = true;
+            tx.background = true;
+            tx.backgroundColor = 0xffcc33;
             tx.addEventListener(egret.TextEvent.LINK, function (evt) {
                 console.log(evt.text);
             }, this);
-            tx.x = 10;
-            tx.y = 700;
+            tx.x = 20;
+            tx.y = 500;
             this.sprite.addChild(tx);
             this.sprite.addChild(intro);
         };
