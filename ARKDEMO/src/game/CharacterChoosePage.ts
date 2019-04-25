@@ -292,6 +292,7 @@ namespace game {
             base.API.Init("http://work.metatype.cn:8105/api/");
             const self = this;
             let group = new eui.Group()
+
             base.API.call('get_character_list', {}).then(function (response) {
                 self.unselectedCharacterList = response['characters']
                 for (var i = 0; i < self.unselectedCharacterList.length; ++i) {
@@ -323,15 +324,12 @@ namespace game {
                     var flag = 0 //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
                         if (flag == 0) {
-
                         }
                         if (self.chooseText.length == 2) {
                             // unselectedCharacter.touchEnabled = false
                             self.chooseText.pop()
-                            
                             self.chooseText.push(unselectedCharacter.label)
                             self.select_list.pop()
-
                             self.select_list.push(unselectedCharacter.label)
 
                         } else {
