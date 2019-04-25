@@ -175,7 +175,7 @@ namespace game {
         private loveInput(): void {
             this.loveInputText = new egret.TextField()
             this.loveInputText.type = egret.TextFieldType.INPUT
-            this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD
+            this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250
             this.loveInputText.height = 250
             this.loveInputText.x = this._x + 120
