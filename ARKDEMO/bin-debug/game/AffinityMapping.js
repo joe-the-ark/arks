@@ -34,13 +34,15 @@ var game;
             _this.gameName = gameName;
             _this.player_list = player_list;
             _this.text = new egret.TextField();
-            _this.text.text = "My relation to \nis based on...";
+            // this.text.text = "My relation to \nis based on..."
+            _this.text.text = "";
             _this.text.width = 200;
             _this.text.x = _this._x;
             _this.text.y = 200;
             _this.sprite.addChild(_this.text);
             _this.votingPlayerName = new egret.TextField();
-            _this.votingPlayerName.text = "Babettete";
+            // this.votingPlayerName.text = "Babettete"
+            _this.votingPlayerName.text = "";
             _this.votingPlayerName.width = 120;
             _this.votingPlayerName.x = _this._x + _this.text.width;
             _this.votingPlayerName.y = 200;
@@ -141,7 +143,7 @@ var game;
                     player.backgroundColor = 0x00ff00;
                     player.alpha = 0.4;
                     player.touchEnabled = false;
-                    _this.votingPlayerName.text = player.text;
+                    // this.votingPlayerName.text = player.text
                     _this.choose = player.text;
                 }, _this);
             });

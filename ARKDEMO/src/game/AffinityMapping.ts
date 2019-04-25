@@ -33,14 +33,16 @@ namespace game {
 
 
             this.text = new egret.TextField()
-            this.text.text = "My relation to \nis based on..."
+            // this.text.text = "My relation to \nis based on..."
+            this.text.text = ""
             this.text.width = 200
             this.text.x = this._x
             this.text.y = 200
             this.sprite.addChild(this.text)
 
             this.votingPlayerName = new egret.TextField()
-            this.votingPlayerName.text = "Babettete"
+            // this.votingPlayerName.text = "Babettete"
+            this.votingPlayerName.text = ""
             this.votingPlayerName.width = 120
             this.votingPlayerName.x = this._x + this.text.width
             this.votingPlayerName.y = 200
@@ -97,7 +99,6 @@ namespace game {
                 area.width = 220
                 area.height = 150
                 area.x = this._x + this.text.width + this.votingPlayerName.width + this._margin
-
                 area.y = 200 + index * 170
 
                 area.border = true
@@ -154,7 +155,7 @@ namespace game {
                         player.backgroundColor = 0x00ff00;
                         player.alpha = 0.4
                         player.touchEnabled = false
-                        this.votingPlayerName.text = player.text
+                        // this.votingPlayerName.text = player.text
                         this.choose = player.text
                     }, this)
 
