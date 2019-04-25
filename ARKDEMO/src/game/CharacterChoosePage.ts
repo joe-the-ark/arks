@@ -147,22 +147,26 @@ namespace game {
 
             if (this.chooseText[0]) {
 
-                this.chooseone.text = ''
-                var selectedCharacter: egret.TextField = new egret.TextField()
-                selectedCharacter.text = this.chooseText[0]
-                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
-                selectedCharacter.size = 30
-                selectedCharacter.lineSpacing = 10
-                // selectedCharacter.touchEnabled = true
-                selectedCharacter.border = true;
-                selectedCharacter.width = this.chooseone.width
-                selectedCharacter.height = this.chooseone.height
-                selectedCharacter.background = true;
-                selectedCharacter.borderColor = 0x636363;
-                selectedCharacter.backgroundColor = 0x7171C6;
-                selectedCharacter.x = this.chooseone.x
-                selectedCharacter.y = this.chooseone.y
-                this.sprite.addChild(selectedCharacter)
+                this.chooseone.text = this.chooseText[0]
+                this.chooseone.background = true;
+                this.chooseone.backgroundColor = 0x7171C6;
+                this.chooseone.borderColor = 0x636363;
+
+                // var selectedCharacter: egret.TextField = new egret.TextField()
+                // selectedCharacter.text = this.chooseText[0]
+                // selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
+                // selectedCharacter.size = 30
+                // selectedCharacter.lineSpacing = 10
+                // // selectedCharacter.touchEnabled = true
+                // selectedCharacter.border = true;
+                // selectedCharacter.width = this.chooseone.width
+                // selectedCharacter.height = this.chooseone.height
+                // selectedCharacter.background = true;
+                // selectedCharacter.borderColor = 0x636363;
+                // selectedCharacter.backgroundColor = 0x7171C6;
+                // selectedCharacter.x = this.chooseone.x
+                // selectedCharacter.y = this.chooseone.y
+                // this.sprite.addChild(selectedCharacter)
             }
         }
 
@@ -173,22 +177,26 @@ namespace game {
             })
 
             if (this.chooseText[1]) {
-                this.choosetwo.text = ''
-                var selectedCharacter: egret.TextField = new egret.TextField()
-                selectedCharacter.text = this.chooseText[1]
-                selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
-                selectedCharacter.size = 30
-                selectedCharacter.lineSpacing = 10
-                // selectedCharacter.touchEnabled = true
-                selectedCharacter.border = true;
-                selectedCharacter.width = this.choosetwo.width
-                selectedCharacter.height = this.choosetwo.height
-                selectedCharacter.background = true;
-                selectedCharacter.borderColor = 0x636363;
-                selectedCharacter.backgroundColor = 0x7171C6;
-                selectedCharacter.x = this.choosetwo.x
-                selectedCharacter.y = this.choosetwo.y
-                this.sprite.addChild(selectedCharacter)
+                this.choosetwo.text = this.chooseText[1]
+                this.choosetwo.background = true;
+                this.choosetwo.backgroundColor = 0x7171C6;
+                this.choosetwo.borderColor = 0x636363;
+
+                // var selectedCharacter: egret.TextField = new egret.TextField()
+                // selectedCharacter.text = this.chooseText[1]
+                // selectedCharacter.textAlign = egret.HorizontalAlign.CENTER
+                // selectedCharacter.size = 30
+                // selectedCharacter.lineSpacing = 10
+                // // selectedCharacter.touchEnabled = true
+                // selectedCharacter.border = true;
+                // selectedCharacter.width = this.choosetwo.width
+                // selectedCharacter.height = this.choosetwo.height
+                // selectedCharacter.background = true;
+                // selectedCharacter.borderColor = 0x636363;
+                // selectedCharacter.backgroundColor = 0x7171C6;
+                // selectedCharacter.x = this.choosetwo.x
+                // selectedCharacter.y = this.choosetwo.y
+                // this.sprite.addChild(selectedCharacter)
                 this.confirmButton.visible = true
                 this.confirmText.visible = true
             }
