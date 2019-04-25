@@ -160,7 +160,7 @@ def set_player_score(
 def save_character_choose(inviterName, gameSecret, playerName, gameName, charaChooser):
 
     inviterName = urllib.parse.unquote(inviterName)
-    player = urllib.parse.unquote(player)
+    player = urllib.parse.unquote(playerName)
 
     character_one = Character.objects.filter(name=charaChooser[0]).first()
     character_two = Character.objects.filter(name=charaChooser[1]).first()
