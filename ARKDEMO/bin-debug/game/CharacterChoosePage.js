@@ -125,6 +125,7 @@ var game;
             this.choose.forEach(function (val, index, array) {
                 _this.chooseText.push(val.label);
             });
+            console.log(this.chooseText[0]);
             if (this.chooseText[0]) {
                 this.chooseone.text = this.chooseText[0];
                 this.chooseone.background = true;
@@ -152,6 +153,7 @@ var game;
             this.choose.forEach(function (val, index, array) {
                 _this.chooseText.push(val.label);
             });
+            console.log(this.chooseText[1]);
             if (this.chooseText[1]) {
                 this.choosetwo.text = this.chooseText[1];
                 this.choosetwo.background = true;

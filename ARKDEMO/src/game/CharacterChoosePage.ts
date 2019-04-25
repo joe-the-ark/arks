@@ -145,6 +145,7 @@ namespace game {
 
             })
 
+            console.log(this.chooseText[0])
             if (this.chooseText[0]) {
 
                 this.chooseone.text = this.chooseText[0]
@@ -172,10 +173,12 @@ namespace game {
 
         private touchtwo() {
 
+            
+
             this.choose.forEach((val, index, array)=>{
                 this.chooseText.push(val.label)
             })
-
+            console.log(this.chooseText[1])
             if (this.chooseText[1]) {
                 this.choosetwo.text = this.chooseText[1]
                 this.choosetwo.background = true;
