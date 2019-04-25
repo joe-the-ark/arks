@@ -7,6 +7,7 @@ import random
 import time
 import hashlib
 import re
+import  urllib.parse
 
 @api
 def create_player(player_name, game_secret, gameName, inviter):
@@ -882,11 +883,11 @@ def getPlayerList(**params):
 @api
 def getGameStatus(**params):
 
-    inviter_name = params['inviter_name']
+    inviter_name = urllib.parse.unquote(params['inviter_name'])
     game_secret = params['game_secret']
     gameName = params['gameName']
     openid = params['openid']
-    nickname = params['nickname']
+    nickname = urllib.parse.unquote(params['nickname'])
 
     print('getGameStatus:', params)
 
