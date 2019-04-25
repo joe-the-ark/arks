@@ -322,7 +322,7 @@ namespace game {
                     self.sprite.addChild(myScroller)
 
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
-                        console.log('unselectedCharacter',unselectedCharacter)
+                        console.log('unselectedCharacter', unselectedCharacter)
 
                         console.log('chooseText:', self.chooseText)
                         console.log('select_list:', self.select_list)
