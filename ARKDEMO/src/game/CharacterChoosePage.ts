@@ -255,7 +255,7 @@ namespace game {
                 character_list.forEach((val, index, array) => {
                     var player_name = val[0]
                     if(player_name == self.player){
-                        self.chooseText = val[1]
+                        // self.chooseText = val[1]
                         self.sprite.addChild(self.rightIcon)
                         self.playerCharacterList = val[1]
                     }
@@ -354,7 +354,7 @@ namespace game {
 
                         }else {
 
-                            if (self.chooseText.length == 2) {
+                            if (self.choose.length == 2) {
 
                                 // unselectedCharacter.touchEnabled = false
                                 // self.chooseText.pop()
@@ -362,8 +362,8 @@ namespace game {
                                 // self.chooseText.push(unselectedCharacter.label)
                                 // self.select_list.pop()
                                 // self.select_list.push(unselectedCharacter.label)
-
                                 var splicechoose = self.choose.splice(0,1)
+                                
                                 splicechoose[0].alpha = 1
                                 self.choose.push(unselectedCharacter)
 

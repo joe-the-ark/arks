@@ -228,7 +228,7 @@ var game;
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
                     if (player_name == self.player) {
-                        self.chooseText = val[1];
+                        // self.chooseText = val[1]
                         self.sprite.addChild(self.rightIcon);
                         self.playerCharacterList = val[1];
                     }
@@ -308,7 +308,7 @@ var game;
                             // }
                         }
                         else {
-                            if (self.chooseText.length == 2) {
+                            if (self.choose.length == 2) {
                                 // unselectedCharacter.touchEnabled = false
                                 // self.chooseText.pop()
                                 // self.chooseText.push(unselectedCharacter.label)
