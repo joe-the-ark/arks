@@ -316,6 +316,7 @@ var game;
                                 // self.select_list.push(unselectedCharacter.label)
                                 var splicechoose = self.choose.splice(0, 1);
                                 splicechoose[0].alpha = 1;
+                                unselectedCharacter.alpha = 0.4;
                                 self.choose.push(unselectedCharacter);
                             }
                             else {
@@ -327,7 +328,7 @@ var game;
                             }
                         }
                         console.log('unselectedCharacter', unselectedCharacter);
-                        console.log('chooseText:', self.choose);
+                        console.log('choose:', self.choose);
                     }, this_1);
                 };
                 var this_1 = this, buttonSkin;

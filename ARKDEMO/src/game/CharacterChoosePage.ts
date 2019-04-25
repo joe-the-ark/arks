@@ -363,8 +363,10 @@ namespace game {
                                 // self.select_list.pop()
                                 // self.select_list.push(unselectedCharacter.label)
                                 var splicechoose = self.choose.splice(0,1)
-                                
+
                                 splicechoose[0].alpha = 1
+
+                                unselectedCharacter.alpha = 0.4
                                 self.choose.push(unselectedCharacter)
 
 
@@ -381,7 +383,7 @@ namespace game {
 
                         console.log('unselectedCharacter', unselectedCharacter)
 
-                        console.log('chooseText:', self.choose)
+                        console.log('choose:', self.choose)
                         
                         
 
