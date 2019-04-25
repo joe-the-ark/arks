@@ -24,6 +24,8 @@ var game;
             _this.stageHeight = 0;
             _this.count = 0;
             _this._touchStatus = false;
+            _this.cone = '';
+            _this.ctwo = '';
             _this.select_list = [];
             _this.playerCount = 0;
             _this.playerList = [];
@@ -33,6 +35,7 @@ var game;
             _this.allcharacterlist = [];
             _this.chooseText = [];
             _this.playerCharacterList = [];
+            _this.choose = [];
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.player = player;
@@ -118,6 +121,10 @@ var game;
             // this.createScrollableCharacterList()
         }
         CharacterChoosePage.prototype.touchone = function () {
+            var _this = this;
+            this.choose.forEach(function (val, index, array) {
+                _this.chooseText.push(val.label);
+            });
             if (this.chooseText[0]) {
                 this.chooseone.text = '';
                 var selectedCharacter = new egret.TextField();
@@ -138,6 +145,10 @@ var game;
             }
         };
         CharacterChoosePage.prototype.touchtwo = function () {
+            var _this = this;
+            this.choose.forEach(function (val, index, array) {
+                _this.chooseText.push(val.label);
+            });
             if (this.chooseText[1]) {
                 this.choosetwo.text = '';
                 var selectedCharacter = new egret.TextField();
@@ -217,8 +228,7 @@ var game;
                 character_list.forEach(function (val, index, array) {
                     var player_name = val[0];
                     if (player_name == self.player) {
-                        self.select_list = val[1];
-                        console.log(self.select_list);
+                        self.chooseText = val[1];
                         self.sprite.addChild(self.rightIcon);
                         self.playerCharacterList = val[1];
                     }
@@ -284,35 +294,40 @@ var game;
                     myScroller.viewport = group;
                     self.sprite.addChild(myScroller);
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-                        console.log('unselectedCharacter', unselectedCharacter);
-                        console.log('chooseText:', self.chooseText);
-                        console.log('select_list:', self.select_list);
                         if (unselectedCharacter.alpha == 0.4) {
                             unselectedCharacter.alpha = 1;
-                            var index = self.chooseText.indexOf(unselectedCharacter.label);
-                            if (index > -1) {
-                                self.chooseText.splice(index, 1);
-                            }
-                            var index = self.select_list.indexOf(unselectedCharacter.label);
-                            if (index > -1) {
-                                self.select_list.splice(index, 1);
-                            }
+                            var index = self.choose.indexOf(unselectedCharacter);
+                            self.choose.splice(index, 1);
+                            // var index = self.chooseText.indexOf(unselectedCharacter.label)
+                            // if(index > -1){
+                            //     self.chooseText.splice(index, 1)
+                            // }
+                            // var index = self.select_list.indexOf(unselectedCharacter.label)
+                            // if(index > -1){
+                            //     self.select_list.splice(index, 1)
+                            // }
                         }
                         else {
                             if (self.chooseText.length == 2) {
                                 // unselectedCharacter.touchEnabled = false
-                                self.chooseText.pop();
-                                self.chooseText.push(unselectedCharacter.label);
-                                self.select_list.pop();
-                                self.select_list.push(unselectedCharacter.label);
+                                // self.chooseText.pop()
+                                // self.chooseText.push(unselectedCharacter.label)
+                                // self.select_list.pop()
+                                // self.select_list.push(unselectedCharacter.label)
+                                var splicechoose = self.choose.splice(0, 1);
+                                splicechoose[0].alpha = 1;
+                                self.choose.push(unselectedCharacter);
                             }
                             else {
-                                self.chooseText.push(unselectedCharacter.label);
-                                self.select_list.push(unselectedCharacter.label);
+                                // self.chooseText.push(unselectedCharacter.label)
+                                // self.select_list.push(unselectedCharacter.label)
+                                // unselectedCharacter.alpha = 0.4
                                 unselectedCharacter.alpha = 0.4;
-                                // unselectedCharacter.touchEnabled = false
+                                self.choose.push(unselectedCharacter);
                             }
                         }
+                        console.log('unselectedCharacter', unselectedCharacter);
+                        console.log('chooseText:', self.choose);
                     }, this_1);
                 };
                 var this_1 = this, buttonSkin;
@@ -482,20 +497,20 @@ var game;
         //     }
         CharacterChoosePage.prototype.addTensionScale = function () {
             var self = this;
-            if (this.select_list.length = 2) {
+            if (this.chooseText.length = 2) {
                 base.API.Init('http://work.metatype.cn:8105/api/');
                 base.API.call('save_character_choose', {
                     'inviterName': self.inviter,
                     'gameSecret': self.game_secret,
                     'playerName': self.player,
                     'gameName': self.gameName,
-                    'charaChooser': self.select_list
+                    'charaChooser': self.chooseText
                 }).then(function (response) {
                     self.confirmButton.touchEnabled = false;
                 });
             }
             if (this.stage) {
-                var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.select_list, 0, 0, 0, 0);
+                var tensionScale = new game.TensionScale(this.stageWidth, this.stageHeight, this.chooseText, 0, 0, 0, 0);
                 this.sprite.addChild(tensionScale);
                 tensionScale.x = this.stageWidth - 200;
                 tensionScale.y = (this.count + 1) * 150;
