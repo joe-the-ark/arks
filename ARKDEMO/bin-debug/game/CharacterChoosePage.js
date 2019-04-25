@@ -285,6 +285,8 @@ var game;
                     self.sprite.addChild(myScroller);
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
                         console.log('unselectedCharacter', unselectedCharacter);
+                        console.log('chooseText:', self.chooseText);
+                        console.log('select_list:', self.select_list);
                         if (unselectedCharacter.alpha == 0.4) {
                             unselectedCharacter.alpha = 1;
                             var index = self.chooseText.indexOf(unselectedCharacter.label);

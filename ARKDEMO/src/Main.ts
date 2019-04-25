@@ -127,22 +127,7 @@ class Main extends egret.DisplayObjectContainer {
                         var gameExist = response['gameExist']
                         if(gameExist == 1){
                             alert('The game is over.')
-                            // var label = new egret.TextField(); 
-                            // label.text = "The game is over."; 
-                            // label.height = 30;
-                            // label.width = 280;
-                            // label.anchorOffsetX = this.label.width/2
-                            // label.anchorOffsetY = this.label.height/2
-                            // label.x = this.stageWidth /2 
-                            // label.y = this.stageHeight / 2
-                            // label.touchEnabled = true
-                            // label.background = true;
-                            // label.backgroundColor = 0xffffff;
-                            // label.border = true;
-                            // label.borderColor = 0x00ff00;
-                            // label.fontFamily = "Arial";
-                            // label.textColor = 0xFF0000;
-                            // self.stage.addChild(label)
+                            
                         }else{
                             var redirect_uri = encodeURIComponent('http://ark.metatype.cn/index.html?game_id='+game_secret+'&nickname='+inviter)
                             var s = window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc7594d7d49e0235f&redirect_uri=" + redirect_uri + "&response_type=code&scope=snsapi_userinfo&state=1";

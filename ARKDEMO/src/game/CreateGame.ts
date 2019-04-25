@@ -179,7 +179,6 @@ namespace game {
                                 let stageHeight = self.stageHeight
                                 self.timer.stop() 
                                 self.sprite.visible = false
-
                                 let characterChoosePage = new game.CharacterChoosePage(
                                     game_secret,
                                     inviter,
@@ -303,7 +302,7 @@ namespace game {
                                     let gameName = self.game_secret
                                     let stageWidth = self.stageWidth
                                     let stageHeight = self.stageHeight
-                                    this.sprite.visible = false
+                                    self.sprite.visible = false
                                     self.timer.stop() 
 
                                     let characterChoosePage = new game.CharacterChoosePage(
@@ -315,7 +314,7 @@ namespace game {
                                         stageHeight,
                                         playerCount
                                     )
-                                    this.stage.addChild(characterChoosePage)
+                                    self.stage.addChild(characterChoosePage)
                                 }
 
                                 else if (process == '1.0.0'){

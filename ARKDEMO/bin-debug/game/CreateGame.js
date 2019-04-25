@@ -243,10 +243,10 @@ var game;
                                 var gameName_4 = self.game_secret;
                                 var stageWidth = self.stageWidth;
                                 var stageHeight = self.stageHeight;
-                                this.sprite.visible = false;
+                                self.sprite.visible = false;
                                 self.timer.stop();
                                 var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter_4, player, gameName_4, stageWidth, stageHeight, playerCount);
-                                this.stage.addChild(characterChoosePage);
+                                self.stage.addChild(characterChoosePage);
                             }
                             else if (process == '1.0.0') {
                                 var that = self;
