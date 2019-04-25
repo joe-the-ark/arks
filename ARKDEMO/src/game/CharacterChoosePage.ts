@@ -110,7 +110,7 @@ namespace game {
 
             this.choosetwo = new egret.TextField
             this.choosetwo.textAlign = egret.HorizontalAlign.CENTER
-            this.chooseone.textAlign = egret.VerticalAlign.BOTTOM
+            this.choosetwo.textAlign = egret.VerticalAlign.BOTTOM
             this.choosetwo.size = 30
             this.choosetwo.lineSpacing = 10
             this.choosetwo.text = 'point & click'
@@ -322,21 +322,23 @@ namespace game {
 
                     var flag = 0 //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, (e) => {
-
                         if (flag == 0) {
 
                         }
                         if (self.chooseText.length == 2) {
                             // unselectedCharacter.touchEnabled = false
                             self.chooseText.pop()
-                            self.chooseText.push(unselectedCharacter.label)
-                            self.select_list.push(unselectedCharacter.label)
                             
+                            self.chooseText.push(unselectedCharacter.label)
+                            self.select_list.pop()
+
+                            self.select_list.push(unselectedCharacter.label)
+
                         } else {
                             self.chooseText.push(unselectedCharacter.label)
                             self.select_list.push(unselectedCharacter.label)
                             unselectedCharacter.alpha = 0.4
-                            unselectedCharacter.touchEnabled = false
+                            // unselectedCharacter.touchEnabled = false
                         }
 
                     }, this)

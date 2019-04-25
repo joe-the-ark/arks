@@ -95,7 +95,7 @@ var game;
             _this.sprite.addChild(_this.chooseone);
             _this.choosetwo = new egret.TextField;
             _this.choosetwo.textAlign = egret.HorizontalAlign.CENTER;
-            _this.chooseone.textAlign = egret.VerticalAlign.BOTTOM;
+            _this.choosetwo.textAlign = egret.VerticalAlign.BOTTOM;
             _this.choosetwo.size = 30;
             _this.choosetwo.lineSpacing = 10;
             _this.choosetwo.text = 'point & click';
@@ -291,13 +291,14 @@ var game;
                             // unselectedCharacter.touchEnabled = false
                             self.chooseText.pop();
                             self.chooseText.push(unselectedCharacter.label);
+                            self.select_list.pop();
                             self.select_list.push(unselectedCharacter.label);
                         }
                         else {
                             self.chooseText.push(unselectedCharacter.label);
                             self.select_list.push(unselectedCharacter.label);
                             unselectedCharacter.alpha = 0.4;
-                            unselectedCharacter.touchEnabled = false;
+                            // unselectedCharacter.touchEnabled = false
                         }
                     }, this_1);
                 };
