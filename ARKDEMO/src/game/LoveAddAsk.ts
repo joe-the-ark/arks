@@ -176,8 +176,9 @@ namespace game {
 
             this.loveInputText = new eui.TextInput();
             // this.loveInputText.type = egret.TextFieldType.INPUT
-            this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
+            // this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250
+            this.loveInputText.skinName = "resource/eui_skins/TextInputSkin.exml";
             this.loveInputText.height = 250
             this.loveInputText.x = this._x + 120
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin
@@ -191,7 +192,7 @@ namespace game {
             // this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
 
             this.sprite.addChild(this.loveInputText)
-            
+
         }
 
         private lovetouch(){

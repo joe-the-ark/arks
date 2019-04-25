@@ -147,8 +147,9 @@ var game;
         LoveAddAsk.prototype.loveInput = function () {
             this.loveInputText = new eui.TextInput();
             // this.loveInputText.type = egret.TextFieldType.INPUT
-            this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
+            // this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250;
+            this.loveInputText.skinName = "resource/eui_skins/TextInputSkin.exml";
             this.loveInputText.height = 250;
             this.loveInputText.x = this._x + 120;
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin;
