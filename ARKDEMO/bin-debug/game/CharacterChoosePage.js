@@ -283,26 +283,36 @@ var game;
                     myScroller.y = 300;
                     myScroller.viewport = group;
                     self.sprite.addChild(myScroller);
-                    flag = 0; //0：未被点击 1：已点击
                     unselectedCharacter.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-                        if (flag == 0) {
-                        }
-                        if (self.chooseText.length == 2) {
-                            // unselectedCharacter.touchEnabled = false
-                            self.chooseText.pop();
-                            self.chooseText.push(unselectedCharacter.label);
-                            self.select_list.pop();
-                            self.select_list.push(unselectedCharacter.label);
+                        if (unselectedCharacter.alpha = 0.4) {
+                            unselectedCharacter.alpha = 1;
+                            var index = self.chooseText.indexOf(unselectedCharacter.label);
+                            if (index > -1) {
+                                self.chooseText.splice(index, 1);
+                            }
+                            var index = self.select_list.indexOf(unselectedCharacter.label);
+                            if (index > -1) {
+                                self.select_list.splice(index, 1);
+                            }
                         }
                         else {
-                            self.chooseText.push(unselectedCharacter.label);
-                            self.select_list.push(unselectedCharacter.label);
-                            unselectedCharacter.alpha = 0.4;
-                            // unselectedCharacter.touchEnabled = false
+                            if (self.chooseText.length == 2) {
+                                // unselectedCharacter.touchEnabled = false
+                                self.chooseText.pop();
+                                self.chooseText.push(unselectedCharacter.label);
+                                self.select_list.pop();
+                                self.select_list.push(unselectedCharacter.label);
+                            }
+                            else {
+                                self.chooseText.push(unselectedCharacter.label);
+                                self.select_list.push(unselectedCharacter.label);
+                                unselectedCharacter.alpha = 0.4;
+                                // unselectedCharacter.touchEnabled = false
+                            }
                         }
                     }, this_1);
                 };
-                var this_1 = this, buttonSkin, flag;
+                var this_1 = this, buttonSkin;
                 for (var i = 0; i < self.unselectedCharacterList.length; ++i) {
                     _loop_1();
                 }
