@@ -1,35 +1,40 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,right_png,close-circle_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,right_png,close-circle_png,TextInputSkin_exml",
 			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"name": "bg_jpg",
+			"url": "assets/bg.jpg",
 			"type": "image",
-			"url": "assets/bg.jpg"
+			"name": "bg_jpg"
 		},
 		{
-			"name": "egret_icon_png",
+			"url": "assets/egret_icon.png",
 			"type": "image",
-			"url": "assets/egret_icon.png"
+			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
 		},
 		{
-			"name": "right_png",
+			"url": "assets/right.png",
 			"type": "image",
-			"url": "assets/right.png"
+			"name": "right_png"
 		},
 		{
-			"name": "close-circle_png",
+			"url": "assets/close-circle.png",
 			"type": "image",
-			"url": "assets/close-circle.png"
+			"name": "close-circle_png"
+		},
+		{
+			"url": "eui_skins/TextInputSkin.exml",
+			"type": "bin",
+			"name": "TextInputSkin_exml"
 		}
 	]
 }

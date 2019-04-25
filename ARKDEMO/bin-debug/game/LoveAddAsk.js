@@ -149,18 +149,20 @@ var game;
             // this.loveInputText.type = egret.TextFieldType.INPUT
             // this.loveInputText.inputType = egret.TextFieldInputType.PASSWORD;
             this.loveInputText.width = 250;
-            this.loveInputText.skinName = "resource/eui_skins/TextInputSkin.exml";
+            var buttonSkin = "<e:Skin class=\"skins.TextInputSkin\" minHeight=\"40\" minWidth=\"300\" \n                    states=\"normal,disabled,normalWithPrompt,disabledWithPrompt\" xmlns:e=\"http://ns.egret.com/eui\"> <e:Image width=\"100%\" height=\"100%\" scale9Grid=\"1,3,8,8\" source=\"button_up_png\"/> <e:Rect height=\"100%\" width=\"100%\" fillColor=\"0xffffff\"/> <e:EditableText id=\"textDisplay\" verticalCenter=\"0\" left=\"10\" right=\"10\"\n                    textColor=\"0x000000\" textColor.disabled=\"0xff0000\" \n                    width=\"200\" height=\"100%\" size=\"20\" /> <e:Label id=\"promptDisplay\" verticalCenter=\"0\" left=\"10\" right=\"10\"\n                    textColor=\"0xa9a9a9\" width=\"100%\" height=\"24\" size=\"20\" \n                    touchEnabled=\"false\" includeIn=\"normalWithPrompt,disabledWithPrompt\"/> \n                </e:Skin>";
+            this.loveInputText.skinName = buttonSkin;
             this.loveInputText.height = 250;
             this.loveInputText.x = this._x + 120;
             this.loveInputText.y = this.noticeBox.height + 60 + this._margin;
             // this.loveInputText.text = 'click here to write...'
             this.loveInputText.prompt = 'click here to write...';
-            this.loveInputText.textColor = 0x0d0d0d;
+            this.loveInputText.textColor = 0xFF34B3;
             // this.loveInputText.size = 20
             // this.loveInputText.border = true
             // this.loveInputText.borderColor = 0x000000
             // this.loveInputText.multiline = true
             // this.loveInputText.addEventListener(egret.TouchEvent.TOUCH_TAP, this.lovetouch,this)
+            console.log(this.loveInputText);
             this.sprite.addChild(this.loveInputText);
         };
         LoveAddAsk.prototype.lovetouch = function () {
