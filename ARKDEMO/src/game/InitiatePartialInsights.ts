@@ -37,6 +37,9 @@ namespace game {
             this.addChild(this.sprite)
             this.processBar()
             this.tip()
+
+            
+
             this.rightIcon()
             this.drawPotentialScale()
         }

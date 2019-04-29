@@ -364,8 +364,8 @@ var game;
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game', { 'inviter': inviter, 'gameName': gameName, 'game_id': game_id }).then(function (response) {
             });
-            // base.API.call('save_players_process', { 
-            //     'inviter_name': this.inviter, 
+            // base.API.call('save_players_process', {
+            //     'inviter_name': this.inviter,
             //     'game_secret': this.game_secret,
             //     'player': this.player,
             //     'game_name': this.game_secret,

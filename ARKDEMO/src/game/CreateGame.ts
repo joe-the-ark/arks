@@ -48,14 +48,14 @@ namespace game {
 
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
-            this.label2 = new egret.TextField(); 
+            this.label2 = new egret.TextField();
 
-            this.label2.text = "be ready friends: "; 
+            this.label2.text = "be ready friends: ";
             this.label2.height = 30;
             this.label2.anchorOffsetX = this.label2.width/2
             this.label2.anchorOffsetY = this.label2.height/2
 
-            this.label2.x = this.stageWidth /2 
+            this.label2.x = this.stageWidth /2
             this.label2.y = this.stageHeight / 6
             this.label2.background = true;
             this.label2.backgroundColor = 0xffffff;
@@ -66,12 +66,12 @@ namespace game {
             this.sprite.addChild(this.label2)
 
             if(status == 'inviter'){
-                this.label = new egret.TextField(); 
-                this.label.text = "Click on the top right corner to invite friends "; 
+                this.label = new egret.TextField();
+                this.label.text = "Click on the top right corner to invite friends ";
                 this.label.height = 30;
                 this.label.anchorOffsetX = this.label.width/2
                 this.label.anchorOffsetY = this.label.height/2
-                this.label.x = this.stageWidth /2 
+                this.label.x = this.stageWidth /2
                 this.label.y = this.stageHeight / 10
                 this.label.background = true;
                 this.label.backgroundColor = 0xffffff;
@@ -80,13 +80,13 @@ namespace game {
                 this.label.fontFamily = "Arial";
                 this.label.textColor = 0xFF0000;
                 this.sprite.addChild(this.label)
-                this.label3 = new egret.TextField(); 
-                this.label3.text = "play game"; 
+                this.label3 = new egret.TextField();
+                this.label3.text = "play game";
                 this.label3.height = 30;
                 this.label3.width = 180;
                 this.label3.anchorOffsetX = this.label3.width/2
                 this.label3.anchorOffsetY = this.label3.height/2
-                this.label3.x = this.stageWidth /2 
+                this.label3.x = this.stageWidth /2
                 this.label3.y = this.stageHeight / 1.5
                 this.label3.background = true;
                 this.label3.backgroundColor = 0xffffff;
@@ -99,11 +99,11 @@ namespace game {
                 this.sprite.addChild(this.label3)
                 this.invateFriends()
             }
-            
+
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayeList, this);
             this.timer.start()
-            
+
         }
         private getPlayeList(){
             var self = this
@@ -154,7 +154,7 @@ namespace game {
                                 let gameName = self.game_secret
                                 let stageWidth = self.stageWidth
                                 let stageHeight = self.stageHeight
-                                self.timer.stop() 
+                                self.timer.stop()
                                 self.sprite.visible = false;
                                 let initiatePartialInsights =  new game.InitiatePartialInsights(
                                     game_secret,
@@ -166,7 +166,7 @@ namespace game {
                                     playerCount,
                                     playerScore
                                 )
-                                
+
                                 self.stage.addChild(initiatePartialInsights)
                             }
                             else if (process == '0.2'){
@@ -177,7 +177,7 @@ namespace game {
                                 let gameName = self.game_secret
                                 let stageWidth = self.stageWidth
                                 let stageHeight = self.stageHeight
-                                self.timer.stop() 
+                                self.timer.stop()
                                 self.sprite.visible = false
                                 let characterChoosePage = new game.CharacterChoosePage(
                                     game_secret,
@@ -218,7 +218,7 @@ namespace game {
                                         let otherCharacterList = []
                                         let othersList = []
                                         let characterList2 = []
-                                        
+
                                         self.playerList.forEach((val, index, array) => {
 
                                             if(val == self.player){
@@ -240,7 +240,7 @@ namespace game {
                                         let stageWidth = self.stage.stageWidth
                                         let stageHeight = self.stage.stageHeight
                                         var count = 0
-                                        self.timer.stop() 
+                                        self.timer.stop()
                                         self.sprite.visible = false
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                         self.stage.addChild(charater);
@@ -248,9 +248,9 @@ namespace game {
                             }else{
                                 var inviter = self.inviter
                                 var gameName = self.game_secret
-                                var game_id = self.game_secret 
+                                var game_id = self.game_secret
                                 self.sprite.visible = false
-                                self.timer.stop() 
+                                self.timer.stop()
                                 let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter)
                             }
@@ -280,7 +280,7 @@ namespace game {
                                     let gameName = self.game_secret
                                     let stageWidth = self.stageWidth
                                     let stageHeight = self.stageHeight
-                                    self.timer.stop() 
+                                    self.timer.stop()
                                     self.sprite.visible = false;
                                     let initiatePartialInsights =  new game.InitiatePartialInsights(
                                         game_secret,
@@ -303,7 +303,7 @@ namespace game {
                                     let stageWidth = self.stageWidth
                                     let stageHeight = self.stageHeight
                                     self.sprite.visible = false
-                                    self.timer.stop() 
+                                    self.timer.stop()
 
                                     let characterChoosePage = new game.CharacterChoosePage(
                                         game_secret,
@@ -347,7 +347,7 @@ namespace game {
                                             let otherCharacterList = []
                                             let othersList = []
                                             let characterList2 = []
-                                            
+
                                             self.playerList.forEach((val, index, array) => {
 
                                                 if(val == that.player){
@@ -369,7 +369,7 @@ namespace game {
                                             let stageWidth = that.stage.stageWidth
                                             let stageHeight = that.stage.stageHeight
                                             var count = 0
-                                            self.timer.stop() 
+                                            self.timer.stop()
                                             that.sprite.visible = false
 
                                             let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
@@ -379,8 +379,8 @@ namespace game {
                                 }else{
                                     var inviter = self.inviter
                                     var gameName = self.game_secret
-                                    var game_id = self.game_secret 
-                                    self.timer.stop() 
+                                    var game_id = self.game_secret
+                                    self.timer.stop()
                                     self.sprite.visible = false
                                     let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                     self.stage.addChild(enter)
@@ -435,15 +435,15 @@ namespace game {
         private onTouchBegin(){
             var inviter = this.inviter
             var gameName = this.game_secret
-            var game_id = this.game_secret  
+            var game_id = this.game_secret
             var self = this
             base.API.Init("http://work.metatype.cn:8105/api/")
             // base.API.Init("http://127.0.0.1:8000/api/")
             base.API.call('create_game',  {'inviter': inviter, 'gameName': gameName, 'game_id':game_id }).then(function (response) {
             })
 
-            // base.API.call('save_players_process', { 
-            //     'inviter_name': this.inviter, 
+            // base.API.call('save_players_process', {
+            //     'inviter_name': this.inviter,
             //     'game_secret': this.game_secret,
             //     'player': this.player,
             //     'game_name': this.game_secret,
