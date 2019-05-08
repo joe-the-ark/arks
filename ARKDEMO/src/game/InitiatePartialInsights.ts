@@ -99,6 +99,7 @@ namespace game {
                 let playerSCore = self.selfPerception 
                 let playerCount = self.playerCount
                 self.sprite.visible = false
+                self.removeChild(self.sprite)
                 let characterChoosePage = new game.CharacterChoosePage(
                     game_secret,
                     inviter,

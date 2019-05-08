@@ -157,6 +157,7 @@ var game;
                 }).then(function (response) {
                     var result = response['result'];
                     self_1.sprite.visible = false;
+                    self_1.removeChild(self_1.sprite);
                     var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self_1.stage.addChild(preview);
@@ -165,6 +166,7 @@ var game;
             else {
                 var count = this.count + 1;
                 this.sprite.visible = false;
+                this.removeChild(this.sprite);
                 var loveAddAsk = new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
                 this.stage.addChild(loveAddAsk);
             }

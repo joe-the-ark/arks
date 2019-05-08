@@ -96,6 +96,7 @@ var game;
                 var result = response['result'];
                 var player_list = result;
                 self.sprite.visible = false;
+                self.removeChild(self.sprite);
                 var cliffhanger = new game.AffinityMapping(self.stageWidth, self.stageHeight, player_list, self.inviter, self.game_secret, self.player, self.gameName);
                 self.stage.addChild(cliffhanger);
             });

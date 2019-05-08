@@ -103,6 +103,7 @@ var game;
             }).then(function (response) {
             });
             this.sprite.visible = false;
+            this.removeChild(this.sprite);
             var digestAdd = new game.DigestAdd(this.stageWidth, this.stageHeight, this.result, this.inviter, this.game_secret, this.gameName, this.player);
             // let preview =  new game.Preview2(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAdd);

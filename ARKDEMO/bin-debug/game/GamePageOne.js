@@ -136,6 +136,7 @@ var game;
                     var playerSCore = self.playerSCore;
                     var playerCount = self.playerList.length;
                     self.sprite.visible = false;
+                    self.removeChild(self.sprite);
                     self._shape.visible = false;
                     var initiatePartialInsights = new game.InitiatePartialInsights(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore);
                     self.stage.addChild(initiatePartialInsights);

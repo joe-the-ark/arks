@@ -184,6 +184,7 @@ var game;
                     if (characterListParams[1][scorecount] != undefined) {
                         self.timer.stop();
                         self.sprite.visible = false;
+                        self.removeChild(self.sprite);
                         var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
                         self.stage.addChild(charater);
                         // self.rightIcon.visible = false
@@ -221,6 +222,7 @@ var game;
                         }).then(function (response) {
                             self.timer.stop();
                             self.sprite.visible = false;
+                            self.removeChild(self.sprite);
                             var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                             self.stage.addChild(toTensionScaleResult);
                         });

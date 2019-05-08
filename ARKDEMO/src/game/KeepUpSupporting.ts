@@ -182,6 +182,7 @@ namespace game {
 
                     var result = response['result']
                     self.sprite.visible = false
+                    self.removeChild(self.sprite)
                     let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self.stage.addChild(preview)
@@ -192,6 +193,7 @@ namespace game {
             }else {
                 var count = this.count + 1
                 this.sprite.visible = false
+                this.removeChild(this.sprite)
                 var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
                 this.stage.addChild(loveAddAsk)
             }

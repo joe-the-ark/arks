@@ -280,6 +280,7 @@ namespace game {
                     let charater = new game.Character(game_secret,inviter, player, gameName, stageWidth, stageHeight, count, this.characterList, playerAndOthersCharacterList);
                     this.stage.addChild(charater);
                     this.sprite.visible = false
+                    this.removeChild(this.sprite)
                     this.tiptext.text = ''
                     this.removeChild(this.rightIcon)
                     this.removeChild(this.closeIcon)

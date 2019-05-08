@@ -198,6 +198,7 @@ namespace game {
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
+                        self.removeChild(self.sprite)
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
                         // self.rightIcon.visible = false
@@ -240,6 +241,7 @@ namespace game {
                         }).then(function (response) {
                             self.timer.stop()
                             self.sprite.visible = false;
+                            self.removeChild(self.sprite)
                             let toTensionScaleResult = new game.TensionScaleResult(
                                 self.stageWidth,
                                 self.stageHeight,

@@ -89,6 +89,7 @@ var game;
                     var addFeedbackList = result[1];
                     var askFeedbackList = result[2];
                     self_1.sprite.visible = false;
+                    self_1.removeChild(self_1.sprite);
                     var preview = new game.Preview(self_1.stageWidth, self_1.stageHeight, self_1.player, self_1.inviter, self_1.game_secret, self_1.gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList, self_1.simulatedData);
                     // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
                     self_1.stage.addChild(preview);

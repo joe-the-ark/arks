@@ -24,7 +24,6 @@ namespace game {
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
-
             this.player=player
             this.inviter=inviter
             this.game_secret=game_secret
@@ -198,6 +197,7 @@ namespace game {
             })
 
             this.sprite.visible = false
+
             let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
             this.stage.addChild(digestAsk)
 

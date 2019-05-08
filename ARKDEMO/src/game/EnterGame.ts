@@ -124,8 +124,6 @@ namespace game {
             this.player = player
             var game_secret = this.txInput2.text
 
-            console.log('player:' + player)
-
             var self = this
             if (player && game_secret) {
                 base.API.Init("http://work.metatype.cn:8105/api/");
@@ -147,12 +145,9 @@ namespace game {
 
                             }).then(function (response) {
 
-                                console.log(response)
                                 var process = response['process']
                                 var playerCount = response['playercount']
                                 var processson = response['processson']
-
-
                                 self.playerCount = playerCount
                                 if (process == '2.0') {
                                     let characterChoosePage = new game.CharacterChoosePage(
@@ -164,8 +159,10 @@ namespace game {
                                         self.stage.stageHeight,
                                         playerCount
                                     )
-                                    self.stage.addChild(characterChoosePage)
                                     self.sprite.visible = false
+                                    self.removeChild(self.sprite)
+                                    self.stage.addChild(characterChoosePage)
+                                    
                                 }
                                 else if (process == '3') {
 
@@ -221,7 +218,6 @@ namespace game {
                                         otherCharacterList.push(characterList2)
                                         playerAndOthersCharacterList.push(otherCharacterList)
 
-                                        console.log(playerAndOthersCharacterList)
 
                                         let game_secret = that.game_secret
                                         let inviter = that.inviter
@@ -232,8 +228,10 @@ namespace game {
                                         let processson1 = processson
 
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList, playerAndOthersCharacterList);
-                                        that.stage.addChild(charater);
                                         that.sprite.visible = false
+                                        that.removeChild(that.sprite)
+                                        that.stage.addChild(charater);
+                                        
 
                                     })
 
@@ -275,14 +273,20 @@ namespace game {
                                             characterList,
                                             playerCount
                                         )
-                                        that.stage.addChild(toTensionScaleResult);
                                         that.sprite.visible = false;
+                                        that.removeChild(that.sprite)
+                                        that.stage.addChild(toTensionScaleResult);
+
+                                        
                                     })
                                 }
                                 else {
                                     let gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
-                                    self.stage.addChild(gamePageOne)
                                     self.sprite.visible = false
+                                    self.removeChild(this.sprite)
+                                    
+                                    self.stage.addChild(gamePageOne)
+                                    
                                 }
                             })
                         }

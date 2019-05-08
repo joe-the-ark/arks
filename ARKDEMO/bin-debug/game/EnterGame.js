@@ -117,7 +117,6 @@ var game;
             var player = this.txInput.text;
             this.player = player;
             var game_secret = this.txInput2.text;
-            console.log('player:' + player);
             var self = this;
             if (player && game_secret) {
                 base.API.Init("http://work.metatype.cn:8105/api/");
@@ -138,15 +137,15 @@ var game;
                                 'player': player,
                                 'gameName': self.gameName
                             }).then(function (response) {
-                                console.log(response);
                                 var process = response['process'];
                                 var playerCount = response['playercount'];
                                 var processson = response['processson'];
                                 self.playerCount = playerCount;
                                 if (process == '2.0') {
                                     var characterChoosePage = new game.CharacterChoosePage(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight, playerCount);
-                                    self.stage.addChild(characterChoosePage);
                                     self.sprite.visible = false;
+                                    self.removeChild(self.sprite);
+                                    self.stage.addChild(characterChoosePage);
                                 }
                                 else if (process == '3') {
                                     var that = self;
@@ -196,7 +195,6 @@ var game;
                                         otherCharacterList.push(othersList);
                                         otherCharacterList.push(characterList2);
                                         playerAndOthersCharacterList.push(otherCharacterList);
-                                        console.log(playerAndOthersCharacterList);
                                         var game_secret = that.game_secret;
                                         var inviter = that.inviter;
                                         var player = that.player;
@@ -205,8 +203,9 @@ var game;
                                         var stageHeight = that.stage.stageHeight;
                                         var processson1 = processson;
                                         var charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, processson1, characterList, playerAndOthersCharacterList);
-                                        that.stage.addChild(charater);
                                         that.sprite.visible = false;
+                                        that.removeChild(that.sprite);
+                                        that.stage.addChild(charater);
                                     });
                                 }
                                 else if (process == '4') {
@@ -234,14 +233,16 @@ var game;
                                             characterList.push(that.allcharacterlist);
                                         }
                                         var toTensionScaleResult = new game.TensionScaleResult(that.stage.stageWidth, that.stage.stageHeight, that.inviter, game_secret, player, that.gameName, characterList, playerCount);
-                                        that.stage.addChild(toTensionScaleResult);
                                         that.sprite.visible = false;
+                                        that.removeChild(that.sprite);
+                                        that.stage.addChild(toTensionScaleResult);
                                     });
                                 }
                                 else {
                                     var gamePageOne = new game.GamePageOne(game_secret, self.inviter, player, self.gameName, self.stage.stageWidth, self.stage.stageHeight);
-                                    self.stage.addChild(gamePageOne);
                                     self.sprite.visible = false;
+                                    self.removeChild(this.sprite);
+                                    self.stage.addChild(gamePageOne);
                                 }
                             });
                         }

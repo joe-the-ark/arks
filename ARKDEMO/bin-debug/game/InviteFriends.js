@@ -148,8 +148,9 @@ var game;
                 var self = this;
                 if (this.stage) {
                     var enter = new game.GamePageOne(self.game_secret, self.inviter, self.inviter, self.gameName, this.stage.stageWidth, this.stage.stageHeight);
-                    this.stage.addChild(enter);
                     self.sprite.visible = false;
+                    self.removeChild(self.sprite);
+                    this.stage.addChild(enter);
                 }
                 // console.log(this.stage)
                 //base.API.Init("http://work.metatype.cn:8105/api/");

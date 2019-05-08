@@ -156,6 +156,8 @@ namespace game {
                                 let stageHeight = self.stageHeight
                                 self.timer.stop()
                                 self.sprite.visible = false;
+                                self.removeChild(self.sprite)
+
                                 let initiatePartialInsights =  new game.InitiatePartialInsights(
                                     game_secret,
                                     inviter,
@@ -179,6 +181,7 @@ namespace game {
                                 let stageHeight = self.stageHeight
                                 self.timer.stop()
                                 self.sprite.visible = false
+                                self.removeChild(self.sprite)
                                 let characterChoosePage = new game.CharacterChoosePage(
                                     game_secret,
                                     inviter,
@@ -242,6 +245,7 @@ namespace game {
                                         var count = 0
                                         self.timer.stop()
                                         self.sprite.visible = false
+                                        self.removeChild(self.sprite)
                                         let charater = new game.Character(game_secret, inviter, player, gameName, stageWidth, stageHeight, count, characterList, playerAndOthersCharacterList);
                                         self.stage.addChild(charater);
                                     })
@@ -250,6 +254,7 @@ namespace game {
                                 var gameName = self.game_secret
                                 var game_id = self.game_secret
                                 self.sprite.visible = false
+                                self.removeChild(self.sprite)
                                 self.timer.stop()
                                 let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                 self.stage.addChild(enter)
@@ -282,6 +287,7 @@ namespace game {
                                     let stageHeight = self.stageHeight
                                     self.timer.stop()
                                     self.sprite.visible = false;
+                                    self.removeChild(self.sprite)
                                     let initiatePartialInsights =  new game.InitiatePartialInsights(
                                         game_secret,
                                         inviter,
@@ -303,6 +309,7 @@ namespace game {
                                     let stageWidth = self.stageWidth
                                     let stageHeight = self.stageHeight
                                     self.sprite.visible = false
+                                    self.removeChild(self.sprite)
                                     self.timer.stop()
 
                                     let characterChoosePage = new game.CharacterChoosePage(
@@ -382,6 +389,7 @@ namespace game {
                                     var game_id = self.game_secret
                                     self.timer.stop()
                                     self.sprite.visible = false
+                                    self.removeChild(self.sprite)
                                     let enter = new game.GamePageOne(self.game_secret, self.inviter, self.nickname, self.game_secret, self.stage.stageWidth, self.stage.stageHeight);
                                     self.stage.addChild(enter)
                                 }

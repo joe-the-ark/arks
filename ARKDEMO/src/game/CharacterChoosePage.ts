@@ -248,6 +248,7 @@ namespace game {
                         }
                     })
                     self.sprite.visible = false
+                    self.removeChild(self.sprite)
                     self.rightIcon.visible = false
                     otherCharacterList.push(othersList)
                     otherCharacterList.push(characterList)

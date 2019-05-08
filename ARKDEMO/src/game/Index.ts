@@ -53,6 +53,7 @@ namespace game {
 
             if( this.stage ) {
                 this.sprite.visible = false
+                this.removeChild(this.sprite)
                 let inviteScene = new game.CreateGame(this.stage.stageWidth, this.stage.stageHeight, this.nickname, this.openid,this.openid, this.nickname, 'inviter');
                 this.stage.addChild(inviteScene)
                 

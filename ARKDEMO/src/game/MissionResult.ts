@@ -63,6 +63,7 @@ namespace game{
             })
 
             this.sprite.visible = false
+            this.removeChild(this.sprite)
             let settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(settingSail);
         }

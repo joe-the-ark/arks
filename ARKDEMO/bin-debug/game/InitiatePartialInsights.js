@@ -93,6 +93,7 @@ var game;
                 var playerSCore = self.selfPerception;
                 var playerCount = self.playerCount;
                 self.sprite.visible = false;
+                self.removeChild(self.sprite);
                 var characterChoosePage = new game.CharacterChoosePage(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount);
                 self.stage.addChild(characterChoosePage);
             });

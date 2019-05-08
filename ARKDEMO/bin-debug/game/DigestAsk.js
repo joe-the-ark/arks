@@ -103,6 +103,7 @@ var game;
             }).then(function (response) {
             });
             this.sprite.visible = false;
+            this.removeChild(this.sprite);
             var cliffhanger = new game.Cliffhanger(this.stageWidth, this.stageHeight, this.inviter, this.game_secret, this.gameName, this.player);
             this.stage.addChild(cliffhanger);
         };

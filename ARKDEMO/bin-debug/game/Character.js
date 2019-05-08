@@ -128,6 +128,7 @@ var game;
                 }).then(function (response) {
                 });
                 this.sprite.visible = false;
+                this.removeChild(this.sprite);
                 this.removeChild(this.rightIcon);
                 this.removeChild(this.closeIcon);
                 this._shape.visible = false;
@@ -255,7 +256,6 @@ var game;
                                             self.player_score = _score;
                                         }
                                         self.map[playerName] = _score;
-                                        console.log(self.map);
                                     }
                                 }
                                 if (player_name.y > self.stageHeight - 150 - player_name.height) {

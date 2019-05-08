@@ -218,6 +218,7 @@ var game;
                         }
                     });
                     self.sprite.visible = false;
+                    self.removeChild(self.sprite);
                     self.rightIcon.visible = false;
                     otherCharacterList.push(othersList_1);
                     otherCharacterList.push(characterList_1);

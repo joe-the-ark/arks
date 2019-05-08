@@ -156,6 +156,7 @@ namespace game {
 
                 });
                 this.sprite.visible = false
+                this.removeChild(this.sprite)
                 this.removeChild(this.rightIcon)
                 this.removeChild(this.closeIcon)
                 this._shape.visible = false
@@ -302,7 +303,6 @@ namespace game {
                                         }
 
                                         self.map[playerName] = _score
-                                        console.log(self.map)
 
                                     }
                                 }

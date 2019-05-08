@@ -163,6 +163,7 @@ namespace game {
                     let playerSCore = self.playerSCore 
                     let playerCount = self.playerList.length
                     self.sprite.visible = false;
+                    self.removeChild(self.sprite)
                     self._shape.visible = false
 
                     let initiatePartialInsights =  new game.InitiatePartialInsights(

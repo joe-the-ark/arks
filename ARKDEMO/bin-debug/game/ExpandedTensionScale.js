@@ -264,6 +264,7 @@ var game;
             }).then(function (response) {
             });
             this.sprite.visible = false;
+            this.removeChild(this.sprite);
             var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
             this.stage.addChild(keepUpVoting);
         };
