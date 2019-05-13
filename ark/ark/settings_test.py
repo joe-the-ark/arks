@@ -18,3 +18,6 @@ DATABASES = {
 
 STATIC_ROOT = '/var/ark/static'
 MEDIA_ROOT = '/var/ark/media'
+
+
+API_SERVER = '47.104.135.210:8105'
