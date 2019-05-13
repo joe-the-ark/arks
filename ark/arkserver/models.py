@@ -113,7 +113,7 @@ class Feedback(models.Model):
 
 
 class Result(models.Model):
-    img = models.ImageField(upload_to='event/qrcode')
+    img = models.FileField(upload_to='result/')
 
 
 
