@@ -110,3 +110,10 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.game.game_name+'__'+self.player.name
+
+
+class Result(models.Model):
+    img = models.ImageField(upload_to='event/qrcode')
+
+
+
