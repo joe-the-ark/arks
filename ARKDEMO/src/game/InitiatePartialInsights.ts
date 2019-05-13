@@ -83,7 +83,7 @@ namespace game {
         private nextTouch() {
 
             let render = new egret.RenderTexture();
-            render.drawToTexture(this.stage);
+            render.drawToTexture(this.sprite);
             let base64Str = render.toDataURL("image/png");
             base.API.call('save_result',{
                 'base64Str':base64Str
