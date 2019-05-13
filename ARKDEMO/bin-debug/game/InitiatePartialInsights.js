@@ -75,9 +75,10 @@ var game;
             this.sprite.addChild(potentialScale);
         };
         InitiatePartialInsights.prototype.nextTouch = function () {
-            var render = new egret.RenderTexture();
-            render.drawToTexture(this.sprite);
-            var base64Str = render.toDataURL("image/png");
+            var renderTexture = new egret.RenderTexture();
+            renderTexture.drawToTexture(this.sprite);
+            var base64Str = renderTexture.toDataURL("image/png");
+            console.log(base64Str);
             base.API.call('save_result', {
                 'base64Str': base64Str
             });
