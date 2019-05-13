@@ -83,13 +83,12 @@ namespace game {
         private nextTouch() {
 
             let render = new egret.RenderTexture();
-            let rootLayer = this;
-            render.drawToTexture(rootLayer);
+            render.drawToTexture(this.stage);
             let base64Str = render.toDataURL("image/png");
             base.API.call('save_result',{
                 'base64Str':base64Str
             })
-            
+
             var self = this
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {
