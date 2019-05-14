@@ -91,9 +91,6 @@ namespace game {
                 }, this, 1000, "egret"
             );
 
-            this.resultTimer = new egret.Timer(1000, 0);
-            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            this.resultTimer.start()
 
             this.tiptext = new egret.TextField()
             this.feedbacktext = new egret.TextField()
@@ -103,6 +100,9 @@ namespace game {
             this.tip()
             this.notice2()
 
+            this.resultTimer = new egret.Timer(1000, 0);
+            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            this.resultTimer.start()
         }
 
         private initSprite(){
@@ -315,12 +315,10 @@ namespace game {
                 if(votedScalesNumber == playerCount){
                     var idTimeout:number = egret.setTimeout( function( arg ){
                         var renderTexture:egret.RenderTexture = new egret.RenderTexture();
-
-                        if(self.sprite.visible == false){
-                            self.sprite.visible = true
-                        }
-                        
-                        renderTexture.drawToTexture(self.sprite);
+                        // if(self.sprite.visible == false){
+                        //     self.sprite.visible = true
+                        // }
+                        renderTexture.drawToTexture(self.parent);
                         let base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result',{
                             'base64Str':base64Str,
@@ -330,8 +328,7 @@ namespace game {
                             'inviter':self.inviter
                         })
                         self.resultTimer.stop()
-                        self.sprite.visible=false
-                        
+
                         }, this, 1000, "egret"
                     );
                 }

@@ -67,9 +67,6 @@ var game;
             var idTimeout = egret.setTimeout(function (arg) {
                 this.rightIcon();
             }, _this, 1000, "egret");
-            _this.resultTimer = new egret.Timer(1000, 0);
-            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
-            _this.resultTimer.start();
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
             _this.noticetext = new egret.TextField();
@@ -77,6 +74,9 @@ var game;
             _this.sprite.addChild(_this.tiptext);
             _this.tip();
             _this.notice2();
+            _this.resultTimer = new egret.Timer(1000, 0);
+            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
+            _this.resultTimer.start();
             return _this;
         }
         ExpandedTensionScale.prototype.initSprite = function () {
@@ -262,10 +262,10 @@ var game;
                 if (votedScalesNumber == playerCount) {
                     var idTimeout = egret.setTimeout(function (arg) {
                         var renderTexture = new egret.RenderTexture();
-                        if (self.sprite.visible == false) {
-                            self.sprite.visible = true;
-                        }
-                        renderTexture.drawToTexture(self.sprite);
+                        // if(self.sprite.visible == false){
+                        //     self.sprite.visible = true
+                        // }
+                        renderTexture.drawToTexture(self.parent);
                         var base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result', {
                             'base64Str': base64Str,
@@ -275,7 +275,6 @@ var game;
                             'inviter': self.inviter
                         });
                         self.resultTimer.stop();
-                        self.sprite.visible = false;
                     }, this, 1000, "egret");
                 }
             });
