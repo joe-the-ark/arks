@@ -75,17 +75,20 @@ var game;
                 var playerCount = response['playerCount'];
                 var votedScalesNumber = self.individualTensionScale.length + 1;
                 if (votedScalesNumber == playerCount) {
-                    var renderTexture = new egret.RenderTexture();
-                    renderTexture.drawToTexture(self.sprite);
-                    var base64Str = renderTexture.toDataURL("image/png");
-                    base.API.call('save_result', {
-                        'base64Str': base64Str,
-                        'player': self.playerName,
-                        'name': 'ExpandedTensionScale',
-                        'game_secret': self.game_secret,
-                        'inviter': self.inviter
-                    });
-                    self.resultTimer.stop();
+                    var timer = new egret.Timer(2000, 1);
+                    timer.addEventListener(egret.TimerEvent.TIMER, function () {
+                        var renderTexture = new egret.RenderTexture();
+                        renderTexture.drawToTexture(self.sprite);
+                        var base64Str = renderTexture.toDataURL("image/png");
+                        base.API.call('save_result', {
+                            'base64Str': base64Str,
+                            'player': self.playerName,
+                            'name': 'ExpandedTensionScale',
+                            'game_secret': self.game_secret,
+                            'inviter': self.inviter
+                        });
+                        self.resultTimer.stop();
+                    }, this);
                 }
             });
         };

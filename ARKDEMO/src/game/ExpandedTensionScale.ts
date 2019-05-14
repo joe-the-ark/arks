@@ -322,7 +322,7 @@ namespace game {
             })
 
             this.sprite.visible = false
-            this.removeChild(this.sprite)
+            // this.removeChild(this.sprite)
             let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
             this.stage.addChild(keepUpVoting)
 
