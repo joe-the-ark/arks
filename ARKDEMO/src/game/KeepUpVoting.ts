@@ -45,7 +45,10 @@ namespace game {
             // this.tensionScale()
             this.initNotice()
             this.processBar()
-            this.rightIcon()
+            var idTimeout:number = egret.setTimeout( function( arg ){
+                this.rightIcon()        
+                }, this, 2000, "egret"
+            );
 
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);

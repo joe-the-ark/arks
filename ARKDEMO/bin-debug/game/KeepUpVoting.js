@@ -49,7 +49,9 @@ var game;
             // this.tensionScale()
             _this.initNotice();
             _this.processBar();
-            _this.rightIcon();
+            var idTimeout = egret.setTimeout(function (arg) {
+                this.rightIcon();
+            }, _this, 2000, "egret");
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();

@@ -328,7 +328,6 @@ namespace game {
                 // this.removeChild(this.sprite)
                 let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
                 this.stage.addChild(keepUpVoting)
-
                 }, this, 1000, "egret"
             );
 

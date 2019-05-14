@@ -40,16 +40,21 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
+            var idTimeout:number = egret.setTimeout( function( arg ){
 
-            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
-            this.rightIcon.width = 100
-            this.rightIcon.height = 100
-            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
-            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
-            this.rightIcon.x = stageWidth - 50
-            this.rightIcon.y = stageHeight - 100
-            this.rightIcon.touchEnabled = true
-            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+                this.rightIcon.width = 100
+                this.rightIcon.height = 100
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+                this.rightIcon.x = stageWidth - 50
+                this.rightIcon.y = stageHeight - 100
+                this.rightIcon.touchEnabled = true
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+
+                }, this, 2000, "egret"
+            );
+
 
             let probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions')
             this.sprite.addChild(probessBar)
