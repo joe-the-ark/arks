@@ -91,8 +91,6 @@ namespace game {
 
         }
 
-
-
         private drawVoteArea(): void {
             let character1: egret.TextField = new egret.TextField()
             let character2: egret.TextField = new egret.TextField()

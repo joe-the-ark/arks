@@ -60,6 +60,18 @@ var game;
                 'process': '3'
             }).then(function (response) {
             });
+            var idTimeout = egret.setTimeout(function (arg) {
+                var renderTexture = new egret.RenderTexture();
+                renderTexture.drawToTexture(this.sprite);
+                var base64Str = renderTexture.toDataURL("image/png");
+                base.API.call('save_result', {
+                    'base64Str': base64Str,
+                    'player': this.player,
+                    'name': 'ZORAMap',
+                    'game_secret': this.game_secret,
+                    'inviter': this.inviter
+                });
+            }, this, 2000, "egret");
             this.sprite.visible = false;
             this.removeChild(this.sprite);
             var settingSail = new game.SettingSail(this.stageWidth, this.stageHeight, 0, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);

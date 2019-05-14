@@ -140,7 +140,6 @@ namespace game {
                             })
                             
                         }, this, 2000, "egret"
-
                     );
 
                     this.timer.stop()

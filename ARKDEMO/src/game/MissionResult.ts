@@ -61,6 +61,20 @@ namespace game{
             }).then(function (response){
               
             })
+            var idTimeout:number = egret.setTimeout( function( arg ){
+                    var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+                    renderTexture.drawToTexture(this.sprite);
+                    let base64Str = renderTexture.toDataURL("image/png");
+                    base.API.call('save_result',{
+                        'base64Str':base64Str,
+                        'player':this.player,
+                        'name':'ZORAMap',
+                        'game_secret':this.game_secret,
+                        'inviter':this.inviter
+                    })
+                    
+                }, this, 2000, "egret"
+            );
 
             this.sprite.visible = false
             this.removeChild(this.sprite)
