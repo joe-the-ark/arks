@@ -318,7 +318,7 @@ namespace game {
                 'game_name': this.gameName,
                 'process': '1.'+this.scorecount.toString()+'2'
             }).then(function (response) {
-
+                
             })
 
             this.sprite.visible = false

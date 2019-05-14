@@ -86,7 +86,7 @@ var game;
                         base.API.call('save_result', {
                             'base64Str': base64Str,
                             'player': self.playerName,
-                            'name': 'ExpandedTensionScale',
+                            'name': 'ExpandedTensionScale' + self.scorecount.toString(),
                             'game_secret': self.game_secret,
                             'inviter': self.inviter
                         });

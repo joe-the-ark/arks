@@ -1192,7 +1192,16 @@ def save_result(base64Str, player, name, game_secret, inviter):
     file = BytesIO()
     file.write(imgdata)
     img = InMemoryUploadedFile(file, None, 'result.jpg', None, len(imgdata), None, None)
-    Result.objects.create(img=img,player=player, name=name, game_secret=game_secret, inviter=inviter)
+    result = Result.objects.filter(player=player,name=name, game_secret=game_secret, inviter=inviter).first():
+    if not result:
+        Result.objects.create(img=img,player=player, name=name, game_secret=game_secret, inviter=inviter)
+
+    else:
+        result.img = img
+        result.save()
+
+
+
 
 
 

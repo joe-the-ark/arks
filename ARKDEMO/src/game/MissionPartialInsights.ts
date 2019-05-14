@@ -74,13 +74,11 @@ namespace game {
             }).then(function (response) {
                 self.teamTensionScaleMedian = response['ttsm']
                 self.individualTensionScale = response['individualTensionScale']
-
                 var playerCount = response['playerCount']
                 var votedScalesNumber = self.individualTensionScale.length + 1
-
                 console.log('playerCount',playerCount);
                 console.log('votedScalesNumber',votedScalesNumber);
-
+                
                 if(votedScalesNumber == playerCount){
                     console.log('screenshot');
                     var idTimeout:number = egret.setTimeout( function( arg ){
@@ -91,7 +89,7 @@ namespace game {
                             base.API.call('save_result',{
                                 'base64Str':base64Str,
                                 'player':self.playerName,
-                                'name':'ExpandedTensionScale',
+                                'name':'ExpandedTensionScale'+self.scorecount.toString(),
                                 'game_secret':self.game_secret,
                                 'inviter':self.inviter
                             })

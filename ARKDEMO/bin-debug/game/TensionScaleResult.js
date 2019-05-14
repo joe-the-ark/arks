@@ -119,6 +119,19 @@ var game;
             if (this.simulatedData) {
                 if (this.playerCount == this.simulatedData.length) {
                     this.sprite.addChild(this.rightIcon);
+                    var idTimeout = egret.setTimeout(function (arg) {
+                        var renderTexture = new egret.RenderTexture();
+                        renderTexture.drawToTexture(this.sprite);
+                        var base64Str = renderTexture.toDataURL("image/png");
+                        console.log('base64Str', base64Str);
+                        base.API.call('save_result', {
+                            'base64Str': base64Str,
+                            'player': this.player,
+                            'name': 'TensionScaleResult',
+                            'game_secret': this.game_secret,
+                            'inviter': this.inviter
+                        });
+                    }, this, 2000, "egret");
                     this.timer.stop();
                 }
             }
