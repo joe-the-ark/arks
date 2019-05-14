@@ -89,7 +89,7 @@ namespace game {
 
             var idTimeout:number = egret.setTimeout( function( arg ){
                 this.rightIcon()        
-                }, this, 2000, "egret"
+                }, this, 2500, "egret"
             );
 
             this.tiptext = new egret.TextField()

@@ -80,23 +80,29 @@ namespace game {
                 this.label.fontFamily = "Arial";
                 this.label.textColor = 0xFF0000;
                 this.sprite.addChild(this.label)
-                this.label3 = new egret.TextField();
-                this.label3.text = "play game";
-                this.label3.height = 30;
-                this.label3.width = 180;
-                this.label3.anchorOffsetX = this.label3.width/2
-                this.label3.anchorOffsetY = this.label3.height/2
-                this.label3.x = this.stageWidth /2
-                this.label3.y = this.stageHeight / 1.5
-                this.label3.background = true;
-                this.label3.backgroundColor = 0xffffff;
-                this.label3.border = true;
-                this.label3.borderColor = 0x00ff00;
-                this.label3.touchEnabled = true
-                this.label3.fontFamily = "Arial";
-                this.label3.textColor = 0xFF0000;
-                this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
-                this.sprite.addChild(this.label3)
+                var idTimeout:number = egret.setTimeout( function( arg ){
+                    this.label3 = new egret.TextField();
+                    this.label3.text = "play game";
+                    this.label3.height = 30;
+                    this.label3.width = 180;
+                    this.label3.anchorOffsetX = this.label3.width/2
+                    this.label3.anchorOffsetY = this.label3.height/2
+                    this.label3.x = this.stageWidth /2
+                    this.label3.y = this.stageHeight / 1.5
+                    this.label3.background = true;
+                    this.label3.backgroundColor = 0xffffff;
+                    this.label3.border = true;
+                    this.label3.borderColor = 0x00ff00;
+                    this.label3.touchEnabled = true
+                    this.label3.fontFamily = "Arial";
+                    this.label3.textColor = 0xFF0000;
+                    this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                    this.sprite.addChild(this.label3)
+                    
+                    }, this, 1000, "egret"
+                );
+
+                
                 this.invateFriends()
             }
 
