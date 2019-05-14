@@ -41,9 +41,9 @@ namespace game {
             this.processBar()
             this.drawPotentialScale()
 
-            // this.resultTimer = new egret.Timer(1000, 0);
-            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            // this.resultTimer.start()
+            this.resultTimer = new egret.Timer(1000, 0);
+            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            this.resultTimer.start()
             
         }
         private processBar(): void {
@@ -52,7 +52,7 @@ namespace game {
         }
 
         private drawPotentialScale(): void {
-            let expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception,this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount )
+            let expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception,this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount,this.sprite )
             expandedTensionScale.x = this._x + 350
             expandedTensionScale.y = 180
             this.sprite.addChild(expandedTensionScale)
@@ -79,6 +79,8 @@ namespace game {
                 if(votedScalesNumber == playerCount){
                     var idTimeout:number = egret.setTimeout( function( arg ){
                         var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+                        
+                        
                         renderTexture.drawToTexture(self.sprite);
                         let base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result',{

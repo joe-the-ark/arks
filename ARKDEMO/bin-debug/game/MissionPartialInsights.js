@@ -43,17 +43,17 @@ var game;
             _this.scorecount = scorecount;
             _this.processBar();
             _this.drawPotentialScale();
+            _this.resultTimer = new egret.Timer(1000, 0);
+            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
+            _this.resultTimer.start();
             return _this;
-            // this.resultTimer = new egret.Timer(1000, 0);
-            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            // this.resultTimer.start()
         }
         MissionPartialInsights.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 50, "Mission 1 > Partial Insights");
             this.sprite.addChild(processBar);
         };
         MissionPartialInsights.prototype.drawPotentialScale = function () {
-            var expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception, this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount);
+            var expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception, this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount, this.sprite);
             expandedTensionScale.x = this._x + 350;
             expandedTensionScale.y = 180;
             this.sprite.addChild(expandedTensionScale);

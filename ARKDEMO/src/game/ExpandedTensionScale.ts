@@ -47,7 +47,7 @@ namespace game {
         private scalesNumber = 7
 
         public resultTimer: egret.Timer
-        public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
+        public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount,sprite) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -63,9 +63,10 @@ namespace game {
 
             this.scorecount = scorecount
 
-            this.sprite = new egret.Sprite()
-            this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
-            this.addChild(this.sprite)
+            this.sprite = sprite
+            this.tensionScale()
+            // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
+            // this.addChild(this.sprite)
 
             this.character1Sprite  = new egret.TextField()
             this.character2Sprite = new egret.TextField()
@@ -100,9 +101,10 @@ namespace game {
             this.tip()
             this.notice2()
 
-            this.resultTimer = new egret.Timer(1000, 0);
-            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            this.resultTimer.start()
+            // this.resultTimer = new egret.Timer(1000, 0);
+            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            // this.resultTimer.start()
+
         }
 
         private initSprite(){

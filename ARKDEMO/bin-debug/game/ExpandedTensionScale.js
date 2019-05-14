@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var ExpandedTensionScale = (function (_super) {
         __extends(ExpandedTensionScale, _super);
-        function ExpandedTensionScale(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
+        function ExpandedTensionScale(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount, sprite) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -45,9 +45,10 @@ var game;
             _this.gameName = gameName;
             _this.chooser = chooser;
             _this.scorecount = scorecount;
-            _this.sprite = new egret.Sprite();
-            _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.tensionScale, _this);
-            _this.addChild(_this.sprite);
+            _this.sprite = sprite;
+            _this.tensionScale();
+            // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
+            // this.addChild(this.sprite)
             _this.character1Sprite = new egret.TextField();
             _this.character2Sprite = new egret.TextField();
             _this.itsm_Deviation = new egret.TextField();
@@ -74,10 +75,10 @@ var game;
             _this.sprite.addChild(_this.tiptext);
             _this.tip();
             _this.notice2();
-            _this.resultTimer = new egret.Timer(1000, 0);
-            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
-            _this.resultTimer.start();
             return _this;
+            // this.resultTimer = new egret.Timer(1000, 0);
+            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            // this.resultTimer.start()
         }
         ExpandedTensionScale.prototype.initSprite = function () {
             // 上面的性格
