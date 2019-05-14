@@ -76,16 +76,12 @@ namespace game {
                 self.individualTensionScale = response['individualTensionScale']
                 var playerCount = response['playerCount']
                 var votedScalesNumber = self.individualTensionScale.length + 1
-                console.log('playerCount',playerCount);
-                console.log('votedScalesNumber',votedScalesNumber);
-                
+              
                 if(votedScalesNumber == playerCount){
-                    console.log('screenshot');
                     var idTimeout:number = egret.setTimeout( function( arg ){
                             var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                             renderTexture.drawToTexture(self.sprite);
                             let base64Str = renderTexture.toDataURL("image/png");
-                            console.log('base64Str', base64Str)
                             base.API.call('save_result',{
                                 'base64Str':base64Str,
                                 'player':self.playerName,
@@ -94,11 +90,8 @@ namespace game {
                                 'inviter':self.inviter
                             })
                             self.resultTimer.stop()
-                            
-                        }, this, 3000, "egret"
-
+                        }, this, 1500, "egret"
                     );
-
                 }
             })
         }

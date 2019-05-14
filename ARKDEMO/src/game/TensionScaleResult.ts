@@ -125,7 +125,6 @@ namespace game {
             if (this.simulatedData) {
                 if (this.playerCount == this.simulatedData.length) {
                     this.sprite.addChild(this.rightIcon)
-                    
                     var idTimeout:number = egret.setTimeout( function( arg ){
                             var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                             renderTexture.drawToTexture(this.sprite);
@@ -138,13 +137,9 @@ namespace game {
                                 'game_secret':this.game_secret,
                                 'inviter':this.inviter
                             })
-                            
                         }, this, 2000, "egret"
                     );
-
                     this.timer.stop()
-
-
                 }
             }
         }

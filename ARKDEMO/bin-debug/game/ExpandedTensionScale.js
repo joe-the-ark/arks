@@ -64,7 +64,9 @@ var game;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getttsm, _this);
             _this.timer.start();
-            _this.rightIcon();
+            var idTimeout = egret.setTimeout(function (arg) {
+                this.rightIcon();
+            }, _this, 2000, "egret");
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
             _this.noticetext = new egret.TextField();

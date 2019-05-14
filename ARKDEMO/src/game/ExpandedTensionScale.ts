@@ -85,7 +85,12 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
-            this.rightIcon()
+            
+
+            var idTimeout:number = egret.setTimeout( function( arg ){
+                this.rightIcon()        
+                }, this, 2000, "egret"
+            );
 
             this.tiptext = new egret.TextField()
             this.feedbacktext = new egret.TextField()
@@ -94,10 +99,6 @@ namespace game {
             this.sprite.addChild(this.tiptext)
             this.tip()
             this.notice2()
-
-
-            
-
 
         }
 
@@ -318,7 +319,7 @@ namespace game {
                 'game_name': this.gameName,
                 'process': '1.'+this.scorecount.toString()+'2'
             }).then(function (response) {
-                
+
             })
 
             this.sprite.visible = false
