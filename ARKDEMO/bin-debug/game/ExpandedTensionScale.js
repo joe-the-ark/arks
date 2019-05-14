@@ -72,6 +72,9 @@ var game;
             _this.sprite.addChild(_this.tiptext);
             _this.tip();
             _this.notice2();
+            _this.resultTimer = new egret.Timer(1000, 0);
+            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
+            _this.resultTimer.start();
             return _this;
         }
         ExpandedTensionScale.prototype.initSprite = function () {
@@ -468,6 +471,36 @@ var game;
                 s += val;
             }, 0);
             var itsm = Math.ceil(s / this.playerCount);
+        };
+        ExpandedTensionScale.prototype.saveResult = function () {
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1': self.character1,
+                'c2': self.character2,
+                'chooser': self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm'];
+                self.individualTensionScale = response['individualTensionScale'];
+                self.playerCount = response['playerCount'];
+                self.votedScalesNumber = self.individualTensionScale.length + 1;
+                if (self.votedScalesNumber == self.playerCount) {
+                    var renderTexture = new egret.RenderTexture();
+                    renderTexture.drawToTexture(self.sprite);
+                    var base64Str = renderTexture.toDataURL("image/png");
+                    base.API.call('save_result', {
+                        'base64Str': base64Str,
+                        'name': ExpandedTensionScale,
+                        'game_secret': self.game_secret,
+                        'inviter': self.inviter
+                    });
+                    self.resultTimer.stop();
+                }
+            });
         };
         return ExpandedTensionScale;
     }(egret.DisplayObjectContainer));

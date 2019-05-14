@@ -20,7 +20,7 @@ namespace game {
         public chooser = ''
         public scorecount = 0
 
-        public timer: egret.Timer
+        
         
         public constructor(stageWidth, stageHeight, character1, character2, player, selfPerception, inviter, game_secret, gameName, scorecount, chooser) {
             super()
@@ -38,9 +38,11 @@ namespace game {
             this.chooser = chooser
             this.selfPerception = selfPerception
             this.scorecount = scorecount
-
             this.processBar()
             this.drawPotentialScale()
+
+
+
             
         }
         private processBar(): void {
@@ -54,5 +56,8 @@ namespace game {
             expandedTensionScale.y = 180
             this.sprite.addChild(expandedTensionScale)
         }
+
+        
+
     }
 }

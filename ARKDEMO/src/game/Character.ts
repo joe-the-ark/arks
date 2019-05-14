@@ -152,8 +152,6 @@ namespace game {
                     'process': '1.'+count.toString()+'.1'
                 }).then(function (response) {                      
 
-     
-
                 });
                 this.sprite.visible = false
                 this.removeChild(this.sprite)
@@ -161,7 +159,6 @@ namespace game {
                 this.removeChild(this.closeIcon)
                 this._shape.visible = false
                 this.tiptext.text = ''
-
                 let chooser = this.charaChooser[this.count]
                 let missionPartialInsights =  new game.MissionPartialInsights(this.stageWidth, this.stageHeight, characterone, charactertwo, this.player, this.player_score, this.inviter, this.game_secret, this.gameName, count, chooser)
                 this.stage.addChild(missionPartialInsights);
@@ -179,16 +176,13 @@ namespace game {
             tiptext.text = msg
             tiptext.size = 40
             tiptext.width = this.stageWidth
-
         }
 
         private drawRect() {
-
             var shape1: egret.Shape = this.rectShapeOne;
             shape1.graphics.beginFill(0x359f93, 0.5);
             shape1.graphics.drawRect(0, 0, this.stageWidth + 60, 180);
             shape1.graphics.endFill();
-
             var shape2: egret.Shape = this.rectShapeTwo;
             shape2.graphics.beginFill(0x359f93, 0.5);
             shape2.graphics.drawRect(0, this.stageHeight - 100, this.stageWidth + 60, 200);

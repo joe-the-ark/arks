@@ -46,6 +46,8 @@ namespace game {
         private votedScalesNumber = 1
         private scalesNumber = 7
 
+        public resultTimer: egret.Timer
+
         public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             super()
             this.stageWidth = stageWidth
@@ -93,6 +95,12 @@ namespace game {
             this.sprite.addChild(this.tiptext)
             this.tip()
             this.notice2()
+
+
+            this.resultTimer = new egret.Timer(1000, 0);
+            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            this.resultTimer.start()
+
 
         }
 
@@ -237,7 +245,6 @@ namespace game {
 
                 self.playerCount = response['playerCount']
                 self.votedScalesNumber = self.individualTensionScale.length + 1
-
                 self.noticetext.text =  Math.ceil(((self.votedScalesNumber)/self.playerCount) * 100).toString() +  "% of your Teammates (" + self.votedScalesNumber.toString() + " out of " + self.playerCount + ') have  so far voted the ' + self.character1 + " & " + self.character2 + "\nTensionScale. Here are Early Insights:"
                 self.tensionScale()
             })
@@ -564,6 +571,40 @@ namespace game {
 
             let itsm = Math.ceil(s/this.playerCount)
 
+        }
+
+        private saveResult(){
+            var self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1':self.character1,
+                'c2':self.character2,
+                'chooser':self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm']
+                self.individualTensionScale = response['individualTensionScale']
+
+                self.playerCount = response['playerCount']
+                self.votedScalesNumber = self.individualTensionScale.length + 1
+
+                if(self.votedScalesNumber == self.playerCount){
+                    var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+                    renderTexture.drawToTexture(self.sprite);
+                    let base64Str = renderTexture.toDataURL("image/png");
+                    base.API.call('save_result',{
+                        'base64Str':base64Str,
+                        'name':ExpandedTensionScale,
+                        'game_secret':self.game_secret,
+                        'inviter':self.inviter
+                    })
+                    self.resultTimer.stop()
+                }
+
+            })
         }
     }
 }
