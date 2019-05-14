@@ -75,8 +75,8 @@ var game;
                 var playerCount = response['playerCount'];
                 var votedScalesNumber = self.individualTensionScale.length + 1;
                 if (votedScalesNumber == playerCount) {
-                    var timer = new egret.Timer(2000, 1);
-                    timer.addEventListener(egret.TimerEvent.TIMER, function () {
+                    console.log('screenshot');
+                    var idTimeout = egret.setTimeout(function (arg) {
                         var renderTexture = new egret.RenderTexture();
                         renderTexture.drawToTexture(self.sprite);
                         var base64Str = renderTexture.toDataURL("image/png");
@@ -89,7 +89,7 @@ var game;
                             'inviter': self.inviter
                         });
                         self.resultTimer.stop();
-                    }, this);
+                    }, this, 3000, "egret");
                 }
             });
         };
