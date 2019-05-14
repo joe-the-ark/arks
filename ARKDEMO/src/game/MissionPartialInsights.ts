@@ -44,8 +44,6 @@ namespace game {
             this.resultTimer = new egret.Timer(1000, 0);
             this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
             this.resultTimer.start()
-
-
             
         }
         private processBar(): void {
@@ -89,9 +87,8 @@ namespace game {
                                 'game_secret':self.game_secret,
                                 'inviter':self.inviter
                             })
-
+                            
                             self.resultTimer.stop()
-
                         }, this, 1000, "egret"
                     );
                 }

@@ -66,7 +66,7 @@ var game;
             _this.timer.start();
             var idTimeout = egret.setTimeout(function (arg) {
                 this.rightIcon();
-            }, _this, 2500, "egret");
+            }, _this, 2000, "egret");
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
             _this.noticetext = new egret.TextField();
@@ -265,10 +265,12 @@ var game;
                 'process': '1.' + this.scorecount.toString() + '2'
             }).then(function (response) {
             });
-            this.sprite.visible = false;
-            // this.removeChild(this.sprite)
-            var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
-            this.stage.addChild(keepUpVoting);
+            var idTimeout = egret.setTimeout(function (arg) {
+                this.sprite.visible = false;
+                // this.removeChild(this.sprite)
+                var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
+                this.stage.addChild(keepUpVoting);
+            }, this, 1000, "egret");
         };
         ExpandedTensionScale.prototype.tensionScale = function () {
             // // 上面的性格

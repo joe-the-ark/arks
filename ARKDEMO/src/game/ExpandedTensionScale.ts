@@ -89,7 +89,7 @@ namespace game {
 
             var idTimeout:number = egret.setTimeout( function( arg ){
                 this.rightIcon()        
-                }, this, 2500, "egret"
+                }, this, 2000, "egret"
             );
 
             this.tiptext = new egret.TextField()
@@ -322,10 +322,16 @@ namespace game {
 
             })
 
-            this.sprite.visible = false
-            // this.removeChild(this.sprite)
-            let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
-            this.stage.addChild(keepUpVoting)
+            var idTimeout:number = egret.setTimeout( function( arg ){
+
+                this.sprite.visible = false
+                // this.removeChild(this.sprite)
+                let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
+                this.stage.addChild(keepUpVoting)
+
+                }, this, 1000, "egret"
+            );
+
 
         }
 
