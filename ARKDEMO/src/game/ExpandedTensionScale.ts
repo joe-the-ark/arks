@@ -597,7 +597,7 @@ namespace game {
                     let base64Str = renderTexture.toDataURL("image/png");
                     base.API.call('save_result',{
                         'base64Str':base64Str,
-                        'name':ExpandedTensionScale,
+                        'name':'ExpandedTensionScale',
                         'game_secret':self.game_secret,
                         'inviter':self.inviter
                     })

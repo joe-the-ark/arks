@@ -87,7 +87,10 @@ namespace game {
             let base64Str = renderTexture.toDataURL("image/png");
             console.log(base64Str)
             base.API.call('save_result',{
-                'base64Str':base64Str
+                'base64Str':base64Str,
+                'name':this.player,
+                'game_secret':this.game_secret,
+                'inviter':this.inviter
             })
 
             var self = this
