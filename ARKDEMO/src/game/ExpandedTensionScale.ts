@@ -66,7 +66,7 @@ namespace game {
             this.sprite = sprite
             this.tensionScale()
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
-            // this.addChild(this.sprite)
+            this.addChild(this.sprite)
 
             this.character1Sprite  = new egret.TextField()
             this.character2Sprite = new egret.TextField()

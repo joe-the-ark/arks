@@ -80,7 +80,6 @@ namespace game {
                     var idTimeout:number = egret.setTimeout( function( arg ){
                         var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                         
-                        
                         renderTexture.drawToTexture(self.sprite);
                         let base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result',{

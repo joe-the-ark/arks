@@ -48,7 +48,7 @@ var game;
             _this.sprite = sprite;
             _this.tensionScale();
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
-            // this.addChild(this.sprite)
+            _this.addChild(_this.sprite);
             _this.character1Sprite = new egret.TextField();
             _this.character2Sprite = new egret.TextField();
             _this.itsm_Deviation = new egret.TextField();
