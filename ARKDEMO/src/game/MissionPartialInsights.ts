@@ -78,6 +78,9 @@ namespace game {
                 var playerCount = response['playerCount']
                 var votedScalesNumber = self.individualTensionScale.length + 1
 
+                console.log('playerCount',playerCount);
+                console.log('votedScalesNumber',votedScalesNumber);
+
                 if(votedScalesNumber == playerCount){
                     console.log('screenshot');
                     var idTimeout:number = egret.setTimeout( function( arg ){
