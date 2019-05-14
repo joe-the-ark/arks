@@ -315,10 +315,12 @@ namespace game {
                 if(votedScalesNumber == playerCount){
                     var idTimeout:number = egret.setTimeout( function( arg ){
                         var renderTexture:egret.RenderTexture = new egret.RenderTexture();
-                        // if(self.sprite.visible == false){
-                        //     self.sprite.visible = true
-                        // }
-                        renderTexture.drawToTexture(self);
+
+                        if(self.sprite.visible == false){
+                            self.sprite.visible = true
+                        }
+
+                        renderTexture.drawToTexture(self.stage);
                         let base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result',{
                             'base64Str':base64Str,
@@ -328,6 +330,7 @@ namespace game {
                             'inviter':self.inviter
                         })
                         self.resultTimer.stop()
+                        self.sprite.visible = false
 
                         }, this, 1000, "egret"
                     );

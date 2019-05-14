@@ -262,10 +262,10 @@ var game;
                 if (votedScalesNumber == playerCount) {
                     var idTimeout = egret.setTimeout(function (arg) {
                         var renderTexture = new egret.RenderTexture();
-                        // if(self.sprite.visible == false){
-                        //     self.sprite.visible = true
-                        // }
-                        renderTexture.drawToTexture(self);
+                        if (self.sprite.visible == false) {
+                            self.sprite.visible = true;
+                        }
+                        renderTexture.drawToTexture(self.stage);
                         var base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result', {
                             'base64Str': base64Str,
@@ -275,6 +275,7 @@ var game;
                             'inviter': self.inviter
                         });
                         self.resultTimer.stop();
+                        self.sprite.visible = false;
                     }, this, 1000, "egret");
                 }
             });
