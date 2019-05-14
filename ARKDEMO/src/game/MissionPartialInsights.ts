@@ -41,9 +41,9 @@ namespace game {
             this.processBar()
             this.drawPotentialScale()
 
-            this.resultTimer = new egret.Timer(1000, 0);
-            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            this.resultTimer.start()
+            // this.resultTimer = new egret.Timer(1000, 0);
+            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            // this.resultTimer.start()
             
         }
         private processBar(): void {
@@ -56,6 +56,7 @@ namespace game {
             expandedTensionScale.x = this._x + 350
             expandedTensionScale.y = 180
             this.sprite.addChild(expandedTensionScale)
+
         }
 
         private saveResult(){
@@ -77,18 +78,18 @@ namespace game {
               
                 if(votedScalesNumber == playerCount){
                     var idTimeout:number = egret.setTimeout( function( arg ){
-                            var renderTexture:egret.RenderTexture = new egret.RenderTexture();
-                            renderTexture.drawToTexture(self.sprite);
-                            let base64Str = renderTexture.toDataURL("image/png");
-                            base.API.call('save_result',{
-                                'base64Str':base64Str,
-                                'player':self.playerName,
-                                'name':'ExpandedTensionScale'+self.scorecount.toString(),
-                                'game_secret':self.game_secret,
-                                'inviter':self.inviter
-                            })
-                            
-                            self.resultTimer.stop()
+                        var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+                        renderTexture.drawToTexture(self.sprite);
+                        let base64Str = renderTexture.toDataURL("image/png");
+                        base.API.call('save_result',{
+                            'base64Str':base64Str,
+                            'player':self.playerName,
+                            'name':'ExpandedTensionScale'+self.scorecount.toString(),
+                            'game_secret':self.game_secret,
+                            'inviter':self.inviter
+                        })
+                        self.resultTimer.stop()
+
                         }, this, 1000, "egret"
                     );
                 }

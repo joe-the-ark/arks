@@ -46,7 +46,7 @@ namespace game {
         private votedScalesNumber = 1
         private scalesNumber = 7
 
-
+        public resultTimer: egret.Timer
         public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             super()
             this.stageWidth = stageWidth
@@ -85,12 +85,15 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
-            
 
             var idTimeout:number = egret.setTimeout( function( arg ){
                 this.rightIcon()        
-                }, this, 2000, "egret"
+                }, this, 1000, "egret"
             );
+
+            this.resultTimer = new egret.Timer(1000, 0);
+            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            this.resultTimer.start()
 
             this.tiptext = new egret.TextField()
             this.feedbacktext = new egret.TextField()
@@ -292,6 +295,48 @@ namespace game {
             tip.backgroundColor = 0x359f93
             this.sprite.addChild(tip)
         }
+        private saveResult(){
+            var self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1':self.character1,
+                'c2':self.character2,
+                'chooser':self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm']
+                self.individualTensionScale = response['individualTensionScale']
+                var playerCount = response['playerCount']
+                var votedScalesNumber = self.individualTensionScale.length + 1
+              
+                if(votedScalesNumber == playerCount){
+                    var idTimeout:number = egret.setTimeout( function( arg ){
+                        var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+
+                        if(self.sprite.visible == false){
+                            self.sprite.visible = true
+                        }
+                        
+                        renderTexture.drawToTexture(self.sprite);
+                        let base64Str = renderTexture.toDataURL("image/png");
+                        base.API.call('save_result',{
+                            'base64Str':base64Str,
+                            'player':self.playerName,
+                            'name':'ExpandedTensionScale'+self.scorecount.toString(),
+                            'game_secret':self.game_secret,
+                            'inviter':self.inviter
+                        })
+                        self.resultTimer.stop()
+                        self.sprite.visible=false
+                        
+                        }, this, 1000, "egret"
+                    );
+                }
+            })
+        }
 
         private rightIcon(): void {
             let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
@@ -323,7 +368,6 @@ namespace game {
             })
 
             var idTimeout:number = egret.setTimeout( function( arg ){
-
                 this.sprite.visible = false
                 // this.removeChild(this.sprite)
                 let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)

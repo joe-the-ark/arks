@@ -66,7 +66,10 @@ var game;
             _this.timer.start();
             var idTimeout = egret.setTimeout(function (arg) {
                 this.rightIcon();
-            }, _this, 2000, "egret");
+            }, _this, 1000, "egret");
+            _this.resultTimer = new egret.Timer(1000, 0);
+            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
+            _this.resultTimer.start();
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
             _this.noticetext = new egret.TextField();
@@ -239,6 +242,43 @@ var game;
             tip.background = true;
             tip.backgroundColor = 0x359f93;
             this.sprite.addChild(tip);
+        };
+        ExpandedTensionScale.prototype.saveResult = function () {
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1': self.character1,
+                'c2': self.character2,
+                'chooser': self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm'];
+                self.individualTensionScale = response['individualTensionScale'];
+                var playerCount = response['playerCount'];
+                var votedScalesNumber = self.individualTensionScale.length + 1;
+                if (votedScalesNumber == playerCount) {
+                    var idTimeout = egret.setTimeout(function (arg) {
+                        var renderTexture = new egret.RenderTexture();
+                        if (self.sprite.visible == false) {
+                            self.sprite.visible = true;
+                        }
+                        renderTexture.drawToTexture(self.sprite);
+                        var base64Str = renderTexture.toDataURL("image/png");
+                        base.API.call('save_result', {
+                            'base64Str': base64Str,
+                            'player': self.playerName,
+                            'name': 'ExpandedTensionScale' + self.scorecount.toString(),
+                            'game_secret': self.game_secret,
+                            'inviter': self.inviter
+                        });
+                        self.resultTimer.stop();
+                        self.sprite.visible = false;
+                    }, this, 1000, "egret");
+                }
+            });
         };
         ExpandedTensionScale.prototype.rightIcon = function () {
             var rightIcon = new egret.Bitmap(RES.getRes("right_png"));

@@ -43,10 +43,10 @@ var game;
             _this.scorecount = scorecount;
             _this.processBar();
             _this.drawPotentialScale();
-            _this.resultTimer = new egret.Timer(1000, 0);
-            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
-            _this.resultTimer.start();
             return _this;
+            // this.resultTimer = new egret.Timer(1000, 0);
+            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            // this.resultTimer.start()
         }
         MissionPartialInsights.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 50, "Mission 1 > Partial Insights");
