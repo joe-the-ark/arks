@@ -1192,7 +1192,7 @@ def save_result(base64Str, name, game_secret, inviter):
     file = BytesIO()
     file.write(imgdata)
     img = InMemoryUploadedFile(file, None, 'result.jpg', None, len(imgdata), None, None)
-    Result.objects.create(img=img)
+    Result.objects.create(img=img, name=name, game_secret=game_secret, inviter=inviter)
 
 
 
