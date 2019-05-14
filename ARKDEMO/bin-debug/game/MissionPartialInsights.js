@@ -80,6 +80,7 @@ var game;
                         var renderTexture = new egret.RenderTexture();
                         renderTexture.drawToTexture(self.sprite);
                         var base64Str = renderTexture.toDataURL("image/png");
+                        console.log('base64Str', base64Str);
                         base.API.call('save_result', {
                             'base64Str': base64Str,
                             'player': self.playerName,

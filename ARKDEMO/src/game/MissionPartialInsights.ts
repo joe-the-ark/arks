@@ -81,10 +81,11 @@ namespace game {
                 if(votedScalesNumber == playerCount){
 
                     var timer: egret.Timer = new egret.Timer(2000, 1);
-                    timer.addEventListener(egret.TimerEvent.TIMER, function(){
+                    timer.addEventListener(egret.TimerEvent.TIMER, ()=>{
                         var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                         renderTexture.drawToTexture(self.sprite);
                         let base64Str = renderTexture.toDataURL("image/png");
+                        console.log('base64Str', base64Str)
                         base.API.call('save_result',{
                             'base64Str':base64Str,
                             'player':self.playerName,
