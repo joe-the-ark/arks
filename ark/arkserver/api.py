@@ -1187,12 +1187,12 @@ def check_game(inviter_name, game_name, game_secret):
 
 
 @api
-def save_result(base64Str, name, game_secret, inviter):
+def save_result(base64Str, player, name, game_secret, inviter):
     imgdata = base64.b64decode(base64Str[22:]+'==')
     file = BytesIO()
     file.write(imgdata)
     img = InMemoryUploadedFile(file, None, 'result.jpg', None, len(imgdata), None, None)
-    Result.objects.create(img=img, name=name, game_secret=game_secret, inviter=inviter)
+    Result.objects.create(img=img,player=player, name=name, game_secret=game_secret, inviter=inviter)
 
 
 

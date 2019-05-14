@@ -20,7 +20,7 @@ namespace game {
         public chooser = ''
         public scorecount = 0
 
-        
+        public resultTimer: egret.Timer
         
         public constructor(stageWidth, stageHeight, character1, character2, player, selfPerception, inviter, game_secret, gameName, scorecount, chooser) {
             super()
@@ -41,6 +41,9 @@ namespace game {
             this.processBar()
             this.drawPotentialScale()
 
+            this.resultTimer = new egret.Timer(1000, 0);
+            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            this.resultTimer.start()
 
 
             
@@ -57,7 +60,38 @@ namespace game {
             this.sprite.addChild(expandedTensionScale)
         }
 
-        
+        private saveResult(){
+            var self = this
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1':self.character1,
+                'c2':self.character2,
+                'chooser':self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm']
+                self.individualTensionScale = response['individualTensionScale']
 
+                var playerCount = response['playerCount']
+                var votedScalesNumber = self.individualTensionScale.length + 1
+
+                if(votedScalesNumber == playerCount){
+                    var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+                    renderTexture.drawToTexture(self.sprite);
+                    let base64Str = renderTexture.toDataURL("image/png");
+                    base.API.call('save_result',{
+                        'base64Str':base64Str,
+                        'player':self.playerName,
+                        'name':'ExpandedTensionScale',
+                        'game_secret':self.game_secret,
+                        'inviter':self.inviter
+                    })
+                    self.resultTimer.stop()
+                }
+            })
+        }
     }
 }

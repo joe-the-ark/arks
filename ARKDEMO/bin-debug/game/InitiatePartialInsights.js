@@ -75,16 +75,16 @@ var game;
             this.sprite.addChild(potentialScale);
         };
         InitiatePartialInsights.prototype.nextTouch = function () {
-            var renderTexture = new egret.RenderTexture();
-            renderTexture.drawToTexture(this.sprite);
-            var base64Str = renderTexture.toDataURL("image/png");
-            console.log(base64Str);
-            base.API.call('save_result', {
-                'base64Str': base64Str,
-                'name': this.player,
-                'game_secret': this.game_secret,
-                'inviter': this.inviter
-            });
+            // var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+            // renderTexture.drawToTexture(this.sprite);
+            // let base64Str = renderTexture.toDataURL("image/png");
+            // console.log(base64Str)
+            // base.API.call('save_result',{
+            //     'base64Str':base64Str,
+            //     'name':'InitiatePartialInsights',
+            //     'game_secret':this.game_secret,
+            //     'inviter':this.inviter
+            // })
             var self = this;
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {

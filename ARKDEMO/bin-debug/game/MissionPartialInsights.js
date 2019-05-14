@@ -43,6 +43,9 @@ var game;
             _this.scorecount = scorecount;
             _this.processBar();
             _this.drawPotentialScale();
+            _this.resultTimer = new egret.Timer(1000, 0);
+            _this.resultTimer.addEventListener(egret.TimerEvent.TIMER, _this.saveResult, _this);
+            _this.resultTimer.start();
             return _this;
         }
         MissionPartialInsights.prototype.processBar = function () {
@@ -54,6 +57,37 @@ var game;
             expandedTensionScale.x = this._x + 350;
             expandedTensionScale.y = 180;
             this.sprite.addChild(expandedTensionScale);
+        };
+        MissionPartialInsights.prototype.saveResult = function () {
+            var self = this;
+            base.API.Init("http://work.metatype.cn:8105/api/");
+            base.API.call('getttsmindividual', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.playerName,
+                'gameName': self.gameName,
+                'c1': self.character1,
+                'c2': self.character2,
+                'chooser': self.chooser
+            }).then(function (response) {
+                self.teamTensionScaleMedian = response['ttsm'];
+                self.individualTensionScale = response['individualTensionScale'];
+                var playerCount = response['playerCount'];
+                var votedScalesNumber = self.individualTensionScale.length + 1;
+                if (votedScalesNumber == playerCount) {
+                    var renderTexture = new egret.RenderTexture();
+                    renderTexture.drawToTexture(self.sprite);
+                    var base64Str = renderTexture.toDataURL("image/png");
+                    base.API.call('save_result', {
+                        'base64Str': base64Str,
+                        'player': self.playerName,
+                        'name': 'ExpandedTensionScale',
+                        'game_secret': self.game_secret,
+                        'inviter': self.inviter
+                    });
+                    self.resultTimer.stop();
+                }
+            });
         };
         return MissionPartialInsights;
     }(egret.DisplayObjectContainer));

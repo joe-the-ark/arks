@@ -114,6 +114,7 @@ class Feedback(models.Model):
 
 class Result(models.Model):
     name = models.CharField(max_length=500,default='')
+    player = models.CharField(max_length=500,default='')
     game_secret = models.CharField(max_length=500, default='')
     inviter = models.CharField(max_length=100, default='')
     img = models.FileField(upload_to='result/')
