@@ -265,7 +265,7 @@ var game;
                         // if(self.sprite.visible == false){
                         //     self.sprite.visible = true
                         // }
-                        renderTexture.drawToTexture(self.parent);
+                        renderTexture.drawToTexture(self);
                         var base64Str = renderTexture.toDataURL("image/png");
                         base.API.call('save_result', {
                             'base64Str': base64Str,
