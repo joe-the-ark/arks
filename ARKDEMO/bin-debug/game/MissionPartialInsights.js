@@ -87,7 +87,7 @@ var game;
                             'inviter': self.inviter
                         });
                         self.resultTimer.stop();
-                    }, this, 1500, "egret");
+                    }, this, 1000, "egret");
                 }
             });
         };
