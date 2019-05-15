@@ -49,19 +49,20 @@ var game;
             // this.tensionScale()
             _this.initNotice();
             _this.processBar();
+            var self = _this;
             var idTimeout = egret.setTimeout(function (arg) {
                 // this.rightIcon()
-                this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
-                this.rightIcon.width = 100;
-                this.rightIcon.height = 100;
-                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2;
-                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2;
-                this.rightIcon.x = stageWidth - 50;
-                this.rightIcon.y = stageHeight / 2;
-                this.rightIcon.touchEnabled = true;
-                this.rightIcon.visible = false;
-                this.sprite.addChild(this.rightIcon);
-                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this);
+                self.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+                self.rightIcon.width = 100;
+                self.rightIcon.height = 100;
+                self.rightIcon.anchorOffsetX = self.rightIcon.width / 2;
+                self.rightIcon.anchorOffsetY = self.rightIcon.height / 2;
+                self.rightIcon.x = stageWidth - 50;
+                self.rightIcon.y = stageHeight / 2;
+                self.rightIcon.touchEnabled = true;
+                self.rightIcon.visible = false;
+                self.sprite.addChild(self.rightIcon);
+                self.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, self.nextTouch, self);
             }, _this, 1000, "egret");
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
