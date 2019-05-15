@@ -37,6 +37,14 @@ namespace game {
 
             var tx: egret.TextField = new egret.TextField;
             tx.textFlow = new Array<egret.ITextElement>(
+                { text: "View results",style: { "href": "https://www.paypal.me/joetheark" } }
+            );
+            tx.touchEnabled = true;
+            tx.background = true
+            tx.backgroundColor = 0xffcc33
+
+            var tx: egret.TextField = new egret.TextField;
+            tx.textFlow = new Array<egret.ITextElement>(
                 { text: "Coffee for the developer",style: { "href": "https://www.paypal.me/joetheark" } }
             );
             tx.touchEnabled = true;

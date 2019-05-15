@@ -404,7 +404,6 @@ namespace game {
             zora.height = zoraMaxPosition - zoraMinPosition
             zora.y = zoraMinPosition
             this.sprite.setChildIndex(zora, 0)
-
             this.zoraMedianLine.y = zoraMedianPosition
             // let zoraMedianLine: egret.Shape = new egret.Shape()
             // zoraMedianLine.graphics.lineStyle(5, 0x333333)

@@ -18,9 +18,11 @@ from django.urls import path
 import restapi
 from django.conf.urls.static import static
 from django.conf import settings
+from arkserver import views as server_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', restapi.urls),
     path('', restapi.vue()),
+    path('result/<str:name>/<str:player>/<str:game_secret>/<str:inviter>/', server_views.result)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
