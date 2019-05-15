@@ -25,10 +25,7 @@ namespace game {
 
         private rightIcon: egret.Bitmap;
         public simulatedData = []
-
         public playerCount
-        
-        
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
             super()
             this.stageWidth = stageWidth
@@ -47,7 +44,7 @@ namespace game {
             // this.tensionScale()
             this.initNotice()
             this.processBar()
-            // var idTimeout:number = egret.setTimeout( function( arg ){
+            var idTimeout:number = egret.setTimeout( function( arg ){
                 // this.rightIcon()
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
@@ -60,8 +57,8 @@ namespace game {
             this.sprite.addChild(this.rightIcon)
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
             
-                // }, this, 1000, "egret"
-            // );
+                }, this, 1000, "egret"
+            );
 
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
@@ -196,6 +193,7 @@ namespace game {
         // }
 
         private nextTouch(){
+
             this.rightIcon.touchEnabled = false
             var self = this
             let scorecount = self.scorecount + 1

@@ -49,20 +49,19 @@ var game;
             // this.tensionScale()
             _this.initNotice();
             _this.processBar();
-            // var idTimeout:number = egret.setTimeout( function( arg ){
-            // this.rightIcon()
-            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
-            _this.rightIcon.width = 100;
-            _this.rightIcon.height = 100;
-            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
-            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
-            _this.rightIcon.x = stageWidth - 50;
-            _this.rightIcon.y = stageHeight / 2;
-            _this.rightIcon.touchEnabled = true;
-            _this.sprite.addChild(_this.rightIcon);
-            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
-            // }, this, 1000, "egret"
-            // );
+            var idTimeout = egret.setTimeout(function (arg) {
+                // this.rightIcon()
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+                this.rightIcon.width = 100;
+                this.rightIcon.height = 100;
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2;
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2;
+                this.rightIcon.x = stageWidth - 50;
+                this.rightIcon.y = stageHeight / 2;
+                this.rightIcon.touchEnabled = true;
+                this.sprite.addChild(this.rightIcon);
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this);
+            }, _this, 1000, "egret");
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();

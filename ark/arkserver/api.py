@@ -848,7 +848,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     pscount = PlayerScore.objects.filter(game=game).count()
     print('pscount',pscount)
     check_score = 'false'
-    if pscount == (playerCount * playerCount):
+    if pscount == (playerCount * playerCount) * playerCount:
         check_score = 'true'
 
     print('check_score',check_score)
