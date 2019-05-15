@@ -86,7 +86,7 @@ namespace game {
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
 
-            var idTimeout:number = egret.setTimeout( function( arg ){
+            // var idTimeout:number = egret.setTimeout( function( arg ){
                 // this.rightIcon()  
                 this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
                 this.rightIcon.width = 100
@@ -99,9 +99,8 @@ namespace game {
                 this.sprite.addChild(this.rightIcon)
                 this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
                 
-
-                }, this, 1000, "egret"
-            );
+            //     }, this, 1000, "egret"
+            // );
 
 
             this.tiptext = new egret.TextField()
@@ -365,6 +364,7 @@ namespace game {
 
         private nextTouch() {
             this.rightIcon.touchEnabled = false
+            
             let process = '1'
             let missionName = '1'
             this.timer.stop()
