@@ -845,12 +845,10 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
 
     players = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName)
 
-
     pscount = PlayerScore.objects.filter(game=game).count()
     check_score = 'false'
-    if pscount == playerCount * playerCount:
+    if pscount == (playerCount * playerCount):
         check_score = 'true'
-
 
 
     return {'code':0, 'characterListParams':result, 'playerCount':playerCount,'check_score':check_score}

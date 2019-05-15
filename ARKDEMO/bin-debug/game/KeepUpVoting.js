@@ -200,7 +200,7 @@ var game;
                 }
                 else {
                     base.API.call('get_game_score', {
-                        'characterListParams': self.characterListParams,
+                        'characterListParams': characterListParams,
                         'inviter': self.inviter,
                         'gameSecret': self.game_secret,
                         'player': self.player,

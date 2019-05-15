@@ -193,7 +193,7 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
 
-                let characterListParams = response['characterListParams']
+                var characterListParams = response['characterListParams']
                 let playerCount = response['playerCount']
                 console.log('playerCount',playerCount)
                 console.log('scorecount',scorecount)
@@ -215,7 +215,7 @@ namespace game {
                 }
                 else{
                     base.API.call('get_game_score', {
-                        'characterListParams': self.characterListParams,
+                        'characterListParams': characterListParams,
                         'inviter': self.inviter,
                         'gameSecret': self.game_secret,
                         'player': self.player,
