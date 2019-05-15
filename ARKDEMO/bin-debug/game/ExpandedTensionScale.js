@@ -73,11 +73,11 @@ var game;
             _this.rightIcon.height = 100;
             _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
             _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
-            _this.rightIcon.x = stageWidth - 50;
-            _this.rightIcon.y = stageHeight / 2;
+            _this.rightIcon.x = 140;
+            _this.rightIcon.y = _this.stageHeight - 230;
             _this.rightIcon.touchEnabled = true;
             _this.sprite.addChild(_this.rightIcon);
-            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextTouch, _this);
             //     }, this, 1000, "egret"
             // );
             _this.tiptext = new egret.TextField();
@@ -92,6 +92,18 @@ var game;
             // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
             // this.resultTimer.start()
         }
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         ExpandedTensionScale.prototype.initSprite = function () {
             // 上面的性格
             var character1Sprite = this.character1Sprite;
@@ -293,18 +305,6 @@ var game;
                 }
             });
         };
-        // private rightIcon(): void {
-        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-        //     rightIcon.width = 100
-        //     rightIcon.height = 100
-        //     rightIcon.anchorOffsetX = rightIcon.width / 2
-        //     rightIcon.anchorOffsetY = rightIcon.height / 2
-        //     rightIcon.x = 140
-        //     rightIcon.y = this.stageHeight - 230
-        //     rightIcon.touchEnabled = true
-        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-        //     this.sprite.addChild(rightIcon)
-        // }
         ExpandedTensionScale.prototype.nextTouch = function () {
             this.rightIcon.touchEnabled = false;
             var process = '1';

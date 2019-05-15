@@ -52,10 +52,10 @@ namespace game {
             this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
             this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
             this.rightIcon.x = stageWidth - 50
-            this.rightIcon.y = stageHeight / 2
+            this.rightIcon.y = stageHeight - 50
             this.rightIcon.touchEnabled = true
             this.sprite.addChild(this.rightIcon)
-            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
             
                 }, this, 1000, "egret"
             );

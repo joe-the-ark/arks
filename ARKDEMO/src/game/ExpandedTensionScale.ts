@@ -93,11 +93,11 @@ namespace game {
                 this.rightIcon.height = 100
                 this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
                 this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
-                this.rightIcon.x = stageWidth - 50
-                this.rightIcon.y = stageHeight / 2
+                this.rightIcon.x = 140
+                this.rightIcon.y = this.stageHeight - 230
                 this.rightIcon.touchEnabled = true
                 this.sprite.addChild(this.rightIcon)
-                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
                 
             //     }, this, 1000, "egret"
             // );
@@ -116,7 +116,18 @@ namespace game {
             // this.resultTimer.start()
 
         }
-
+// private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         private initSprite(){
 
             // 上面的性格
@@ -349,22 +360,11 @@ namespace game {
             })
         }
 
-        // private rightIcon(): void {
-        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-        //     rightIcon.width = 100
-        //     rightIcon.height = 100
-        //     rightIcon.anchorOffsetX = rightIcon.width / 2
-        //     rightIcon.anchorOffsetY = rightIcon.height / 2
-        //     rightIcon.x = 140
-        //     rightIcon.y = this.stageHeight - 230
-        //     rightIcon.touchEnabled = true
-        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-        //     this.sprite.addChild(rightIcon)
-        // }
+        
 
         private nextTouch() {
             this.rightIcon.touchEnabled = false
-            
+
             let process = '1'
             let missionName = '1'
             this.timer.stop()
