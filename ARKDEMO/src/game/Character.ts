@@ -165,6 +165,7 @@ namespace game {
 
             } else {
                 this.addChild(this.tiptext)
+                this.rightIcon.touchEnabled = true
                 this.tip(100, 100, 'Everyone must be graded!')
             }
         }

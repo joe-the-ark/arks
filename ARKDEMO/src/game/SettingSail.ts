@@ -15,7 +15,7 @@ namespace game {
 
         public simulatedData
 
-        
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight, process, simulatedData, player_name, inviter, game_secret, gameName) {
             super()
             this.stageWidth = stageWidth
@@ -31,6 +31,19 @@ namespace game {
 
             this.processBar()
             this.intro()
+
+
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight / 2
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            this.sprite.addChild(this.rightIcon)
+
         }
 
         private processBar(): void {
@@ -61,20 +74,8 @@ namespace game {
             this.sprite.addChild(tip)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight / 2
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
-
         private nextPage() {
+            this.rightIcon.touchEnabled = false
             base.API.call('save_players_process', { 
                 'inviter_name': this.inviter, 
                 'game_secret': this.game_secret,
@@ -85,15 +86,12 @@ namespace game {
               
             })
 
-
             var count = 0
             this.sprite.visible = false
             this.removeChild(this.sprite)
             var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
             this.stage.addChild(loveAddAsk)
 
-
         }
-
     }
 }
