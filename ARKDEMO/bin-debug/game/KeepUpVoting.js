@@ -181,6 +181,8 @@ var game;
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
                 var playerCount = response['playerCount'];
+                console.log('playerCount', playerCount);
+                console.log('scorecount', scorecount);
                 var check_score = response['check_score'];
                 self.playerCount = playerCount;
                 if (playerCount > scorecount && check_score == 'false') {
@@ -196,7 +198,7 @@ var game;
                         alert('Please wait for others to choose scale');
                     }
                 }
-                else {
+                else if (playerCount == scorecount) {
                     base.API.call('get_game_score', {
                         'characterListParams': self.characterListParams,
                         'inviter': self.inviter,

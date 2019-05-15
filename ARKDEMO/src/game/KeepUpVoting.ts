@@ -195,6 +195,9 @@ namespace game {
 
                 let characterListParams = response['characterListParams']
                 let playerCount = response['playerCount']
+                console.log('playerCount',playerCount)
+                console.log('scorecount',scorecount)
+                
                 var check_score = response['check_score']
                 self.playerCount = playerCount
 
@@ -210,7 +213,7 @@ namespace game {
                         alert('Please wait for others to choose scale')
                     }
                 }
-                else {
+                else if(playerCount == scorecount){
                     base.API.call('get_game_score', {
                         'characterListParams': self.characterListParams,
                         'inviter': self.inviter,
