@@ -31,7 +31,6 @@ def result(request, name, player, game_secret, inviter):
     addFeedback = []
     askFeedback = []
 
-
     for feedback in feedbacks:
         loveFeedback.append(feedback.love)
         addFeedback.append(feedback.add)
