@@ -41,9 +41,9 @@ namespace game {
             this.processBar()
             this.drawPotentialScale()
 
-            this.resultTimer = new egret.Timer(1000, 0);
-            this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
-            this.resultTimer.start()
+            // this.resultTimer = new egret.Timer(1000, 0);
+            // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
+            // this.resultTimer.start()
             
         }
         private processBar(): void {

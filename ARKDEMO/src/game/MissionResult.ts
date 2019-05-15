@@ -95,7 +95,6 @@ namespace game{
                 let result = response['result']
                 self.ttsms = result
             })            
-
         }
 
         private initGraphics(): void {
