@@ -180,6 +180,8 @@ var game;
                 'game_name': self.gameName,
                 'process': '10'
             }).then(function (response) {
+            });
+            var idTimeout = egret.setTimeout(function (arg) {
                 base.API.call('game_end', {
                     'inviter_name': self.inviter,
                     'game_secret': self.game_secret,
@@ -187,7 +189,7 @@ var game;
                     'gameName': self.gameName,
                 }).then(function (response) {
                 });
-            });
+            }, this, 300000, "egret");
             this.sprite.visible = false;
             var digestAsk = new game.Complete(this.stageWidth, this.stageHeight, this.inviter, this.game_secret, this.player, this.gameName);
             this.stage.addChild(digestAsk);

@@ -196,16 +196,19 @@ namespace game {
                 'process': '10'
             }).then(function (response){
 
-                base.API.call('game_end', { 
-                    'inviter_name': self.inviter, 
-                    'game_secret': self.game_secret,
-                    'player': self.player,
-                    'gameName': self.gameName,
-                }).then(function (response){
-                
-                })
-
             })
+
+            var idTimeout:number = egret.setTimeout( function( arg ){
+                    base.API.call('game_end', { 
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'gameName': self.gameName,
+                    }).then(function (response){
+                    
+                    })
+                }, this, 300000, "egret"
+            );
 
             this.sprite.visible = false
 
