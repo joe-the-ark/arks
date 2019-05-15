@@ -47,8 +47,8 @@ var game;
             _this.scorecount = scorecount;
             // this.sprite = sprite
             _this.sprite = new egret.Sprite();
-            _this.tensionScale();
-            // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
+            // this.tensionScale()
+            _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.tensionScale, _this);
             _this.addChild(_this.sprite);
             _this.character1Sprite = new egret.TextField();
             _this.character2Sprite = new egret.TextField();

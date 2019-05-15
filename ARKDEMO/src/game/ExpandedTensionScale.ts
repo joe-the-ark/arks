@@ -25,7 +25,7 @@ namespace game {
         private itsm_Deviation: egret.TextField
         private individualTensionScaleMedianPlayerName: egret.TextField
         private _shape: egret.Shape;
-        private zora: egret.TextField;
+        public zora: egret.TextField;
         private zoraMedianLine: egret.Shape;
         private zoraMin = 0
         private  tiptext: egret.TextField
@@ -60,13 +60,11 @@ namespace game {
             this.inviter = inviter
             this.gameName = gameName
             this.chooser = chooser
-
             this.scorecount = scorecount
-
             // this.sprite = sprite
             this.sprite = new egret.Sprite()
-            this.tensionScale()
-            // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
+            // this.tensionScale()
+            this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
             this.addChild(this.sprite)
 
             this.character1Sprite  = new egret.TextField()

@@ -59,42 +59,42 @@ namespace game {
 
         }
 
-        private saveResult(){
-            var self = this
-            base.API.Init("http://work.metatype.cn:8105/api/");
-            base.API.call('getttsmindividual', {
-                'inviter_name': self.inviter,
-                'game_secret': self.game_secret,
-                'player': self.playerName,
-                'gameName': self.gameName,
-                'c1':self.character1,
-                'c2':self.character2,
-                'chooser':self.chooser
-            }).then(function (response) {
-                self.teamTensionScaleMedian = response['ttsm']
-                self.individualTensionScale = response['individualTensionScale']
-                var playerCount = response['playerCount']
-                var votedScalesNumber = self.individualTensionScale.length + 1
+        // private saveResult(){
+        //     var self = this
+        //     base.API.Init("http://work.metatype.cn:8105/api/");
+        //     base.API.call('getttsmindividual', {
+        //         'inviter_name': self.inviter,
+        //         'game_secret': self.game_secret,
+        //         'player': self.playerName,
+        //         'gameName': self.gameName,
+        //         'c1':self.character1,
+        //         'c2':self.character2,
+        //         'chooser':self.chooser
+        //     }).then(function (response) {
+        //         self.teamTensionScaleMedian = response['ttsm']
+        //         self.individualTensionScale = response['individualTensionScale']
+        //         var playerCount = response['playerCount']
+        //         var votedScalesNumber = self.individualTensionScale.length + 1
               
-                if(votedScalesNumber == playerCount){
-                    var idTimeout:number = egret.setTimeout( function( arg ){
-                        var renderTexture:egret.RenderTexture = new egret.RenderTexture();
+        //         if(votedScalesNumber == playerCount){
+        //             var idTimeout:number = egret.setTimeout( function( arg ){
+        //                 var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                         
-                        renderTexture.drawToTexture(self.sprite);
-                        let base64Str = renderTexture.toDataURL("image/png");
-                        base.API.call('save_result',{
-                            'base64Str':base64Str,
-                            'player':self.playerName,
-                            'name':'ExpandedTensionScale'+self.scorecount.toString(),
-                            'game_secret':self.game_secret,
-                            'inviter':self.inviter
-                        })
-                        self.resultTimer.stop()
+        //                 renderTexture.drawToTexture(self.sprite);
+        //                 let base64Str = renderTexture.toDataURL("image/png");
+        //                 base.API.call('save_result',{
+        //                     'base64Str':base64Str,
+        //                     'player':self.playerName,
+        //                     'name':'ExpandedTensionScale'+self.scorecount.toString(),
+        //                     'game_secret':self.game_secret,
+        //                     'inviter':self.inviter
+        //                 })
+        //                 self.resultTimer.stop()
 
-                        }, this, 1000, "egret"
-                    );
-                }
-            })
-        }
+        //                 }, this, 1000, "egret"
+        //             );
+        //         }
+        //     })
+        // }
     }
 }
