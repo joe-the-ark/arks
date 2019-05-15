@@ -63,7 +63,6 @@ namespace game {
             tx2.y = 400;
             this.sprite.addChild(tx2);
 
-
             tx.addEventListener(egret.TextEvent.LINK,function(evt: egret.TextEvent) {
                 console.log(evt.text);
             },this);

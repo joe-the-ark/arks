@@ -10,83 +10,49 @@
   <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- 	{% for result in results %}
+
+	{% for result in results %}
 		<div>
 			<img src="{{result.img.url}}" style="width: 200;height: 400">
 		</div>
 	{% endfor %}
- -->
+
 
 	 <div class="container-fluid">
+	 	<h3>First Feedback: LOVE</h3>
     	<div class="row">
+
 		    <div style="float: left;width: 100px;" class="col-sm-2 bg-success">
 				<p>I always wanted to LOVE</p>	
 			</div>
 			<div style="float: left;height: 300px; width:250px;overflow: auto;" class="col-sm-10 bg-light">
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
+				{% for love in loveFeedback %}
+				<p style="background: yellow;">love</p>
+				{% endfor %}
 			</div>
 		</div>
 		<br>
+		<h3>Second Feedback: ADD</h3>
 		<div class="row">
 			<div style="float: left;width: 100px;" class="col-sm-2 bg-success">
 				<p>I always wanted to ADD </p>	
 			</div>
 			<div style="float: left;height: 300px;width:250px; overflow: auto;" class="col-sm-10 bg-light" style="background-color:lavender;">
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;" >哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
+				{% for love in addFeedback %}
+				<p style="background: yellow;">love</p>
+				{% endfor %}
 			</div>
 		</div>
 		<br>
+		<h3>Third Feedback: ASK</h3>
 		<div class="row">
 			<div style="float: left;width: 100px;" class="col-sm-2 bg-success">
 				<p>I always wanted to ASK </p>	
 			</div>
 			<div style="float: left;height: 300px;width:250px; overflow: auto;" class="col-sm-10 bg-light" style="background-color:lavender;">
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
-				<p style="background: yellow;">哈色发夹蓝色短裤阿斯科利的风景阿里斯顿了卡阿里斯顿肌肤轮廓</p>
+				{% for love in askFeedback %}
+				<p style="background: yellow;">love</p>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

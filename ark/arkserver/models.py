@@ -86,7 +86,6 @@ class GameProcess(models.Model):
         return self.game.game_name+'__'+self.player.name+'__'+self.process
 
 
-
 class FirstScore(models.Model):
     class Meta(object):
         verbose_name = verbose_name_plural = 'first score'
@@ -104,6 +103,7 @@ class Feedback(models.Model):
     love = models.CharField(max_length=500, verbose_name='love')
     add = models.CharField(max_length=500, verbose_name='add')
     ask = models.CharField(max_length=500, verbose_name='ask')
+    
     player = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='player', related_name='player')
     teammate = models.ForeignKey(Player, on_delete=models.CASCADE, verbose_name='teammate', related_name='teammate')
     game = models.ForeignKey('Game', on_delete=models.CASCADE, verbose_name='game')
