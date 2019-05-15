@@ -49,21 +49,20 @@ var game;
             // this.tensionScale()
             _this.initNotice();
             _this.processBar();
-            var self = _this;
-            var idTimeout = egret.setTimeout(function (arg) {
-                // this.rightIcon()
-                self.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
-                self.rightIcon.width = 100;
-                self.rightIcon.height = 100;
-                self.rightIcon.anchorOffsetX = self.rightIcon.width / 2;
-                self.rightIcon.anchorOffsetY = self.rightIcon.height / 2;
-                self.rightIcon.x = stageWidth - 50;
-                self.rightIcon.y = stageHeight / 2;
-                self.rightIcon.touchEnabled = true;
-                self.rightIcon.visible = false;
-                self.sprite.addChild(self.rightIcon);
-                self.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, self.nextTouch, self);
-            }, _this, 1000, "egret");
+            // var idTimeout:number = egret.setTimeout( function( arg ){
+            // this.rightIcon()
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = stageWidth - 50;
+            _this.rightIcon.y = stageHeight / 2;
+            _this.rightIcon.touchEnabled = true;
+            _this.sprite.addChild(_this.rightIcon);
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
+            // }, this, 1000, "egret"
+            // );
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
@@ -206,7 +205,6 @@ var game;
                         self.removeChild(self.sprite);
                         var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
                         self.stage.addChild(charater);
-                        // self.rightIcon.visible = false
                     }
                     else {
                         alert('Please wait for others to choose scale');
