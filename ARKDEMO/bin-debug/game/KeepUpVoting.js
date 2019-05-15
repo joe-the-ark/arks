@@ -50,8 +50,19 @@ var game;
             _this.initNotice();
             _this.processBar();
             var idTimeout = egret.setTimeout(function (arg) {
-                this.rightIcon();
-            }, _this, 2000, "egret");
+                // this.rightIcon()
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+                this.rightIcon.width = 100;
+                this.rightIcon.height = 100;
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2;
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2;
+                this.rightIcon.x = stageWidth - 50;
+                this.rightIcon.y = stageHeight / 2;
+                this.rightIcon.touchEnabled = true;
+                this.rightIcon.visible = false;
+                this.sprite.addChild(this.rightIcon);
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this);
+            }, _this, 1000, "egret");
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
@@ -157,19 +168,20 @@ var game;
                 _this.sprite.addChild(tensionScale);
             });
         };
-        KeepUpVoting.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight - 50;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
-            this.sprite.addChild(rightIcon);
-        };
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = this.stageWidth - 50
+        //     rightIcon.y = this.stageHeight - 50
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         KeepUpVoting.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             var self = this;
             var scorecount = self.scorecount + 1;
             base.API.Init("http://work.metatype.cn:8105/api/");

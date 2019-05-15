@@ -23,9 +23,11 @@ namespace game {
         public ttsms = []
         public scorecount=0
 
+        private rightIcon: egret.Bitmap;
         public simulatedData = []
 
         public playerCount
+        
         
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
             super()
@@ -46,8 +48,20 @@ namespace game {
             this.initNotice()
             this.processBar()
             var idTimeout:number = egret.setTimeout( function( arg ){
-                this.rightIcon()        
-                }, this, 2000, "egret"
+                // this.rightIcon()
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+                this.rightIcon.width = 100
+                this.rightIcon.height = 100
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+                this.rightIcon.x = stageWidth - 50
+                this.rightIcon.y = stageHeight / 2
+                this.rightIcon.touchEnabled = true
+                this.rightIcon.visible = false
+                this.sprite.addChild(this.rightIcon)
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
+
+                }, this, 1000, "egret"
             );
 
             this.timer = new egret.Timer(1000, 0);
@@ -169,20 +183,21 @@ namespace game {
             })
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight - 50
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-            this.sprite.addChild(rightIcon)
-        }
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = this.stageWidth - 50
+        //     rightIcon.y = this.stageHeight - 50
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
 
         private nextTouch(){
+            this.rightIcon.touchEnabled = false
             var self = this
             let scorecount = self.scorecount + 1
             base.API.Init("http://work.metatype.cn:8105/api/");
