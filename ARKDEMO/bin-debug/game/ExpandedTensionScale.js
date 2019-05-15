@@ -67,7 +67,17 @@ var game;
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getttsm, _this);
             _this.timer.start();
             var idTimeout = egret.setTimeout(function (arg) {
-                this.rightIcon();
+                // this.rightIcon()  
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+                this.rightIcon.width = 100;
+                this.rightIcon.height = 100;
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2;
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2;
+                this.rightIcon.x = stageWidth - 50;
+                this.rightIcon.y = stageHeight / 2;
+                this.rightIcon.touchEnabled = true;
+                this.sprite.addChild(this.rightIcon);
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this);
             }, _this, 1000, "egret");
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
@@ -282,19 +292,20 @@ var game;
                 }
             });
         };
-        ExpandedTensionScale.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = 140;
-            rightIcon.y = this.stageHeight - 230;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
-            this.sprite.addChild(rightIcon);
-        };
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         ExpandedTensionScale.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             var process = '1';
             var missionName = '1';
             this.timer.stop();
@@ -307,12 +318,13 @@ var game;
                 'process': '1.' + this.scorecount.toString() + '2'
             }).then(function (response) {
             });
-            var idTimeout = egret.setTimeout(function (arg) {
-                this.sprite.visible = false;
-                // this.removeChild(this.sprite)
-                var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
-                this.stage.addChild(keepUpVoting);
-            }, this, 1000, "egret");
+            // var idTimeout:number = egret.setTimeout( function( arg ){
+            this.sprite.visible = false;
+            // this.removeChild(this.sprite)
+            var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
+            this.stage.addChild(keepUpVoting);
+            // }, this, 1000, "egret"
+            // );
         };
         ExpandedTensionScale.prototype.tensionScale = function () {
             // // 上面的性格

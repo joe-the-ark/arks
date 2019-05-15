@@ -45,7 +45,7 @@ namespace game {
         public playerCount
         private votedScalesNumber = 1
         private scalesNumber = 7
-
+        private rightIcon: egret.Bitmap;
         public resultTimer: egret.Timer
         public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             super()
@@ -87,7 +87,19 @@ namespace game {
             this.timer.start()
 
             var idTimeout:number = egret.setTimeout( function( arg ){
-                this.rightIcon()        
+                // this.rightIcon()  
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+                this.rightIcon.width = 100
+                this.rightIcon.height = 100
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+                this.rightIcon.x = stageWidth - 50
+                this.rightIcon.y = stageHeight / 2
+                this.rightIcon.touchEnabled = true
+                this.sprite.addChild(this.rightIcon)
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
+                
+
                 }, this, 1000, "egret"
             );
 
@@ -338,24 +350,24 @@ namespace game {
             })
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = 140
-            rightIcon.y = this.stageHeight - 230
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-            this.sprite.addChild(rightIcon)
-        }
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
 
         private nextTouch() {
+            this.rightIcon.touchEnabled = false
             let process = '1'
             let missionName = '1'
             this.timer.stop()
-
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {
                 'inviter_name': this.inviter,
@@ -367,14 +379,14 @@ namespace game {
 
             })
 
-            var idTimeout:number = egret.setTimeout( function( arg ){
+            // var idTimeout:number = egret.setTimeout( function( arg ){
                 this.sprite.visible = false
                 // this.removeChild(this.sprite)
                 let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
                 this.stage.addChild(keepUpVoting)
-                }, this, 1000, "egret"
-            );
 
+                // }, this, 1000, "egret"
+            // );
 
         }
 
