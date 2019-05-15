@@ -181,8 +181,9 @@ var game;
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
                 var playerCount = response['playerCount'];
+                var check_score = response['check_score'];
                 self.playerCount = playerCount;
-                if (playerCount > scorecount) {
+                if (playerCount > scorecount && check_score == 'false') {
                     if (characterListParams[1][scorecount] != undefined) {
                         self.timer.stop();
                         self.sprite.visible = false;
@@ -206,15 +207,7 @@ var game;
                         var result = response['result'];
                         self.simulatedData = result;
                     });
-                    var flag = true;
-                    //  for(var i=0;i<self.simulatedData.length;i++){
-                    //     if(self.simulatedData[i].length < 4){
-                    //         alert('Please wait for everyone to finish scoring.')
-                    //         flag = false 
-                    //         break
-                    //     }
-                    //  }
-                    if (flag == true) {
+                    if (check_score == true) {
                         base.API.call('save_players_process', {
                             'inviter_name': self.inviter,
                             'game_secret': self.game_secret,
@@ -228,6 +221,9 @@ var game;
                             var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                             self.stage.addChild(toTensionScaleResult);
                         });
+                    }
+                    else {
+                        alert('Please wait for others to vote');
                     }
                 }
             });

@@ -195,9 +195,10 @@ namespace game {
 
                 let characterListParams = response['characterListParams']
                 let playerCount = response['playerCount']
+                var check_score = response['check_score']
                 self.playerCount = playerCount
 
-                if(playerCount > scorecount ){
+                if(playerCount > scorecount && check_score == 'false'){
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
@@ -210,8 +211,6 @@ namespace game {
                     }
                 }
                 else {
-
-
                     base.API.call('get_game_score', {
                         'characterListParams': self.characterListParams,
                         'inviter': self.inviter,
@@ -223,18 +222,7 @@ namespace game {
                         self.simulatedData = result
                     })
 
-
-                    var flag  = true
-                    //  for(var i=0;i<self.simulatedData.length;i++){
-                         
-                    //     if(self.simulatedData[i].length < 4){
-                    //         alert('Please wait for everyone to finish scoring.')
-                    //         flag = false 
-                    //         break
-                    //     }
-                    //  }
-
-                    if(flag == true){
+                    if(check_score == true){
                         base.API.call('save_players_process', {
                             'inviter_name': self.inviter,
                             'game_secret': self.game_secret,
@@ -257,6 +245,8 @@ namespace game {
                             )
                             self.stage.addChild(toTensionScaleResult);
                         })
+                    }else {
+                        alert('Please wait for others to vote')
                     }
                 }
             })
