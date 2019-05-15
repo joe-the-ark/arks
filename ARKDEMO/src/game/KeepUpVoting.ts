@@ -197,11 +197,11 @@ namespace game {
                 let playerCount = response['playerCount']
                 console.log('playerCount',playerCount)
                 console.log('scorecount',scorecount)
-                
+
                 var check_score = response['check_score']
                 self.playerCount = playerCount
 
-                if(playerCount > scorecount && check_score == 'false'){
+                if(playerCount > scorecount){
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
@@ -213,7 +213,7 @@ namespace game {
                         alert('Please wait for others to choose scale')
                     }
                 }
-                else if(playerCount == scorecount){
+                else{
                     base.API.call('get_game_score', {
                         'characterListParams': self.characterListParams,
                         'inviter': self.inviter,
@@ -225,7 +225,7 @@ namespace game {
                         self.simulatedData = result
                     })
 
-                    if(check_score == true){
+                    if(check_score == 'true'){
                         base.API.call('save_players_process', {
                             'inviter_name': self.inviter,
                             'game_secret': self.game_secret,
