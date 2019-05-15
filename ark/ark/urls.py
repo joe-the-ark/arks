@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/', restapi.urls),
     path('', restapi.vue()),
     path('result/<str:name>/<str:player>/<str:game_secret>/<str:inviter>/', server_views.result)
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
