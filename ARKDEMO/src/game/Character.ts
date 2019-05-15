@@ -298,7 +298,6 @@ namespace game {
                                         }
 
                                         self.map[playerName] = _score
-
                                     }
                                 }
                                 if (player_name.y > self.stageHeight - 150 - player_name.height) {

@@ -189,7 +189,7 @@ var game;
                 });
             });
             this.sprite.visible = false;
-            var digestAsk = new game.Complete(this.stageWidth, this.stageHeight);
+            var digestAsk = new game.Complete(this.stageWidth, this.stageHeight, this.inviter, this.game_secret, this.player, this.gameName);
             this.stage.addChild(digestAsk);
         };
         return AffinityMapping;

@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var Complete = (function (_super) {
         __extends(Complete, _super);
-        function Complete(stageWidth, stageHeight) {
+        function Complete(stageWidth, stageHeight, inviter, game_secret, player, gameName) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -27,6 +27,10 @@ var game;
             _this.stageWidth = stageWidth;
             _this.stageHeight = stageHeight;
             _this.sprite = new egret.Sprite();
+            _this.player = player;
+            _this.inviter = inviter;
+            _this.game_secret = game_secret;
+            _this.gameName = gameName;
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.intro();
@@ -42,16 +46,22 @@ var game;
             intro.width = this._width;
             intro.x = this._x;
             intro.y = 100;
-            var tx = new egret.TextField;
-            tx.textFlow = new Array({ text: "View results", style: { "href": "https://www.paypal.me/joetheark" } });
-            tx.touchEnabled = true;
-            tx.background = true;
-            tx.backgroundColor = 0xffcc33;
+            var tx2 = new egret.TextField;
+            tx2.textFlow = new Array({ text: "View results", style: { "href": "https://ark.metatype.cn:8105/result/complete/" + this.player + "/" + this.game_secret + "/" + this.inviter + "/" } });
+            tx2.touchEnabled = true;
+            tx2.background = true;
+            tx2.backgroundColor = 0xffcc33;
             var tx = new egret.TextField;
             tx.textFlow = new Array({ text: "Coffee for the developer", style: { "href": "https://www.paypal.me/joetheark" } });
             tx.touchEnabled = true;
             tx.background = true;
             tx.backgroundColor = 0xffcc33;
+            tx2.addEventListener(egret.TextEvent.LINK, function (evt) {
+                console.log(evt.text);
+            }, this);
+            tx2.x = 20;
+            tx2.y = 400;
+            this.sprite.addChild(tx2);
             tx.addEventListener(egret.TextEvent.LINK, function (evt) {
                 console.log(evt.text);
             }, this);

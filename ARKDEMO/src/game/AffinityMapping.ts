@@ -209,7 +209,7 @@ namespace game {
 
             this.sprite.visible = false
 
-            let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
+            let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight,this.inviter,this.game_secret,this.player,this.gameName)
             this.stage.addChild(digestAsk)
 
         }
