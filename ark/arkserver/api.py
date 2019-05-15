@@ -850,6 +850,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     if pscount == (playerCount * playerCount):
         check_score = 'true'
 
+    print('check_score',check_score)
 
     return {'code':0, 'characterListParams':result, 'playerCount':playerCount,'check_score':check_score}
 

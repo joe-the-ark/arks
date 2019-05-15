@@ -199,6 +199,7 @@ namespace game {
                 console.log('scorecount',scorecount)
 
                 var check_score = response['check_score']
+                console.log('check_score',check_score)
                 self.playerCount = playerCount
 
                 if(playerCount > scorecount){

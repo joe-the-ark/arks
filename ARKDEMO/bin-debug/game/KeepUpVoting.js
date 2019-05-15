@@ -184,6 +184,7 @@ var game;
                 console.log('playerCount', playerCount);
                 console.log('scorecount', scorecount);
                 var check_score = response['check_score'];
+                console.log('check_score', check_score);
                 self.playerCount = playerCount;
                 if (playerCount > scorecount) {
                     if (characterListParams[1][scorecount] != undefined) {
