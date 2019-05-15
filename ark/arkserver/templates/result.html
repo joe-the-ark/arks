@@ -12,6 +12,11 @@
 <body>
 
 	{% for result in results %}
+		{% if result.name == 'TensionScaleResult' %}
+		<h3>My Major Sources of Tension with my Teammates & my Team’s Major Tensions</h3>
+		{% else %}
+		<h3>My Team‘s Zone of PSYCHOLOGICAL SAFETY</h3>
+		{% endif %}
 		<div>
 			<img src="{{result.img.url}}" style="width: 200;height: 400">
 		</div>
