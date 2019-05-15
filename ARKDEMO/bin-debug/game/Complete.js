@@ -47,7 +47,7 @@ var game;
             intro.x = this._x;
             intro.y = 100;
             var tx2 = new egret.TextField;
-            tx2.textFlow = new Array({ text: "View results", style: { "href": "https://ark.metatype.cn:8105/result/complete/" + this.player + "/" + this.game_secret + "/" + this.inviter + "/" } });
+            tx2.textFlow = new Array({ text: "View results", style: { "href": "http://ark.metatype.cn:8105/result/complete/" + this.player + "/" + this.game_secret + "/" + this.inviter + "/" } });
             tx2.touchEnabled = true;
             tx2.background = true;
             tx2.backgroundColor = 0xffcc33;

@@ -203,14 +203,13 @@ namespace game {
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
-            
                         
                         self.removeChild(self.sprite)
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
                     }else {
                         alert('Please wait for others to choose scale')
-                        this.rightIcon.touchEnabled = true
+                        self.rightIcon.touchEnabled = true
                     }
                 }
                 else{
@@ -249,8 +248,9 @@ namespace game {
                             self.stage.addChild(toTensionScaleResult);
                         })
                     }else {
+                        self.rightIcon.touchEnabled = true
                         alert('Please wait for others to vote')
-                        this.rightIcon.touchEnabled = true
+                        
                     }
                 }
             })

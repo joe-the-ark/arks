@@ -194,7 +194,7 @@ var game;
                     }
                     else {
                         alert('Please wait for others to choose scale');
-                        this.rightIcon.touchEnabled = true;
+                        self.rightIcon.touchEnabled = true;
                     }
                 }
                 else {
@@ -224,8 +224,8 @@ var game;
                         });
                     }
                     else {
+                        self.rightIcon.touchEnabled = true;
                         alert('Please wait for others to vote');
-                        this.rightIcon.touchEnabled = true;
                     }
                 }
             });

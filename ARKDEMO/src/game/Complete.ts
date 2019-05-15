@@ -42,7 +42,7 @@ namespace game {
 
             var tx2: egret.TextField = new egret.TextField;
             tx2.textFlow = new Array<egret.ITextElement>(
-                { text: "View results",style: { "href": "https://ark.metatype.cn:8105/result/complete/"+this.player+"/"+this.game_secret+"/"+this.inviter+"/" } }
+                { text: "View results",style: { "href": "http://ark.metatype.cn:8105/result/complete/"+this.player+"/"+this.game_secret+"/"+this.inviter+"/" } }
             );
             tx2.touchEnabled = true;
             tx2.background = true
