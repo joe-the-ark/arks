@@ -12,7 +12,7 @@ var game;
 (function (game) {
     var ExpandedTensionScale = (function (_super) {
         __extends(ExpandedTensionScale, _super);
-        function ExpandedTensionScale(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount, sprite) {
+        function ExpandedTensionScale(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             var _this = _super.call(this) || this;
             _this.stageWidth = 0;
             _this.stageHeight = 0;
@@ -45,7 +45,8 @@ var game;
             _this.gameName = gameName;
             _this.chooser = chooser;
             _this.scorecount = scorecount;
-            _this.sprite = sprite;
+            // this.sprite = sprite
+            _this.sprite = new egret.Sprite();
             _this.tensionScale();
             // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
             _this.addChild(_this.sprite);
