@@ -12,13 +12,12 @@ namespace game {
         private _width = 600
         private _x = 20
         private _margin = 20
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight, inviter, game_secret, gameName, player) {
             super()
-
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
             this.sprite = new egret.Sprite()
-
             this.inviter = inviter
             this.player = player
             this.game_secret = game_secret
@@ -27,7 +26,16 @@ namespace game {
             this.addChild(this.sprite)
             this.processBar()
             this.intro()
-            this.rightIcon()
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight / 2
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            this.sprite.addChild(this.rightIcon)
         }
 
         private processBar(): void {
@@ -59,18 +67,7 @@ namespace game {
             this.sprite.addChild(tip)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight / 2
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
+      
 
         private nextPage(){
 

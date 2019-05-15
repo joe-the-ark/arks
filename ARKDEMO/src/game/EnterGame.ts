@@ -21,6 +21,8 @@ namespace game {
         private characterList = []
         private stageWidth = 0
         private stageHeight = 0
+
+        private rightIcon: egret.Bitmap;
         public constructor(game_secret, gameName, inviter, stageWidth, stageHeight) {
             super();
             this.game_secret = game_secret

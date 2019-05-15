@@ -44,6 +44,7 @@ var game;
             return _this;
         }
         Index.prototype.onTouchBegin = function () {
+            this.label.touchEnabled = false;
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id': this.openid }).then(function (response) {
             }).catch(function (err) {

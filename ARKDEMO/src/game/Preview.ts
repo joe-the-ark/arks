@@ -23,7 +23,7 @@ namespace game {
         public count = 0
 
         public simulatedData = []
-
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight, player, inviter, game_secret, gameName, count, loveFeedbackList, addFeedbackList, askFeedbackList,simulatedData) {
             super()
             this.stageWidth = stageWidth
@@ -54,7 +54,17 @@ namespace game {
             this.askFeedback()
             this.addFeedback()
 
-            this.rightIcon()
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight / 2
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            this.sprite.addChild(this.rightIcon)
+            
         }
 
 
@@ -165,21 +175,8 @@ namespace game {
             this.sprite.addChild(myScroller)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight / 2
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
-
         private nextPage(){
-
+            this.rightIcon.touchEnabled = false
             base.API.call('save_players_process', { 
                 'inviter_name': this.inviter, 
                 'game_secret': this.game_secret,

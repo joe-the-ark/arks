@@ -852,7 +852,6 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
         check_score = 'true'
 
     print('check_score',check_score)
-
     return {'code':0, 'characterListParams':result, 'playerCount':playerCount,'check_score':check_score}
 
 

@@ -26,6 +26,7 @@ namespace game {
         private rightIcon: egret.Bitmap;
         public simulatedData = []
         public playerCount
+
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
             super()
             this.stageWidth = stageWidth
@@ -45,7 +46,6 @@ namespace game {
             this.initNotice()
             this.processBar()
             var idTimeout:number = egret.setTimeout( function( arg ){
-                // this.rightIcon()
             this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
@@ -179,21 +179,7 @@ namespace game {
             })
         }
 
-        // private rightIcon(): void {
-        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-        //     rightIcon.width = 100
-        //     rightIcon.height = 100
-        //     rightIcon.anchorOffsetX = rightIcon.width / 2
-        //     rightIcon.anchorOffsetY = rightIcon.height / 2
-        //     rightIcon.x = this.stageWidth - 50
-        //     rightIcon.y = this.stageHeight - 50
-        //     rightIcon.touchEnabled = true
-        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-        //     this.sprite.addChild(rightIcon)
-        // }
-
         private nextTouch(){
-
             this.rightIcon.touchEnabled = false
             var self = this
             let scorecount = self.scorecount + 1
@@ -217,11 +203,14 @@ namespace game {
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
+            
+                        
                         self.removeChild(self.sprite)
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
                     }else {
                         alert('Please wait for others to choose scale')
+                        this.rightIcon.touchEnabled = true
                     }
                 }
                 else{
@@ -261,6 +250,7 @@ namespace game {
                         })
                     }else {
                         alert('Please wait for others to vote')
+                        this.rightIcon.touchEnabled = true
                     }
                 }
             })

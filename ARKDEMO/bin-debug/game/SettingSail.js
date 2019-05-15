@@ -35,7 +35,6 @@ var game;
             _this.gameName = gameName;
             _this.processBar();
             _this.intro();
-            _this.rightIcon();
             return _this;
         }
         SettingSail.prototype.processBar = function () {

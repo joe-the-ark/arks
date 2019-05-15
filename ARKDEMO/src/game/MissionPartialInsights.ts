@@ -22,6 +22,7 @@ namespace game {
 
         public resultTimer: egret.Timer
         
+        
         public constructor(stageWidth, stageHeight, character1, character2, player, selfPerception, inviter, game_secret, gameName, scorecount, chooser) {
             super()
             this.stageWidth = stageWidth
@@ -40,7 +41,6 @@ namespace game {
             this.scorecount = scorecount
             this.processBar()
             this.drawPotentialScale()
-
             // this.resultTimer = new egret.Timer(1000, 0);
             // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
             // this.resultTimer.start()

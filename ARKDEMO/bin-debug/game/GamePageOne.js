@@ -74,7 +74,7 @@ var game;
             _this.rightIcon.touchEnabled = true;
             _this.rightIcon.visible = false;
             _this.sprite.addChild(_this.rightIcon);
-            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.nextTouch, _this);
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextTouch, _this);
             // this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
             // this.closeIcon.width = 40
             // this.closeIcon.height = 40
@@ -109,6 +109,7 @@ var game;
         //     }
         // }
         GamePageOne.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             if (this.stage) {
                 var self = this;
                 base.API.Init("http://work.metatype.cn:8105/api/");

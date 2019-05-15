@@ -118,8 +118,8 @@ namespace game {
         //     }
         // }
         private nextTouch() {
+            this.rightIcon.touchEnabled = false
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5
-            
             if (this.playerList.length == scoreCounts) {
                 let game_secret = this.game_secret
                 let inviter = this.inviter

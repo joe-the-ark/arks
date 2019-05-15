@@ -50,7 +50,6 @@ var game;
             _this.initNotice();
             _this.processBar();
             var idTimeout = egret.setTimeout(function (arg) {
-                // this.rightIcon()
                 this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
                 this.rightIcon.width = 100;
                 this.rightIcon.height = 100;
@@ -167,18 +166,6 @@ var game;
                 _this.sprite.addChild(tensionScale);
             });
         };
-        // private rightIcon(): void {
-        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-        //     rightIcon.width = 100
-        //     rightIcon.height = 100
-        //     rightIcon.anchorOffsetX = rightIcon.width / 2
-        //     rightIcon.anchorOffsetY = rightIcon.height / 2
-        //     rightIcon.x = this.stageWidth - 50
-        //     rightIcon.y = this.stageHeight - 50
-        //     rightIcon.touchEnabled = true
-        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-        //     this.sprite.addChild(rightIcon)
-        // }
         KeepUpVoting.prototype.nextTouch = function () {
             this.rightIcon.touchEnabled = false;
             var self = this;
@@ -207,6 +194,7 @@ var game;
                     }
                     else {
                         alert('Please wait for others to choose scale');
+                        this.rightIcon.touchEnabled = true;
                     }
                 }
                 else {
@@ -237,6 +225,7 @@ var game;
                     }
                     else {
                         alert('Please wait for others to vote');
+                        this.rightIcon.touchEnabled = true;
                     }
                 }
             });

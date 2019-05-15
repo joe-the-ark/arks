@@ -12,6 +12,7 @@ namespace game {
         public label:egret.TextField
         public nickname
         public openid
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight, nickname, openid) {
             super();
             
@@ -44,6 +45,9 @@ namespace game {
         }
         
         private onTouchBegin():void {
+
+            this.label.touchEnabled = false
+
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call("create_game", { 'inviter': this.nickname, 'gameName': this.openid, 'game_id':this.openid }).then(function (response) {
 

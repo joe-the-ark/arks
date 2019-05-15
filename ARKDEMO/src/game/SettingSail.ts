@@ -31,7 +31,6 @@ namespace game {
 
             this.processBar()
             this.intro()
-            this.rightIcon()
         }
 
         private processBar(): void {

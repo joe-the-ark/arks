@@ -36,7 +36,16 @@ var game;
             _this.ask();
             _this.askFeedback();
             _this.addFeedback();
-            _this.rightIcon();
+            rightIcon = new egret.Bitmap(RES.getRes("right_png"));
+            rightIcon.width = 100;
+            rightIcon.height = 100;
+            rightIcon.anchorOffsetX = rightIcon.width / 2;
+            rightIcon.anchorOffsetY = rightIcon.height / 2;
+            rightIcon.x = _this.stageWidth - 50;
+            rightIcon.y = _this.stageHeight / 2;
+            rightIcon.touchEnabled = true;
+            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.rightIcon, _this);
+            _this.sprite.addChild(rightIcon);
             return _this;
         }
         Preview2.prototype.processBar = function () {
@@ -170,18 +179,6 @@ var game;
             myScroller.y = this.noticeBox.height + 80 + (this.stageHeight - 120 - this._margin * 2) / 3 + this._margin;
             myScroller.viewport = group;
             this.sprite.addChild(myScroller);
-        };
-        Preview2.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight / 2;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightIcon, this);
-            this.sprite.addChild(rightIcon);
         };
         return Preview2;
     }(egret.DisplayObjectContainer));

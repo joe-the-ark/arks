@@ -28,6 +28,7 @@ namespace game {
         public remainingPlayersList = []
 
         public simulatedData = []
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             super()
             this.stageWidth = stageWidth
@@ -55,8 +56,19 @@ namespace game {
             this.votedPlayers()
             this.processBar()
             this.notice()
-            this.rightIcon()
+            
             this.noticeBox = new egret.TextField()
+
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight - 50
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            this.sprite.addChild(this.rightIcon)
 
         }
 
@@ -143,21 +155,9 @@ namespace game {
             this.sprite.addChild(myScroller)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight - 50
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
 
         private nextPage(){
-
+            this.rightIcon.touchEnabled = false
             if(this.count+1 == this.player_list.length){
                 base.API.call('save_players_process', { 
                     'inviter_name': this.inviter, 
