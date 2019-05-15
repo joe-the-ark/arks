@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Result
+from .models import *
 
 def result(request, name, player, game_secret, inviter):
 
