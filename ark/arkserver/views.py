@@ -6,7 +6,8 @@ from .models import *
 def result(request, name, player, game_secret, inviter):
 
     ctx = {}
-    ctx['results'] = Result.objects.filter(name=name, player=player, game_secret=game_secret, inviter=inviter)
+    ctx['results'] = Result.objects.filter(player=player, game_secret=game_secret, inviter=inviter)
+    print(ctx['results'])
 
     _player = Player.objects.filter(
         name=player,
