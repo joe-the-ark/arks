@@ -56,9 +56,6 @@ var game;
             _this.processBar();
             _this.notice();
             _this.noticeBox = new egret.TextField();
-            _this.timer = new egret.Timer(1000, 0);
-            _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerVotedStatus, _this);
-            _this.timer.start();
             _this.rightIcon = new egret.Bitmap(RES.getRes("right_png"));
             _this.rightIcon.width = 100;
             _this.rightIcon.height = 100;
@@ -71,21 +68,6 @@ var game;
             _this.sprite.addChild(_this.rightIcon);
             return _this;
         }
-        KeepUpSupporting.prototype.getPlayerVotedStatus = function () {
-            var self = this;
-            base.API.call('check_game_point', {
-                'inviter_name': self.inviter,
-                'game_secret': self.game_secret,
-                'player': self.player,
-                'game_name': self.gameName,
-            }).then(function (response) {
-                var result = response['result'];
-                var code = result['code'];
-                if (code == 1) {
-                    self.checkpoint = 1;
-                }
-            });
-        };
         KeepUpSupporting.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Supporting");
             this.sprite.addChild(processBar);
@@ -154,7 +136,6 @@ var game;
             this.sprite.addChild(myScroller);
         };
         KeepUpSupporting.prototype.nextPage = function () {
-            this.rightIcon.touchEnabled = false;
             if (this.count + 1 == this.player_list.length) {
                 base.API.call('save_players_process', {
                     'inviter_name': this.inviter,
@@ -194,6 +175,7 @@ var game;
                         alert('Please wait for others to complete the review');
                     }
                     else {
+                        self.rightIcon.touchEnabled = false;
                         var count = self.count + 1;
                         self.sprite.visible = false;
                         self.removeChild(self.sprite);
