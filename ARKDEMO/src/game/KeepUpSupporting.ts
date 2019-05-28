@@ -159,6 +159,7 @@ namespace game {
         }
 
         private nextPage(){
+            console.log('nextPage')
             if(this.count+1 == this.player_list.length){
                 base.API.call('save_players_process', { 
                     'inviter_name': this.inviter, 
