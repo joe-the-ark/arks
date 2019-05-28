@@ -1246,7 +1246,6 @@ def check_game_point(inviter_name, game_secret, player, game_name):
         else:
             print('code=1')
             return {'code':1, 'mgs':'其他玩家没投完'}
-
     else:
         print('code=2')
         return {'code':2, 'mgs':'正常情况'}

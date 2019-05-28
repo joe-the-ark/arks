@@ -143,8 +143,7 @@ var game;
                     'player': this.player,
                     'game_name': this.gameName,
                     'process': '5'
-                }).then(function (response) {
-                });
+                }).then(function (response) { });
                 var self_1 = this;
                 base.API.call('check_game_point', {
                     'inviter_name': self_1.inviter,
@@ -153,6 +152,7 @@ var game;
                     'game_name': self_1.gameName,
                 }).then(function (response) {
                     var result = response['result'];
+                    console.log('result', result);
                     var code = result['code'];
                     if (code == 1) {
                         alert('Please wait for others to complete the review');
@@ -169,7 +169,6 @@ var game;
                             that.sprite.visible = false;
                             that.removeChild(that.sprite);
                             var preview = new game.DigestLove(that.stageWidth, that.stageHeight, result, that.inviter, that.game_secret, that.gameName, that.player);
-                            // let preview =  new game.Preview2(that.stageWidth, that.stageHeight)
                             that.stage.addChild(preview);
                         });
                     }
