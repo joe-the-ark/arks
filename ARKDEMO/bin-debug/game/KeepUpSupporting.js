@@ -137,6 +137,8 @@ var game;
         };
         KeepUpSupporting.prototype.nextPage = function () {
             console.log('nextPage');
+            console.log('this.count', this.count);
+            console.log('this.player_list', this.player_list);
             if (this.count + 1 == this.player_list.length) {
                 base.API.call('save_players_process', {
                     'inviter_name': this.inviter,

@@ -174,36 +174,33 @@ var game;
                 var scalesNumber = player_list.length;
                 var votedScalesNumber = votedPlayerList.length;
                 var remainingScalesNumber = scalesNumber - votedScalesNumber;
-                console.log(remainingScalesNumber);
-                if (remainingScalesNumber == 0) {
-                    base.API.call('save_players_process', {
-                        'inviter_name': self.inviter,
-                        'game_secret': self.game_secret,
-                        'player': self.player,
-                        'game_name': self.gameName,
-                        'process': '5'
-                    }).then(function (response) {
-                    });
-                    console.log(self.inviter);
-                    base.API.call('getOthersFeedback', {
-                        'game_secret': self.game_secret,
-                        'gameName': self.gameName,
-                        'player': self.player,
-                        'inviter': self.inviter,
-                    }).then(function (response) {
-                        var result = response['result'];
-                        self.sprite.visible = false;
-                        self.removeChild(self.sprite);
-                        var preview = new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player);
-                        self.stage.addChild(preview);
-                    });
-                }
-                else {
-                    self.sprite.visible = false;
-                    self.removeChild(self.sprite);
-                    var keepUpSupporting = new game.KeepUpSupporting(self.stageWidth, self.stageHeight, self.player, self.inviter, self.game_secret, self.gameName, self.count, self.simulatedData, player_list, votedPlayerList, remainingPlayersList);
-                    self.stage.addChild(keepUpSupporting);
-                }
+                self.sprite.visible = false;
+                self.removeChild(self.sprite);
+                var keepUpSupporting = new game.KeepUpSupporting(self.stageWidth, self.stageHeight, self.player, self.inviter, self.game_secret, self.gameName, self.count, self.simulatedData, player_list, votedPlayerList, remainingPlayersList);
+                self.stage.addChild(keepUpSupporting);
+                // if(remainingScalesNumber == 0){
+                //     base.API.call('save_players_process', { 
+                //         'inviter_name': self.inviter, 
+                //         'game_secret': self.game_secret,
+                //         'player': self.player,
+                //         'game_name': self.gameName,
+                //         'process': '5'
+                //     }).then(function (response){
+                //     })
+                //     base.API.call('getOthersFeedback', {
+                //         'game_secret': self.game_secret,
+                //         'gameName': self.gameName,
+                //         'player':self.player,
+                //         'inviter':self.inviter,
+                //     }).then(function (response){
+                //         var result = response['result']
+                //         self.sprite.visible = false
+                //         self.removeChild(self.sprite)
+                //         let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
+                //         self.stage.addChild(preview)
+                //     })
+                // }else {
+                // }
             });
         };
         return Preview;
