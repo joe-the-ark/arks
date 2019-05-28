@@ -1236,16 +1236,19 @@ def check_game_point(inviter_name, game_secret, player, game_name):
 
 
     playerVotedCount = Feedback.objects.filter(player=_player, game=game).count()
-
+    print('playerVotedCount',playerVotedCount)
 
     if players_count-1 == playerVotedCount:
 
         if players_count-1 == feedback_count:
+            print('code=0')
             return {'code':0, 'msg':'投票完毕'}
         else:
+            print('code=1')
             return {'code':1, 'mgs':'其他玩家没投完'}
 
     else:
+        print('code=2')
         return {'code':2, 'mgs':'正常情况'}
 
 

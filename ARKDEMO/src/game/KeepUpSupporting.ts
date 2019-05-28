@@ -173,27 +173,6 @@ namespace game {
                     })
 
                     let self = this
-                    base.API.Init("http://work.metatype.cn:8105/api/");
-                    base.API.call('getOthersFeedback', {
-
-                        'game_secret': self.game_secret,
-                        'gameName': self.gameName,
-                        'player':self.player,
-                        'inviter':self.inviter,
-
-                    }).then(function (response){
-                        var result = response['result']
-                        self.sprite.visible = false
-                        self.removeChild(self.sprite)
-                        let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
-                        // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
-                        self.stage.addChild(preview)
-
-                    })  
-                    
-
-                }else {
-                    var self = this
                     base.API.call('check_game_point', { 
                         'inviter_name': self.inviter, 
                         'game_secret': self.game_secret,
@@ -205,17 +184,43 @@ namespace game {
                         if(code == 1){
                             alert('Please wait for others to complete the review')
                         }else{
-                            self.rightIcon.touchEnabled = false
-                            var count = self.count + 1
-                            self.sprite.visible = false
-                            self.removeChild(self.sprite)
-                            var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
-                            self.stage.addChild(loveAddAsk)
+
+                            var that = self
+                            base.API.call('getOthersFeedback', {
+                                'game_secret': that.game_secret,
+                                'gameName': that.gameName,
+                                'player':that.player,
+                                'inviter':that.inviter,
+
+                            }).then(function (response){
+                                var result = response['result']
+                                that.sprite.visible = false
+                                that.removeChild(that.sprite)
+                                let preview =  new game.DigestLove(that.stageWidth, that.stageHeight, result, that.inviter, that.game_secret, that.gameName, that.player)
+                                // let preview =  new game.Preview2(that.stageWidth, that.stageHeight)
+                                that.stage.addChild(preview)
+
+                            })  
+
                         }
                     })
 
-                }
 
+                    // base.API.Init("http://work.metatype.cn:8105/api/");
+   
+                    
+
+                }else {
+                    var self = this
+                    self.rightIcon.touchEnabled = false
+                    var count = self.count + 1
+                    self.sprite.visible = false
+                    self.removeChild(self.sprite)
+                    var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
+                    self.stage.addChild(loveAddAsk)
+
+                    
+                }
         }
     }
 }
