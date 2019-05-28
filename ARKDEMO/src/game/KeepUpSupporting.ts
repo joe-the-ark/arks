@@ -29,6 +29,9 @@ namespace game {
 
         public simulatedData = []
         private rightIcon: egret.Bitmap;
+
+        private checkpoint = 0
+
         public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             super()
             this.stageWidth = stageWidth
@@ -60,7 +63,7 @@ namespace game {
             this.rightIcon.y = this.stageHeight - 50
             this.rightIcon.touchEnabled = true
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            
+            this.sprite.addChild(this.rightIcon)
 
             this.background() 
             this.remainingPlayers()
@@ -84,10 +87,9 @@ namespace game {
             }).then(function (response){
                 let result = response['result']
                 var code = result['code']
-                if(code == 0 || code ==2){
-                    self.sprite.addChild(self.rightIcon)
-                }else if(code == 1){
-                    alert('Please wait for others to complete the review')
+                if(code == 1){
+                    self.checkpoint = 1
+                    
                 }
             })
         }
@@ -176,45 +178,51 @@ namespace game {
 
         private nextPage(){
             this.rightIcon.touchEnabled = false
-            if(this.count+1 == this.player_list.length){
-                base.API.call('save_players_process', { 
-                    'inviter_name': this.inviter, 
-                    'game_secret': this.game_secret,
-                    'player': this.player,
-                    'game_name': this.gameName,
-                    'process': '5'
-                }).then(function (response){
-                
-                })
+            if(this.checkpoint == 1){
+                alert('Please wait for others to complete the review')
+            }else{
+                if(this.count+1 == this.player_list.length){
+                    base.API.call('save_players_process', { 
+                        'inviter_name': this.inviter, 
+                        'game_secret': this.game_secret,
+                        'player': this.player,
+                        'game_name': this.gameName,
+                        'process': '5'
+                    }).then(function (response){
+                    
+                    })
 
-                let self = this
-                base.API.Init("http://work.metatype.cn:8105/api/");
-                base.API.call('getOthersFeedback', {
+                    let self = this
+                    base.API.Init("http://work.metatype.cn:8105/api/");
+                    base.API.call('getOthersFeedback', {
 
-                    'game_secret': self.game_secret,
-                    'gameName': self.gameName,
-                    'player':self.player,
-                    'inviter':self.inviter,
+                        'game_secret': self.game_secret,
+                        'gameName': self.gameName,
+                        'player':self.player,
+                        'inviter':self.inviter,
 
-                }).then(function (response){
-                    var result = response['result']
+                    }).then(function (response){
+                        var result = response['result']
+                        self.sprite.visible = false
+                        self.removeChild(self.sprite)
+                        let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
+                        // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
+                        self.stage.addChild(preview)
+
+                    })  
+                    
+
+                }else {
+                    var self = this
+                    var count = self.count + 1
                     self.sprite.visible = false
                     self.removeChild(self.sprite)
-                    let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
-                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
-                    self.stage.addChild(preview)
+                    var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
+                    self.stage.addChild(loveAddAsk)
+                }
 
-                })  
-                
-
-            }else {
-                var self = this
-                var count = self.count + 1
-                self.sprite.visible = false
-                self.removeChild(self.sprite)
-                var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
-                self.stage.addChild(loveAddAsk)
             }
+
         }
     }
 }
