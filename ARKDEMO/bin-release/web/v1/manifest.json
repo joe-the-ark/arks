@@ -9,10 +9,6 @@
 		"js/weixinapi.min_6729a0d7.js"
 	],
 	"game": [
-<<<<<<< HEAD
-		"js/main.min_ecbfc094.js"
-=======
-		"js/main.min_cc00b5ce.js"
->>>>>>> origin/master
+		"js/main.min_645f1efc.js"
 	]
 }

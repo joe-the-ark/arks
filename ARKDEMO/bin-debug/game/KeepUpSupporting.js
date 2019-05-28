@@ -64,22 +64,9 @@ var game;
             _this.processBar();
             _this.notice();
             _this.noticeBox = new egret.TextField();
-<<<<<<< HEAD
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerVotedStatus, _this);
             _this.timer.start();
-=======
-            _this.rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            _this.rightIcon.width = 100;
-            _this.rightIcon.height = 100;
-            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
-            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
-            _this.rightIcon.x = _this.stageWidth - 50;
-            _this.rightIcon.y = _this.stageHeight - 50;
-            _this.rightIcon.touchEnabled = true;
-            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextPage, _this);
-            _this.sprite.addChild(_this.rightIcon);
->>>>>>> origin/master
             return _this;
         }
         KeepUpSupporting.prototype.getPlayerVotedStatus = function () {

@@ -45,13 +45,9 @@ var game;
             _this.gameName = gameName;
             _this.chooser = chooser;
             _this.scorecount = scorecount;
-<<<<<<< HEAD
-            _this.sprite = new egret.Sprite();
-=======
             // this.sprite = sprite
             _this.sprite = new egret.Sprite();
             // this.tensionScale()
->>>>>>> origin/master
             _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.tensionScale, _this);
             _this.addChild(_this.sprite);
             _this.character1Sprite = new egret.TextField();
