@@ -144,13 +144,15 @@ var game;
                     'game_name': this.gameName,
                     'process': '5'
                 }).then(function (response) { });
-                var self_1 = this;
+                console.log(11111111);
                 base.API.call('check_game_point', {
-                    'inviter_name': self_1.inviter,
-                    'game_secret': self_1.game_secret,
-                    'player': self_1.player,
-                    'game_name': self_1.gameName,
+                    'inviter_name': this.inviter,
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
                 }).then(function (response) {
+                    var self = this;
+                    console.log(22222222);
                     var result = response['result'];
                     console.log('result', result);
                     var code = result['code'];
@@ -158,18 +160,17 @@ var game;
                         alert('Please wait for others to complete the review');
                     }
                     else {
-                        var that = self_1;
                         base.API.call('getOthersFeedback', {
-                            'game_secret': that.game_secret,
-                            'gameName': that.gameName,
-                            'player': that.player,
-                            'inviter': that.inviter,
+                            'game_secret': self.game_secret,
+                            'gameName': self.gameName,
+                            'player': self.player,
+                            'inviter': self.inviter,
                         }).then(function (response) {
                             var result = response['result'];
-                            that.sprite.visible = false;
-                            that.removeChild(that.sprite);
-                            var preview = new game.DigestLove(that.stageWidth, that.stageHeight, result, that.inviter, that.game_secret, that.gameName, that.player);
-                            that.stage.addChild(preview);
+                            self.sprite.visible = false;
+                            self.removeChild(self.sprite);
+                            var preview = new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player);
+                            self.stage.addChild(preview);
                         });
                     }
                 });

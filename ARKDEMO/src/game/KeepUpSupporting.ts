@@ -167,31 +167,35 @@ namespace game {
                     'game_name': this.gameName,
                     'process': '5'
                 }).then(function (response){})
-                let self = this
+                
+                console.log(11111111)
+
                 base.API.call('check_game_point', { 
-                    'inviter_name': self.inviter, 
-                    'game_secret': self.game_secret,
-                    'player': self.player,
-                    'game_name': self.gameName,
+                    'inviter_name': this.inviter, 
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
                 }).then(function (response){
+                    let self = this
+                    console.log(22222222)
                     let result = response['result']
                     console.log('result',result)
                     var code = result['code']                    
                     if(code == 1){
                         alert('Please wait for others to complete the review')
                     }else{
-                        var that = self
+                 
                         base.API.call('getOthersFeedback', {
-                            'game_secret': that.game_secret,
-                            'gameName': that.gameName,
-                            'player':that.player,
-                            'inviter':that.inviter,
+                            'game_secret': self.game_secret,
+                            'gameName': self.gameName,
+                            'player':self.player,
+                            'inviter':self.inviter,
                         }).then(function (response){
                             var result = response['result']
-                            that.sprite.visible = false
-                            that.removeChild(that.sprite)
-                            let preview =  new game.DigestLove(that.stageWidth, that.stageHeight, result, that.inviter, that.game_secret, that.gameName, that.player)
-                            that.stage.addChild(preview)
+                            self.sprite.visible = false
+                            self.removeChild(self.sprite)
+                            let preview =  new game.DigestLove(self.stageWidth, self.stageHeight, result, self.inviter, self.game_secret, self.gameName, self.player)
+                            self.stage.addChild(preview)
                         })  
                     }
                 })
