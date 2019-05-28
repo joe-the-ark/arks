@@ -155,43 +155,52 @@ var game;
         };
         KeepUpSupporting.prototype.nextPage = function () {
             this.rightIcon.touchEnabled = false;
-            if (this.checkpoint == 1) {
-                alert('Please wait for others to complete the review');
+            if (this.count + 1 == this.player_list.length) {
+                base.API.call('save_players_process', {
+                    'inviter_name': this.inviter,
+                    'game_secret': this.game_secret,
+                    'player': this.player,
+                    'game_name': this.gameName,
+                    'process': '5'
+                }).then(function (response) {
+                });
+                var self_1 = this;
+                base.API.Init("http://work.metatype.cn:8105/api/");
+                base.API.call('getOthersFeedback', {
+                    'game_secret': self_1.game_secret,
+                    'gameName': self_1.gameName,
+                    'player': self_1.player,
+                    'inviter': self_1.inviter,
+                }).then(function (response) {
+                    var result = response['result'];
+                    self_1.sprite.visible = false;
+                    self_1.removeChild(self_1.sprite);
+                    var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
+                    // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
+                    self_1.stage.addChild(preview);
+                });
             }
             else {
-                if (this.count + 1 == this.player_list.length) {
-                    base.API.call('save_players_process', {
-                        'inviter_name': this.inviter,
-                        'game_secret': this.game_secret,
-                        'player': this.player,
-                        'game_name': this.gameName,
-                        'process': '5'
-                    }).then(function (response) {
-                    });
-                    var self_1 = this;
-                    base.API.Init("http://work.metatype.cn:8105/api/");
-                    base.API.call('getOthersFeedback', {
-                        'game_secret': self_1.game_secret,
-                        'gameName': self_1.gameName,
-                        'player': self_1.player,
-                        'inviter': self_1.inviter,
-                    }).then(function (response) {
-                        var result = response['result'];
-                        self_1.sprite.visible = false;
-                        self_1.removeChild(self_1.sprite);
-                        var preview = new game.DigestLove(self_1.stageWidth, self_1.stageHeight, result, self_1.inviter, self_1.game_secret, self_1.gameName, self_1.player);
-                        // let preview =  new game.Preview2(self.stageWidth, self.stageHeight)
-                        self_1.stage.addChild(preview);
-                    });
-                }
-                else {
-                    var self = this;
-                    var count = self.count + 1;
-                    self.sprite.visible = false;
-                    self.removeChild(self.sprite);
-                    var loveAddAsk = new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player, self.inviter, self.game_secret, self.gameName);
-                    self.stage.addChild(loveAddAsk);
-                }
+                var self = this;
+                base.API.call('check_game_point', {
+                    'inviter_name': self.inviter,
+                    'game_secret': self.game_secret,
+                    'player': self.player,
+                    'game_name': self.gameName,
+                }).then(function (response) {
+                    var result = response['result'];
+                    var code = result['code'];
+                    if (code == 1) {
+                        alert('Please wait for others to complete the review');
+                    }
+                    else {
+                        var count = self.count + 1;
+                        self.sprite.visible = false;
+                        self.removeChild(self.sprite);
+                        var loveAddAsk = new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player, self.inviter, self.game_secret, self.gameName);
+                        self.stage.addChild(loveAddAsk);
+                    }
+                });
             }
         };
         return KeepUpSupporting;

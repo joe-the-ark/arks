@@ -180,9 +180,10 @@ namespace game {
 
         private nextPage(){
             this.rightIcon.touchEnabled = false
-            if(this.checkpoint == 1){
-                alert('Please wait for others to complete the review')
-            }else{
+
+ 
+
+         
                 if(this.count+1 == this.player_list.length){
                     base.API.call('save_players_process', { 
                         'inviter_name': this.inviter, 
@@ -216,14 +217,33 @@ namespace game {
 
                 }else {
                     var self = this
-                    var count = self.count + 1
-                    self.sprite.visible = false
-                    self.removeChild(self.sprite)
-                    var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
-                    self.stage.addChild(loveAddAsk)
+                    base.API.call('check_game_point', { 
+                        'inviter_name': self.inviter, 
+                        'game_secret': self.game_secret,
+                        'player': self.player,
+                        'game_name': self.gameName,
+                    }).then(function (response){
+                        let result = response['result']
+                        var code = result['code']
+                        if(code == 1){
+                            alert('Please wait for others to complete the review')
+                        }else{
+                                 
+                            var count = self.count + 1
+                            self.sprite.visible = false
+                            self.removeChild(self.sprite)
+                            var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
+                            self.stage.addChild(loveAddAsk)
+
+
+                        }
+                    })
+
+               
+
                 }
 
-            }
+            
 
         }
     }
