@@ -47,7 +47,7 @@ namespace game {
         private scalesNumber = 7
 
         public resultTimer: egret.Timer
-        public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount,sprite) {
+        public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             super()
             this.stageWidth = stageWidth
             this.stageHeight = stageHeight
@@ -63,9 +63,8 @@ namespace game {
 
             this.scorecount = scorecount
 
-            this.sprite = sprite
-            this.tensionScale()
-            // this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
+            this.sprite = new egret.Sprite()
+            this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
             this.addChild(this.sprite)
 
             this.character1Sprite  = new egret.TextField()
@@ -91,7 +90,6 @@ namespace game {
                 this.rightIcon()        
                 }, this, 1000, "egret"
             );
-
 
             this.tiptext = new egret.TextField()
             this.feedbacktext = new egret.TextField()

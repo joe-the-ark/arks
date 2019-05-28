@@ -52,11 +52,10 @@ namespace game {
         }
 
         private drawPotentialScale(): void {
-            let expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception,this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount,this.sprite )
+            let expandedTensionScale = new game.ExpandedTensionScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception,this.game_secret, this.inviter, this.gameName, this.chooser, this.scorecount)
             expandedTensionScale.x = this._x + 350
             expandedTensionScale.y = 180
             this.sprite.addChild(expandedTensionScale)
-
         }
 
         private saveResult(){

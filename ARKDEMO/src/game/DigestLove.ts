@@ -100,15 +100,14 @@ namespace game {
         private nextPage(){
 
             base.API.call('save_players_process', { 
-                    'inviter_name': this.inviter, 
-                    'game_secret': this.game_secret,
-                    'player': this.player,
-                    'game_name': this.gameName,
-                    'process': '6'               
-                }).then(function (response){
-                
-                })
-
+                'inviter_name': this.inviter, 
+                'game_secret': this.game_secret,
+                'player': this.player,
+                'game_name': this.gameName,
+                'process': '6'               
+            }).then(function (response){
+            
+            })
 
             this.sprite.visible = false
             this.removeChild(this.sprite)

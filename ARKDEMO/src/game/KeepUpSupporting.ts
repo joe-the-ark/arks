@@ -27,6 +27,8 @@ namespace game {
         public votedPlayerList = []
         public remainingPlayersList = []
 
+        private rightIcon: egret.Bitmap;
+
         public simulatedData = []
         public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             super()
@@ -47,19 +49,53 @@ namespace game {
             this.remainingPlayersList = remainingPlayersList
             this.scalesNumber = this.player_list.length
             this.votedScalesNumber = this.votedPlayerList.length
-
             this.remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
             
+
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight - 50
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            
+
             this.background() 
             this.remainingPlayers()
             this.votedPlayers()
             this.processBar()
             this.notice()
-            this.rightIcon()
             this.noticeBox = new egret.TextField()
+
+
+            this.timer = new egret.Timer(1000, 0);
+            this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerVotedStatus, this);
+            this.timer.start()
 
         }
 
+        private getPlayerVotedStatus():void{
+            
+            var self=this
+            base.API.call('check_game_point', { 
+                'inviter_name': self.inviter, 
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+            }).then(function (response){
+                    let result = response['result']
+                    var code = result['code']
+                    if(code == 0){
+                        self.sprite.addChild(self.rightIcon)
+                }else{
+                    alert('Please wait for others to complete the review')
+                }
+            })
+
+        }
 
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Supporting")
@@ -143,19 +179,6 @@ namespace game {
             this.sprite.addChild(myScroller)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight - 50
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
-
         private nextPage(){
 
             if(this.count+1 == this.player_list.length){
@@ -179,7 +202,6 @@ namespace game {
                     'inviter':self.inviter,
 
                 }).then(function (response){
-
                     var result = response['result']
                     self.sprite.visible = false
                     self.removeChild(self.sprite)
@@ -191,11 +213,12 @@ namespace game {
                 
 
             }else {
-                var count = this.count + 1
-                this.sprite.visible = false
-                this.removeChild(this.sprite)
-                var loveAddAsk =  new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player,  this.inviter, this.game_secret, this.gameName)
-                this.stage.addChild(loveAddAsk)
+                var self = this
+                var count = self.count + 1
+                self.sprite.visible = false
+                self.removeChild(self.sprite)
+                var loveAddAsk =  new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player,  self.inviter, self.game_secret, self.gameName)
+                self.stage.addChild(loveAddAsk)
             }
         }
     }

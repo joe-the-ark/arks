@@ -74,12 +74,7 @@ namespace game {
 
         private nextPage(){
 
-
-
             let self = this
-            console.log(self.inviter)
-            console.log(self.game_secret)
-
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_players', {
                 'inviter':self.inviter,
@@ -96,7 +91,6 @@ namespace game {
                     'game_name': self.gameName,
                     'process': '9'
                 }).then(function (response){
-                
                 })
 
                 let result = response['result']

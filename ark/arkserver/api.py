@@ -460,7 +460,6 @@ def get_players_process(game_secret, inviter_name, player, gameName):
 
     if gameProcess:
         process = gameProcess.process
-
         if process == '0.1':
             firstScore = FirstScore.objects.filter(game=game, player=_player).first()
             playerScore = firstScore.first_score
@@ -1062,8 +1061,6 @@ def get_players(inviter, game_secret, gameName, player):
 
 
 
-
-
 def cut_text(text, lenth):
     textArr = re.findall('.{'+str(lenth)+'}', text)
     textArr.append(text[(len(textArr)*lenth):])
@@ -1202,7 +1199,39 @@ def save_result(base64Str, player, name, game_secret, inviter):
 
 
 
+@api
+def check_game_point(inviter_name, game_secret, player, game_name):
+    inviter_name = urllib.parse.unquote(inviter_name)
+    player = urllib.parse.unquote(player)
+    _inviter = Player.objects.filter(
+        name=inviter_name,
+        game_secret=game_secret,
+        inviter_name=inviter_name,
+        game_name=game_name
+    ).first()
 
+    game = Game.objects.filter(
+        game_secret=game_secret,
+        game_name=game_name,
+        inviter=_inviter,
+    ).first()
+
+    _player = Player.objects.filter(
+        name=player,
+        game_secret=game_secret,
+        game_name=game_name,
+        inviter_name=inviter_name
+    ).first()
+
+    players_count = Player.objects.filter(game_name=game_name, game_secret=game_secret, inviter_name=inviter_name).count()
+    feedback_count = Feedback.objects.filter(teammate=_player).count()
+
+    if players_count == feedback_count:
+
+        return {'code':0}
+
+    else:
+        return {'code':1}
 
 
 

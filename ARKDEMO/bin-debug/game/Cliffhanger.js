@@ -76,8 +76,6 @@ var game;
         };
         Cliffhanger.prototype.nextPage = function () {
             var self = this;
-            console.log(self.inviter);
-            console.log(self.game_secret);
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('get_players', {
                 'inviter': self.inviter,

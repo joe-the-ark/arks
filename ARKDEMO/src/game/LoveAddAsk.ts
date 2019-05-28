@@ -233,6 +233,7 @@ namespace game {
         }
 
         private ask(): void {
+            
             let ask: egret.TextField = new egret.TextField()
             ask.text = "ASK"
             ask.size = 40
@@ -246,7 +247,7 @@ namespace game {
             sentence.y = this.noticeBox.height + 130 + 500 + this._margin * 2
             sentence.width = 100
             this.sprite.addChild(sentence)
-            
+
         }
 
         private askInput(): void {

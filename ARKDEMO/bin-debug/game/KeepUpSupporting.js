@@ -49,15 +49,44 @@ var game;
             _this.scalesNumber = _this.player_list.length;
             _this.votedScalesNumber = _this.votedPlayerList.length;
             _this.remainingScalesNumber = _this.scalesNumber - _this.votedScalesNumber;
+            _this.rightIcon = new egret.Bitmap(RES.getRes("right_png"));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = _this.stageWidth - 50;
+            _this.rightIcon.y = _this.stageHeight - 50;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextPage, _this);
             _this.background();
             _this.remainingPlayers();
             _this.votedPlayers();
             _this.processBar();
             _this.notice();
-            _this.rightIcon();
             _this.noticeBox = new egret.TextField();
+            _this.timer = new egret.Timer(1000, 0);
+            _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getPlayerVotedStatus, _this);
+            _this.timer.start();
             return _this;
         }
+        KeepUpSupporting.prototype.getPlayerVotedStatus = function () {
+            var self = this;
+            base.API.call('check_game_point', {
+                'inviter_name': self.inviter,
+                'game_secret': self.game_secret,
+                'player': self.player,
+                'game_name': self.gameName,
+            }).then(function (response) {
+                var result = response['result'];
+                var code = result['code'];
+                if (code == 0) {
+                    self.sprite.addChild(self.rightIcon);
+                }
+                else {
+                    alert('Please wait for others to complete the review');
+                }
+            });
+        };
         KeepUpSupporting.prototype.processBar = function () {
             var processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 55, "Mission 2 > Keep Up Supporting");
             this.sprite.addChild(processBar);
@@ -125,18 +154,6 @@ var game;
             myScroller.viewport = group;
             this.sprite.addChild(myScroller);
         };
-        KeepUpSupporting.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight - 50;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
-            this.sprite.addChild(rightIcon);
-        };
         KeepUpSupporting.prototype.nextPage = function () {
             if (this.count + 1 == this.player_list.length) {
                 base.API.call('save_players_process', {
@@ -164,11 +181,12 @@ var game;
                 });
             }
             else {
-                var count = this.count + 1;
-                this.sprite.visible = false;
-                this.removeChild(this.sprite);
-                var loveAddAsk = new game.LoveAddAsk(this.stageWidth, this.stageHeight, count, this.simulatedData, this.player, this.inviter, this.game_secret, this.gameName);
-                this.stage.addChild(loveAddAsk);
+                var self = this;
+                var count = self.count + 1;
+                self.sprite.visible = false;
+                self.removeChild(self.sprite);
+                var loveAddAsk = new game.LoveAddAsk(self.stageWidth, self.stageHeight, count, self.simulatedData, self.player, self.inviter, self.game_secret, self.gameName);
+                self.stage.addChild(loveAddAsk);
             }
         };
         return KeepUpSupporting;
