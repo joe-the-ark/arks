@@ -54,6 +54,18 @@ namespace game {
             this.remainingScalesNumber = this.scalesNumber - this.votedScalesNumber
             
 
+
+            this.background() 
+            this.remainingPlayers()
+            this.votedPlayers()
+            this.processBar()
+            this.notice()
+            this.noticeBox = new egret.TextField()
+            this.timer = new egret.Timer(1000, 0);
+            this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerVotedStatus, this);
+            this.timer.start()
+
+
             this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
             this.rightIcon.width = 100
             this.rightIcon.height = 100
@@ -65,15 +77,6 @@ namespace game {
             this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
             this.sprite.addChild(this.rightIcon)
 
-            this.background() 
-            this.remainingPlayers()
-            this.votedPlayers()
-            this.processBar()
-            this.notice()
-            this.noticeBox = new egret.TextField()
-            this.timer = new egret.Timer(1000, 0);
-            this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerVotedStatus, this);
-            this.timer.start()
 
         }
 
