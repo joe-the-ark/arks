@@ -845,12 +845,10 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     players = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName)
 
     pscount = PlayerScore.objects.filter(game=game).count()
-    print('pscount',pscount)
     check_score = 'false'
     if pscount == (playerCount * playerCount) * playerCount:
         check_score = 'true'
 
-    print('check_score',check_score)
     return {'code':0, 'characterListParams':result, 'playerCount':playerCount,'check_score':check_score}
 
 
@@ -1184,8 +1182,6 @@ def check_game(inviter_name, game_name, game_secret):
         inviter=_inviter,
     ).first()
 
-    print('game:', game)
-
     if game:
         return {'gameExist':0}
     else:
@@ -1235,6 +1231,9 @@ def check_game_point(inviter_name, game_secret, player, game_name):
 
     players_count = Player.objects.filter(game_name=game_name, game_secret=game_secret, inviter_name=inviter_name).count()
     feedback_count = Feedback.objects.filter(teammate=_player).count()
+
+    print('players_count',players_count)
+    print('feedback_count',feedback_count)
 
     if players_count-1 == feedback_count:
 
