@@ -89,7 +89,6 @@ namespace game {
                 var code = result['code']
                 if(code == 1){
                     self.checkpoint = 1
-                    
                 }
             })
         }
