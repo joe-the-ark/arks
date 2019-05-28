@@ -1230,18 +1230,23 @@ def check_game_point(inviter_name, game_secret, player, game_name):
     ).first()
 
     players_count = Player.objects.filter(game_name=game_name, game_secret=game_secret, inviter_name=inviter_name).count()
-    feedback_count = Feedback.objects.filter(teammate=_player).count()
-
+    feedback_count = Feedback.objects.filter(teammate=_player, game=game).count()
     print('players_count',players_count)
     print('feedback_count',feedback_count)
 
-    if players_count-1 == feedback_count:
 
-        return {'code':0}
+    playerVotedCount = Feedback.objects.filter(player=_player, game=game).count()
+
+
+    if players_count-1 == playerVotedCount:
+
+        if players_count-1 == feedback_count:
+            return {'code':0, 'msg':'投票完毕'}
+        else:
+            return {'code':1, 'mgs':'其他玩家没投完'}
 
     else:
-        return {'code':1}
-
+        return {'code':2, 'mgs':'正常情况'}
 
 
 

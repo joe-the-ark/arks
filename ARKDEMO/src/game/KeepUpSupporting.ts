@@ -84,9 +84,9 @@ namespace game {
             }).then(function (response){
                 let result = response['result']
                 var code = result['code']
-                if(code == 0){
+                if(code == 0 || code ==2){
                     self.sprite.addChild(self.rightIcon)
-                }else{
+                }else if(code == 1){
                     alert('Please wait for others to complete the review')
                 }
             })
