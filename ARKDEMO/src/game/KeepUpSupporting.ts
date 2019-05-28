@@ -67,7 +67,6 @@ namespace game {
             this.votedPlayers()
             this.processBar()
             this.notice()
-
             this.noticeBox = new egret.TextField()
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerVotedStatus, this);
@@ -76,7 +75,6 @@ namespace game {
         }
 
         private getPlayerVotedStatus():void{
-            
             var self=this
             base.API.call('check_game_point', { 
                 'inviter_name': self.inviter, 
@@ -84,15 +82,14 @@ namespace game {
                 'player': self.player,
                 'game_name': self.gameName,
             }).then(function (response){
-                    let result = response['result']
-                    var code = result['code']
-                    if(code == 0){
-                        self.sprite.addChild(self.rightIcon)
+                let result = response['result']
+                var code = result['code']
+                if(code == 0){
+                    self.sprite.addChild(self.rightIcon)
                 }else{
                     alert('Please wait for others to complete the review')
                 }
             })
-
         }
 
         private processBar(): void {

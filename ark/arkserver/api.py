@@ -1015,10 +1015,9 @@ def push_feedback(game_secret, gameName, player, inviter_name, love, add, ask, t
         inviter_name=inviter_name
     ).first()
 
-    feedback = Feedback.objects.filter(love=love, add=add, ask=ask, game=game, player=_player, teammate=_teammate).first()
+    feedback = Feedback.objects.filter(game=game, player=_player, teammate=_teammate).first()
     if not feedback:
         Feedback.objects.create(love=love, add=add, ask=ask, game=game, player=_player, teammate=_teammate)
-
 
     feedbacks = Feedback.objects.filter(teammate=_player, game=game)
 
@@ -1237,7 +1236,7 @@ def check_game_point(inviter_name, game_secret, player, game_name):
     players_count = Player.objects.filter(game_name=game_name, game_secret=game_secret, inviter_name=inviter_name).count()
     feedback_count = Feedback.objects.filter(teammate=_player).count()
 
-    if players_count == feedback_count:
+    if players_count-1 == feedback_count:
 
         return {'code':0}
 
