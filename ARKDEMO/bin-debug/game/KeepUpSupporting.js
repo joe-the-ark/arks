@@ -147,13 +147,13 @@ var game;
                     'game_name': this.gameName,
                     'process': '5'
                 }).then(function (response) { });
+                var self = this;
                 base.API.call('check_game_point', {
                     'inviter_name': this.inviter,
                     'game_secret': this.game_secret,
                     'player': this.player,
                     'game_name': this.gameName,
                 }).then(function (response) {
-                    var self = this;
                     console.log(22222222);
                     var code = response['code'];
                     console.log('response', response);
