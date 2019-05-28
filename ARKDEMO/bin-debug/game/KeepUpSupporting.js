@@ -147,7 +147,6 @@ var game;
                     'game_name': this.gameName,
                     'process': '5'
                 }).then(function (response) { });
-                console.log(11111111);
                 base.API.call('check_game_point', {
                     'inviter_name': this.inviter,
                     'game_secret': this.game_secret,
@@ -156,9 +155,8 @@ var game;
                 }).then(function (response) {
                     var self = this;
                     console.log(22222222);
-                    var result = response['result'];
-                    console.log('result', result);
-                    var code = result['code'];
+                    var code = response['code'];
+                    console.log('response', response);
                     if (code == 1) {
                         alert('Please wait for others to complete the review');
                     }
