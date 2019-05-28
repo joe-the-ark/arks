@@ -50,8 +50,17 @@ var game;
             _this.initNotice();
             _this.processBar();
             var idTimeout = egret.setTimeout(function (arg) {
-                this.rightIcon();
-            }, _this, 2000, "egret");
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+                this.rightIcon.width = 100;
+                this.rightIcon.height = 100;
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2;
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2;
+                this.rightIcon.x = stageWidth - 50;
+                this.rightIcon.y = stageHeight - 50;
+                this.rightIcon.touchEnabled = true;
+                this.sprite.addChild(this.rightIcon);
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
+            }, _this, 1000, "egret");
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getGameResult, _this);
             _this.timer.start();
@@ -157,19 +166,8 @@ var game;
                 _this.sprite.addChild(tensionScale);
             });
         };
-        KeepUpVoting.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight - 50;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
-            this.sprite.addChild(rightIcon);
-        };
         KeepUpVoting.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             var self = this;
             var scorecount = self.scorecount + 1;
             base.API.Init("http://work.metatype.cn:8105/api/");
@@ -181,6 +179,10 @@ var game;
             }).then(function (response) {
                 var characterListParams = response['characterListParams'];
                 var playerCount = response['playerCount'];
+                console.log('playerCount', playerCount);
+                console.log('scorecount', scorecount);
+                var check_score = response['check_score'];
+                console.log('check_score', check_score);
                 self.playerCount = playerCount;
                 if (playerCount > scorecount) {
                     if (characterListParams[1][scorecount] != undefined) {
@@ -189,15 +191,15 @@ var game;
                         self.removeChild(self.sprite);
                         var charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount + 1, characterListParams, []);
                         self.stage.addChild(charater);
-                        // self.rightIcon.visible = false
                     }
                     else {
                         alert('Please wait for others to choose scale');
+                        self.rightIcon.touchEnabled = true;
                     }
                 }
                 else {
                     base.API.call('get_game_score', {
-                        'characterListParams': self.characterListParams,
+                        'characterListParams': characterListParams,
                         'inviter': self.inviter,
                         'gameSecret': self.game_secret,
                         'player': self.player,
@@ -206,15 +208,7 @@ var game;
                         var result = response['result'];
                         self.simulatedData = result;
                     });
-                    var flag = true;
-                    //  for(var i=0;i<self.simulatedData.length;i++){
-                    //     if(self.simulatedData[i].length < 4){
-                    //         alert('Please wait for everyone to finish scoring.')
-                    //         flag = false 
-                    //         break
-                    //     }
-                    //  }
-                    if (flag == true) {
+                    if (check_score == 'true') {
                         base.API.call('save_players_process', {
                             'inviter_name': self.inviter,
                             'game_secret': self.game_secret,
@@ -228,6 +222,10 @@ var game;
                             var toTensionScaleResult = new game.TensionScaleResult(self.stageWidth, self.stageHeight, self.inviter, self.game_secret, self.player, self.gameName, characterListParams, self.playerCount);
                             self.stage.addChild(toTensionScaleResult);
                         });
+                    }
+                    else {
+                        self.rightIcon.touchEnabled = true;
+                        alert('Please wait for others to vote');
                     }
                 }
             });

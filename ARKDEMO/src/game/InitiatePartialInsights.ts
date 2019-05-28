@@ -18,6 +18,7 @@ namespace game {
         public gameName
         public playerCount = 0
         public othersSelfPerception = [27, 31, 40, 47, 63]
+        private rightIcon: egret.Bitmap;
 
         public constructor(game_secret, inviter, player, gameName, stageWidth, stageHeight, playerCount, playerSCore) {
             super()
@@ -38,9 +39,18 @@ namespace game {
             this.processBar()
             this.tip()
 
-            
 
-            this.rightIcon()
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight - 50
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+            this.sprite.addChild(this.rightIcon)            
+
             this.drawPotentialScale()
         }
 
@@ -61,18 +71,6 @@ namespace game {
             this.sprite.addChild(intro)
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight - 50
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-            this.sprite.addChild(rightIcon)
-        }
 
         private drawPotentialScale(): void {
             let potentialScale = new game.PotentialScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception, this.game_secret, this.inviter, this.player, this.gameName, this.playerCount)
@@ -81,7 +79,7 @@ namespace game {
             this.sprite.addChild(potentialScale)
         }
         private nextTouch() {
-
+            this.rightIcon.touchEnabled = false
             // var renderTexture:egret.RenderTexture = new egret.RenderTexture();
             // renderTexture.drawToTexture(this.sprite);
             // let base64Str = renderTexture.toDataURL("image/png");

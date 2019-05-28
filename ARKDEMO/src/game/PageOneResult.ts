@@ -57,13 +57,11 @@ namespace game {
             this.addChild(this.sprite);
             this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.getPlayScoreList, this)
 
-
             this.rectShapeOne = new egret.Shape();
             this.rectShapeTwo = new egret.Shape();
             this.sprite.addChild(this.rectShapeOne);
             this.sprite.addChild(this.rectShapeTwo);
             this.drawRect()            
-
 
             var character1:egret.TextField = new egret.TextField()
             character1.text = this.characterOne
@@ -243,10 +241,7 @@ namespace game {
                     self.sprite.addChild(player_score)
                     // }
 
-
                 })
-
-
             })
         }
         

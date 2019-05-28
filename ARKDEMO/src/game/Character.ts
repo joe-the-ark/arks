@@ -118,8 +118,8 @@ namespace game {
         //     }
         // }
         private nextTouch() {
+            this.rightIcon.touchEnabled = false
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5
-            
             if (this.playerList.length == scoreCounts) {
                 let game_secret = this.game_secret
                 let inviter = this.inviter
@@ -165,6 +165,7 @@ namespace game {
 
             } else {
                 this.addChild(this.tiptext)
+                this.rightIcon.touchEnabled = true
                 this.tip(100, 100, 'Everyone must be graded!')
             }
         }
@@ -297,7 +298,6 @@ namespace game {
                                         }
 
                                         self.map[playerName] = _score
-
                                     }
                                 }
                                 if (player_name.y > self.stageHeight - 150 - player_name.height) {

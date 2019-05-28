@@ -45,7 +45,13 @@ var game;
             _this.gameName = gameName;
             _this.chooser = chooser;
             _this.scorecount = scorecount;
+<<<<<<< HEAD
             _this.sprite = new egret.Sprite();
+=======
+            // this.sprite = sprite
+            _this.sprite = new egret.Sprite();
+            // this.tensionScale()
+>>>>>>> origin/master
             _this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, _this.tensionScale, _this);
             _this.addChild(_this.sprite);
             _this.character1Sprite = new egret.TextField();
@@ -64,9 +70,20 @@ var game;
             _this.timer = new egret.Timer(1000, 0);
             _this.timer.addEventListener(egret.TimerEvent.TIMER, _this.getttsm, _this);
             _this.timer.start();
-            var idTimeout = egret.setTimeout(function (arg) {
-                this.rightIcon();
-            }, _this, 1000, "egret");
+            // var idTimeout:number = egret.setTimeout( function( arg ){
+            // this.rightIcon()  
+            _this.rightIcon = new egret.Bitmap(RES.getRes('right_png'));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = 140;
+            _this.rightIcon.y = _this.stageHeight - 230;
+            _this.rightIcon.touchEnabled = true;
+            _this.sprite.addChild(_this.rightIcon);
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextTouch, _this);
+            //     }, this, 1000, "egret"
+            // );
             _this.tiptext = new egret.TextField();
             _this.feedbacktext = new egret.TextField();
             _this.noticetext = new egret.TextField();
@@ -79,6 +96,18 @@ var game;
             // this.resultTimer.addEventListener(egret.TimerEvent.TIMER, this.saveResult, this);
             // this.resultTimer.start()
         }
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         ExpandedTensionScale.prototype.initSprite = function () {
             // 上面的性格
             var character1Sprite = this.character1Sprite;
@@ -280,19 +309,8 @@ var game;
                 }
             });
         };
-        ExpandedTensionScale.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = 140;
-            rightIcon.y = this.stageHeight - 230;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
-            this.sprite.addChild(rightIcon);
-        };
         ExpandedTensionScale.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             var process = '1';
             var missionName = '1';
             this.timer.stop();
@@ -305,12 +323,13 @@ var game;
                 'process': '1.' + this.scorecount.toString() + '2'
             }).then(function (response) {
             });
-            var idTimeout = egret.setTimeout(function (arg) {
-                this.sprite.visible = false;
-                // this.removeChild(this.sprite)
-                var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
-                this.stage.addChild(keepUpVoting);
-            }, this, 1000, "egret");
+            // var idTimeout:number = egret.setTimeout( function( arg ){
+            this.sprite.visible = false;
+            // this.removeChild(this.sprite)
+            var keepUpVoting = new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount);
+            this.stage.addChild(keepUpVoting);
+            // }, this, 1000, "egret"
+            // );
         };
         ExpandedTensionScale.prototype.tensionScale = function () {
             // // 上面的性格

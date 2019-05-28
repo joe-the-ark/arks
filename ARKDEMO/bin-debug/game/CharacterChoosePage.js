@@ -183,6 +183,7 @@ var game;
             }
         };
         CharacterChoosePage.prototype.rightNext = function () {
+            this.rightIcon.touchEnabled = false;
             var self = this;
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {

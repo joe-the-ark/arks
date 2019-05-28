@@ -96,7 +96,7 @@ namespace game {
                     this.label3.touchEnabled = true
                     this.label3.fontFamily = "Arial";
                     this.label3.textColor = 0xFF0000;
-                    this.label3.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegin, this);
+                    this.label3.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchBegin, this);
                     this.sprite.addChild(this.label3)
                     
                     }, this, 1000, "egret"
@@ -447,6 +447,7 @@ namespace game {
             });
         }
         private onTouchBegin(){
+            this.label3.touchEnabled = false
             var inviter = this.inviter
             var gameName = this.game_secret
             var game_id = this.game_secret

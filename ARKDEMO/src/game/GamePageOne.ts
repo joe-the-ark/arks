@@ -70,10 +70,8 @@ namespace game {
             character1.x = stageWidth - 390
             character1.y = 200
             this.sprite.addChild(character1)
-
             this._shape = new egret.Shape();
             this.sprite.addChild(this._shape);
-
             
             this.initGraphics();
             this.initdata();
@@ -92,8 +90,7 @@ namespace game {
             this.rightIcon.touchEnabled = true
             this.rightIcon.visible = false
             this.sprite.addChild(this.rightIcon)
-
-            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.nextTouch, this)
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
 
             // this.closeIcon = new egret.Bitmap(RES.getRes('close-circle_png') as egret.Texture)
             // this.closeIcon.width = 40
@@ -135,6 +132,8 @@ namespace game {
         // }
 
         private nextTouch() {
+            this.rightIcon.touchEnabled = false
+            
             if (this.stage) {
                 var self = this
                 base.API.Init("http://work.metatype.cn:8105/api/");

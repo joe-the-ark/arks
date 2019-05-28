@@ -831,6 +831,7 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
         chooser = c.player.name
         character_one = c.character_one.name
         character_two = c.character_two.name
+
         chooserList.append(chooser)
         clist.append(character_one)
         clist.append(character_two)
@@ -840,7 +841,17 @@ def getCharacterList(inviter_name, game_secret, player, gameName):
     result.append(chooserList)
     result.append(characterList)
 
-    return {'code':0, 'characterListParams':result, 'playerCount':playerCount}
+
+    players = Player.objects.filter(game_secret=game_secret, inviter_name=inviter_name, game_name=gameName)
+
+    pscount = PlayerScore.objects.filter(game=game).count()
+    print('pscount',pscount)
+    check_score = 'false'
+    if pscount == (playerCount * playerCount) * playerCount:
+        check_score = 'true'
+
+    print('check_score',check_score)
+    return {'code':0, 'characterListParams':result, 'playerCount':playerCount,'check_score':check_score}
 
 
 @api

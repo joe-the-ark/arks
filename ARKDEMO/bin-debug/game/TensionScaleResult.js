@@ -54,7 +54,8 @@ var game;
                 this.rightIcon.y = stageHeight - 100;
                 this.rightIcon.touchEnabled = true;
                 this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this);
-            }, _this, 2000, "egret");
+                this.rightIcon.visible = false;
+            }, _this, 1000, "egret");
             var probessBar = new game.ProcessBar(stageWidth, stageHeight, 90, 'Mission 1 > Major Tensions');
             _this.sprite.addChild(probessBar);
             var tip = new game.MajorTensionsTip(stageWidth, stageHeight);
@@ -121,11 +122,11 @@ var game;
             if (this.simulatedData) {
                 if (this.playerCount == this.simulatedData.length) {
                     this.sprite.addChild(this.rightIcon);
+                    this.rightIcon.visible = true;
                     var idTimeout = egret.setTimeout(function (arg) {
                         var renderTexture = new egret.RenderTexture();
                         renderTexture.drawToTexture(this.sprite);
                         var base64Str = renderTexture.toDataURL("image/png");
-                        console.log('base64Str', base64Str);
                         base.API.call('save_result', {
                             'base64Str': base64Str,
                             'player': this.player,

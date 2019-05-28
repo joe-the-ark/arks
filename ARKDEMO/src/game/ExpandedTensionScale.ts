@@ -25,7 +25,7 @@ namespace game {
         private itsm_Deviation: egret.TextField
         private individualTensionScaleMedianPlayerName: egret.TextField
         private _shape: egret.Shape;
-        private zora: egret.TextField;
+        public zora: egret.TextField;
         private zoraMedianLine: egret.Shape;
         private zoraMin = 0
         private  tiptext: egret.TextField
@@ -45,7 +45,7 @@ namespace game {
         public playerCount
         private votedScalesNumber = 1
         private scalesNumber = 7
-
+        private rightIcon: egret.Bitmap;
         public resultTimer: egret.Timer
         public constructor(stageWidth, stageHeight, character1, character2, playerName, selfPerception, game_secret, inviter, gameName, chooser, scorecount) {
             super()
@@ -60,10 +60,11 @@ namespace game {
             this.inviter = inviter
             this.gameName = gameName
             this.chooser = chooser
-
             this.scorecount = scorecount
 
+            // this.sprite = sprite
             this.sprite = new egret.Sprite()
+            // this.tensionScale()
             this.sprite.addEventListener(egret.Event.ADDED_TO_STAGE, this.tensionScale, this)
             this.addChild(this.sprite)
 
@@ -86,10 +87,21 @@ namespace game {
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getttsm, this);
             this.timer.start()
 
-            var idTimeout:number = egret.setTimeout( function( arg ){
-                this.rightIcon()        
-                }, this, 1000, "egret"
-            );
+            // var idTimeout:number = egret.setTimeout( function( arg ){
+                // this.rightIcon()  
+                this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+                this.rightIcon.width = 100
+                this.rightIcon.height = 100
+                this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+                this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+                this.rightIcon.x = 140
+                this.rightIcon.y = this.stageHeight - 230
+                this.rightIcon.touchEnabled = true
+                this.sprite.addChild(this.rightIcon)
+                this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+                
+            //     }, this, 1000, "egret"
+            // );
 
             this.tiptext = new egret.TextField()
             this.feedbacktext = new egret.TextField()
@@ -104,7 +116,18 @@ namespace game {
             // this.resultTimer.start()
 
         }
-
+// private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = 140
+        //     rightIcon.y = this.stageHeight - 230
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
         private initSprite(){
 
             // 上面的性格
@@ -144,7 +167,6 @@ namespace game {
             let zora: egret.TextField = this.zora
             zora.x = this._x
             zora.width = 230
-
             zora.border = true
             zora.background = true
             zora.backgroundColor = 0xcbcc66
@@ -338,24 +360,14 @@ namespace game {
             })
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = 140
-            rightIcon.y = this.stageHeight - 230
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-            this.sprite.addChild(rightIcon)
-        }
+        
 
         private nextTouch() {
+            this.rightIcon.touchEnabled = false
+
             let process = '1'
             let missionName = '1'
             this.timer.stop()
-
             base.API.Init("http://work.metatype.cn:8105/api/");
             base.API.call('save_players_process', {
                 'inviter_name': this.inviter,
@@ -367,14 +379,14 @@ namespace game {
 
             })
 
-            var idTimeout:number = egret.setTimeout( function( arg ){
+            // var idTimeout:number = egret.setTimeout( function( arg ){
                 this.sprite.visible = false
                 // this.removeChild(this.sprite)
                 let keepUpVoting =  new game.KeepUpVoting(this.stageWidth, this.stageHeight, process, missionName, this.inviter, this.game_secret, this.playerName, this.gameName, this.scorecount)
                 this.stage.addChild(keepUpVoting)
-                }, this, 1000, "egret"
-            );
 
+                // }, this, 1000, "egret"
+            // );
 
         }
 
@@ -402,7 +414,6 @@ namespace game {
             zora.height = zoraMaxPosition - zoraMinPosition
             zora.y = zoraMinPosition
             this.sprite.setChildIndex(zora, 0)
-
             this.zoraMedianLine.y = zoraMedianPosition
             // let zoraMedianLine: egret.Shape = new egret.Shape()
             // zoraMedianLine.graphics.lineStyle(5, 0x333333)

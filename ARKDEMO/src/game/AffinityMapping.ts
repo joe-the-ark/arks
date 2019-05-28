@@ -17,7 +17,7 @@ namespace game {
         public text:egret.TextField
 
         public choose
-
+        private rightIcon: egret.Bitmap;
         public votingPlayerName: egret.TextField
         public constructor(stageWidth, stageHeight, player_list,inviter,game_secret,player,gameName) {
             super()
@@ -52,8 +52,31 @@ namespace game {
             this.intro()
             this.playerName()
             this.playerListMove()
-            this.rightIcon()
+            // this.rightIcon()
+            this.rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = this.stageWidth - 50
+            this.rightIcon.y = this.stageHeight / 2
+            this.rightIcon.touchEnabled = true
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+            this.sprite.addChild(this.rightIcon)
+
         }
+        // private rightIcon(): void {
+        //     let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
+        //     rightIcon.width = 100
+        //     rightIcon.height = 100
+        //     rightIcon.anchorOffsetX = rightIcon.width / 2
+        //     rightIcon.anchorOffsetY = rightIcon.height / 2
+        //     rightIcon.x = this.stageWidth - 50
+        //     rightIcon.y = this.stageHeight / 2
+        //     rightIcon.touchEnabled = true
+        //     rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
+        //     this.sprite.addChild(rightIcon)
+        // }
 
         private processBar(): void {
             let processBar = new game.ProcessBar(this.stageWidth, this.stageHeight, 99, "Cliffhanger > Affinity Mapping")
@@ -161,21 +184,21 @@ namespace game {
             })
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight / 2
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this)
-            this.sprite.addChild(rightIcon)
-        }
 
         private nextPage(){
 
+            var idTimeout:number = egret.setTimeout( function( arg ){
+                    base.API.call('game_end', { 
+                        'inviter_name': this.inviter, 
+                        'game_secret': this.game_secret,
+                        'player': this.player,
+                        'gameName': this.gameName,
+                    }).then(function (response){
+                    
+                    })
+                }, this, 300000, "egret"
+            );
+            this.rightIcon.touchEnabled = false
             var self = this
             base.API.call('save_players_process', { 
                 'inviter_name': self.inviter, 
@@ -185,20 +208,12 @@ namespace game {
                 'process': '10'
             }).then(function (response){
 
-                base.API.call('game_end', { 
-                    'inviter_name': self.inviter, 
-                    'game_secret': self.game_secret,
-                    'player': self.player,
-                    'gameName': self.gameName,
-                }).then(function (response){
-                
-                })
-
             })
 
-            this.sprite.visible = false
 
-            let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight)
+    
+            this.sprite.visible = false
+            let digestAsk =  new game.Complete(this.stageWidth, this.stageHeight,this.inviter,this.game_secret,this.player,this.gameName)
             this.stage.addChild(digestAsk)
 
         }

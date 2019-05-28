@@ -40,6 +40,7 @@ namespace game {
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getGameResult, this);
             this.timer.start()
+
             var idTimeout:number = egret.setTimeout( function( arg ){
 
                 this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
@@ -51,8 +52,9 @@ namespace game {
                 this.rightIcon.y = stageHeight - 100
                 this.rightIcon.touchEnabled = true
                 this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.rightNext, this)
+                this.rightIcon.visible = false
 
-                }, this, 2000, "egret"
+                }, this, 1000, "egret"
             );
 
 
@@ -129,12 +131,15 @@ namespace game {
 
             if (this.simulatedData) {
                 if (this.playerCount == this.simulatedData.length) {
+
                     this.sprite.addChild(this.rightIcon)
+
+                    this.rightIcon.visible = true
+
                     var idTimeout:number = egret.setTimeout( function( arg ){
                             var renderTexture:egret.RenderTexture = new egret.RenderTexture();
                             renderTexture.drawToTexture(this.sprite);
                             let base64Str = renderTexture.toDataURL("image/png");
-                            console.log('base64Str', base64Str)
                             base.API.call('save_result',{
                                 'base64Str':base64Str,
                                 'player':this.player,
@@ -149,8 +154,6 @@ namespace game {
             }
         }
         private rightNext() {
-
-
             var flag  = true
             // this.simulatedData.forEach((val, index, array) => {
             //     if(val.length < 4){
@@ -158,6 +161,7 @@ namespace game {
             //          flag = false                     
             //     }   
             // })
+            
             if(flag == true){
                 var self = this
                 base.API.call('save_players_process', { 

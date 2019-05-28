@@ -96,6 +96,7 @@ var game;
         //     }
         // }
         Character.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             var scoreCounts = this.sprite.numChildren - this.playerList.length - 5;
             if (this.playerList.length == scoreCounts) {
                 var game_secret = this.game_secret;
@@ -139,6 +140,7 @@ var game;
             }
             else {
                 this.addChild(this.tiptext);
+                this.rightIcon.touchEnabled = true;
                 this.tip(100, 100, 'Everyone must be graded!');
             }
         };

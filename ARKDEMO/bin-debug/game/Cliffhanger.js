@@ -34,7 +34,16 @@ var game;
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.intro();
-            _this.rightIcon();
+            _this.rightIcon = new egret.Bitmap(RES.getRes("right_png"));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = _this.stageWidth - 50;
+            _this.rightIcon.y = _this.stageHeight / 2;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextPage, _this);
+            _this.sprite.addChild(_this.rightIcon);
             return _this;
         }
         Cliffhanger.prototype.processBar = function () {
@@ -61,18 +70,6 @@ var game;
             tip.x = this._x;
             tip.y = img.y + img.height + this._margin;
             this.sprite.addChild(tip);
-        };
-        Cliffhanger.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight / 2;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextPage, this);
-            this.sprite.addChild(rightIcon);
         };
         Cliffhanger.prototype.nextPage = function () {
             var self = this;

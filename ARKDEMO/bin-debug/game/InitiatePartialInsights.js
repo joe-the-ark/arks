@@ -38,7 +38,16 @@ var game;
             _this.addChild(_this.sprite);
             _this.processBar();
             _this.tip();
-            _this.rightIcon();
+            _this.rightIcon = new egret.Bitmap(RES.getRes("right_png"));
+            _this.rightIcon.width = 100;
+            _this.rightIcon.height = 100;
+            _this.rightIcon.anchorOffsetX = _this.rightIcon.width / 2;
+            _this.rightIcon.anchorOffsetY = _this.rightIcon.height / 2;
+            _this.rightIcon.x = _this.stageWidth - 50;
+            _this.rightIcon.y = _this.stageHeight - 50;
+            _this.rightIcon.touchEnabled = true;
+            _this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, _this.nextTouch, _this);
+            _this.sprite.addChild(_this.rightIcon);
             _this.drawPotentialScale();
             return _this;
         }
@@ -56,18 +65,6 @@ var game;
             intro.backgroundColor = 0x359f93;
             this.sprite.addChild(intro);
         };
-        InitiatePartialInsights.prototype.rightIcon = function () {
-            var rightIcon = new egret.Bitmap(RES.getRes("right_png"));
-            rightIcon.width = 100;
-            rightIcon.height = 100;
-            rightIcon.anchorOffsetX = rightIcon.width / 2;
-            rightIcon.anchorOffsetY = rightIcon.height / 2;
-            rightIcon.x = this.stageWidth - 50;
-            rightIcon.y = this.stageHeight - 50;
-            rightIcon.touchEnabled = true;
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this);
-            this.sprite.addChild(rightIcon);
-        };
         InitiatePartialInsights.prototype.drawPotentialScale = function () {
             var potentialScale = new game.PotentialScale(this.stageWidth, this.stageHeight, this.character1, this.character2, this.playerName, this.selfPerception, this.game_secret, this.inviter, this.player, this.gameName, this.playerCount);
             potentialScale.x = this._x + 350;
@@ -75,6 +72,7 @@ var game;
             this.sprite.addChild(potentialScale);
         };
         InitiatePartialInsights.prototype.nextTouch = function () {
+            this.rightIcon.touchEnabled = false;
             // var renderTexture:egret.RenderTexture = new egret.RenderTexture();
             // renderTexture.drawToTexture(this.sprite);
             // let base64Str = renderTexture.toDataURL("image/png");

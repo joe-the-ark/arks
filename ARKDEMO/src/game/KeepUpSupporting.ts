@@ -27,9 +27,8 @@ namespace game {
         public votedPlayerList = []
         public remainingPlayersList = []
 
-        private rightIcon: egret.Bitmap;
-
         public simulatedData = []
+        private rightIcon: egret.Bitmap;
         public constructor(stageWidth, stageHeight,player, inviter, game_secret, gameName, count, simulatedData, player_list, votedPlayerList, remainingPlayersList) {
             super()
             this.stageWidth = stageWidth
@@ -68,9 +67,8 @@ namespace game {
             this.votedPlayers()
             this.processBar()
             this.notice()
+
             this.noticeBox = new egret.TextField()
-
-
             this.timer = new egret.Timer(1000, 0);
             this.timer.addEventListener(egret.TimerEvent.TIMER, this.getPlayerVotedStatus, this);
             this.timer.start()
@@ -180,7 +178,7 @@ namespace game {
         }
 
         private nextPage(){
-
+            this.rightIcon.touchEnabled = false
             if(this.count+1 == this.player_list.length){
                 base.API.call('save_players_process', { 
                     'inviter_name': this.inviter, 

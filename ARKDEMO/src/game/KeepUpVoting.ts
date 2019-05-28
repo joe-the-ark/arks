@@ -23,10 +23,10 @@ namespace game {
         public ttsms = []
         public scorecount=0
 
+        private rightIcon: egret.Bitmap;
         public simulatedData = []
-
         public playerCount
-        
+
         public constructor(stageWidth, stageHeight, process, missionName, inviter, game_secret, player, gameName, scorecount) {
             super()
             this.stageWidth = stageWidth
@@ -46,8 +46,18 @@ namespace game {
             this.initNotice()
             this.processBar()
             var idTimeout:number = egret.setTimeout( function( arg ){
-                this.rightIcon()        
-                }, this, 2000, "egret"
+            this.rightIcon = new egret.Bitmap(RES.getRes('right_png') as egret.Texture)
+            this.rightIcon.width = 100
+            this.rightIcon.height = 100
+            this.rightIcon.anchorOffsetX = this.rightIcon.width / 2
+            this.rightIcon.anchorOffsetY = this.rightIcon.height / 2
+            this.rightIcon.x = stageWidth - 50
+            this.rightIcon.y = stageHeight - 50
+            this.rightIcon.touchEnabled = true
+            this.sprite.addChild(this.rightIcon)
+            this.rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
+            
+                }, this, 1000, "egret"
             );
 
             this.timer = new egret.Timer(1000, 0);
@@ -169,20 +179,8 @@ namespace game {
             })
         }
 
-        private rightIcon(): void {
-            let rightIcon = new egret.Bitmap(RES.getRes("right_png") as egret.Texture)
-            rightIcon.width = 100
-            rightIcon.height = 100
-            rightIcon.anchorOffsetX = rightIcon.width / 2
-            rightIcon.anchorOffsetY = rightIcon.height / 2
-            rightIcon.x = this.stageWidth - 50
-            rightIcon.y = this.stageHeight - 50
-            rightIcon.touchEnabled = true
-            rightIcon.addEventListener(egret.TouchEvent.TOUCH_TAP, this.nextTouch, this)
-            this.sprite.addChild(rightIcon)
-        }
-
         private nextTouch(){
+            this.rightIcon.touchEnabled = false
             var self = this
             let scorecount = self.scorecount + 1
             base.API.Init("http://work.metatype.cn:8105/api/");
@@ -193,27 +191,30 @@ namespace game {
                 'gameName': self.gameName,
             }).then(function (response) {
 
-                let characterListParams = response['characterListParams']
+                var characterListParams = response['characterListParams']
                 let playerCount = response['playerCount']
+                console.log('playerCount',playerCount)
+                console.log('scorecount',scorecount)
+                var check_score = response['check_score']
+                console.log('check_score',check_score)
                 self.playerCount = playerCount
 
-                if(playerCount > scorecount ){
+                if(playerCount > scorecount){
                     if(characterListParams[1][scorecount] != undefined ){
                         self.timer.stop()
                         self.sprite.visible = false
+                        
                         self.removeChild(self.sprite)
                         let charater = new game.Character(self.game_secret, self.inviter, self.player, self.gameName, self.stageWidth, self.stageHeight, self.scorecount+1, characterListParams, []);
                         self.stage.addChild(charater);
-                        // self.rightIcon.visible = false
                     }else {
                         alert('Please wait for others to choose scale')
+                        self.rightIcon.touchEnabled = true
                     }
                 }
-                else {
-
-
+                else{
                     base.API.call('get_game_score', {
-                        'characterListParams': self.characterListParams,
+                        'characterListParams': characterListParams,
                         'inviter': self.inviter,
                         'gameSecret': self.game_secret,
                         'player': self.player,
@@ -223,18 +224,7 @@ namespace game {
                         self.simulatedData = result
                     })
 
-
-                    var flag  = true
-                    //  for(var i=0;i<self.simulatedData.length;i++){
-                         
-                    //     if(self.simulatedData[i].length < 4){
-                    //         alert('Please wait for everyone to finish scoring.')
-                    //         flag = false 
-                    //         break
-                    //     }
-                    //  }
-
-                    if(flag == true){
+                    if(check_score == 'true'){
                         base.API.call('save_players_process', {
                             'inviter_name': self.inviter,
                             'game_secret': self.game_secret,
@@ -257,6 +247,10 @@ namespace game {
                             )
                             self.stage.addChild(toTensionScaleResult);
                         })
+                    }else {
+                        self.rightIcon.touchEnabled = true
+                        alert('Please wait for others to vote')
+                        
                     }
                 }
             })
