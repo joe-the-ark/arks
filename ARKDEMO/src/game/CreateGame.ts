@@ -423,12 +423,10 @@ namespace game {
                     wx.ready(function(){
                        let desc = 'your friend '+ self.nickname + ' invite you to join the game'
                         wx.onMenuShareAppMessage({
-                            // title: 'ARK', // 分享标题
-                            // desc: desc, // 分享描述
-                            title:'Hilton 100 years',
-                            desc:'Hilton 100 years',
-                            link: 'https://pinkslash.metatype.cn/user_login/', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                            imgUrl: 'https://pinkslash.metatype.cn/static/images/100years.png', // 分享图标
+                            title: 'ARK', // 分享标题
+                            desc: desc, // 分享描述
+                            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                            imgUrl: '', // 分享图标
                             type: '', // 分享类型,music、video或link，不填默认为link
                             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
                             trigger:function(){

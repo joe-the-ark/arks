@@ -341,12 +341,10 @@ var game;
                     wx.ready(function () {
                         var desc = 'your friend ' + self.nickname + ' invite you to join the game';
                         wx.onMenuShareAppMessage({
-                            // title: 'ARK', // 分享标题
-                            // desc: desc, // 分享描述
-                            title: 'Hilton 100 years',
-                            desc: 'Hilton 100 years',
-                            link: 'https://pinkslash.metatype.cn/user_login/',
-                            imgUrl: 'https://pinkslash.metatype.cn/static/images/100years.png',
+                            title: 'ARK',
+                            desc: desc,
+                            link: link,
+                            imgUrl: '',
                             type: '',
                             dataUrl: '',
                             trigger: function () {
