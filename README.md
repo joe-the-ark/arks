@@ -1,6 +1,7 @@
 # arks
 The Arks Game is serious social Game. At least three people have to play the game for it to be useful.
-
+## Creator of the Game
+* [Dr. Joachim Mayer, creator of the game](https://www.linkedin.com/in/dr-joachim-maier/)
 ## Links
 * https://www.artop.de/psychologische-sicherheit-das-fundament-gelingender-arbeit-im-team/
 * [Interview bei Digitec Galaxus](https://www.personal-schweiz.ch/experten-interviews/article/innovation-bei-digitec-galaxus-gibt-es-keine-heiligen-kuehe/)
