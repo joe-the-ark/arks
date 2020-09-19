@@ -3,9 +3,10 @@ The Arks Game is serious social Game. At least three people have to play the gam
 ## Creator of the Game
 * [Dr. Joachim Maier, creator of the game](https://www.linkedin.com/in/dr-joachim-maier/)
 ## Videos on Psychological Safety
-* https://vimeo.com/459637793
-* https://vimeo.com/459639983
-* https://vimeo.com/459637808
+* https://vimeo.com/459637793 (Charles Duhigg Asks What Makes a Great Team)
+* https://vimeo.com/459639983 (How Google builds the perfect team)
+* https://vimeo.com/459637808 (The Secret To Making Business Teams Successful)
+* From Charles Duhigg – author of the newnowed 2016 New Yorker article on psychological safety https://www.nytimes.com/2016/02/28/magazine/what-google-learned-from-its-quest-to-build-the-perfect-team.html
 ## Links
 * https://www.artop.de/psychologische-sicherheit-das-fundament-gelingender-arbeit-im-team/
 * [Interview bei Digitec Galaxus](https://www.personal-schweiz.ch/experten-interviews/article/innovation-bei-digitec-galaxus-gibt-es-keine-heiligen-kuehe/)
