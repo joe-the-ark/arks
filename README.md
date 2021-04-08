@@ -1,5 +1,5 @@
 # arks
-The Arks Game is serious social Game. At least three people have to play the game for it to be useful.
+The Arks Game is an Online Group Challenge to develop a team's sense of Psychological Safety. At least three people have to play the game for it to be useful. German version playable via https://www.arks.ch
 ## Creator of the Game
 * [Dr. Joachim Maier, creator of the game](https://www.linkedin.com/in/dr-joachim-maier/)
 ## Videos on Psychological Safety
